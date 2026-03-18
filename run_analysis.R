@@ -1,33 +1,28 @@
 # ============================================================================
 # run_analysis.R: COMPLETE ENTRY POINT
 # ============================================================================
+
+source("R/00_setup.R")
+source("R/01_data_prep.R")
+source("R/02_embeddings.R")
+source("R/03_genie_diagnostic.R")
+source("R/04_semantic_metrics.R")
+source("R/05_null_benchmark.R")
+source("R/06_psychometric_core.R")
+source("R/07_repeated_split_robustness.R")
+source("R/08_integration_decision.R")
 source("R/10_main.R")
-source_all_modules()
 
 # ----------------------------------------------------------------------------
 # OPTIONAL FIRST-RUN SETUP
 # ----------------------------------------------------------------------------
-# Uncomment the next line on a new machine to install the core stack,
-# install AIGENIE from r-universe, and load all required packages.
 # install_and_load_aigenie_stack()
-#
-# The AIGENIE Python bridge is required for GENIE. The pipeline will also
-# call this during initialization, but it can be run explicitly if desired.
-# library(AIGENIE)
-# AIGENIE::ensure_aigenie_python()
-#
-# You can define your OpenAI API key explicitly before running the pipeline.
-# Example:
 # configure_openai_api_key("sk-your-key-here", persist = FALSE)
-# Or set it in the shell before execution:
-# Sys.setenv(OPENAI_API_KEY = "sk-your-key-here")
 
 items_csv <- "dass42_items.csv"
 data_csv <- "data/openpsychometrics_dass.csv"
 output_dir <- "outputs"
 
-# If you prefer to set the API key inside R, assign it here and uncomment the
-# next line. Leaving it NULL means the pipeline will use Sys.getenv().
 api_key <- NULL
 # configure_openai_api_key(api_key, persist = FALSE)
 

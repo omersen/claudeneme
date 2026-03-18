@@ -1,6 +1,7 @@
 # ============================================================================
 # 00_setup.R: INITIALIZATION, DEPENDENCIES, AND ENVIRONMENT CHECKS
 # ============================================================================
+
 required_packages <- c(
   "tidyverse",
   "lavaan",
@@ -18,44 +19,19 @@ required_packages <- c(
   "AIGENIE"
 )
 
-install_core_r_packages <- function() {
-  install.packages("tidyverse")
-  install.packages("lavaan")
-  install.packages("psych")
-  install.packages("httr2")
-  install.packages("jsonlite")
-  install.packages("reshape2")
-  install.packages("reticulate")
-  install.packages("ggplot2")
-  install.packages("igraph")
-  install.packages("patchwork")
-  install.packages("EGAnet")
-  install.packages("remotes")
-  install.packages("uwot")
-  invisible(TRUE)
-}
-
-install_aigenie_package <- function() {
-  install.packages(
-    "AIGENIE",
-    repos = c(
-      "https://laralee.r-universe.dev",
-      "https://cloud.r-project.org"
-    )
-  )
-  invisible(TRUE)
-}
-
 install_required_packages <- function(packages = required_packages) {
   missing <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
+
   if (length(missing) == 0) {
     message("All required packages already installed.")
     return(invisible(TRUE))
   }
+
   cran_packages <- setdiff(missing, "AIGENIE")
   if (length(cran_packages) > 0) {
-    install.packages(cran_packages)
+    install.packages(cran_packages, repos = "https://cloud.r-project.org")
   }
+
   if ("AIGENIE" %in% missing) {
     install.packages(
       "AIGENIE",
@@ -65,6 +41,7 @@ install_required_packages <- function(packages = required_packages) {
       )
     )
   }
+
   invisible(TRUE)
 }
 
@@ -73,9 +50,7 @@ load_required_packages <- function(packages = required_packages) {
 }
 
 install_and_load_aigenie_stack <- function() {
-  install_core_r_packages()
   install_required_packages()
-  install_aigenie_package()
   load_required_packages()
   invisible(TRUE)
 }
@@ -83,26 +58,33 @@ install_and_load_aigenie_stack <- function() {
 # ============================================================================
 # CONSTANTS
 # ============================================================================
+
 EMBEDDING_MODEL <- "text-embedding-3-large"
 EMBEDDING_DIM <- 3072
+
 N_NULL_ITERATIONS <- 5000
 N_SPLIT_REPEATS <- 100
+
 TOLERANCE_OMEGA <- 0.05
 TOLERANCE_ALPHA <- 0.05
 TOLERANCE_CFI_TLI <- 0.03
 TOLERANCE_RMSEA_SRMR <- 0.010
 TOLERANCE_REMAINDER <- 0.10
+
 SET_SEED <- 42
 
 # ============================================================================
 # ENVIRONMENT HELPERS
 # ============================================================================
+
 configure_openai_api_key <- function(api_key = NULL, persist = FALSE) {
   if (!is.null(api_key) && nzchar(api_key)) {
     Sys.setenv(OPENAI_API_KEY = api_key)
+
     if (persist) {
       renviron_path <- path.expand("~/.Renviron")
       line <- paste0("OPENAI_API_KEY=", api_key)
+
       if (!file.exists(renviron_path)) {
         writeLines(line, renviron_path)
       } else {
@@ -112,11 +94,13 @@ configure_openai_api_key <- function(api_key = NULL, persist = FALSE) {
       }
     }
   }
+
   invisible(Sys.getenv("OPENAI_API_KEY"))
 }
 
 assert_openai_key <- function() {
   key <- Sys.getenv("OPENAI_API_KEY")
+
   if (nchar(key) == 0) {
     stop(
       paste(
@@ -127,6 +111,7 @@ assert_openai_key <- function() {
       call. = FALSE
     )
   }
+
   invisible(key)
 }
 
@@ -142,6 +127,7 @@ assert_aigenie_installed <- function() {
       call. = FALSE
     )
   }
+
   invisible(TRUE)
 }
 
@@ -150,7 +136,7 @@ prepare_aigenie_python <- function(force_reinstall = FALSE,
                                    include_local_llm = FALSE,
                                    gpu = FALSE) {
   assert_aigenie_installed()
-  library(AIGENIE)
+
   tryCatch(
     {
       AIGENIE::ensure_aigenie_python(
@@ -172,6 +158,7 @@ prepare_aigenie_python <- function(force_reinstall = FALSE,
       )
     }
   )
+
   invisible(TRUE)
 }
 
@@ -183,11 +170,13 @@ create_output_dirs <- function(base = "outputs") {
     file.path(base, "data"),
     file.path(base, "logs")
   )
+
   for (dir_path in dirs) {
     if (!dir.exists(dir_path)) {
       dir.create(dir_path, recursive = TRUE, showWarnings = FALSE)
     }
   }
+
   invisible(dirs)
 }
 
@@ -203,15 +192,20 @@ initialize_environment <- function(output_dir = "outputs",
   if (auto_install) {
     install_required_packages()
   }
+
   assert_openai_key()
   assert_aigenie_installed()
   load_required_packages()
+
   if (setup_python) {
     prepare_aigenie_python()
   }
+
   create_output_dirs(output_dir)
   write_session_info(output_dir)
+
   set.seed(SET_SEED)
+
   message("Environment initialized.")
   invisible(TRUE)
 }

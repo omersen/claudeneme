@@ -1,6 +1,7 @@
 # ============================================================================
 # 08_integration_decision.R: INTEGRATION AND DECISION
 # ============================================================================
+
 get_percentile_value <- function(percentile_df, metric_name) {
   row <- percentile_df %>% dplyr::filter(metric == metric_name)
   if (nrow(row) == 0) return(NA_real_)
@@ -30,19 +31,33 @@ build_integration_table <- function(semantic_profile,
                                     robustness_summary) {
   forms <- c("DASS-42", "DASS-21", "GENIE")
   psycho_keys <- c("DASS42", "DASS21", "GENIE")
+
   rows <- lapply(seq_along(forms), function(i) {
     form_label <- forms[[i]]
     key <- psycho_keys[[i]]
     sem_row <- semantic_profile %>% dplyr::filter(form == form_label)
     rob_row <- robustness_summary %>% dplyr::filter(form == key)
+
     data.frame(
       Form = form_label,
       SRI = sem_row$SRI[[1]],
       SB = sem_row$SB[[1]],
       CL = sem_row$CL[[1]],
       CC = sem_row$CC[[1]],
-      CL_Pct = if (form_label == "GENIE") get_percentile_value(percentile_genie, "CL") else if (form_label == "DASS-21") get_percentile_value(percentile_dass21, "CL") else NA_real_,
-      SRI_Pct = if (form_label == "GENIE") get_percentile_value(percentile_genie, "SRI") else if (form_label == "DASS-21") get_percentile_value(percentile_dass21, "SRI") else NA_real_,
+      CL_Pct = if (form_label == "GENIE") {
+        get_percentile_value(percentile_genie, "CL")
+      } else if (form_label == "DASS-21") {
+        get_percentile_value(percentile_dass21, "CL")
+      } else {
+        NA_real_
+      },
+      SRI_Pct = if (form_label == "GENIE") {
+        get_percentile_value(percentile_genie, "SRI")
+      } else if (form_label == "DASS-21") {
+        get_percentile_value(percentile_dass21, "SRI")
+      } else {
+        NA_real_
+      },
       Omega_Mean = extract_mean_omega(psychometric_results, key),
       CFI = extract_cfa_value(psychometric_results, key, "cfi"),
       RMSEA = extract_cfa_value(psychometric_results, key, "rmsea"),
@@ -51,6 +66,7 @@ build_integration_table <- function(semantic_profile,
       stringsAsFactors = FALSE
     )
   })
+
   dplyr::bind_rows(rows)
 }
 
@@ -87,12 +103,14 @@ create_decision_matrix <- function(integration_table) {
     semantic_advantage && !psychometric_ok ~ "SEMANTICALLY_PROMISING_BUT_PSYCHOMETRICALLY_WEAK",
     TRUE ~ "NO_CLEAR_ADVANTAGE"
   )
+
   reasoning <- dplyr::case_when(
     decision == "PROMISING" ~ "GENIE natural form shows semantic advantage, psychometric comparability, and repeated-split stability.",
     decision == "PROMISING_WITH_CAVEATS" ~ "GENIE natural form is promising, but repeated-split stability is not fully satisfactory.",
     decision == "SEMANTICALLY_PROMISING_BUT_PSYCHOMETRICALLY_WEAK" ~ "GENIE natural form improves semantic coverage, but psychometric comparability is insufficient.",
     TRUE ~ "Current evidence does not show a clear advantage over DASS-21."
   )
+
   data.frame(
     Decision = decision,
     Reasoning = reasoning,
@@ -135,6 +153,7 @@ run_integration_decision <- function(semantic_profile,
                                      genie_diagnostic) {
   cat("\n[M7] INTEGRATION AND DECISION\n")
   cat(strrep("=", 60), "\n")
+
   integration_table <- build_integration_table(
     semantic_profile = semantic_profile,
     percentile_dass21 = percentile_dass21,
@@ -142,9 +161,12 @@ run_integration_decision <- function(semantic_profile,
     psychometric_results = psychometric_results,
     robustness_summary = robustness_summary
   )
+
   decision_matrix <- create_decision_matrix(integration_table)
   verdict <- generate_verdict(decision_matrix, genie_diagnostic)
+
   cat(verdict, "\n")
+
   list(
     integration_table = integration_table,
     decision_matrix = decision_matrix,
