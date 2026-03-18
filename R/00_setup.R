@@ -203,9 +203,9 @@ initialize_environment <- function(output_dir = "outputs",
   if (auto_install) {
     install_required_packages()
   }
-  load_required_packages()
   assert_openai_key()
   assert_aigenie_installed()
+  load_required_packages()
   if (setup_python) {
     prepare_aigenie_python()
   }

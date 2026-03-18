@@ -57,10 +57,30 @@ build_integration_table <- function(semantic_profile,
 create_decision_matrix <- function(integration_table) {
   genie_row <- integration_table %>% dplyr::filter(Form == "GENIE")
   dass21_row <- integration_table %>% dplyr::filter(Form == "DASS-21")
-  semantic_advantage <- !is.na(genie_row$CL) && !is.na(dass21_row$CL) && genie_row$CL < dass21_row$CL
-  psychometric_ok <- !is.na(genie_row$Omega_Mean) && !is.na(dass21_row$Omega_Mean) &&
+
+  semantic_advantage <- (
+    !is.na(genie_row$CL) &&
+    !is.na(dass21_row$CL) &&
+    genie_row$CL < dass21_row$CL &&
+    (is.na(genie_row$CC) || is.na(dass21_row$CC) || genie_row$CC >= dass21_row$CC) &&
+    (is.na(genie_row$CL_Pct) || is.na(dass21_row$CL_Pct) || genie_row$CL_Pct < dass21_row$CL_Pct)
+  )
+
+  omega_ok <- !is.na(genie_row$Omega_Mean) && !is.na(dass21_row$Omega_Mean) &&
     abs(genie_row$Omega_Mean - dass21_row$Omega_Mean) <= TOLERANCE_OMEGA
+
+  cfi_ok <- !is.na(genie_row$CFI) && !is.na(dass21_row$CFI) &&
+    abs(genie_row$CFI - dass21_row$CFI) <= TOLERANCE_CFI_TLI
+
+  rmsea_ok <- !is.na(genie_row$RMSEA) && !is.na(dass21_row$RMSEA) &&
+    abs(genie_row$RMSEA - dass21_row$RMSEA) <= TOLERANCE_RMSEA_SRMR
+
+  remainder_ok <- !is.na(genie_row$Remainder_Mean) && !is.na(dass21_row$Remainder_Mean) &&
+    abs(genie_row$Remainder_Mean - dass21_row$Remainder_Mean) <= TOLERANCE_REMAINDER
+
+  psychometric_ok <- omega_ok && cfi_ok && rmsea_ok && remainder_ok
   stability_ok <- identical(genie_row$Stability, "STABLE")
+
   decision <- dplyr::case_when(
     semantic_advantage && psychometric_ok && stability_ok ~ "PROMISING",
     semantic_advantage && psychometric_ok && !stability_ok ~ "PROMISING_WITH_CAVEATS",
@@ -68,9 +88,9 @@ create_decision_matrix <- function(integration_table) {
     TRUE ~ "NO_CLEAR_ADVANTAGE"
   )
   reasoning <- dplyr::case_when(
-    decision == "PROMISING" ~ "GENIE natural form shows lower coverage loss, acceptable psychometric parity, and stable split performance.",
-    decision == "PROMISING_WITH_CAVEATS" ~ "GENIE natural form looks promising, but repeated split stability should be improved or interpreted cautiously.",
-    decision == "SEMANTICALLY_PROMISING_BUT_PSYCHOMETRICALLY_WEAK" ~ "GENIE natural form improves semantic coverage but does not yet achieve psychometric parity with DASS-21.",
+    decision == "PROMISING" ~ "GENIE natural form shows semantic advantage, psychometric comparability, and repeated-split stability.",
+    decision == "PROMISING_WITH_CAVEATS" ~ "GENIE natural form is promising, but repeated-split stability is not fully satisfactory.",
+    decision == "SEMANTICALLY_PROMISING_BUT_PSYCHOMETRICALLY_WEAK" ~ "GENIE natural form improves semantic coverage, but psychometric comparability is insufficient.",
     TRUE ~ "Current evidence does not show a clear advantage over DASS-21."
   )
   data.frame(

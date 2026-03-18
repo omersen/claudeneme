@@ -20,17 +20,28 @@ run_ega_analysis <- function(E_matrix, items_df) {
       )
     }
   )
-  n_communities <- max(ega_result$wc, na.rm = TRUE)
+  # Robust community extraction: try wc$membership, then wc directly
+  wc_raw <- ega_result$wc
+  if (is.list(wc_raw) && !is.null(wc_raw$membership)) {
+    wc_vec <- as.integer(wc_raw$membership)
+  } else if (is.numeric(wc_raw) || is.integer(wc_raw)) {
+    wc_vec <- as.integer(wc_raw)
+  } else {
+    stop("Cannot extract community assignments from EGA result.", call. = FALSE)
+  }
+  stopifnot(length(wc_vec) == nrow(items_df))
+
+  n_communities <- max(wc_vec, na.rm = TRUE)
   cat("EGA detected", n_communities, "communities.\n")
   community_df <- data.frame(
     item_number = items_df$item_number,
-    community = as.integer(ega_result$wc),
+    community = wc_vec,
     subscale = items_df$subscale,
     stringsAsFactors = FALSE
   )
   list(
     ega = ega_result,
-    communities = ega_result$wc,
+    communities = wc_vec,
     n_communities = n_communities,
     community_df = community_df
   )
