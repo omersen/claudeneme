@@ -1,0 +1,16 @@
+{
+  "origin": "published_archive_secondary_analysis",
+  "model": "text-embedding-3-large",
+  "dimensions": 3072,
+  "n_items": 42,
+  "article_doi": "10.1038/s41598-025-21289-8",
+  "repository": "https://github.com/Fede-stack/Exploiting-semantic-structure-in-psychological-questionnaire",
+  "commit": "9c7e50136b67154205eba94d12c9abfe9c9fad75",
+  "original_path": "data/dass_embedding_large.csv",
+  "original_sha256": "cee6e0fc6868372ec929930d9d6379187223abca5be967f72148a716013a752e",
+  "derived_sha256": "fd7651177d49e63179df92bb349db4d8b0b96660e3369d05b28252f9bc3c1955",
+  "row_mapping": "row 1..42 corresponds to Q1A..Q42A; source Proof of Concept/missing_values_preprocessing.py",
+  "exact_original_API_input_bytes_verified": false,
+  "original_API_call_time": null,
+  "new_API_call": false
+}
