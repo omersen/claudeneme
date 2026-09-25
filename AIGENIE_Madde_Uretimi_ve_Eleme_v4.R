@@ -1,4 +1,4 @@
-# AIGENIE_Madde_Uretimi_ve_Eleme_v3.R | 25 Eylül 2026 | UTF-8
+# AIGENIE_Madde_Uretimi_ve_Eleme_v4.R | 25 Eylül 2026 | UTF-8
 #
 # Bu betik üç iş yapar:
 #   1. OpenAI API ile madde adayları üretir (AIGENIE).
@@ -11,7 +11,7 @@
 #   API anahtarını yalnızca RStudio Console'da tanımlayın, bu dosyaya yazmayın:
 #     Sys.setenv(OPENAI_API_KEY = "sk-proj-...")
 #   Çalışma dizinini bu dosyanın klasörü yapın ve şunu çalıştırın:
-#     source("AIGENIE_Madde_Uretimi_ve_Eleme_v3.R", encoding = "UTF-8")
+#     source("AIGENIE_Madde_Uretimi_ve_Eleme_v4.R", encoding = "UTF-8")
 #
 # Ücret ve kayıtlar
 #   Madde üretimi ve gömme (embedding) adımları ücretli API çağrısı yapar.
@@ -35,7 +35,7 @@ if (packageVersion("AIGENIE") != "2.1.2")
 
 # Bütün çıktılar bu klasöre yazılır. Yeni bir üretim veya farklı ayarlar için
 # klasör adını değiştirin. Eski klasörü silmeyin; önceki koşunun kaydıdır.
-cikti <- file.path(getwd(), "AIGENIE_Madde_Ciktilari")
+cikti <- file.path(getwd(), "AIGENIE_Madde_Ciktilari_v4")
 dir.create(cikti, showWarnings = FALSE)
 yol <- function(dosya) file.path(cikti, dosya)
 
@@ -115,21 +115,36 @@ item.type.definitions <- list(academic_overreliance = paste(
   "düşük riskli kullanımlar; genel güven veya tutum; kaygı, yoksunluk, erişemeyince",
   "huzursuzluk, yalnızlık, duygusal bağ; öz yeterlik, beceri kaybı algısı, kopya, intihal ve hile."))
 
-# Üç üslup örneği (her alandan bir). Geçerliği gösterilmiş maddeler değildir ve
-# havuza eklenmez. Paket statement, attribute ve type sütunlarını ister.
+# Üç üslup örneği (her alandan bir: 1b, 2b, 3b). Geçerliği gösterilmiş maddeler
+# değildir ve havuza eklenmez. Paket statement, attribute ve type sütunlarını ister.
+# Paket, modelden örneklerin yapısını taklit etmesini istediği için maddelerin
+# tonunu en çok bu örnekler belirler. Örnekler bu yüzden eksikliği açıkça
+# söylemez ("anlamadan", "bakmadan" gibi). Öğrencinin gerçekten yaptığı ve
+# kolayca kabul edebileceği davranışı anlatır. Atlanan adım, davranışın
+# akışından ya da çıktının yüzeysel bir özelliğinden ("anlaşılır gelince",
+# "uygun görünüyorsa") anlaşılır.
 item.examples <- data.frame(
   type = "academic_overreliance", attribute = item.attributes[[1]],
   statement = c(
-    "Bir tartışma sorusunda hangi tarafı savunacağıma, kendi gerekçelerimi oluşturmadan yapay zekânın önerisine göre karar veririm.",
-    "Yapay zekânın açıklamasını okuduktan sonra konuyu kendi cümlelerimle anlatıp anlatamayacağımı yoklamadan sonraki konuya geçerim.",
-    "Yapay zekânın verdiği bir kaynağı, gerçekten var olup olmadığına bakmadan ödevimde kullanırım."),
+    "Bir tartışma sorusunda yapay zekânın savunduğu görüşü ve gerekçelerini ödevime kendi görüşüm olarak yazarım.",
+    "Yapay zekânın açıklaması bana anlaşılır geldiğinde konuyu öğrenmiş sayar ve sonraki konuya geçerim.",
+    "Yapay zekânın önerdiği kaynaklar konuma uygun görünüyorsa onları kaynakçama doğrudan eklerim."),
   stringsAsFactors = FALSE)
 
 # Paketin standart istemine eklenen, araştırmaya özgü içerik ve dil kuralları.
+# Amaç: sosyal beğenirlik nedeniyle "Hiçbir zaman" yanıtında yığılmayı azaltmak.
 prompt.notes <- paste(
   "Maddeleri doğal Türkiye Türkçesiyle, birinci tekil kişi ve geniş zamanda yaz.",
-  "Her madde 8-20 sözcükle tek davranış anlatsın. Gerekli düşünme, öğrenmeyi izleme",
-  "veya denetim işleminin atlandığı anlaşılmalı; aynı ifade kalıbını yineleme.",
+  "Her madde 8-20 sözcükle, öğretmen adaylarının ders çalışırken gerçekten yaptığı ve",
+  "rahatça kabul edebileceği tek bir somut davranışı anlatsın. Davranışı bir eksiklik",
+  "veya hata olarak değil, gündelik bir çalışma alışkanlığı olarak yaz.",
+  "Atlanan işlemi anlamadan, düşünmeden, kontrol etmeden, bakmadan, sorgulamadan gibi",
+  "eksiklik bildiren sözcüklerle açıkça söyleme. Atlanan adım, davranışın akışından",
+  "(ör. çıktıyı alıp doğrudan ödeve geçirme) veya çıktının ikna edici, anlaşılır ya da",
+  "uygun görünmesi gibi yüzeysel bir ipucundan anlaşılsın.",
+  "Madde yine de yalnızca sık veya verimli kullanımı değil, çıktının çalışmanın ya da",
+  "kararın dayanağı yapılmasını anlatmalı; aynı ifade kalıbını yineleme.",
+  "Gerekirse teslim tarihinin yaklaşması gibi yaygın bir durum ekle, ama her maddeye ekleme.",
   "Her alanın üç göstergesini yaklaşık dengeli kapsa; alanlara yapay sözel kalıplar atama.",
   "Son dört hafta yanıt çerçevesidir. Bazen, genellikle, her zaman gibi sıklık veya",
   "eskiden, artık, giderek gibi değişim sözcüklerini maddelere koyma.",
@@ -154,6 +169,9 @@ system.role <- paste(
   "Maddelerde, akademik görevin gerektirdiği düşünme,",
   "kendi öğrenmesini izleme veya çıktıyı doğrulama",
   "işlemlerinin atlanmasına odaklan.",
+  "Öğrenciler kendilerini olumsuz gösteren maddeleri reddetme eğilimindedir.",
+  "Bu yüzden atlanan işlemi açıkça söyleme; öğrencinin gerçekte yaptığı ve",
+  "rahatça kabul edebileceği somut davranışı yaz.",
   "Her maddede tek bir davranışı açık ve doğal Türkçeyle ifade et.",
   "Yargılayıcı, damgalayıcı veya bağımlılık tanısı ima eden",
   "ifadeler kullanma.",
