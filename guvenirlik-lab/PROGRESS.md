@@ -34,6 +34,7 @@ Spec'ten sapmalar:
 - Alt ajan kullanımı: SPEC satır 354 son gözden geçirici dışında alt ajan kullanılmamasını ister. Aşama 0'da 7 alt ajan kullanıldı (oturumda çok ajanlı çalışma açıktı). Aşama 1'den itibaren kullanıcı açıkça izin vermedikçe alt ajan kullanılmayacak (SPEC_SORULARI madde 1).
 - `tests.json` Aşama 0'da çalıştırıcı olmadan oluşturuldu; bu tek seferlik başlangıç kaydıdır (madde 5).
 - Spec soruları ayrı bir dosyada tutuluyor; izleme aşağıdadır (madde 19c).
+- Etiketler uzak depoya gönderilemiyor: `asama-0` yerelde oluşturuldu (commit `663609b`), ancak `git push origin asama-0` dört denemede (2, 4, 8, 16 sn arayla) "remote end hung up" ile reddedildi; aynı anda dal gönderimi başarılıydı. Oturumun git erişimi yalnızca çalışma dalına yazıyor görünüyor. Bu yüzden aşama sınırları uzak depoda commit iletileriyle ve bu dosyadaki commit kimlikleriyle izlenir: Aşama 0 = `663609b`. Kullanıcı isterse etiketi GitHub arayüzünden bu commit'e ekleyebilir.
 
 Düzeltmeler (denetçi ajanların yaptıkları): formül kataloğuna `m2.artik` eklendi; `m9.icice_bilesen` sembolik ve sayısal parçalara ayrıldı; test listesinde birden çok iddia taşıyan kimlikler bölündü, iki yinelenen kimlik silindi, A15 yeniden numaralandı, SPEC'te olmayan bir ifade ("NaN veya sonsuz yok") kaldırıldı; PLAN.md'de M4, M5 ve M8 paragrafları SPEC'in koşullarına (B.1, D.1, D.5) göre düzeltildi.
 
