@@ -1,0 +1,1669 @@
+{
+  "_meta": {
+    "spec_file": "guvenirlik-lab/SPEC.md",
+    "spec_sha256": "ef10d02f4309ba3c43715bb1bd64cd3dfa5f223e191e2e36f05da8320c00121e",
+    "extracted": "2026-09-26",
+    "status": "kullanici_onayi_bekliyor",
+    "rule": "B11: content.tr.js TeX, \\htmlClass sarmalayicilari kaldirildiktan sonra buradaki tex ile karakter duzeyinde esit olmalidir.",
+    "render_check": {
+      "katex_version": "0.18.9",
+      "date": "2026-09-26",
+      "options": "throwOnError:true, displayMode:entry.display (_uncatalogued: true), output:htmlAndMathml, trust:\\htmlClass, strict: htmlExtension ignore, diger warn; capraz denetimde her kayit displayMode true ve false ile ayrica islendi, console.warn yakalandi",
+      "checked": 162,
+      "clean": 162,
+      "u2014_in_file": false,
+      "period_decimal_in_formulas": []
+    }
+  },
+  "formulas": [
+    {
+      "id": "m1.varyans",
+      "module": "M1",
+      "card": "Formüller",
+      "tex": "s_X^2=\\frac{1}{n-1}\\sum_p (X_p-\\bar X)^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 132,
+      "spec_quote": "- Formüller: $s_X^2=\\frac{1}{n-1}\\sum_p (X_p-\\bar X)^2$ (kart başlığı: \"kareler toplamı / serbestlik derecesi, yazılımlarla aynı\"; $n$ paydalı sürüm anahtar arkasında);"
+    },
+    {
+      "id": "m1.kovaryans",
+      "module": "M1",
+      "card": "Formüller",
+      "tex": "s_{X_1X_2}=\\frac{1}{n-1}\\sum_p (X_{1p}-\\bar X_1)(X_{2p}-\\bar X_2)",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 132,
+      "spec_quote": "derecesi, yazılımlarla aynı\"; $n$ paydalı sürüm anahtar arkasında); $s_{X_1X_2}=\\frac{1}{n-1}\\sum_p (X_{1p}-\\bar X_1)(X_{2p}-\\bar X_2)$;"
+    },
+    {
+      "id": "m1.korelasyon",
+      "module": "M1",
+      "card": "Formüller",
+      "tex": "r=\\dfrac{s_{X_1X_2}}{s_{X_1}s_{X_2}}=\\dfrac{1}{n-1}\\sum_p z_{1p}z_{2p}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 132,
+      "spec_quote": "$s_{X_1X_2}=\\frac{1}{n-1}\\sum_p (X_{1p}-\\bar X_1)(X_{2p}-\\bar X_2)$; $r=\\dfrac{s_{X_1X_2}}{s_{X_1}s_{X_2}}=\\dfrac{1}{n-1}\\sum_p z_{1p}z_{2p}$."
+    },
+    {
+      "id": "m2.baslik",
+      "module": "M2",
+      "card": "Modül başlığı",
+      "tex": "X=T+E",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 137,
+      "spec_quote": "M2. Bir öğrenci, sonsuz tekrar: $X=T+E$"
+    },
+    {
+      "id": "m2.sembol_toplam",
+      "module": "M2",
+      "card": "Semboller kartı",
+      "tex": "\\sum",
+      "display": false,
+      "reading_tr": "topla",
+      "spec_line": 139,
+      "spec_quote": "(yaklaşık 3 dakika, uzman modunda atlanır). Her sembolün Türkçe sesli okuması ve bir görsele bağlantısı vardır: $\\sum$ \"topla\" (M1 kareleri); $\\bar X$ \"ortalama\"; $X_{pj}$ \"p kişisinin j."
+    },
+    {
+      "id": "m2.sembol_ortalama",
+      "module": "M2",
+      "card": "Semboller kartı",
+      "tex": "\\bar X",
+      "display": false,
+      "reading_tr": "ortalama",
+      "spec_line": 139,
+      "spec_quote": "atlanır). Her sembolün Türkçe sesli okuması ve bir görsele bağlantısı vardır: $\\sum$ \"topla\" (M1 kareleri); $\\bar X$ \"ortalama\"; $X_{pj}$ \"p kişisinin j. ölçmesi\" (sonra $X_{pi}$ \"p kişisinin"
+    },
+    {
+      "id": "m2.sembol_olcme",
+      "module": "M2",
+      "card": "Semboller kartı",
+      "tex": "X_{pj}",
+      "display": false,
+      "reading_tr": "p kişisinin j. ölçmesi",
+      "spec_line": 139,
+      "spec_quote": "Türkçe sesli okuması ve bir görsele bağlantısı vardır: $\\sum$ \"topla\" (M1 kareleri); $\\bar X$ \"ortalama\"; $X_{pj}$ \"p kişisinin j. ölçmesi\" (sonra $X_{pi}$ \"p kişisinin i. maddesi\", tablonun"
+    },
+    {
+      "id": "m2.sembol_madde",
+      "module": "M2",
+      "card": "Semboller kartı",
+      "tex": "X_{pi}",
+      "display": false,
+      "reading_tr": "p kişisinin i. maddesi",
+      "spec_line": 139,
+      "spec_quote": "bağlantısı vardır: $\\sum$ \"topla\" (M1 kareleri); $\\bar X$ \"ortalama\"; $X_{pj}$ \"p kişisinin j. ölçmesi\" (sonra $X_{pi}$ \"p kişisinin i. maddesi\", tablonun satır ve sütununa bağlı); $\\mathbb E$"
+    },
+    {
+      "id": "m2.sembol_beklenen_deger",
+      "module": "M2",
+      "card": "Semboller kartı",
+      "tex": "\\mathbb E",
+      "display": false,
+      "reading_tr": "sonsuz tekrardaki ortalama",
+      "spec_line": 139,
+      "spec_quote": "$X_{pj}$ \"p kişisinin j. ölçmesi\" (sonra $X_{pi}$ \"p kişisinin i. maddesi\", tablonun satır ve sütununa bağlı); $\\mathbb E$ \"sonsuz tekrardaki ortalama\" (bu modüldeki 1000 kez ölç histogramı);"
+    },
+    {
+      "id": "m2.sembol_tanim_geregi",
+      "module": "M2",
+      "card": "Semboller kartı",
+      "tex": "\\equiv",
+      "display": false,
+      "reading_tr": "tanım gereği eşittir",
+      "spec_line": 139,
+      "spec_quote": "satır ve sütununa bağlı); $\\mathbb E$ \"sonsuz tekrardaki ortalama\" (bu modüldeki 1000 kez ölç histogramı); $\\equiv$ \"tanım gereği eşittir\"; \"$\\mid p$\" \"p kişisi için\"; şapka \"kestirim\"."
+    },
+    {
+      "id": "m2.sembol_kisi_icin",
+      "module": "M2",
+      "card": "Semboller kartı",
+      "tex": "\\mid p",
+      "display": false,
+      "reading_tr": "p kişisi için",
+      "spec_line": 139,
+      "spec_quote": "E$ \"sonsuz tekrardaki ortalama\" (bu modüldeki 1000 kez ölç histogramı); $\\equiv$ \"tanım gereği eşittir\"; \"$\\mid p$\" \"p kişisi için\"; şapka \"kestirim\"."
+    },
+    {
+      "id": "m2.model",
+      "module": "M2",
+      "card": "Formül",
+      "tex": "X_{pj}=T_p+E_{pj}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 141,
+      "spec_quote": "- Formül: $X_{pj}=T_p+E_{pj}$, $T_p\\equiv\\mathbb E_j(X_{pj})$, dolayısıyla $\\mathbb E(E_{pj}\\mid p)=0$."
+    },
+    {
+      "id": "m2.gercek_puan",
+      "module": "M2",
+      "card": "Formül",
+      "tex": "T_p\\equiv\\mathbb E_j(X_{pj})",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 141,
+      "spec_quote": "- Formül: $X_{pj}=T_p+E_{pj}$, $T_p\\equiv\\mathbb E_j(X_{pj})$, dolayısıyla $\\mathbb E(E_{pj}\\mid p)=0$."
+    },
+    {
+      "id": "m2.hata_ortalamasi",
+      "module": "M2",
+      "card": "Formül",
+      "tex": "\\mathbb E(E_{pj}\\mid p)=0",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 141,
+      "spec_quote": "- Formül: $X_{pj}=T_p+E_{pj}$, $T_p\\equiv\\mathbb E_j(X_{pj})$, dolayısıyla $\\mathbb E(E_{pj}\\mid p)=0$."
+    },
+    {
+      "id": "m2.artik",
+      "module": "M2",
+      "card": "Kontrol sorusu yanıtı (kestirilmiş artık)",
+      "tex": "\\hat E_j=X_j-\\hat T",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 143,
+      "spec_quote": "($\\hat T=60$; $\\hat E_j=X_j-\\hat T=+2,-2,+5,-5,0$. Bunlar kestirilmiş artıklardır; gerçek $E_j$ yalnızca $T$'nin bilindiği perde arkasında görünür.)"
+    },
+    {
+      "id": "m3.varyans_ayrisimi",
+      "module": "M3",
+      "card": "Formüller",
+      "tex": "\\sigma_X^2=\\sigma_T^2+\\sigma_E^2+2\\sigma_{TE}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 149,
+      "spec_quote": "- Formüller: $\\sigma_X^2=\\sigma_T^2+\\sigma_E^2+2\\sigma_{TE}$; $2\\sigma_{TE}$ terimi üstü çizili gösterilir, dokununca \"model gereği 0; bu sınıftaki örneklem değeri ...\" yazar."
+    },
+    {
+      "id": "m3.rho_oran",
+      "module": "M3",
+      "card": "Formüller",
+      "tex": "\\rho_{XX'}=\\dfrac{\\sigma_T^2}{\\sigma_X^2}=1-\\dfrac{\\sigma_E^2}{\\sigma_X^2}=\\rho_{XT}^2",
+      "display": true,
+      "reading_tr": "Güvenirlik, gerçek puan varyansının gözlenen puan varyansına oranıdır",
+      "spec_line": 149,
+      "spec_quote": "\"model gereği 0; bu sınıftaki örneklem değeri ...\" yazar. $\\rho_{XX'}=\\dfrac{\\sigma_T^2}{\\sigma_X^2}=1-\\dfrac{\\sigma_E^2}{\\sigma_X^2}=\\rho_{XT}^2$."
+    },
+    {
+      "id": "m3.osh",
+      "module": "M3",
+      "card": "Formüller",
+      "tex": "\\text{ÖSH}=\\sigma_E=\\sigma_X\\sqrt{1-\\rho_{XX'}}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 149,
+      "spec_quote": "$\\text{ÖSH}=\\sigma_E=\\sigma_X\\sqrt{1-\\rho_{XX'}}$. Grup türdeşliği (ÖSH gruplar arasında eşitse):"
+    },
+    {
+      "id": "m3.grup_turdesligi",
+      "module": "M3",
+      "card": "Formüller (grup türdeşliği)",
+      "tex": "\\rho_{\\text{yeni}}=1-\\dfrac{\\sigma_X^2(1-\\rho_{XX'})}{\\sigma_{X,\\text{yeni}}^2}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 149,
+      "spec_quote": "Grup türdeşliği (ÖSH gruplar arasında eşitse): $\\rho_{\\text{yeni}}=1-\\dfrac{\\sigma_X^2(1-\\rho_{XX'})}{\\sigma_{X,\\text{yeni}}^2}$."
+    },
+    {
+      "id": "m4.model",
+      "module": "M4",
+      "card": "Model",
+      "tex": "X_{pj}=\\eta_p+c+B_p+\\gamma g_p+E_{pj}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 158,
+      "spec_quote": "- Model (perde arkasında her bileşen görünür): $X_{pj}=\\eta_p+c+B_p+\\gamma g_p+E_{pj}$. Sistematik bileşen $U_p=c+B_p+\\gamma g_p$. KTK gerçek puanı $T_p=\\eta_p+U_p$ olur; KTK $\\eta$ ile $U$'yu"
+    },
+    {
+      "id": "m4.sistematik_bilesen",
+      "module": "M4",
+      "card": "Model",
+      "tex": "U_p=c+B_p+\\gamma g_p",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 158,
+      "spec_quote": "Model (perde arkasında her bileşen görünür): $X_{pj}=\\eta_p+c+B_p+\\gamma g_p+E_{pj}$. Sistematik bileşen $U_p=c+B_p+\\gamma g_p$. KTK gerçek puanı $T_p=\\eta_p+U_p$ olur; KTK $\\eta$ ile $U$'yu"
+    },
+    {
+      "id": "m4.ktk_gercek_puan",
+      "module": "M4",
+      "card": "Model",
+      "tex": "T_p=\\eta_p+U_p",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 158,
+      "spec_quote": "$X_{pj}=\\eta_p+c+B_p+\\gamma g_p+E_{pj}$. Sistematik bileşen $U_p=c+B_p+\\gamma g_p$. KTK gerçek puanı $T_p=\\eta_p+U_p$ olur; KTK $\\eta$ ile $U$'yu birbirinden ayıramaz."
+    },
+    {
+      "id": "m4.tavan",
+      "module": "M4",
+      "card": "Göstergeler (yapıyla korelasyon göstergesindeki tavan)",
+      "tex": "\\sqrt{\\rho_{XX'}}",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 160,
+      "spec_quote": "$r_{X_1X_2}$; \"Yapıyla korelasyon $\\rho_{X\\eta}$ (yalnızca simülasyonda)\" göstergesi ve üzerinde tavan $\\sqrt{\\rho_{XX'}}$; ortalamadaki kayma okuması; sabit kesme puanında geçme oranı."
+    },
+    {
+      "id": "m4.rho",
+      "module": "M4",
+      "card": "Formüller",
+      "tex": "\\rho_{XX'}=\\dfrac{\\sigma_\\eta^2+\\sigma_U^2+2\\sigma_{\\eta U}}{\\sigma_\\eta^2+\\sigma_U^2+2\\sigma_{\\eta U}+\\sigma_E^2}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 161,
+      "spec_quote": "- Formüller: $\\rho_{XX'}=\\dfrac{\\sigma_\\eta^2+\\sigma_U^2+2\\sigma_{\\eta U}}{\\sigma_\\eta^2+\\sigma_U^2+2\\sigma_{\\eta U}+\\sigma_E^2}$, $\\rho_{X\\eta}=\\dfrac{\\sigma_\\eta^2+\\sigma_{\\eta"
+    },
+    {
+      "id": "m4.rho_x_eta",
+      "module": "M4",
+      "card": "Formüller",
+      "tex": "\\rho_{X\\eta}=\\dfrac{\\sigma_\\eta^2+\\sigma_{\\eta U}}{\\sigma_X\\,\\sigma_\\eta}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 161,
+      "spec_quote": "U}}{\\sigma_\\eta^2+\\sigma_U^2+2\\sigma_{\\eta U}+\\sigma_E^2}$, $\\rho_{X\\eta}=\\dfrac{\\sigma_\\eta^2+\\sigma_{\\eta U}}{\\sigma_X\\,\\sigma_\\eta}$ ($c$ sabit olduğu için $\\sigma_U^2$'ye katkı"
+    },
+    {
+      "id": "m4.sabit_cebir",
+      "module": "M4",
+      "card": "Sabit için cebir kartı",
+      "tex": "(X_p+c)-(\\bar X+c)=X_p-\\bar X",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 161,
+      "spec_quote": "($c$ sabit olduğu için $\\sigma_U^2$'ye katkı yapmaz). Sabit için cebir kartı: $(X_p+c)-(\\bar X+c)=X_p-\\bar X$; kartta M1'in karelerinin küçük bir kopyası değişmeden durur."
+    },
+    {
+      "id": "m4.dogrusal_donusum",
+      "module": "M4",
+      "card": "Formüller (doğrusal dönüşüm)",
+      "tex": "X^*=a+wX",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 161,
+      "spec_quote": "$(X_p+c)-(\\bar X+c)=X_p-\\bar X$; kartta M1'in karelerinin küçük bir kopyası değişmeden durur. Doğrusal dönüşüm $X^*=a+wX$: oranlar değişmez, $\\text{ÖSH}^*=|w|\\,\\text{ÖSH}$. Uzman:"
+    },
+    {
+      "id": "m4.osh_dogrusal",
+      "module": "M4",
+      "card": "Formüller (doğrusal dönüşüm)",
+      "tex": "\\text{ÖSH}^*=|w|\\,\\text{ÖSH}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 161,
+      "spec_quote": "M1'in karelerinin küçük bir kopyası değişmeden durur. Doğrusal dönüşüm $X^*=a+wX$: oranlar değişmez, $\\text{ÖSH}^*=|w|\\,\\text{ÖSH}$. Uzman: $\\rho_{XY}\\le\\sqrt{\\rho_{XX'}\\rho_{YY'}}$ ve zayıflama"
+    },
+    {
+      "id": "m4.tavan_esitsizligi",
+      "module": "M4",
+      "card": "Formüller (uzman)",
+      "tex": "\\rho_{XY}\\le\\sqrt{\\rho_{XX'}\\rho_{YY'}}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 161,
+      "spec_quote": "durur. Doğrusal dönüşüm $X^*=a+wX$: oranlar değişmez, $\\text{ÖSH}^*=|w|\\,\\text{ÖSH}$. Uzman: $\\rho_{XY}\\le\\sqrt{\\rho_{XX'}\\rho_{YY'}}$ ve zayıflama düzeltmesi"
+    },
+    {
+      "id": "m4.zayiflama_duzeltmesi",
+      "module": "M4",
+      "card": "Formüller (uzman)",
+      "tex": "\\rho_{T_XT_Y}=\\rho_{XY}/\\sqrt{\\rho_{XX'}\\rho_{YY'}}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 161,
+      "spec_quote": "Uzman: $\\rho_{XY}\\le\\sqrt{\\rho_{XX'}\\rho_{YY'}}$ ve zayıflama düzeltmesi $\\rho_{T_XT_Y}=\\rho_{XY}/\\sqrt{\\rho_{XX'}\\rho_{YY'}}$ (örnekleme hatası veya uyumsuz güvenirlik kestirimleri"
+    },
+    {
+      "id": "m4.orantili_hata_ornegi",
+      "module": "M4",
+      "card": "TGA senaryosu 2",
+      "tex": "X^*=1{,}1X",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 164,
+      "spec_quote": "  2. Kurala bağlı (orantılı) hata: her puan %10 fazla sayılıyor ($X^*=1{,}1X$). $r$ ve α değişmez; ÖSH 1,1 katına çıkar; ortalama ve kesme puanındaki kararlar değişir (Sabit Veri A: ÖSH 2'den 2,2'ye,"
+    },
+    {
+      "id": "m4.yanlilik_dusurme_kosulu",
+      "module": "M4",
+      "card": "TGA senaryosu 7 (uzman)",
+      "tex": "\\sigma_U^2+2\\sigma_{\\eta U}<0",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 169,
+      "spec_quote": "  7. (Uzman) $\\rho_{B\\eta}<0$ iken kararlı yanlılık güvenirliği düşürebilir (koşul $\\sigma_U^2+2\\sigma_{\\eta U}<0$; Sabit Veri A'da düşük puanlılara madde başına +1: .80'den 2/7 ≈ .29'a)."
+    },
+    {
+      "id": "m5.esit_olmayan_hata_r",
+      "module": "M5",
+      "card": "Etkileşim (d): eşit olmayan hata varyansları",
+      "tex": "r=\\sqrt{\\rho_1\\rho_2}",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 185,
+      "spec_quote": "kestirilir); farklı gerçek değişim (az kestirilir); eşit olmayan hata varyansları (tau eşdeğer formlarda $r=\\sqrt{\\rho_1\\rho_2}$, iki güvenirliğin geometrik ortalaması; ör. .8 ve .5 için .6325; $r$"
+    },
+    {
+      "id": "m5.osh_bandi",
+      "module": "M5",
+      "card": "Etkileşim (e): ÖSH bandı",
+      "tex": "X\\pm1{,}96\\,\\text{ÖSH}",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 186,
+      "spec_quote": "  (e) ÖSH bandı: sürüklenebilir öğrenci ve $X\\pm1{,}96\\,\\text{ÖSH}$ bandı; perde açıkken tekrarlar boyunca kapsama sayacı. Varsayılan simülasyonda hata varyansı herkes için aynıdır. Uzman: \"Binom"
+    },
+    {
+      "id": "m5.fark",
+      "module": "M5",
+      "card": "Formüller",
+      "tex": "D_p=X_{1p}-X_{2p}=(T_{1p}-T_{2p})+(E_{1p}-E_{2p})",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 188,
+      "spec_quote": "  $$D_p=X_{1p}-X_{2p}=(T_{1p}-T_{2p})+(E_{1p}-E_{2p})$$"
+    },
+    {
+      "id": "m5.fark_varyansi_tau",
+      "module": "M5",
+      "card": "Formüller",
+      "tex": "\\sigma_D^2=\\sigma^2_{E_1}+\\sigma^2_{E_2}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 189,
+      "spec_quote": "  Tau eşdeğerlikte $T_1-T_2$ herkes için aynı sabittir; $\\bar D$ onu kestirir ve $\\sigma_D^2=\\sigma^2_{E_1}+\\sigma^2_{E_2}$ olur, yarısı ortalama hata varyansıdır. Paralel ölçmelerde"
+    },
+    {
+      "id": "m5.fark_varyansi_paralel",
+      "module": "M5",
+      "card": "Formüller",
+      "tex": "\\sigma_D^2=2\\sigma_E^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 189,
+      "spec_quote": "$\\sigma_D^2=\\sigma^2_{E_1}+\\sigma^2_{E_2}$ olur, yarısı ortalama hata varyansıdır. Paralel ölçmelerde $\\sigma_D^2=2\\sigma_E^2$ ve $\\hat\\sigma_E^2=\\tfrac12 s_D^2$."
+    },
+    {
+      "id": "m5.hata_fark_yolu",
+      "module": "M5",
+      "card": "Formüller",
+      "tex": "\\hat\\sigma_E^2=\\tfrac12 s_D^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 189,
+      "spec_quote": "olur, yarısı ortalama hata varyansıdır. Paralel ölçmelerde $\\sigma_D^2=2\\sigma_E^2$ ve $\\hat\\sigma_E^2=\\tfrac12 s_D^2$."
+    },
+    {
+      "id": "m5.kovaryans",
+      "module": "M5",
+      "card": "Formüller",
+      "tex": "\\sigma_{X_1X_2}=\\sigma_T^2+\\sigma_{TE_2}+\\sigma_{E_1T}+\\sigma_{E_1E_2}=\\sigma_T^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 190,
+      "spec_quote": "  $$\\sigma_{X_1X_2}=\\sigma_T^2+\\sigma_{TE_2}+\\sigma_{E_1T}+\\sigma_{E_1E_2}=\\sigma_T^2,\\qquad \\hat\\sigma_E^2=s_X^2(1-r_{12})$$"
+    },
+    {
+      "id": "m5.hata_kovaryans_yolu",
+      "module": "M5",
+      "card": "Formüller",
+      "tex": "\\hat\\sigma_E^2=s_X^2(1-r_{12})",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 190,
+      "spec_quote": "  $$\\sigma_{X_1X_2}=\\sigma_T^2+\\sigma_{TE_2}+\\sigma_{E_1T}+\\sigma_{E_1E_2}=\\sigma_T^2,\\qquad \\hat\\sigma_E^2=s_X^2(1-r_{12})$$"
+    },
+    {
+      "id": "m5.kelley",
+      "module": "M5",
+      "card": "Formüller (uzman: Kelley kestirimi)",
+      "tex": "\\hat T=\\rho X+(1-\\rho)\\mu_X",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 191,
+      "spec_quote": "  $$\\hat T=\\rho X+(1-\\rho)\\mu_X;\\quad \\text{ölçme: }\\sigma_X\\sqrt{1-\\rho},\\ \\ \\text{kestirim: }\\sigma_X\\sqrt{\\rho(1-\\rho)},\\ \\ \\text{yordama: }\\sigma_X\\sqrt{1-\\rho^2}$$"
+    },
+    {
+      "id": "m5.uc_standart_hata",
+      "module": "M5",
+      "card": "Formüller (uzman: üç standart hata)",
+      "tex": "\\text{ölçme: }\\sigma_X\\sqrt{1-\\rho},\\ \\ \\text{kestirim: }\\sigma_X\\sqrt{\\rho(1-\\rho)},\\ \\ \\text{yordama: }\\sigma_X\\sqrt{1-\\rho^2}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 191,
+      "spec_quote": "  $$\\hat T=\\rho X+(1-\\rho)\\mu_X;\\quad \\text{ölçme: }\\sigma_X\\sqrt{1-\\rho},\\ \\ \\text{kestirim: }\\sigma_X\\sqrt{\\rho(1-\\rho)},\\ \\ \\text{yordama: }\\sigma_X\\sqrt{1-\\rho^2}$$"
+    },
+    {
+      "id": "m5.kosullu_osh",
+      "module": "M5",
+      "card": "Formüller (uzman: koşullu ÖSH)",
+      "tex": "\\text{ÖSH}(x)=\\sqrt{x(k-x)/(k-1)}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 192,
+      "spec_quote": "  Koşullu ÖSH (Lord'un binom hata modeli, 0/1 maddelerin toplam puanı): $\\text{ÖSH}(x)=\\sqrt{x(k-x)/(k-1)}$. Kartın notu: \"Binom modelde hata varyansı gerçek düzey $\\zeta$'ya bağlıdır,"
+    },
+    {
+      "id": "m5.binom_hata_varyansi",
+      "module": "M5",
+      "card": "Koşullu ÖSH kartının notu",
+      "tex": "k\\zeta(1-\\zeta)",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 192,
+      "spec_quote": "Kartın notu: \"Binom modelde hata varyansı gerçek düzey $\\zeta$'ya bağlıdır, $k\\zeta(1-\\zeta)$, ve yalnızca $\\zeta=0$ veya $1$'de sıfırdır. Lord kestiricisi gözlenen 0"
+    },
+    {
+      "id": "m6.rho_tekrar",
+      "module": "M6",
+      "card": "Formüller (uzman katmanı)",
+      "tex": "\\rho_{\\text{tekrar}}=\\frac{\\sigma_p^2+\\sigma_{pi}^2/k}{\\sigma_p^2+\\sigma_{pi}^2/k+\\sigma_{po}^2+\\sigma_e^2/k}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 202,
+      "spec_quote": "  $$\\rho_{\\text{tekrar}}=\\frac{\\sigma_p^2+\\sigma_{pi}^2/k}{\\sigma_p^2+\\sigma_{pi}^2/k+\\sigma_{po}^2+\\sigma_e^2/k},\\qquad"
+    },
+    {
+      "id": "m6.rho_esdeger",
+      "module": "M6",
+      "card": "Formüller (uzman katmanı)",
+      "tex": "\\rho_{\\text{eşdeğer}}=\\frac{\\sigma_p^2+\\sigma_{po}^2}{\\sigma_p^2+\\sigma_{po}^2+(\\sigma_{pi}^2+\\sigma_e^2)/k}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 202,
+      "spec_quote": "\\rho_{\\text{eşdeğer}}=\\frac{\\sigma_p^2+\\sigma_{po}^2}{\\sigma_p^2+\\sigma_{po}^2+(\\sigma_{pi}^2+\\sigma_e^2)/k}$$"
+    },
+    {
+      "id": "m6.rho_gecikmeli_esdeger",
+      "module": "M6",
+      "card": "Formüller (uzman katmanı)",
+      "tex": "\\rho_{\\text{gecikmeli eşdeğer}}=\\frac{\\sigma_p^2}{\\sigma_p^2+\\sigma_{po}^2+(\\sigma_{pi}^2+\\sigma_e^2)/k}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 203,
+      "spec_quote": "  $$\\rho_{\\text{gecikmeli eşdeğer}}=\\frac{\\sigma_p^2}{\\sigma_p^2+\\sigma_{po}^2+(\\sigma_{pi}^2+\\sigma_e^2)/k}$$"
+    },
+    {
+      "id": "m7.kr20_pq_duzeltmesi",
+      "module": "M7",
+      "card": "KR-20 kartı (payda anahtarı n-1 konumunda)",
+      "tex": "p_iq_i\\cdot n/(n-1)",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 73,
+      "spec_quote": "KR-20 kartı toplam varyansı $\\hat\\sigma^2_Y$ ile hesaplar. Anahtar $n-1$'deyken kart madde varyansını $p_iq_i\\cdot n/(n-1)$ olarak yazar ve yine aynı sonucu verir. Karışık payda yalnızca tanısal"
+    },
+    {
+      "id": "m7.r_sapma",
+      "module": "M7",
+      "card": "Sekme 1: r (test-tekrar test / eşdeğer formlar)",
+      "tex": "r=\\dfrac{\\sum x_1x_2}{\\sqrt{\\sum x_1^2\\sum x_2^2}}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 212,
+      "spec_quote": "$x_1x_2$, toplamlar (70, 74, 68), sonra $r=68/\\sqrt{70\\cdot74}\\approx0{,}945$. Formül: $r=\\dfrac{\\sum x_1x_2}{\\sqrt{\\sum x_1^2\\sum x_2^2}}$, $x=X-\\bar X$."
+    },
+    {
+      "id": "m7.sapma",
+      "module": "M7",
+      "card": "Sekme 1: r (test-tekrar test / eşdeğer formlar)",
+      "tex": "x=X-\\bar X",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 212,
+      "spec_quote": "sonra $r=68/\\sqrt{70\\cdot74}\\approx0{,}945$. Formül: $r=\\dfrac{\\sum x_1x_2}{\\sqrt{\\sum x_1^2\\sum x_2^2}}$, $x=X-\\bar X$."
+    },
+    {
+      "id": "m7.fr_ortalama_k_tek",
+      "module": "M7",
+      "card": "Yarıya bölme gezgini (uzman notu, k tek)",
+      "tex": "\\alpha\\,(k^2-1)/k^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 218,
+      "spec_quote": "bölmelerini gösterir, \"ortalama = α\" işaretini gizler ve nedenini yazar (uzman notu: bu durumda ortalama $\\alpha\\,(k^2-1)/k^2$'dir). $k\\le12$ için tüm bölmeler, $k>12$ için tohumlu 1000 bölme"
+    },
+    {
+      "id": "m7.madde_varyansi_egrisi",
+      "module": "M7",
+      "card": "Madde güçlüğü paneli",
+      "tex": "p(1-p)",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 218,
+      "spec_quote": "için tohumlu 1000 bölme kullanılır. Test uzunluğu kaydırıcısı ve Spearman-Brown eğrisi. Madde güçlüğü paneli: $p(1-p)$ eğrisi; uzman: iki madde arasındaki en büyük $r_\\varphi$."
+    },
+    {
+      "id": "m7.sb",
+      "module": "M7",
+      "card": "Formüller",
+      "tex": "\\rho_m=\\dfrac{m\\rho}{1+(m-1)\\rho}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 220,
+      "spec_quote": "  Spearman-Brown $\\rho_m=\\dfrac{m\\rho}{1+(m-1)\\rho}$; hedef için gereken uzunluk çarpanı $m=\\dfrac{\\rho^*(1-\\rho)}{\\rho(1-\\rho^*)}$ (eklenen parçaların paralel olduğu varsayımıyla)."
+    },
+    {
+      "id": "m7.sb_carpan",
+      "module": "M7",
+      "card": "Formüller",
+      "tex": "m=\\dfrac{\\rho^*(1-\\rho)}{\\rho(1-\\rho^*)}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 220,
+      "spec_quote": "  Spearman-Brown $\\rho_m=\\dfrac{m\\rho}{1+(m-1)\\rho}$; hedef için gereken uzunluk çarpanı $m=\\dfrac{\\rho^*(1-\\rho)}{\\rho(1-\\rho^*)}$ (eklenen parçaların paralel olduğu varsayımıyla)."
+    },
+    {
+      "id": "m7.sb_yarilar",
+      "module": "M7",
+      "card": "Formüller (yarılar)",
+      "tex": "\\rho_{SB}=\\dfrac{2r_{hh}}{1+r_{hh}}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 221,
+      "spec_quote": "  Yarılar: $\\rho_{SB}=\\dfrac{2r_{hh}}{1+r_{hh}}$ (paralel yarılar gerekir); Flanagan-Rulon $2\\left(1-\\dfrac{s_A^2+s_B^2}{s_Y^2}\\right)$; Rulon $1-\\dfrac{s_D^2}{s_Y^2}$, $D=A-B$. Son ikisi cebirsel"
+    },
+    {
+      "id": "m7.flanagan_rulon",
+      "module": "M7",
+      "card": "Formüller (yarılar)",
+      "tex": "2\\left(1-\\dfrac{s_A^2+s_B^2}{s_Y^2}\\right)",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 221,
+      "spec_quote": "  Yarılar: $\\rho_{SB}=\\dfrac{2r_{hh}}{1+r_{hh}}$ (paralel yarılar gerekir); Flanagan-Rulon $2\\left(1-\\dfrac{s_A^2+s_B^2}{s_Y^2}\\right)$; Rulon $1-\\dfrac{s_D^2}{s_Y^2}$, $D=A-B$. Son ikisi cebirsel"
+    },
+    {
+      "id": "m7.rulon",
+      "module": "M7",
+      "card": "Formüller (yarılar)",
+      "tex": "1-\\dfrac{s_D^2}{s_Y^2}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 221,
+      "spec_quote": "(paralel yarılar gerekir); Flanagan-Rulon $2\\left(1-\\dfrac{s_A^2+s_B^2}{s_Y^2}\\right)$; Rulon $1-\\dfrac{s_D^2}{s_Y^2}$, $D=A-B$. Son ikisi cebirsel olarak özdeştir ve yalnızca özünde tau"
+    },
+    {
+      "id": "m7.rulon_fark",
+      "module": "M7",
+      "card": "Formüller (yarılar)",
+      "tex": "D=A-B",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 221,
+      "spec_quote": "yarılar gerekir); Flanagan-Rulon $2\\left(1-\\dfrac{s_A^2+s_B^2}{s_Y^2}\\right)$; Rulon $1-\\dfrac{s_D^2}{s_Y^2}$, $D=A-B$. Son ikisi cebirsel olarak özdeştir ve yalnızca özünde tau eşdeğer yarılar"
+    },
+    {
+      "id": "m7.alpha",
+      "module": "M7",
+      "card": "Formüller",
+      "tex": "\\hat\\alpha=\\dfrac{k}{k-1}\\left(1-\\dfrac{\\sum_i s_i^2}{s_Y^2}\\right)",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 222,
+      "spec_quote": "  $\\hat\\alpha=\\dfrac{k}{k-1}\\left(1-\\dfrac{\\sum_i s_i^2}{s_Y^2}\\right)$; $\\hat\\sigma_Y^2=\\frac1n\\sum_p(Y_p-\\bar Y)^2$ ile $\\text{KR-20}=\\dfrac{k}{k-1}\\left(1-\\dfrac{\\sum_i"
+    },
+    {
+      "id": "m7.toplam_varyans_n",
+      "module": "M7",
+      "card": "Formüller (KR-20 paydası)",
+      "tex": "\\hat\\sigma_Y^2=\\frac1n\\sum_p(Y_p-\\bar Y)^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 222,
+      "spec_quote": "  $\\hat\\alpha=\\dfrac{k}{k-1}\\left(1-\\dfrac{\\sum_i s_i^2}{s_Y^2}\\right)$; $\\hat\\sigma_Y^2=\\frac1n\\sum_p(Y_p-\\bar Y)^2$ ile $\\text{KR-20}=\\dfrac{k}{k-1}\\left(1-\\dfrac{\\sum_i"
+    },
+    {
+      "id": "m7.kr20",
+      "module": "M7",
+      "card": "Formüller",
+      "tex": "\\text{KR-20}=\\dfrac{k}{k-1}\\left(1-\\dfrac{\\sum_i p_iq_i}{\\hat\\sigma_Y^2}\\right)",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 222,
+      "spec_quote": "$\\hat\\sigma_Y^2=\\frac1n\\sum_p(Y_p-\\bar Y)^2$ ile $\\text{KR-20}=\\dfrac{k}{k-1}\\left(1-\\dfrac{\\sum_i p_iq_i}{\\hat\\sigma_Y^2}\\right)$ ve"
+    },
+    {
+      "id": "m7.kr21",
+      "module": "M7",
+      "card": "Formüller (uzman)",
+      "tex": "\\text{KR-21}=\\dfrac{k}{k-1}\\left(1-\\dfrac{M(k-M)}{k\\,\\hat\\sigma_Y^2}\\right)",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 222,
+      "spec_quote": "p_iq_i}{\\hat\\sigma_Y^2}\\right)$ ve $\\text{KR-21}=\\dfrac{k}{k-1}\\left(1-\\dfrac{M(k-M)}{k\\,\\hat\\sigma_Y^2}\\right)$ (KR-21 eşit madde güçlüğü varsayar; KR-21 ≤"
+    },
+    {
+      "id": "m7.osh_orneklem",
+      "module": "M7",
+      "card": "Formüller",
+      "tex": "s_Y\\sqrt{1-\\hat\\alpha}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 222,
+      "spec_quote": "(KR-21 eşit madde güçlüğü varsayar; KR-21 ≤ KR-20). Örneklem ÖSH'si $s_Y\\sqrt{1-\\hat\\alpha}$."
+    },
+    {
+      "id": "m7.max_rphi",
+      "module": "M7",
+      "card": "Formüller (uzman)",
+      "tex": "\\max r_\\varphi=\\sqrt{\\dfrac{p_i(1-p_j)}{p_j(1-p_i)}}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 223,
+      "spec_quote": "  Madde silinirse α; düzeltilmiş madde-toplam korelasyonu. Uzman: $\\max r_\\varphi=\\sqrt{\\dfrac{p_i(1-p_j)}{p_j(1-p_i)}}$, $p_i\\le p_j$ (ör. $p=.2$ ve $.8$ için $.25$)."
+    },
+    {
+      "id": "m7.max_rphi_kosulu",
+      "module": "M7",
+      "card": "Formüller (uzman)",
+      "tex": "p_i\\le p_j",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 223,
+      "spec_quote": "α; düzeltilmiş madde-toplam korelasyonu. Uzman: $\\max r_\\varphi=\\sqrt{\\dfrac{p_i(1-p_j)}{p_j(1-p_i)}}$, $p_i\\le p_j$ (ör. $p=.2$ ve $.8$ için $.25$)."
+    },
+    {
+      "id": "m8.iki_blok_orani",
+      "module": "M8",
+      "card": "Uzman katmanı (iki blok modu)",
+      "tex": "\\mathbf 1^{\\mathsf T}\\Sigma_T\\mathbf 1/\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 230,
+      "spec_quote": "arası korelasyon kaydırıcısı (0-1). Bu modda ω gösterilmez; α ve $\\mathbf 1^{\\mathsf T}\\Sigma_T\\mathbf 1/\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1$ gösterilir. Standart α ve $L_2$."
+    },
+    {
+      "id": "m8.psi_varsayilan",
+      "module": "M8",
+      "card": "Uzman katmanı",
+      "tex": "\\psi_i=1-\\lambda_i^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 230,
+      "spec_quote": "- Uzman katmanı: tek tek λ, ψ ve $\\psi_{ij}$ kaydırıcıları. Varsayılan $\\psi_i=1-\\lambda_i^2$; serbest ψ yalnızca uzman modunda. $|\\psi_{ij}|\\le0{,}9\\sqrt{\\psi_i\\psi_j}$ sınırı ve her güncellemede"
+    },
+    {
+      "id": "m8.psi_siniri",
+      "module": "M8",
+      "card": "Uzman katmanı (Cholesky denetimi)",
+      "tex": "|\\psi_{ij}|\\le0{,}9\\sqrt{\\psi_i\\psi_j}",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 230,
+      "spec_quote": "kaydırıcıları. Varsayılan $\\psi_i=1-\\lambda_i^2$; serbest ψ yalnızca uzman modunda. $|\\psi_{ij}|\\le0{,}9\\sqrt{\\psi_i\\psi_j}$ sınırı ve her güncellemede Cholesky denetimi uygulanır;"
+    },
+    {
+      "id": "m8.toplam_varyans",
+      "module": "M8",
+      "card": "Formüller",
+      "tex": "\\sigma_Y^2=\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1=\\operatorname{tr}(\\Sigma)+\\sum_{i\\neq j}\\sigma_{ij}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 232,
+      "spec_quote": "  $$\\sigma_Y^2=\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1=\\operatorname{tr}(\\Sigma)+\\sum_{i\\neq j}\\sigma_{ij},\\qquad \\alpha=\\frac{k}{k-1}\\left(1-\\frac{\\operatorname{tr}\\Sigma}{\\mathbf 1^{\\mathsf"
+    },
+    {
+      "id": "m8.alpha",
+      "module": "M8",
+      "card": "Formüller",
+      "tex": "\\alpha=\\frac{k}{k-1}\\left(1-\\frac{\\operatorname{tr}\\Sigma}{\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1}\\right)=\\frac{k^2\\bar\\sigma_{ij}}{\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 232,
+      "spec_quote": "\\alpha=\\frac{k}{k-1}\\left(1-\\frac{\\operatorname{tr}\\Sigma}{\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1}\\right)=\\frac{k^2\\bar\\sigma_{ij}}{\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1}$$"
+    },
+    {
+      "id": "m8.turetme_ortalama_kovaryans",
+      "module": "M8",
+      "card": "Üç satırlık türetme kartı",
+      "tex": "\\bar\\sigma_{ij}=\\sum_{i\\neq j}\\sigma_{ij}/[k(k-1)]",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 233,
+      "spec_quote": "  Üç satırlık türetme kartı: $\\bar\\sigma_{ij}=\\sum_{i\\neq j}\\sigma_{ij}/[k(k-1)]$; toplamın gerçek varyansı $\\approx k^2\\bar\\sigma_{ij}$; $\\alpha=k^2\\bar\\sigma_{ij}/\\sigma_Y^2$."
+    },
+    {
+      "id": "m8.turetme_gercek_varyans",
+      "module": "M8",
+      "card": "Üç satırlık türetme kartı",
+      "tex": "\\approx k^2\\bar\\sigma_{ij}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 233,
+      "spec_quote": "türetme kartı: $\\bar\\sigma_{ij}=\\sum_{i\\neq j}\\sigma_{ij}/[k(k-1)]$; toplamın gerçek varyansı $\\approx k^2\\bar\\sigma_{ij}$; $\\alpha=k^2\\bar\\sigma_{ij}/\\sigma_Y^2$."
+    },
+    {
+      "id": "m8.turetme_alpha",
+      "module": "M8",
+      "card": "Üç satırlık türetme kartı",
+      "tex": "\\alpha=k^2\\bar\\sigma_{ij}/\\sigma_Y^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 233,
+      "spec_quote": "j}\\sigma_{ij}/[k(k-1)]$; toplamın gerçek varyansı $\\approx k^2\\bar\\sigma_{ij}$; $\\alpha=k^2\\bar\\sigma_{ij}/\\sigma_Y^2$."
+    },
+    {
+      "id": "m8.sigma_ayrisimi",
+      "module": "M8",
+      "card": "Formüller",
+      "tex": "\\Sigma=\\Sigma_T+\\Sigma_E",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 234,
+      "spec_quote": "  $\\Sigma=\\Sigma_T+\\Sigma_E$; hatalar ilişkisizse $\\Sigma_E=\\Psi$ köşegendir ve köşegen dışı hücreler saf gerçek puan kovaryansıdır. Tek faktör: $\\Sigma=\\lambda\\lambda^{\\mathsf T}+\\Psi$,"
+    },
+    {
+      "id": "m8.hata_matrisi",
+      "module": "M8",
+      "card": "Formüller",
+      "tex": "\\Sigma_E=\\Psi",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 234,
+      "spec_quote": "  $\\Sigma=\\Sigma_T+\\Sigma_E$; hatalar ilişkisizse $\\Sigma_E=\\Psi$ köşegendir ve köşegen dışı hücreler saf gerçek puan kovaryansıdır. Tek faktör: $\\Sigma=\\lambda\\lambda^{\\mathsf T}+\\Psi$,"
+    },
+    {
+      "id": "m8.tek_faktor",
+      "module": "M8",
+      "card": "Formüller",
+      "tex": "\\Sigma=\\lambda\\lambda^{\\mathsf T}+\\Psi",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 234,
+      "spec_quote": "$\\Sigma_E=\\Psi$ köşegendir ve köşegen dışı hücreler saf gerçek puan kovaryansıdır. Tek faktör: $\\Sigma=\\lambda\\lambda^{\\mathsf T}+\\Psi$, $\\omega=\\dfrac{(\\sum_i\\lambda_i)^2}{\\mathbf 1^{\\mathsf"
+    },
+    {
+      "id": "m8.omega",
+      "module": "M8",
+      "card": "Formüller",
+      "tex": "\\omega=\\dfrac{(\\sum_i\\lambda_i)^2}{\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 234,
+      "spec_quote": "puan kovaryansıdır. Tek faktör: $\\Sigma=\\lambda\\lambda^{\\mathsf T}+\\Psi$, $\\omega=\\dfrac{(\\sum_i\\lambda_i)^2}{\\mathbf 1^{\\mathsf T}\\Sigma\\mathbf 1}$ (ilişkisiz hatalarda payda"
+    },
+    {
+      "id": "m8.omega_paydasi_iliskisiz",
+      "module": "M8",
+      "card": "Formüller",
+      "tex": "(\\sum\\lambda_i)^2+\\sum\\psi_i",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 234,
+      "spec_quote": "1^{\\mathsf T}\\Sigma\\mathbf 1}$ (ilişkisiz hatalarda payda $(\\sum\\lambda_i)^2+\\sum\\psi_i$). $\\Psi$ köşegenken (ilişkisiz hatalar)"
+    },
+    {
+      "id": "m8.alpha_yukler",
+      "module": "M8",
+      "card": "Formüller",
+      "tex": "\\alpha=\\dfrac{k}{k-1}\\cdot\\dfrac{(\\sum\\lambda)^2-\\sum\\lambda^2}{\\sigma_Y^2}\\le\\omega",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 234,
+      "spec_quote": "$\\Psi$ köşegenken (ilişkisiz hatalar) $\\alpha=\\dfrac{k}{k-1}\\cdot\\dfrac{(\\sum\\lambda)^2-\\sum\\lambda^2}{\\sigma_Y^2}\\le\\omega$, çünkü $(\\sum\\lambda)^2\\le k\\sum\\lambda^2$;"
+    },
+    {
+      "id": "m8.yuk_esitsizligi",
+      "module": "M8",
+      "card": "Formüller",
+      "tex": "(\\sum\\lambda)^2\\le k\\sum\\lambda^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 234,
+      "spec_quote": "$\\alpha=\\dfrac{k}{k-1}\\cdot\\dfrac{(\\sum\\lambda)^2-\\sum\\lambda^2}{\\sigma_Y^2}\\le\\omega$, çünkü $(\\sum\\lambda)^2\\le k\\sum\\lambda^2$; eşitlik ancak tüm λ eşitse."
+    },
+    {
+      "id": "m8.alpha_std",
+      "module": "M8",
+      "card": "Formüller (standart α)",
+      "tex": "\\alpha_{std}=\\dfrac{k\\bar r}{1+(k-1)\\bar r}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 235,
+      "spec_quote": "  Standart α: $\\alpha_{std}=\\dfrac{k\\bar r}{1+(k-1)\\bar r}$ (ortalama madde korelasyonuna Spearman-Brown). Madde varyansları eşitse ham α'ya eşittir; genel olarak farklıdır (Sabit Veri A: .805 ve"
+    },
+    {
+      "id": "m8.l2",
+      "module": "M8",
+      "card": "Formüller (Guttman)",
+      "tex": "L_2=\\dfrac{\\sum_{i\\neq j}\\sigma_{ij}+\\sqrt{\\frac{k}{k-1}\\sum_{i\\neq j}\\sigma_{ij}^2}}{\\sigma_Y^2}\\ge\\alpha",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 235,
+      "spec_quote": "farklıdır (Sabit Veri A: .805 ve .80). Guttman: $L_2=\\dfrac{\\sum_{i\\neq j}\\sigma_{ij}+\\sqrt{\\frac{k}{k-1}\\sum_{i\\neq j}\\sigma_{ij}^2}}{\\sigma_Y^2}\\ge\\alpha$."
+    },
+    {
+      "id": "m9.model",
+      "module": "M9",
+      "card": "Formüller",
+      "tex": "X_{pi}=\\mu+\\nu_p+\\nu_i+\\nu_{pi,e}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 244,
+      "spec_quote": "  $X_{pi}=\\mu+\\nu_p+\\nu_i+\\nu_{pi,e}$; $KT_T=KT_p+KT_i+KT_{art}$; $KT_p=k\\sum_p(\\bar X_{p\\cdot}-\\bar X)^2$, $KT_i=n\\sum_i(\\bar X_{\\cdot i}-\\bar X)^2$, $KT_{art}=\\sum_p\\sum_i(X_{pi}-\\bar"
+    },
+    {
+      "id": "m9.kt_ayrisimi",
+      "module": "M9",
+      "card": "Formüller",
+      "tex": "KT_T=KT_p+KT_i+KT_{art}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 244,
+      "spec_quote": "  $X_{pi}=\\mu+\\nu_p+\\nu_i+\\nu_{pi,e}$; $KT_T=KT_p+KT_i+KT_{art}$; $KT_p=k\\sum_p(\\bar X_{p\\cdot}-\\bar X)^2$, $KT_i=n\\sum_i(\\bar X_{\\cdot i}-\\bar X)^2$, $KT_{art}=\\sum_p\\sum_i(X_{pi}-\\bar"
+    },
+    {
+      "id": "m9.kt_kisi",
+      "module": "M9",
+      "card": "Formüller",
+      "tex": "KT_p=k\\sum_p(\\bar X_{p\\cdot}-\\bar X)^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 244,
+      "spec_quote": "  $X_{pi}=\\mu+\\nu_p+\\nu_i+\\nu_{pi,e}$; $KT_T=KT_p+KT_i+KT_{art}$; $KT_p=k\\sum_p(\\bar X_{p\\cdot}-\\bar X)^2$, $KT_i=n\\sum_i(\\bar X_{\\cdot i}-\\bar X)^2$, $KT_{art}=\\sum_p\\sum_i(X_{pi}-\\bar"
+    },
+    {
+      "id": "m9.kt_madde",
+      "module": "M9",
+      "card": "Formüller",
+      "tex": "KT_i=n\\sum_i(\\bar X_{\\cdot i}-\\bar X)^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 244,
+      "spec_quote": "$KT_T=KT_p+KT_i+KT_{art}$; $KT_p=k\\sum_p(\\bar X_{p\\cdot}-\\bar X)^2$, $KT_i=n\\sum_i(\\bar X_{\\cdot i}-\\bar X)^2$, $KT_{art}=\\sum_p\\sum_i(X_{pi}-\\bar X_{p\\cdot}-\\bar X_{\\cdot"
+    },
+    {
+      "id": "m9.kt_artik",
+      "module": "M9",
+      "card": "Formüller",
+      "tex": "KT_{art}=\\sum_p\\sum_i(X_{pi}-\\bar X_{p\\cdot}-\\bar X_{\\cdot i}+\\bar X)^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 244,
+      "spec_quote": "X_{p\\cdot}-\\bar X)^2$, $KT_i=n\\sum_i(\\bar X_{\\cdot i}-\\bar X)^2$, $KT_{art}=\\sum_p\\sum_i(X_{pi}-\\bar X_{p\\cdot}-\\bar X_{\\cdot i}+\\bar X)^2$; sd sırasıyla $n-1$, $k-1$, $(n-1)(k-1)$."
+    },
+    {
+      "id": "m9.sd_kisi",
+      "module": "M9",
+      "card": "Formüller (sd sütunu)",
+      "tex": "n-1",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 244,
+      "spec_quote": "X_{\\cdot i}-\\bar X)^2$, $KT_{art}=\\sum_p\\sum_i(X_{pi}-\\bar X_{p\\cdot}-\\bar X_{\\cdot i}+\\bar X)^2$; sd sırasıyla $n-1$, $k-1$, $(n-1)(k-1)$."
+    },
+    {
+      "id": "m9.sd_madde",
+      "module": "M9",
+      "card": "Formüller (sd sütunu)",
+      "tex": "k-1",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 244,
+      "spec_quote": "i}-\\bar X)^2$, $KT_{art}=\\sum_p\\sum_i(X_{pi}-\\bar X_{p\\cdot}-\\bar X_{\\cdot i}+\\bar X)^2$; sd sırasıyla $n-1$, $k-1$, $(n-1)(k-1)$."
+    },
+    {
+      "id": "m9.sd_artik",
+      "module": "M9",
+      "card": "Formüller (sd sütunu)",
+      "tex": "(n-1)(k-1)",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 244,
+      "spec_quote": "X)^2$, $KT_{art}=\\sum_p\\sum_i(X_{pi}-\\bar X_{p\\cdot}-\\bar X_{\\cdot i}+\\bar X)^2$; sd sırasıyla $n-1$, $k-1$, $(n-1)(k-1)$."
+    },
+    {
+      "id": "m9.hoyt",
+      "module": "M9",
+      "card": "Formüller",
+      "tex": "r_H=1-\\dfrac{KO_{art}}{KO_p}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 245,
+      "spec_quote": "  Hoyt: $r_H=1-\\dfrac{KO_{art}}{KO_p}$. Eşdeğerlik kanıtı kartı: $s_Y^2=k\\,KO_p$ ve $\\sum_i s_i^2=\\dfrac{KT_p+KT_{art}}{n-1}$, dolayısıyla"
+    },
+    {
+      "id": "m9.kanit_toplam_varyans",
+      "module": "M9",
+      "card": "Eşdeğerlik kanıtı kartı",
+      "tex": "s_Y^2=k\\,KO_p",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 245,
+      "spec_quote": "  Hoyt: $r_H=1-\\dfrac{KO_{art}}{KO_p}$. Eşdeğerlik kanıtı kartı: $s_Y^2=k\\,KO_p$ ve $\\sum_i s_i^2=\\dfrac{KT_p+KT_{art}}{n-1}$, dolayısıyla"
+    },
+    {
+      "id": "m9.kanit_madde_varyanslari",
+      "module": "M9",
+      "card": "Eşdeğerlik kanıtı kartı",
+      "tex": "\\sum_i s_i^2=\\dfrac{KT_p+KT_{art}}{n-1}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 245,
+      "spec_quote": "  Hoyt: $r_H=1-\\dfrac{KO_{art}}{KO_p}$. Eşdeğerlik kanıtı kartı: $s_Y^2=k\\,KO_p$ ve $\\sum_i s_i^2=\\dfrac{KT_p+KT_{art}}{n-1}$, dolayısıyla"
+    },
+    {
+      "id": "m9.kanit_alpha_hoyt",
+      "module": "M9",
+      "card": "Eşdeğerlik kanıtı kartı",
+      "tex": "\\hat\\alpha=\\dfrac{k}{k-1}\\left(1-\\dfrac{KT_p+KT_{art}}{k\\,KT_p}\\right)=1-\\dfrac{KO_{art}}{KO_p}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 245,
+      "spec_quote": "ve $\\sum_i s_i^2=\\dfrac{KT_p+KT_{art}}{n-1}$, dolayısıyla $\\hat\\alpha=\\dfrac{k}{k-1}\\left(1-\\dfrac{KT_p+KT_{art}}{k\\,KT_p}\\right)=1-\\dfrac{KO_{art}}{KO_p}$ (eksiksiz veri ve tutarlı payda"
+    },
+    {
+      "id": "m9.beklenen_ko_kisi",
+      "module": "M9",
+      "card": "Formüller (uzman: beklenen KO)",
+      "tex": "\\mathbb E(KO_p)=\\sigma^2_{pi,e}+n_i\\sigma_p^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 246,
+      "spec_quote": "  Beklenen KO: $\\mathbb E(KO_p)=\\sigma^2_{pi,e}+n_i\\sigma_p^2$, $\\mathbb E(KO_i)=\\sigma^2_{pi,e}+n_p\\sigma_i^2$, $\\mathbb E(KO_{art})=\\sigma^2_{pi,e}$; buradan $\\hat\\sigma_p^2=(KO_p-KO_{art})/n_i$,"
+    },
+    {
+      "id": "m9.beklenen_ko_madde",
+      "module": "M9",
+      "card": "Formüller (uzman: beklenen KO)",
+      "tex": "\\mathbb E(KO_i)=\\sigma^2_{pi,e}+n_p\\sigma_i^2",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 246,
+      "spec_quote": "  Beklenen KO: $\\mathbb E(KO_p)=\\sigma^2_{pi,e}+n_i\\sigma_p^2$, $\\mathbb E(KO_i)=\\sigma^2_{pi,e}+n_p\\sigma_i^2$, $\\mathbb E(KO_{art})=\\sigma^2_{pi,e}$; buradan $\\hat\\sigma_p^2=(KO_p-KO_{art})/n_i$,"
+    },
+    {
+      "id": "m9.beklenen_ko_artik",
+      "module": "M9",
+      "card": "Formüller (uzman: beklenen KO)",
+      "tex": "\\mathbb E(KO_{art})=\\sigma^2_{pi,e}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 246,
+      "spec_quote": "E(KO_p)=\\sigma^2_{pi,e}+n_i\\sigma_p^2$, $\\mathbb E(KO_i)=\\sigma^2_{pi,e}+n_p\\sigma_i^2$, $\\mathbb E(KO_{art})=\\sigma^2_{pi,e}$; buradan $\\hat\\sigma_p^2=(KO_p-KO_{art})/n_i$,"
+    },
+    {
+      "id": "m9.bilesen_kisi",
+      "module": "M9",
+      "card": "Formüller (uzman: varyans bileşenleri)",
+      "tex": "\\hat\\sigma_p^2=(KO_p-KO_{art})/n_i",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 246,
+      "spec_quote": "$\\mathbb E(KO_i)=\\sigma^2_{pi,e}+n_p\\sigma_i^2$, $\\mathbb E(KO_{art})=\\sigma^2_{pi,e}$; buradan $\\hat\\sigma_p^2=(KO_p-KO_{art})/n_i$, $\\hat\\sigma_i^2=(KO_i-KO_{art})/n_p$,"
+    },
+    {
+      "id": "m9.bilesen_madde",
+      "module": "M9",
+      "card": "Formüller (uzman: varyans bileşenleri)",
+      "tex": "\\hat\\sigma_i^2=(KO_i-KO_{art})/n_p",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 246,
+      "spec_quote": "$\\mathbb E(KO_{art})=\\sigma^2_{pi,e}$; buradan $\\hat\\sigma_p^2=(KO_p-KO_{art})/n_i$, $\\hat\\sigma_i^2=(KO_i-KO_{art})/n_p$, $\\hat\\sigma^2_{pi,e}=KO_{art}$. Negatif kestirimler geleneksel"
+    },
+    {
+      "id": "m9.bilesen_artik",
+      "module": "M9",
+      "card": "Formüller (uzman: varyans bileşenleri)",
+      "tex": "\\hat\\sigma^2_{pi,e}=KO_{art}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 246,
+      "spec_quote": "buradan $\\hat\\sigma_p^2=(KO_p-KO_{art})/n_i$, $\\hat\\sigma_i^2=(KO_i-KO_{art})/n_p$, $\\hat\\sigma^2_{pi,e}=KO_{art}$. Negatif kestirimler geleneksel olarak 0'a çekilir ve ekranda"
+    },
+    {
+      "id": "m9.erho2",
+      "module": "M9",
+      "card": "Formüller",
+      "tex": "\\mathbb E\\rho^2=\\dfrac{\\sigma_p^2}{\\sigma_p^2+\\sigma^2_{pi,e}/n_i'}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 247,
+      "spec_quote": "  $\\mathbb E\\rho^2=\\dfrac{\\sigma_p^2}{\\sigma_p^2+\\sigma^2_{pi,e}/n_i'}$, $\\Phi=\\dfrac{\\sigma_p^2}{\\sigma_p^2+(\\sigma_i^2+\\sigma^2_{pi,e})/n_i'}$. Uzman: kesme puanı λ için"
+    },
+    {
+      "id": "m9.phi",
+      "module": "M9",
+      "card": "Formüller",
+      "tex": "\\Phi=\\dfrac{\\sigma_p^2}{\\sigma_p^2+(\\sigma_i^2+\\sigma^2_{pi,e})/n_i'}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 247,
+      "spec_quote": "  $\\mathbb E\\rho^2=\\dfrac{\\sigma_p^2}{\\sigma_p^2+\\sigma^2_{pi,e}/n_i'}$, $\\Phi=\\dfrac{\\sigma_p^2}{\\sigma_p^2+(\\sigma_i^2+\\sigma^2_{pi,e})/n_i'}$. Uzman: kesme puanı λ için"
+    },
+    {
+      "id": "m9.phi_lambda",
+      "module": "M9",
+      "card": "Formüller (uzman: kesme puanı)",
+      "tex": "\\Phi(\\lambda)=\\dfrac{\\sigma_p^2+(\\mu-\\lambda)^2}{\\sigma_p^2+(\\mu-\\lambda)^2+\\sigma^2_\\Delta}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 247,
+      "spec_quote": "Uzman: kesme puanı λ için $\\Phi(\\lambda)=\\dfrac{\\sigma_p^2+(\\mu-\\lambda)^2}{\\sigma_p^2+(\\mu-\\lambda)^2+\\sigma^2_\\Delta}$; Φ, Φ(λ)'nın en küçük değeridir (λ = μ)."
+    },
+    {
+      "id": "m9.capraz_bagil_hata",
+      "module": "M9",
+      "card": "Formüller (puanlayıcılar, çaprazlanmış desen)",
+      "tex": "\\sigma^2_\\delta=\\sigma^2_{pr,e}/n_r'",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 248,
+      "spec_quote": "  Puanlayıcılar: çaprazlanmış $p\\times r$ desende $\\sigma^2_\\delta=\\sigma^2_{pr,e}/n_r'$ ve $\\sigma^2_\\Delta=(\\sigma^2_r+\\sigma^2_{pr,e})/n_r'$; iç içe $r{:}p$ desende"
+    },
+    {
+      "id": "m9.capraz_mutlak_hata",
+      "module": "M9",
+      "card": "Formüller (puanlayıcılar, çaprazlanmış desen)",
+      "tex": "\\sigma^2_\\Delta=(\\sigma^2_r+\\sigma^2_{pr,e})/n_r'",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 248,
+      "spec_quote": "çaprazlanmış $p\\times r$ desende $\\sigma^2_\\delta=\\sigma^2_{pr,e}/n_r'$ ve $\\sigma^2_\\Delta=(\\sigma^2_r+\\sigma^2_{pr,e})/n_r'$; iç içe $r{:}p$ desende"
+    },
+    {
+      "id": "m9.icice_hata",
+      "module": "M9",
+      "card": "Formüller (puanlayıcılar, iç içe desen)",
+      "tex": "\\sigma^2_\\delta=\\sigma^2_\\Delta=\\sigma^2_{r,pr,e}/n_r'",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 248,
+      "spec_quote": "ve $\\sigma^2_\\Delta=(\\sigma^2_r+\\sigma^2_{pr,e})/n_r'$; iç içe $r{:}p$ desende $\\sigma^2_\\delta=\\sigma^2_\\Delta=\\sigma^2_{r,pr,e}/n_r'$. Anahtar G çalışmasını değil K çalışması desenini"
+    },
+    {
+      "id": "m9.icice_bilesen",
+      "module": "M9",
+      "card": "Formüller (puanlayıcılar, iç içe desen)",
+      "tex": "\\sigma^2_{r,pr,e}=\\sigma_r^2+\\sigma^2_{pr,e}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 248,
+      "spec_quote": "değil K çalışması desenini değiştirir; bileşenler çaprazlanmış G çalışmasından gelir ($\\sigma^2_{r,pr,e}=\\sigma_r^2+\\sigma^2_{pr,e}=7/6$). Uzman notu: \"Veri gerçekten iç içe toplanmış olsaydı tek"
+    },
+    {
+      "id": "m9.icc_a_k",
+      "module": "M9",
+      "card": "Uzman ICC bağlantıları",
+      "tex": "=\\dfrac{KO_p-KO_{art}}{KO_p+(KO_i-KO_{art})/n}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 249,
+      "spec_quote": "  Uzman ICC bağlantıları: α = ICC(C,k) = ICC(3,k); Φ = ICC(A,k) = ICC(2,k) $=\\dfrac{KO_p-KO_{art}}{KO_p+(KO_i-KO_{art})/n}$; tek madde $\\mathbb E\\rho^2$ = ICC(C,1)"
+    },
+    {
+      "id": "m9.icc_c_1",
+      "module": "M9",
+      "card": "Uzman ICC bağlantıları",
+      "tex": "=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}}",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 249,
+      "spec_quote": "$=\\dfrac{KO_p-KO_{art}}{KO_p+(KO_i-KO_{art})/n}$; tek madde $\\mathbb E\\rho^2$ = ICC(C,1) $=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}}$."
+    },
+    {
+      "id": "m9.uc_yol_matris",
+      "module": "M9",
+      "card": "Üç yol, tek hata varyansı kartı (Sabit Veri A)",
+      "tex": "s_Y^2-k^2\\bar s_{ij}=20-16=4",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 250,
+      "spec_quote": "- \"Üç yol, tek hata varyansı\" kartı (Sabit Veri A): matris yolu $s_Y^2-k^2\\bar s_{ij}=20-16=4$; ANOVA yolu $k\\cdot KO_{art}=4\\cdot1=4$; katsayı yolu $s_Y^2(1-\\hat\\alpha)=20\\cdot0{,}2=4$; köşegen"
+    },
+    {
+      "id": "m9.uc_yol_anova",
+      "module": "M9",
+      "card": "Üç yol, tek hata varyansı kartı (Sabit Veri A)",
+      "tex": "k\\cdot KO_{art}=4\\cdot1=4",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 250,
+      "spec_quote": "yol, tek hata varyansı\" kartı (Sabit Veri A): matris yolu $s_Y^2-k^2\\bar s_{ij}=20-16=4$; ANOVA yolu $k\\cdot KO_{art}=4\\cdot1=4$; katsayı yolu $s_Y^2(1-\\hat\\alpha)=20\\cdot0{,}2=4$; köşegen doldurma"
+    },
+    {
+      "id": "m9.uc_yol_katsayi",
+      "module": "M9",
+      "card": "Üç yol, tek hata varyansı kartı (Sabit Veri A)",
+      "tex": "s_Y^2(1-\\hat\\alpha)=20\\cdot0{,}2=4",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 250,
+      "spec_quote": "matris yolu $s_Y^2-k^2\\bar s_{ij}=20-16=4$; ANOVA yolu $k\\cdot KO_{art}=4\\cdot1=4$; katsayı yolu $s_Y^2(1-\\hat\\alpha)=20\\cdot0{,}2=4$; köşegen doldurma yolu madde hata kalanları"
+    },
+    {
+      "id": "m9.uc_yol_kosegen",
+      "module": "M9",
+      "card": "Üç yol, tek hata varyansı kartı (Sabit Veri A)",
+      "tex": "0{,}5+0{,}5+2{,}1+0{,}9=4",
+      "display": true,
+      "reading_tr": "",
+      "spec_line": 250,
+      "spec_quote": "katsayı yolu $s_Y^2(1-\\hat\\alpha)=20\\cdot0{,}2=4$; köşegen doldurma yolu madde hata kalanları $0{,}5+0{,}5+2{,}1+0{,}9=4$. Hepsinde ÖSH = 2. Bu kart S3'ün toplu yanıtıdır."
+    },
+    {
+      "id": "ortak.payda_n_eksi_1",
+      "module": "ortak",
+      "card": "Gösterim: payda kuralı",
+      "tex": "s^2=\\frac{1}{n-1}\\sum(\\cdot)^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 47,
+      "spec_quote": "semboller örneklem kestirimidir ($s^2, r, \\hat\\alpha$). Örneklem varyansı için iki payda vardır: $s^2=\\frac{1}{n-1}\\sum(\\cdot)^2$ ve $\\hat\\sigma^2=\\frac{1}{n}\\sum(\\cdot)^2$. Her katsayı için"
+    },
+    {
+      "id": "ortak.payda_n",
+      "module": "ortak",
+      "card": "Gösterim: payda kuralı",
+      "tex": "\\hat\\sigma^2=\\frac{1}{n}\\sum(\\cdot)^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 47,
+      "spec_quote": "r, \\hat\\alpha$). Örneklem varyansı için iki payda vardır: $s^2=\\frac{1}{n-1}\\sum(\\cdot)^2$ ve $\\hat\\sigma^2=\\frac{1}{n}\\sum(\\cdot)^2$. Her katsayı için \"popülasyon modu\" (kaydırıcılar parametreyi"
+    },
+    {
+      "id": "ortak.toplam_puan",
+      "module": "ortak",
+      "card": "Gösterim: toplam puan",
+      "tex": "Y_p=\\sum_i X_{pi}",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 48,
+      "spec_quote": "- Kişi $p=1,\\dots,n$; madde (parça, puanlayıcı) $i=1,\\dots,k$; toplam puan $Y_p=\\sum_i X_{pi}$ (tek puanlı modüllerde $X$). $\\mathbf 1$ birler vektörüdür; $\\Sigma$ (örneklemde $S$) $k\\times k$ madde"
+    },
+    {
+      "id": "ortak.butce_hata_kestirimi",
+      "module": "ortak",
+      "card": "Varyans bütçesi (gerçek dünya, kestirilen hata varyansı)",
+      "tex": "s^2_{X_1}-s_{X_1X_2}",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 112,
+      "spec_quote": "etiketi ile ayrı bir desen taşır: kestirilen gerçek varyans $s_{X_1X_2}$, kestirilen hata varyansı $s^2_{X_1}-s_{X_1X_2}$. Modülde tekrar yoksa çubuk yalnızca toplam $s_X^2$'yi gösterir ve"
+    },
+    {
+      "id": "ortak.butce_toplam_gercek_varyans",
+      "module": "ortak",
+      "card": "Varyans bütçesi (M7-M8 bölütü)",
+      "tex": "k^2\\bar s_{ij}",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 114,
+      "spec_quote": "yoktur\" etiketli sıfır genişlikte bir işaret olarak görünür. M7-M8'de toplamın kestirilen gerçek varyansı $k^2\\bar s_{ij}$ ve hata varyansı. M9'da $\\sigma_p^2$, $\\sigma_i^2/n_i'$,"
+    },
+    {
+      "id": "ortak.butce_madde_m9",
+      "module": "ortak",
+      "card": "Varyans bütçesi (M9 bölütü)",
+      "tex": "\\sigma_i^2/n_i'",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 114,
+      "spec_quote": "M7-M8'de toplamın kestirilen gerçek varyansı $k^2\\bar s_{ij}$ ve hata varyansı. M9'da $\\sigma_p^2$, $\\sigma_i^2/n_i'$, $\\sigma^2_{pi,e}/n_i'$."
+    },
+    {
+      "id": "ortak.butce_artik_m9",
+      "module": "ortak",
+      "card": "Varyans bütçesi (M9 bölütü)",
+      "tex": "\\sigma^2_{pi,e}/n_i'",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 114,
+      "spec_quote": "kestirilen gerçek varyansı $k^2\\bar s_{ij}$ ve hata varyansı. M9'da $\\sigma_p^2$, $\\sigma_i^2/n_i'$, $\\sigma^2_{pi,e}/n_i'$."
+    },
+    {
+      "id": "icerik.a1_kosullu_hata_ortalamasi",
+      "module": "icerik",
+      "card": "A.1",
+      "tex": "\\mathbb E(E\\mid p)=0",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 263,
+      "spec_quote": "- A.1 Tanım gereği doğru olanlar (varsayım değildir): $\\mathbb E(E\\mid p)=0$, dolayısıyla $\\mathbb E(E)=0$ ve her kişi popülasyonunda $\\sigma_{TE}=0$; buradan $\\sigma_X^2=\\sigma_T^2+\\sigma_E^2$."
+    },
+    {
+      "id": "icerik.a1_hata_ortalamasi",
+      "module": "icerik",
+      "card": "A.1",
+      "tex": "\\mathbb E(E)=0",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 263,
+      "spec_quote": "- A.1 Tanım gereği doğru olanlar (varsayım değildir): $\\mathbb E(E\\mid p)=0$, dolayısıyla $\\mathbb E(E)=0$ ve her kişi popülasyonunda $\\sigma_{TE}=0$; buradan $\\sigma_X^2=\\sigma_T^2+\\sigma_E^2$."
+    },
+    {
+      "id": "icerik.a1_te_kovaryansi",
+      "module": "icerik",
+      "card": "A.1",
+      "tex": "\\sigma_{TE}=0",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 263,
+      "spec_quote": "olanlar (varsayım değildir): $\\mathbb E(E\\mid p)=0$, dolayısıyla $\\mathbb E(E)=0$ ve her kişi popülasyonunda $\\sigma_{TE}=0$; buradan $\\sigma_X^2=\\sigma_T^2+\\sigma_E^2$."
+    },
+    {
+      "id": "icerik.a1_varyans",
+      "module": "icerik",
+      "card": "A.1",
+      "tex": "\\sigma_X^2=\\sigma_T^2+\\sigma_E^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 263,
+      "spec_quote": "E(E\\mid p)=0$, dolayısıyla $\\mathbb E(E)=0$ ve her kişi popülasyonunda $\\sigma_{TE}=0$; buradan $\\sigma_X^2=\\sigma_T^2+\\sigma_E^2$."
+    },
+    {
+      "id": "icerik.a4_ozdeslik",
+      "module": "icerik",
+      "card": "A.4",
+      "tex": "\\rho_{XX'}=\\sigma_T^2/\\sigma_X^2=\\rho_{XT}^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 266,
+      "spec_quote": "- A.4 $\\rho_{XX'}=\\sigma_T^2/\\sigma_X^2=\\rho_{XT}^2$. Paralel ölçmelerde iki ölçme arasındaki korelasyon bu varyans oranına eşittir; bir korelasyonun bir varyans oranı olabilmesinin nedeni budur."
+    },
+    {
+      "id": "icerik.a5_paralel",
+      "module": "icerik",
+      "card": "A.5 (ölçme modelleri tablosu)",
+      "tex": "T_i=\\tau",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 267,
+      "spec_quote": "- A.5 Ölçme modelleri iç içedir: paralel ($T_i=\\tau$, eşit hata varyansı) ⊂ tau eşdeğer ($T_i=\\tau$) ⊂ özünde tau eşdeğer ($T_i=\\tau+\\beta_i$) ⊂ konjenerik ($T_i=\\beta_i+\\lambda_i\\tau$). Konjenerik"
+    },
+    {
+      "id": "icerik.a5_tau_esdeger",
+      "module": "icerik",
+      "card": "A.5 (ölçme modelleri tablosu)",
+      "tex": "T_i=\\tau",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 267,
+      "spec_quote": "- A.5 Ölçme modelleri iç içedir: paralel ($T_i=\\tau$, eşit hata varyansı) ⊂ tau eşdeğer ($T_i=\\tau$) ⊂ özünde tau eşdeğer ($T_i=\\tau+\\beta_i$) ⊂ konjenerik ($T_i=\\beta_i+\\lambda_i\\tau$). Konjenerik"
+    },
+    {
+      "id": "icerik.a5_ozunde_tau_esdeger",
+      "module": "icerik",
+      "card": "A.5 (ölçme modelleri tablosu)",
+      "tex": "T_i=\\tau+\\beta_i",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 267,
+      "spec_quote": "iç içedir: paralel ($T_i=\\tau$, eşit hata varyansı) ⊂ tau eşdeğer ($T_i=\\tau$) ⊂ özünde tau eşdeğer ($T_i=\\tau+\\beta_i$) ⊂ konjenerik ($T_i=\\beta_i+\\lambda_i\\tau$). Konjenerik modelde"
+    },
+    {
+      "id": "icerik.a5_konjenerik",
+      "module": "icerik",
+      "card": "A.5 (ölçme modelleri tablosu)",
+      "tex": "T_i=\\beta_i+\\lambda_i\\tau",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 267,
+      "spec_quote": "hata varyansı) ⊂ tau eşdeğer ($T_i=\\tau$) ⊂ özünde tau eşdeğer ($T_i=\\tau+\\beta_i$) ⊂ konjenerik ($T_i=\\beta_i+\\lambda_i\\tau$). Konjenerik modelde parametrelerin farklı olmasına izin verilir,"
+    },
+    {
+      "id": "icerik.b1_yukselme_kosulu",
+      "module": "icerik",
+      "card": "B.1",
+      "tex": "\\sigma_U^2+2\\sigma_{\\eta U}>0",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 271,
+      "spec_quote": "- B.1 Kişiye özgü kararlı sistematik hata katsayıyı değiştirir. Gerçek puana katılır; $\\sigma_U^2+2\\sigma_{\\eta U}>0$ ise güvenirliği yükseltir, $<0$ ise düşürür, $=0$ ise değiştirmez. $U$, η ile"
+    },
+    {
+      "id": "icerik.c1_hata_puani",
+      "module": "icerik",
+      "card": "C.1",
+      "tex": "E_p=X_p-T_p",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 286,
+      "spec_quote": "- C.1 Bireysel $E_p=X_p-T_p$ gözlenemez, çünkü $T_p$ bilinmez. Yalnızca popülasyon varyansı (veya bir model altında koşullu varyansı) ve yalnızca hataları ilişkisiz en az iki tekrardan"
+    },
+    {
+      "id": "icerik.c1_kovaryans",
+      "module": "icerik",
+      "card": "C.1",
+      "tex": "\\sigma_{XX'}=\\sigma_T^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 286,
+      "spec_quote": "bir model altında koşullu varyansı) ve yalnızca hataları ilişkisiz en az iki tekrardan kestirilebilir: $\\sigma_{XX'}=\\sigma_T^2$, $\\sigma_E^2=\\sigma_X^2-\\sigma_{XX'}$, $\\sigma^2_{X-X'}=2\\sigma_E^2$"
+    },
+    {
+      "id": "icerik.c1_hata_varyansi",
+      "module": "icerik",
+      "card": "C.1",
+      "tex": "\\sigma_E^2=\\sigma_X^2-\\sigma_{XX'}",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 286,
+      "spec_quote": "ve yalnızca hataları ilişkisiz en az iki tekrardan kestirilebilir: $\\sigma_{XX'}=\\sigma_T^2$, $\\sigma_E^2=\\sigma_X^2-\\sigma_{XX'}$, $\\sigma^2_{X-X'}=2\\sigma_E^2$ (paralel ölçmelerde). Sonlu"
+    },
+    {
+      "id": "icerik.c1_fark_varyansi",
+      "module": "icerik",
+      "card": "C.1",
+      "tex": "\\sigma^2_{X-X'}=2\\sigma_E^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 286,
+      "spec_quote": "en az iki tekrardan kestirilebilir: $\\sigma_{XX'}=\\sigma_T^2$, $\\sigma_E^2=\\sigma_X^2-\\sigma_{XX'}$, $\\sigma^2_{X-X'}=2\\sigma_E^2$ (paralel ölçmelerde). Sonlu sayıda tekrardan hesaplanan $X_j-\\hat"
+    },
+    {
+      "id": "icerik.c1_artik",
+      "module": "icerik",
+      "card": "C.1",
+      "tex": "X_j-\\hat T",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 286,
+      "spec_quote": "$\\sigma^2_{X-X'}=2\\sigma_E^2$ (paralel ölçmelerde). Sonlu sayıda tekrardan hesaplanan $X_j-\\hat T$ değerleri artıklardır, hata puanları değildir."
+    },
+    {
+      "id": "icerik.d4_phi_erho2",
+      "module": "icerik",
+      "card": "D.4",
+      "tex": "\\Phi\\le\\mathbb E\\rho^2",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 294,
+      "spec_quote": "- D.4 $\\mathbb E\\rho^2(n_i')$ Spearman-Brown eğrisidir; çaprazlanmış desende $\\Phi\\le\\mathbb E\\rho^2$."
+    },
+    {
+      "id": "icerik.d7_esitsizlik",
+      "module": "icerik",
+      "card": "D.7",
+      "tex": "\\rho_{XY}\\le\\sqrt{\\rho_{XX'}\\rho_{YY'}}\\le\\sqrt{\\rho_{XX'}}",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 297,
+      "spec_quote": "- D.7 $\\rho_{XY}\\le\\sqrt{\\rho_{XX'}\\rho_{YY'}}\\le\\sqrt{\\rho_{XX'}}$; yapıyla korelasyon için tavan $\\sqrt{\\rho_{XX'}}$'dır."
+    },
+    {
+      "id": "icerik.g4_orantili_hata",
+      "module": "icerik",
+      "card": "G.4 (etki haritası satırı)",
+      "tex": "X^*=wX",
+      "display": false,
+      "reading_tr": "",
+      "spec_line": 325,
+      "spec_quote": "- G.4 Kurala bağlı hata $X^*=wX$, $w>1$: ↑ | ↑ | = | ↑ | değişir | = (M4)"
+    }
+  ],
+  "_uncatalogued": [
+    {
+      "oneri_id": "m1.varyans_n",
+      "module": "M1",
+      "card": "Formüller (n paydalı sürüm, anahtar arkasında)",
+      "spec_line": 132,
+      "prose": "$n$ paydalı sürüm anahtar arkasında",
+      "oneri": "\\hat\\sigma_X^2=\\frac{1}{n}\\sum_p (X_p-\\bar X)^2",
+      "durum": "oneri",
+      "not": "SPEC bu sürümün TeX yazımını M1 için vermez. Öneri, satır 47'deki genel biçimi (\\hat\\sigma^2=\\frac{1}{n}\\sum(\\cdot)^2) m1.varyans biçimine uyarlar."
+    },
+    {
+      "oneri_id": "m1.kovaryans_n",
+      "module": "M1",
+      "card": "Formüller (n paydalı sürüm, anahtar arkasında)",
+      "spec_line": 73,
+      "prose": "Anahtar yalnızca betimsel varyans ve kovaryansları, ÖSH'yi ve KR kartlarını etkiler.",
+      "oneri": "\\hat\\sigma_{X_1X_2}=\\frac{1}{n}\\sum_p (X_{1p}-\\bar X_1)(X_{2p}-\\bar X_2)",
+      "durum": "oneri",
+      "not": "Anahtar kovaryansı da etkilediği için n paydalı kovaryansın bir yazımı gerekir; SPEC vermez."
+    },
+    {
+      "oneri_id": "m1.z_puani",
+      "module": "M1",
+      "card": "Ekran 2 (z puanı anahtarı)",
+      "spec_line": 131,
+      "prose": "z puanı anahtarı",
+      "oneri": "z_{1p}=\\dfrac{X_{1p}-\\bar X_1}{s_{X_1}}",
+      "durum": "oneri",
+      "not": "m1.korelasyon z_{1p} kullanır, fakat z puanının tanımı SPEC'te TeX olarak yoktur. İsteğe bağlı."
+    },
+    {
+      "oneri_id": "m2.sembol_sapka",
+      "module": "M2",
+      "card": "Semboller kartı",
+      "spec_line": 139,
+      "prose": "şapka \"kestirim\"",
+      "oneri": "\\hat T",
+      "durum": "oneri",
+      "not": "Semboller kartındaki yedi öğe TeX ile, şapka ise yalnızca sözle verilmiştir. Öneri M2 kontrol sorusundaki \\hat T yazımını kullanır; sesli okuma \"kestirim\"."
+    },
+    {
+      "oneri_id": "m3.rho_xt_karekok",
+      "module": "M3",
+      "card": "Etkileşim (çekirdek cümle)",
+      "spec_line": 148,
+      "prose": "\"Gözlenen puanın gerçek puanla korelasyonu güvenirliğin kareköküdür.\"",
+      "oneri": "\\rho_{XT}=\\sqrt{\\rho_{XX'}}",
+      "durum": "oneri",
+      "not": "İsteğe bağlı. m3.rho_oran zinciri \\rho_{XT}^2 ile aynı ilişkiyi zaten gösterir."
+    },
+    {
+      "oneri_id": "m3.hata_varyansi_egilim",
+      "module": "M3",
+      "card": "Etkileşim (perde arkası eğilim histogramları)",
+      "spec_line": 148,
+      "prose": "Sesli okuma: \"Hata varyansı, her öğrencinin kendi tekrarlarındaki yayılımın ortalamasıdır.\"",
+      "oneri": "\\sigma_E^2=\\mathbb E_p\\left(\\sigma^2_{E\\mid p}\\right)",
+      "durum": "oneri",
+      "not": "SPEC burada yalnızca sesli okuma verir. Öneri, gösterim tablosunda bulunmayan yeni bir sembol (\\sigma^2_{E\\mid p}) gerektirir; formülsüz bırakmak da mümkündür (C.2 aynı fikri sözle verir)."
+    },
+    {
+      "oneri_id": "m4.icc_a_1",
+      "module": "M4",
+      "card": "Göstergeler (uzman: mutlak uyum)",
+      "spec_line": 160,
+      "prose": "mutlak uyum göstergesi, $n\\times2$ matristen M9'un ANOVA yoluyla hesaplanan ICC(A,1) (negatif bileşen 0'a çekilerek), yanında tutarlılık karşılığı ICC(C,1)",
+      "oneri": "\\text{ICC}(A,1)=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}+k(KO_i-KO_{art})/n}",
+      "durum": "oneri",
+      "not": "ICC(A,1) formülü SPEC'te yoktur (McGraw ve Wong, 1996 biçimi önerildi). M5 verisinde X_2'ye +5 için 408/803 verdiği kesir aritmetiğiyle doğrulandı. Negatif bileşen 0'a çekildiğinde (KO_i<KO_{art}) (KO_i-KO_{art}) terimi 0 alınır; M5 verisinin kaydırılmamış hâlinde ICC(A,1)=17/18 sonucu ancak bu kuralla elde edilir. ICC(C,1) için m9.icc_c_1 kullanılabilir."
+    },
+    {
+      "oneri_id": "m5.ortalama_varyans",
+      "module": "M5",
+      "card": "Etkileşim (a): fark yolu",
+      "spec_line": 181,
+      "prose": "ortalama $s_X^2=(14+14{,}8)/2=14{,}4$",
+      "oneri": "\\bar s_X^2=(s^2_{X_1}+s^2_{X_2})/2",
+      "durum": "oneri",
+      "not": "SPEC yalnızca sayısal satırı verir; sembolik satır için öneri."
+    },
+    {
+      "oneri_id": "m5.fark_yolu_orani",
+      "module": "M5",
+      "card": "Etkileşim (a): fark yolu",
+      "spec_line": 181,
+      "prose": "$1-0{,}8/14{,}4=17/18\\approx0{,}944$",
+      "oneri": "1-\\hat\\sigma_E^2/\\bar s_X^2",
+      "durum": "oneri",
+      "not": "Bu sembolik yazım SPEC'te yalnızca <sabit_veri> içinde (satır 404: $1-\\hat\\sigma_E^2/\\bar s_X^2=17/18$) geçer; modül metninde yalnızca sayısal satır vardır."
+    },
+    {
+      "oneri_id": "m5.kelley_bandi",
+      "module": "M5",
+      "card": "Etkileşim (e) uzman: Kelley kestirimi",
+      "spec_line": 295,
+      "prose": "Kelley aralığı farklı bir soruyu yanıtlar ve başvuru grubunun ortalamasına doğru çeker",
+      "oneri": "\\hat T\\pm1{,}96\\,\\sigma_X\\sqrt{\\rho(1-\\rho)}",
+      "durum": "oneri",
+      "not": "Kelley bandı SPEC'te yalnızca sayısal olarak (satır 396: [13,29; 20,31]) geçer. Öneri m5.uc_standart_hata içindeki kestirimin standart hatasını kullanır; 16,8 ± 1,96·√3,2 ile sabit veriyi verir."
+    },
+    {
+      "oneri_id": "m7.alpha_madde_silinirse",
+      "module": "M7",
+      "card": "Formüller",
+      "spec_line": 223,
+      "prose": "Madde silinirse α; düzeltilmiş madde-toplam korelasyonu.",
+      "oneri": "\\hat\\alpha_{(-i)}=\\dfrac{k-1}{k-2}\\left(1-\\dfrac{\\sum_{j\\neq i}s_j^2}{s^2_{Y-X_i}}\\right)",
+      "durum": "oneri",
+      "not": "Formüller satırında adı geçer ama TeX verilmez. Öneri Sabit Veri A'da 93/127, 99/131, 9/13, 105/131 değerlerini verir (doğrulandı)."
+    },
+    {
+      "oneri_id": "m7.duzeltilmis_madde_toplam_r",
+      "module": "M7",
+      "card": "Formüller",
+      "spec_line": 223,
+      "prose": "Madde silinirse α; düzeltilmiş madde-toplam korelasyonu.",
+      "oneri": "r_{X_i(Y-X_i)}=\\dfrac{s_{X_iY}-s_i^2}{s_i\\sqrt{s_Y^2+s_i^2-2s_{X_iY}}}",
+      "durum": "oneri",
+      "not": "Formüller satırında adı geçer ama TeX verilmez. Öneri Sabit Veri A'da 0,664; 0,609; 0,734; 0,501 değerlerini verir (doğrulandı)."
+    },
+    {
+      "oneri_id": "m9.icc_c_k",
+      "module": "M9",
+      "card": "Uzman ICC bağlantıları",
+      "spec_line": 249,
+      "prose": "Uzman ICC bağlantıları: α = ICC(C,k) = ICC(3,k)",
+      "oneri": "\\alpha=\\text{ICC}(C,k)=\\text{ICC}(3,k)",
+      "durum": "oneri",
+      "not": "Bu eşitlik SPEC'te tamamen düz metindir."
+    },
+    {
+      "oneri_id": "m9.icc_a_k_tam",
+      "module": "M9",
+      "card": "Uzman ICC bağlantıları",
+      "spec_line": 249,
+      "prose": "Φ = ICC(A,k) = ICC(2,k) $=\\dfrac{KO_p-KO_{art}}{KO_p+(KO_i-KO_{art})/n}$",
+      "oneri": "\\Phi=\\text{ICC}(A,k)=\\text{ICC}(2,k)=\\dfrac{KO_p-KO_{art}}{KO_p+(KO_i-KO_{art})/n}",
+      "durum": "oneri",
+      "not": "SPEC'te sol taraf düz metin, sağ taraf \"=\" ile başlayan TeX'tir; katalogda sağ taraf m9.icc_a_k olarak aynen durur. Bu öneri tam denklemi tek TeX olarak verir. Kullanıcı hangisinin ekranda kullanılacağını seçmelidir."
+    },
+    {
+      "oneri_id": "m9.icc_c_1_tam",
+      "module": "M9",
+      "card": "Uzman ICC bağlantıları",
+      "spec_line": 249,
+      "prose": "tek madde $\\mathbb E\\rho^2$ = ICC(C,1) $=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}}$",
+      "oneri": "\\mathbb E\\rho^2(n_i'=1)=\\text{ICC}(C,1)=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}}",
+      "durum": "oneri",
+      "not": "m9.icc_a_k_tam ile aynı durum; katalogda sağ taraf m9.icc_c_1 olarak aynen durur. \\mathbb E\\rho^2(n_i') yazımı D.4'ten alınmıştır."
+    },
+    {
+      "oneri_id": "m9.phi_en_kucuk",
+      "module": "M9",
+      "card": "Formüller (uzman: kesme puanı)",
+      "spec_line": 247,
+      "prose": "Φ, Φ(λ)'nın en küçük değeridir (λ = μ).",
+      "oneri": "\\Phi=\\min_\\lambda\\Phi(\\lambda)=\\Phi(\\mu)",
+      "durum": "oneri",
+      "not": "İsteğe bağlı; SPEC'te düz metindir."
+    },
+    {
+      "oneri_id": "m9.icice_tek_yonlu_not",
+      "module": "M9",
+      "card": "Formüller (puanlayıcılar, uzman notu)",
+      "spec_line": 248,
+      "prose": "$KO_{içi}=7/6$, $\\hat\\sigma_p^2=23/24$, $\\mathbb E\\rho^2=\\Phi=$ ICC(1,k) $=23/30\\approx.7667$",
+      "oneri": "KO_{\\text{içi}}=7/6,\\quad \\hat\\sigma_p^2=23/24,\\quad \\mathbb E\\rho^2=\\Phi=\\text{ICC}(1,k)=23/30\\approx0{,}7667",
+      "durum": "oneri",
+      "not": "Tırnak içindeki uzman notunda TeX düz metinle parçalanmıştır ve iki biçim sorunu taşır: (1) KO_{içi} matematik kipinde Türkçe harf içerir; KaTeX 0.18.9 bunu strict uyarısıyla (unicodeTextInMathMode) konsola yazar (bu oturumda denendi), bu da B1'i bozar; öneri \\text{içi} kullanır. (2) .7667 noktalı ondalıktır; arayüz kuralı (satır 74) 0{,}7667 ister. Bunlar sayısal değer ifadeleri olduğu için formül listesine alınmadı."
+    }
+  ],
+  "_sayisal_satir_adaylari": {
+    "aciklama": "Modül metnindeki (sabit veri dışındaki) sayısal çalışılmış satırlar. Formül listesine alınmadı, çünkü bunlar büyük olasılıkla Sözle / Sembolle / Sayılarla kartının canlı \"Sayılarla\" satırıdır ve payda anahtarıyla değişir (ör. M5 (a)). Kullanıcı durağan TeX olarak gösterilmelerini isterse formulas listesine taşınabilir. Üç yol kartı ise SPEC'te Sabit Veri A'ya bağlı sabit bir kart olarak tanımlandığı için formulas içindedir.",
+    "entries": [
+      {
+        "id": "m2.artiklar_sayisal",
+        "module": "M2",
+        "card": "Kontrol sorusu yanıtı",
+        "tex": "\\hat E_j=X_j-\\hat T=+2,-2,+5,-5,0",
+        "display": false,
+        "reading_tr": "",
+        "spec_line": 143,
+        "spec_quote": "- Kontrol: Ayşe'nin tekrarları 62, 58, 65, 55, 60. $\\hat T$ ve artıklar? ($\\hat T=60$; $\\hat E_j=X_j-\\hat T=+2,-2,+5,-5,0$. Bunlar kestirilmiş artıklardır; gerçek $E_j$ yalnızca $T$'nin bilindiği"
+      },
+      {
+        "id": "m5.ortalama_varyans_sayisal",
+        "module": "M5",
+        "card": "Etkileşim (a): fark yolu, n-1 paydası",
+        "tex": "s_X^2=(14+14{,}8)/2=14{,}4",
+        "display": false,
+        "reading_tr": "",
+        "spec_line": 181,
+        "spec_quote": "tesadüfi hatayı gösterir. $n-1$ ile (varsayılan): $s_D^2=1{,}6$; $\\hat\\sigma_E^2=0{,}8$; ortalama $s_X^2=(14+14{,}8)/2=14{,}4$; $1-0{,}8/14{,}4=17/18\\approx0{,}944$; ÖSH $\\approx0{,}894$. $n$"
+      },
+      {
+        "id": "m5.oran_sayisal",
+        "module": "M5",
+        "card": "Etkileşim (a): fark yolu, n-1 paydası",
+        "tex": "1-0{,}8/14{,}4=17/18\\approx0{,}944",
+        "display": false,
+        "reading_tr": "",
+        "spec_line": 181,
+        "spec_quote": "ile (varsayılan): $s_D^2=1{,}6$; $\\hat\\sigma_E^2=0{,}8$; ortalama $s_X^2=(14+14{,}8)/2=14{,}4$; $1-0{,}8/14{,}4=17/18\\approx0{,}944$; ÖSH $\\approx0{,}894$. $n$ ile (anahtar arkasında): 1,333;"
+      },
+      {
+        "id": "m5.matris_sayisal",
+        "module": "M5",
+        "card": "Etkileşim (b2): iki formdan matrise",
+        "tex": "S=\\begin{pmatrix}14&13{,}6\\\\13{,}6&14{,}8\\end{pmatrix}",
+        "display": true,
+        "reading_tr": "",
+        "spec_line": 183,
+        "spec_quote": "  (b2) İki formdan matrise: $S=\\begin{pmatrix}14&13{,}6\\\\13{,}6&14{,}8\\end{pmatrix}$. \"Köşegeni doldur\" köşegen dışı 13,6'yı (kestirilen gerçek varyans) iki köşegen hücresine koyar; kalanlar 0,4 ve"
+      },
+      {
+        "id": "m5.kosegen_ozdesligi_sayisal",
+        "module": "M5",
+        "card": "Etkileşim (b2): iki formdan matrise",
+        "tex": "14+14{,}8-2\\cdot13{,}6=1{,}6",
+        "display": false,
+        "reading_tr": "",
+        "spec_line": 183,
+        "spec_quote": "hücresine koyar; kalanlar 0,4 ve 1,2, ortalamaları 0,8'dir; bu fark yolundaki $s_D^2/2$ ile aynıdır ($14+14{,}8-2\\cdot13{,}6=1{,}6$). Ekrandaki cümle: \"Fark yolu ile köşegen yolu aynı sayıyı verir.\""
+      },
+      {
+        "id": "m7.r_sayisal",
+        "module": "M7",
+        "card": "Sekme 1: r (test-tekrar test / eşdeğer formlar)",
+        "tex": "r=68/\\sqrt{70\\cdot74}\\approx0{,}945",
+        "display": false,
+        "reading_tr": "",
+        "spec_line": 212,
+        "spec_quote": "Sütunlar: $X_1$, $X_2$, $x_1$, $x_2$, $x_1^2$, $x_2^2$, $x_1x_2$, toplamlar (70, 74, 68), sonra $r=68/\\sqrt{70\\cdot74}\\approx0{,}945$. Formül: $r=\\dfrac{\\sum x_1x_2}{\\sqrt{\\sum x_1^2\\sum x_2^2}}$,"
+      },
+      {
+        "id": "m9.icice_bilesen_sayisal",
+        "module": "M9",
+        "card": "Formüller (puanlayıcılar, iç içe desen), Sabit Veri A değeri",
+        "tex": "\\sigma^2_{r,pr,e}=\\sigma_r^2+\\sigma^2_{pr,e}=7/6",
+        "display": false,
+        "reading_tr": "",
+        "spec_line": 248,
+        "spec_quote": "değil K çalışması desenini değiştirir; bileşenler çaprazlanmış G çalışmasından gelir ($\\sigma^2_{r,pr,e}=\\sigma_r^2+\\sigma^2_{pr,e}=7/6$). Uzman notu: \"Veri gerçekten iç içe toplanmış olsaydı tek"
+      }
+    ]
+  },
+  "_notes": [
+    "Kapsam: M1-M9 Formüller satırları, modüllerde adı geçen kartlar (Semboller, Model, cebir, türetme, eşdeğerlik kanıtı, Üç yol), uzman notlarındaki formüller, gösterim bölümündeki eşitlikler (ortak.*), varyans bütçesi bölüt ifadeleri (ortak.*) ve <icerik_dogrulugu> içindeki denklem ve eşitsizlikler (icerik.*). M10 için SPEC formül vermez. <sabit_veri> ve <dogrulama> bölümlerindeki sayısal ifadeler, kontrol sorusu yanıtlarındaki değer atamaları (ör. \\sigma_T^2=64, r=.84, \\hat T=60) ve tek başına semboller alınmadı.",
+    "Bölme: Tek bir $$...$$ içinde virgül ve \\qquad (veya noktalı virgül ve \\quad) ile ayrılmış iki ayrı formül, ayırıcı atılarak iki kayda bölündü; her parça SPEC satırının birebir alt dizesidir. Bölünenler: satır 190 (m5.kovaryans ile m5.hata_kovaryans_yolu, ayırıcı \",\\qquad \"), satır 191 (m5.kelley ile m5.uc_standart_hata, ayırıcı \";\\quad \"), satır 202 (m6.rho_tekrar ile m6.rho_esdeger, ayırıcı \",\\qquad \"), satır 232 (m8.toplam_varyans ile m8.alpha, ayırıcı \",\\qquad \"). Eşitlik zincirleri bölünmedi. Kullanıcı bölünmemiş satırı isterse bu dört kayıt birleştirilebilir.",
+    "Sol tarafı düz metin olan kayıtlar: m9.icc_a_k ve m9.icc_c_1 \"=\" ile, m8.turetme_gercek_varyans \"\\approx\" ile başlar; m7.flanagan_rulon ve m7.rulon sol taraf taşımaz (ad düz metindedir). TeX SPEC'ten aynen alındı; tam denklem önerileri _uncatalogued içindedir.",
+    "Yinelenen TeX tek kayıtta tutuldu: X^*=a+wX (satır 57, 88, 161, 270) m4.dogrusal_donusum; U_p=c+B_p+\\gamma g_p (satır 60, 158) m4.sistematik_bilesen; k\\zeta(1-\\zeta) (satır 192, 265) m5.binom_hata_varyansi; X\\pm1{,}96\\,\\text{ÖSH} (satır 186, 295) m5.osh_bandi; \\alpha\\,(k^2-1)/k^2 (satır 218, 292) m7.fr_ortalama_k_tek; \\sqrt{\\rho_{XX'}} (satır 160, 297) m4.tavan. A.5'teki paralel ve tau eşdeğer satırlarının ikisi de T_i=\\tau yazdığı için iki ayrı kimlikle aynı TeX'i taşır.",
+    "Y9 (satır 310) ÖSH bandını \"$X\\pm1{,}96\\,$ÖSH\" biçiminde, ÖSH'yi TeX dışında yazar. M10 metninde m5.osh_bandi kullanılması önerilir.",
+    "Hata türleri tablosu (M4 açılış kartı) ve etki haritası satır adlarındaki satır içi matematik ($c$, $B_p$, $\\gamma g_p$, $\\lvert w\\rvert$, $c>0$, $w>1$, $B\\perp\\eta$, $\\gamma>0$, $g\\perp\\eta$) koşul veya tek sembol olduğu için alınmadı; yalnızca denklem olan X^*=wX (G.4) icerik.g4_orantili_hata olarak alındı. Tablo ÖSH için $\\lvert w\\rvert$, M4 formülü (m4.osh_dogrusal) $|w|$ yazar; ikisi farklı TeX'tir.",
+    "M3 formülündeki $2\\sigma_{TE}$ terimi \"üstü çizili gösterilir\". B11 yalnızca \\htmlClass sarmalayıcılarını indirger; üstü çizme \\cancel veya \\sout ile yapılırsa TeX m3.varyans_ayrisimi ile eşleşmez. Öneri: çizgiyi \\htmlClass{t-...}{2\\sigma_{TE}} ve CSS ile vermek. Kullanıcı onayı gerekir.",
+    "Sesli okumalar: SPEC yalnızca M2 Semboller kartındaki yedi sembol ve ortak öğe 3'teki örnek (\"Güvenirlik, gerçek puan varyansının gözlenen puan varyansına oranıdır\", satır 116) için okuma verir. Bu örnek m3.rho_oran'a bağlandı; yalnızca zincirin ilk eşitliğini okur. Gösterim tablosu (satır 65) \\mathbb E\\rho^2 sembolü için \"G katsayısı\" okumasını verir; m9.erho2'nin okuması boş bırakıldı. Ortak öğe 3'e göre her formülün bir Türkçe sesli okuması olmalıdır; boş olanlar Aşama 1 veya sonrasında yazılıp CLAIMS.md'ye bağlanacaktır.",
+    "M2 Semboller kartındaki yedi öğe tek başına sembol olduğu hâlde, SPEC bunları bir modül kartında sesli okumalarıyla birlikte verdiği için bilerek kataloğa alındı (m2.sembol_*).",
+    "Gösterim bölümündeki eşitlikler (satır 47 payda kuralı, satır 48 toplam puan) ortak.* önekiyle alındı; bunlar ayrı bir kart değildir, n / n-1 anahtarı ve Hesap Tezgâhı etiketleri için adaydır.",
+    "Gösterim çelişkileri (spec soruları): (1) λ hem faktör yükü (M8, \\lambda_i) hem kesme puanı (M9, \\Phi(\\lambda)) için kullanılır; gösterim kuralı \"Bir sembol arayüzde tek anlam taşır\" der. (2) r hem korelasyon hem puanlayıcı (p\\times r, n_r', \\sigma^2_{pr,e}) için kullanılır. (3) M9 KT formüllerinde kişi ve madde sayısı n ve k iken beklenen KO ve bileşen formüllerinde n_p ve n_i'dir. (4) m9.icc_a_k ve m4 ICC(A,1) için negatif bileşenin 0'a çekilmesi formülün kendisinde görünmez.",
+    "Noktalı ondalık: SPEC in bazı TeX parçaları nokta kullanır (ör. satır 165 \\sqrt{.75}\\approx.87, satır 195 r=.84, satır 223 p=.2, .8 ve .25, satır 224 p=.5 (M7 uzman madde güçlüğü notunun tırnak içindeki metni), satır 248 .7667; liste SPEC satır 44-335 için taranmıştır ve eksiksizdir). Katalogdaki formüllerde noktalı ondalık yoktur (betikle denetlendi); bu parçalar ekranda gösterilecekse satır 74'e göre 0{,}75 biçimine çevrilmelidir.",
+    "L_1 (Guttman) değeri yalnızca <sabit_veri> ve A3'te geçer; hiçbir modül onu gösterilecek bir formül olarak anmaz. Bu yüzden kataloğa ve _uncatalogued'a alınmadı.",
+    "Ortak öğe 5'teki $E=\\sigma_E z$ ve ortak öğe 4'teki $|\\Delta|<0{,}005$ uygulama kuralıdır; öğrenciye gösterilen formül sayılmadı.",
+    "display alanı: $$...$$ parçaları ve modüllerin Formüller satırlarındaki ya da adlandırılmış kartlardaki ana formüller true; cümle içi ifadeler, koşullar, semboller ve <icerik_dogrulugu> kayıtları false. Bu alan yalnızca KaTeX displayMode denetimi içindir.",
+    "Çapraz denetim (2026-09-26): Kataloğa m2.artik eklendi. \\hat E_j=X_j-\\hat T, M2 kontrol yanıtındaki zincirin (satır 143) sembolik başıdır ve birebir alt dizedir; artık tanımı M2 kazanımının (Y4) merkezinde olduğu hâlde başka bir M2 formülünde geçmez. m9.icice_bilesen ikiye ayrıldı: katalogda sembolik kısım (\\sigma^2_{r,pr,e}=\\sigma_r^2+\\sigma^2_{pr,e}) kalır; Sabit Veri A değerini taşıyan tam yazım (=7/6) m9.icice_bilesen_sayisal olarak _sayisal_satir_adaylari içine taşındı, çünkü M9 simülasyon modunda veya başka veriyle bu değer 7/6 olmaz. Bir betik SPEC satır 44-335 arasındaki her $...$ ve $$...$$ parçasını kataloğa karşı taradı; kalan kapsanmayan parçalar tek sembol, koşul, uygulama kuralı, kontrol sorusu değeri veya not edilmiş noktalı ondalıklı sayı satırıdır.",
+    "Üç yol kartı (m9.uc_yol_*): dört kayıt Sabit Veri A sayılarını TeX içinde taşır; m9.uc_yol_kosegen (0{,}5+0{,}5+2{,}1+0{,}9=4) hiç sembol içermez. Kart SPEC'te Sabit Veri A'ya bağlı durağan bir kart olduğu için katalogda bırakıldı. Kart Sözle / Sembolle / Sayılarla düzeninde kurulursa sembolik satırlar birebir önek olarak şunlardır: s_Y^2-k^2\\bar s_{ij}, k\\cdot KO_{art}, s_Y^2(1-\\hat\\alpha); köşegen yolunun SPEC'te sembolik yazımı yoktur. Ayrıca A1 (satır 445) ANOVA yolunu k\\,KO_{art} diye, satır 250 ise k\\cdot KO_{art} diye yazar; ikisi farklı TeX'tir. Kullanıcı kartın biçimini onaylamalıdır.",
+    "Aynı sembolün farklı TeX sırası: \\sigma^2_D (satır 49) ile \\sigma_D^2 (satır 189), \\hat\\sigma^2_Y (satır 73) ile \\hat\\sigma_Y^2 (satır 222), \\hat\\sigma^2_E (satır 73) ile \\hat\\sigma_E^2 (satır 189-190). Görüntü aynıdır, ancak B11 karakter düzeyinde karşılaştırdığı için content.tr.js bu kataloğun yazımını kopyalamalıdır, gösterim bölümündeki yazımı değil.",
+    "m2.artiklar_sayisal sabit Ayşe verisine dayanan bir kontrol yanıtıdır ve payda anahtarıyla değişmez; yanıt TeX olarak gösterilecekse değişmeden formulas listesine taşınabilir."
+  ],
+  "_render_problems": []
+}
