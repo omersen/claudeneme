@@ -811,7 +811,10 @@
     try {
       if (window.claude && typeof window.claude.use === 'function') {
         const dl = await window.claude.use('downloads');
-        if (dl && typeof dl.save === 'function') { const r = await dl.save({ filename: name, data: text, mimeType: 'text/csv' }); if (r !== null && r !== false) { out.textContent = 'Dosya kaydedildi: ' + name; return; } }
+        if (dl && typeof dl.save === 'function') {
+          try { await dl.save({ filename: name, data: text }); out.textContent = 'Dosya kaydedildi: ' + name; return; }
+          catch (err) { if (err && err.code === 'declined') { out.textContent = 'Kaydetme iptal edildi.'; return; } if (err && err.code === 'rate_limited') { out.textContent = 'Başka bir kaydetme penceresi açık; biraz sonra yeniden dene.'; return; } }
+        }
       } else if (BUILD.standalone) {
         const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv' })); a.setAttribute('download', name); a.click(); out.textContent = 'İndirme başlatıldı.'; return;
       }

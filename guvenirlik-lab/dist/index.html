@@ -237,7 +237,7 @@ ul.duz { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js"></script>
 <div id="uygulama"></div>
-<script>window.REL_BUILD={"version":"v0.1.0","date":"2026-09-27","content_hash":"934c7b64f290","src_hash":"d2c6cf01c5d5","cond":"etkilesimli","standalone":false,"research":false,"log_endpoint":"","tga":true};</script>
+<script>window.REL_BUILD={"version":"v0.1.0","date":"2026-09-27","content_hash":"04414afebe30","src_hash":"4daa8cc3c188","cond":"etkilesimli","standalone":false,"research":false,"log_endpoint":"","tga":true};</script>
 <script>/* Güvenirlik Laboratuvarı: saf hesaplama çekirdeği (RelCore).
  * Ekrandaki her sayı bu modülden gelir. DOM'a dokunmaz.
  * Tarayıcıda globalThis.RelCore, Node'da module.exports. */
@@ -2379,7 +2379,10 @@ ul.duz { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; 
     try {
       if (window.claude && typeof window.claude.use === 'function') {
         const dl = await window.claude.use('downloads');
-        if (dl && typeof dl.save === 'function') { const r = await dl.save({ filename: name, data: text, mimeType: 'text/csv' }); if (r !== null && r !== false) { out.textContent = 'Dosya kaydedildi: ' + name; return; } }
+        if (dl && typeof dl.save === 'function') {
+          try { await dl.save({ filename: name, data: text }); out.textContent = 'Dosya kaydedildi: ' + name; return; }
+          catch (err) { if (err && err.code === 'declined') { out.textContent = 'Kaydetme iptal edildi.'; return; } if (err && err.code === 'rate_limited') { out.textContent = 'Başka bir kaydetme penceresi açık; biraz sonra yeniden dene.'; return; } }
+        }
       } else if (BUILD.standalone) {
         const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv' })); a.setAttribute('download', name); a.click(); out.textContent = 'İndirme başlatıldı.'; return;
       }
