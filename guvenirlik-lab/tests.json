@@ -5,11 +5,13 @@
     "note_tr": "Aşama 0'da başlangıç listesi olarak oluşturuldu. Aşama 1'den itibaren bu dosyayı yalnızca npm test çalıştırıcısı yazar (SPEC <dogrulama>).",
     "last_run": {
       "layers": [
-        "A"
+        "A",
+        "B",
+        "L"
       ],
-      "pass": 421,
+      "pass": 490,
       "fail": 0,
-      "pending": 72
+      "pending": 3
     }
   },
   "tests": [
@@ -5076,7 +5078,8 @@
       "expected": "console error sayısı 0",
       "tolerance": "tam",
       "spec_line": 464,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 hata "
     },
     {
       "id": "B1.2",
@@ -5087,7 +5090,8 @@
       "expected": "console warning sayısı 0",
       "tolerance": "tam",
       "spec_line": 464,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 uyarı "
     },
     {
       "id": "B1.3",
@@ -5098,7 +5102,8 @@
       "expected": "pageerror sayısı 0",
       "tolerance": "tam",
       "spec_line": 464,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 sayfa hatası "
     },
     {
       "id": "B2.1",
@@ -5109,7 +5114,8 @@
       "expected": "0 öğe",
       "tolerance": "tam",
       "spec_line": 465,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 .katex-error"
     },
     {
       "id": "B2.2",
@@ -5120,7 +5126,8 @@
       "expected": "0 eşleşme",
       "tolerance": "tam",
       "spec_line": 465,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 sayfada ham \\frac"
     },
     {
       "id": "B2.3",
@@ -5131,7 +5138,8 @@
       "expected": "0 eşleşme",
       "tolerance": "tam",
       "spec_line": 465,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 sayfada $$"
     },
     {
       "id": "B3.1",
@@ -5142,7 +5150,8 @@
       "expected": "azalır",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 466,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0.8 → 0.5"
     },
     {
       "id": "B3.2",
@@ -5153,7 +5162,8 @@
       "expected": "artar",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 466,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0.8 → 0.9"
     },
     {
       "id": "B3.3",
@@ -5164,7 +5174,8 @@
       "expected": "değişir",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 466,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "49.16 → 55.16"
     },
     {
       "id": "B3.4",
@@ -5175,7 +5186,8 @@
       "expected": "değişmez",
       "tolerance": "görüntülenen değer aynı (SPEC'te sayı verilmemiş)",
       "spec_line": 466,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0.75 → 0.75"
     },
     {
       "id": "B3.5",
@@ -5186,7 +5198,8 @@
       "expected": "Δ ≥ 0",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 466,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0.75 → 0.8"
     },
     {
       "id": "B3.6",
@@ -5197,7 +5210,8 @@
       "expected": "azalır",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 466,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0.87 → 0.77"
     },
     {
       "id": "B3.7",
@@ -5208,7 +5222,8 @@
       "expected": "değişir",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 466,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0.71 → 0.68"
     },
     {
       "id": "B3.8",
@@ -5219,7 +5234,8 @@
       "expected": "artar",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 466,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0.6667 → 0.8889"
     },
     {
       "id": "B3.9",
@@ -5230,7 +5246,8 @@
       "expected": "artar",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 466,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0.6316 → 0.8727"
     },
     {
       "id": "B4.1",
@@ -5241,7 +5258,8 @@
       "expected": "|DOM − derive| < 0,5 × son basamak birimi",
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "15 data-q; uyuşmayan: "
     },
     {
       "id": "B4.2",
@@ -5252,7 +5270,8 @@
       "expected": "|DOM − derive| < 0,5 × son basamak birimi",
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "1 data-q; uyuşmayan: "
     },
     {
       "id": "B4.3",
@@ -5263,7 +5282,8 @@
       "expected": "|DOM − derive| < 0,5 × son basamak birimi",
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "11 data-q; uyuşmayan: "
     },
     {
       "id": "B4.4",
@@ -5274,7 +5294,8 @@
       "expected": "|DOM − derive| < 0,5 × son basamak birimi",
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "11 data-q; uyuşmayan: "
     },
     {
       "id": "B4.5",
@@ -5285,7 +5306,8 @@
       "expected": "|DOM − derive| < 0,5 × son basamak birimi",
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "14 data-q; uyuşmayan: "
     },
     {
       "id": "B4.6",
@@ -5296,7 +5318,8 @@
       "expected": "|DOM − derive| < 0,5 × son basamak birimi",
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "7 data-q; uyuşmayan: "
     },
     {
       "id": "B4.7",
@@ -5307,7 +5330,8 @@
       "expected": "|DOM − derive| < 0,5 × son basamak birimi",
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "2 data-q; uyuşmayan: "
     },
     {
       "id": "B4.8",
@@ -5318,7 +5342,8 @@
       "expected": "|DOM − derive| < 0,5 × son basamak birimi",
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "11 data-q; uyuşmayan: "
     },
     {
       "id": "B4.9",
@@ -5329,7 +5354,8 @@
       "expected": "|DOM − derive| < 0,5 × son basamak birimi",
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "24 data-q; uyuşmayan: "
     },
     {
       "id": "B4b.1",
@@ -5340,7 +5366,8 @@
       "expected": "0,80",
       "tolerance": "metin eşleşmesi (tr-TR)",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0,80"
     },
     {
       "id": "B4b.2",
@@ -5351,7 +5378,8 @@
       "expected": "5",
       "tolerance": "metin eşleşmesi (tr-TR)",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "5,00"
     },
     {
       "id": "B4b.3",
@@ -5362,7 +5390,8 @@
       "expected": "2",
       "tolerance": "metin eşleşmesi (tr-TR)",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "2,00"
     },
     {
       "id": "B4b.4",
@@ -5373,7 +5402,8 @@
       "expected": "1",
       "tolerance": "metin eşleşmesi (tr-TR)",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "1,00"
     },
     {
       "id": "B4b.5",
@@ -5384,7 +5414,8 @@
       "expected": "0,77",
       "tolerance": "metin eşleşmesi (tr-TR)",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0,7742"
     },
     {
       "id": "B4b.6",
@@ -5395,7 +5426,8 @@
       "expected": "2",
       "tolerance": "metin eşleşmesi (tr-TR)",
       "spec_line": 467,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "2,00"
     },
     {
       "id": "B5.1",
@@ -5406,7 +5438,8 @@
       "expected": "0 öğe",
       "tolerance": "tam",
       "spec_line": 468,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "yok"
     },
     {
       "id": "B5.2",
@@ -5417,7 +5450,8 @@
       "expected": "0 öğe",
       "tolerance": "tam",
       "spec_line": 468,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "yok"
     },
     {
       "id": "B6.1",
@@ -5428,7 +5462,8 @@
       "expected": "scrollWidth <= innerWidth",
       "tolerance": "tam",
       "spec_line": 469,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "taşma yok"
     },
     {
       "id": "B6.2",
@@ -5439,7 +5474,8 @@
       "expected": "scrollWidth <= innerWidth",
       "tolerance": "tam",
       "spec_line": 469,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "taşma yok"
     },
     {
       "id": "B6.3",
@@ -5450,7 +5486,8 @@
       "expected": "scrollWidth <= innerWidth",
       "tolerance": "tam",
       "spec_line": 469,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "taşma yok"
     },
     {
       "id": "B7.1",
@@ -5461,7 +5498,8 @@
       "expected": "ulaşılamayan denetim sayısı 0",
       "tolerance": "tam",
       "spec_line": 470,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hepsi odaklanabilir"
     },
     {
       "id": "B7.2",
@@ -5472,7 +5510,8 @@
       "expected": "adsız denetim sayısı 0",
       "tolerance": "tam",
       "spec_line": 470,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hepsinin adı var"
     },
     {
       "id": "B7.3",
@@ -5483,7 +5522,8 @@
       "expected": "değer değişir",
       "tolerance": "tam",
       "spec_line": 470,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "4 → 4.5"
     },
     {
       "id": "B7.4",
@@ -5494,7 +5534,8 @@
       "expected": "bağlı data-q değişir",
       "tolerance": "tam",
       "spec_line": 470,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0.8 → 0.76"
     },
     {
       "id": "B8.1",
@@ -5505,7 +5546,8 @@
       "expected": "çalışan animasyon veya geçiş 0",
       "tolerance": "tam",
       "spec_line": 471,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 animasyon"
     },
     {
       "id": "B9.1",
@@ -5516,7 +5558,8 @@
       "expected": "input[type=range] sayısı 0",
       "tolerance": "tam",
       "spec_line": 472,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 range"
     },
     {
       "id": "B9.2",
@@ -5527,7 +5570,8 @@
       "expected": "sürüklenebilir öğe sayısı 0",
       "tolerance": "tam",
       "spec_line": 472,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 sürüklenebilir"
     },
     {
       "id": "B9.3",
@@ -5538,7 +5582,8 @@
       "expected": "data-q metinleri aynı",
       "tolerance": "tam",
       "spec_line": 472,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "aynı"
     },
     {
       "id": "B10.1",
@@ -5549,7 +5594,8 @@
       "expected": "beklenen her yolda PNG dosyası var",
       "tolerance": "tam",
       "spec_line": 473,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "60 ekran görüntüsü test/out/shots/ altında"
     },
     {
       "id": "B11.1",
@@ -5560,7 +5606,8 @@
       "expected": "karakter düzeyinde eşit",
       "tolerance": "tam",
       "spec_line": 474,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "137 formül; uyuşmayan: "
     },
     {
       "id": "B12.1",
@@ -5571,7 +5618,8 @@
       "expected": "genişlik = oran × çubuk genişliği",
       "tolerance": "1 px",
       "spec_line": 475,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "7 bölüt; 1 px dışı: 0"
     },
     {
       "id": "B12.2",
@@ -5582,7 +5630,8 @@
       "expected": "alan / (X − X̄)² sabit",
       "tolerance": "1 px (kenar uzunluğu; SPEC'te alan toleransı verilmemiş)",
       "spec_line": 475,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "oranlar 9.6314, 9.6314, 9.6314, 9.6314, 9.6314, 9.6314, 9.6314, 9.6314"
     },
     {
       "id": "B12.3",
@@ -5593,7 +5642,8 @@
       "expected": "etiket = RelCore değeri",
       "tolerance": "görüntülenen son basamağın yarısı (B4 kuralı)",
       "spec_line": 475,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "Köşegen: iz = 4,00; köşegen dışı toplam 4,69. "
     },
     {
       "id": "B13.1",
@@ -5604,7 +5654,8 @@
       "expected": "sözcük = işaret(Δ)",
       "tolerance": "|Δ| < 0,005 eşiği (ortak öğe 4)",
       "spec_line": 476,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "sözcükler işaretle eşleşiyor"
     },
     {
       "id": "B14.1",
@@ -5615,7 +5666,8 @@
       "expected": "yön eşleşir",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 477,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "13/13 satır doldu; yönler eşleşiyor"
     },
     {
       "id": "B15.1",
@@ -5626,7 +5678,8 @@
       "expected": "0 ihlal",
       "tolerance": "tam",
       "spec_line": 478,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 ihlal"
     },
     {
       "id": "B15.2",
@@ -5637,7 +5690,8 @@
       "expected": "0 ihlal",
       "tolerance": "tam",
       "spec_line": 478,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 ihlal"
     },
     {
       "id": "B15.3",
@@ -5648,7 +5702,8 @@
       "expected": "0 ihlal",
       "tolerance": "tam",
       "spec_line": 478,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 ihlal"
     },
     {
       "id": "B15.4",
@@ -5659,7 +5714,8 @@
       "expected": "0 ihlal",
       "tolerance": "tam",
       "spec_line": 478,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 ihlal"
     },
     {
       "id": "B16.1",
@@ -5670,7 +5726,8 @@
       "expected": "0 eşleşme",
       "tolerance": "tam",
       "spec_line": 479,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 eşleşme "
     },
     {
       "id": "B16.2",
@@ -5681,7 +5738,8 @@
       "expected": "0 eşleşme",
       "tolerance": "tam",
       "spec_line": 479,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 eşleşme "
     },
     {
       "id": "B16.3",
@@ -5692,7 +5750,8 @@
       "expected": "0 eşleşme",
       "tolerance": "tam",
       "spec_line": 479,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "U+2014 taraması"
     },
     {
       "id": "B16.4",
@@ -5703,7 +5762,8 @@
       "expected": "0 eşleşme",
       "tolerance": "tam",
       "spec_line": 479,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "0 sayfada U+2014"
     },
     {
       "id": "B16.5",
@@ -5714,7 +5774,8 @@
       "expected": "ilk 8192 bayt içinde",
       "tolerance": "tam",
       "spec_line": 479,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "ilk 8 KB"
     },
     {
       "id": "B16.6",
@@ -5725,7 +5786,8 @@
       "expected": "rota en az bir kez çağrıldı",
       "tolerance": "tam",
       "spec_line": 479,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "7 kez"
     },
     {
       "id": "B17.1",
@@ -5736,7 +5798,8 @@
       "expected": "özetler aynı",
       "tolerance": "tam",
       "spec_line": 480,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "Node 7d4a1413,10a04b79,0375d7d8,199fc063,477d0ca1,7cf225fd,b37982ca,7dfb29f3,124d86fa / Chromium 7d4a1413,10a04b79,0375d7d8,199fc063,477d0ca1,7cf225fd,b37982ca,7dfb29f3,124d86fa"
     },
     {
       "id": "B17.2",
@@ -5747,7 +5810,8 @@
       "expected": "özetler aynı veya sınırlılık raporu",
       "tolerance": "tam",
       "spec_line": 480,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "Sınırlılık: /opt/pw-browsers içinde Firefox veya WebKit yok; yalnızca Chromium sınandı."
     },
     {
       "id": "L1.1",
@@ -5758,7 +5822,8 @@
       "expected": "0 satır",
       "tolerance": "tam",
       "spec_line": 483,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "onamsız satır: 0"
     },
     {
       "id": "L2.1",
@@ -5769,7 +5834,8 @@
       "expected": "her satır şemaya uyar",
       "tolerance": "tam",
       "spec_line": 484,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "2 satır"
     },
     {
       "id": "L2.2",
@@ -5780,7 +5846,8 @@
       "expected": "şema dışı alan sayısı 0",
       "tolerance": "tam",
       "spec_line": 484,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "alanlar: pid,cond,version,content_hash,src_hash,seed,session_id,ts_iso,t_rel_ms,event,module,param,old,new,value,device_class"
     },
     {
       "id": "L3.1",
@@ -5791,7 +5858,8 @@
       "expected": "1 satır",
       "tolerance": "tam",
       "spec_line": 485,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "sürükleme başına satır: 1; geçersiz kod reddedildi: true"
     },
     {
       "id": "L4.1",
@@ -5802,7 +5870,8 @@
       "expected": "satırlar eşit",
       "tolerance": "tam",
       "spec_line": 486,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "2 satır geri okundu"
     },
     {
       "id": "L5.1",
@@ -5813,7 +5882,8 @@
       "expected": "kayıt çağrısı 0",
       "tolerance": "tam",
       "spec_line": 487,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "RelLog tanımsız"
     },
     {
       "id": "L5.2",
@@ -5824,7 +5894,8 @@
       "expected": "kayıt kodu imzası 0 eşleşme",
       "tolerance": "tam",
       "spec_line": 487,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "kayıt imzası taraması"
     },
     {
       "id": "C.1",

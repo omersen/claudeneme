@@ -8,5 +8,9 @@
     "test:a": "node tools/run-tests.mjs --layers=A",
     "test:b": "node build.mjs && node test/layerB.mjs",
     "test": "node build.mjs && node test/layerB.mjs; node tools/run-tests.mjs --layers=A,B,L"
+  },
+  "dependencies": {
+    "axe-core": "^4.13.0",
+    "katex": "^0.18.9"
   }
 }

@@ -514,6 +514,23 @@
     throw new Error('r üreticisi kısıtları sağlayamadı: ' + seed);
   }
 
+  // ÖSH bandı kapsama sayacı: T sabit kişi, X_j = T + σ_E z_j; |X_j − T| ≤ z·ÖSH oranı
+  function coverageSim(T, sE, semVal, reps, seed, z) {
+    const zz = z == null ? 1.96 : z, s = stream(seed, 'kapsama', 0); let hit = 0;
+    for (let j = 0; j < reps; j++) { const x = T + sE * s(); if (Math.abs(x - T) <= zz * semVal) hit++; }
+    return hit / reps;
+  }
+  // M7 yarıya bölme gezgini için 6 maddelik tohumlu veri (1-5 puan, 10 kişi)
+  function genSixItem(seed) {
+    const z = latentZ(seed, 'alti-madde', 10, 7);
+    return z.map(r => r.slice(1).map(e => Math.min(5, Math.max(1, Math.round(3 + 1.1 * r[0] + 0.9 * e)))));
+  }
+  // Σ'dan n kişilik çok değişkenli normal veri (Cholesky)
+  function simulateFromSigma(Sigma, n, seed) {
+    const L = cholesky(Sigma); if (!L) return null; const k = Sigma.length, z = latentZ(seed, 'sigma', n, k);
+    return z.map(r => { const out = []; for (let i = 0; i < k; i++) { let v = 0; for (let j = 0; j <= i; j++) v += L[i][j] * r[j]; out.push(round6(v)); } return out; });
+  }
+
   // ---------------------------------------------------------------------------
   // Sabit veriler
   // ---------------------------------------------------------------------------
@@ -584,7 +601,7 @@
         q['m3.sigmaT2'] = sT2; q['m3.sigmaE2'] = sE2; q['m3.sigmaX2'] = sT2 + sE2;
         q['m3.rho'] = sT2 / (sT2 + sE2); q['m3.osh'] = P.sigmaE; q['m3.rho_xt'] = Math.sqrt(q['m3.rho']);
         q['m3.sX2'] = variance(X, denom);
-        if (P.second) { q['m3.s12'] = covariance(X, X2, denom); q['m3.tahmini_hata'] = variance(X, denom) - q['m3.s12']; q['m3.r12'] = correlation(X, X2); }
+        if (P.second) { q['m3.s12'] = covariance(X, X2, denom); q['m3.tahmini_hata'] = (variance(X, denom) + variance(X2, denom)) / 2 - q['m3.s12']; q['m3.r12'] = correlation(X, X2); }
         q[HIDDEN_PREFIX + 'm3.sT2'] = variance(T, denom); q[HIDDEN_PREFIX + 'm3.sE2'] = variance(X.map((x, i) => x - T[i]), denom);
         q[HIDDEN_PREFIX + 'm3.sTE'] = covariance(T, X.map((x, i) => x - T[i]), denom); q[HIDDEN_PREFIX + 'm3.rXT'] = correlation(X, T);
         q._series = { X, X2, T };
@@ -608,7 +625,7 @@
           if (P.ceiling) { x1 = Math.min(100, Math.max(0, x1)); x2 = Math.min(100, Math.max(0, x2)); }
           eta.push(e); B.push(Bp); g.push(gp); X1.push(round6(x1)); X2.push(round6(x2));
         }
-        q['m4.r12'] = correlation(X1, X2); q['m4.ortalama_orneklem'] = mean(X1); q['m4.gecme_orani'] = X1.filter(x => x >= P.cut).length / n;
+        q['m4.r12'] = correlation(X1, X2); q['m4.s1'] = variance(X1, denom); q['m4.s12'] = covariance(X1, X2, denom); q['m4.hata_kestirim'] = (variance(X1, denom) + variance(X2, denom)) / 2 - q['m4.s12']; q['m4.ortalama_orneklem'] = mean(X1); q['m4.gecme_orani'] = X1.filter(x => x >= P.cut).length / n;
         q['m4.ortalama_fark'] = mean(X1.map((x, i) => x - X2[i]));
         const an = anova(X1.map((x, i) => [x, X2[i]]));
         q['m4.icc_c1'] = iccC1(an); q['m4.icc_a1'] = iccA1(an);
@@ -755,7 +772,7 @@
     reliabilityNewGroup, reliabilityFromSEM, attenuationCorrect, maxPhi, twoForms,
     factorModel, twoBlockModel, errorLabPopulation, repeatDesignerPopulation, lambdaFromSliders,
     fnv1a, mulberry32, normalStream, stream, uniformStream, latentZ, round6, digest,
-    simParallelItems, simErrorLab, simRepeatDesigner, genAlphaData, genRData, alphaDataOk,
+    simParallelItems, simErrorLab, simRepeatDesigner, coverageSim, genSixItem, simulateFromSigma, genAlphaData, genRData, alphaDataOk,
     FIXTURES, fixtureA5, HIDDEN_PREFIX, HIDDEN_ROLES, defaultState, derive, project, PRESETS, presetState, listPresets,
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = RelCore;
