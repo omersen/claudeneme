@@ -160,6 +160,10 @@
     }
     return card;
   }
+  document.addEventListener('click', e => {
+    const n = e.target.closest && e.target.closest('#modul [data-term]'); if (!n || n.classList.contains('terim')) return;
+    n.getAttribute('data-term').split(/\s+/).forEach(cls => document.querySelectorAll(`#modul .terim[data-term="${cls}"]`).forEach(b => b.click()));
+  });
   function highlight(card, cls, on) {
     card.querySelectorAll('.' + cls).forEach(n => n.classList.toggle('vurgulu', on));
     document.querySelectorAll(`#modul [data-term~="${cls}"]`).forEach(n => { if (!n.classList.contains('terim')) n.classList.toggle('vurgulu', on); });
@@ -247,8 +251,11 @@
       if (back) {
         const pop = C.errorLabPopulation({ sEta2: P.sEta ** 2, sE2: P.sE ** 2, sB2: P.sB ** 2, pi: P.pi, gamma: P.gamma, rhoBEta: P.rhoBEta, biasVaries: P.biasVaries, w: P.w });
         const w2 = P.w * P.w;
-        const segs = [{ seg: 'eta', ad: 'yapı varyansı (η)', v: w2 * P.sEta ** 2 }];
-        if (!P.biasVaries) segs.push({ seg: 'B', ad: 'kararlı yanlılık', v: w2 * (pop.sTrue2 - P.sEta ** 2) });
+        const contrib = pop.sTrue2 - P.sEta ** 2, segs = [];
+        // Kararlı yanlılığın katkısı (σ²_U + 2σ_ηU) negatifse ayrı bölüt çizilemez: gerçek puan bölütünden düşülür
+        if (contrib >= 0) segs.push({ seg: 'eta', ad: 'yapı varyansı (η)', v: w2 * P.sEta ** 2 }, { seg: 'B', ad: P.biasVaries ? 'alt grup kayması' : 'kararlı yanlılık', v: w2 * contrib });
+        else segs.push({ seg: 'eta', ad: 'KTK gerçek varyansı (η ' + fmt(w2 * P.sEta ** 2) + ' − negatif yanlılık katkısı ' + fmt(-w2 * contrib) + ') =', v: w2 * pop.sTrue2 });
+        segs.push({ seg: 'c', ad: 'sabit c: sabit bir sayının varyansı yoktur', v: 0 });
         segs.push({ seg: 'E', ad: P.biasVaries ? 'tesadüfi hata (değişen yanlılık dahil)' : 'tesadüfi hata', v: w2 * pop.sE2 });
         bar('Perde arkası (evren): KTK gerçek puan varyansı = η + kararlı yanlılık', segs);
       }
@@ -271,7 +278,7 @@
   }
   function renderBudget(q) {
     const b = document.getElementById('butce');
-    const data = STATIC ? null : budgetSegments(q);
+    const data = budgetSegments(q);
     if (!data) { b.hidden = true; return; }
     b.hidden = false; b.innerHTML = '';
     put(b, el('div', { class: 'baslik' }, el('strong', null, K.ui.butce), data.note ? el('span', { class: 'not-uzun' }, data.note, ' ', S.module === 'm3' ? button(K.ui.ikinciOlcme, () => { S.params.m3.second = true; renderModule(); }) : null) : null));
@@ -321,6 +328,7 @@
     const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': o.aria });
     const g = sv('g'); svg.append(g);
     axes(g, x, y, W, H, pad, ticks(lo, hi, 5), ticks(lo, hi, 5), o.xlab, o.ylab);
+    if (o.line) g.append(sv('line', { x1: x(lo - m), y1: y(o.line.a + o.line.b * (lo - m)), x2: x(hi + m), y2: y(o.line.a + o.line.b * (hi + m)), stroke: 'var(--vurgu)', 'stroke-width': 2 }));
     if (o.diag) g.append(sv('line', { x1: x(lo - m), y1: y(lo - m), x2: x(hi + m), y2: y(hi + m), stroke: 'var(--cizgi)', 'stroke-dasharray': '4 4' }));
     if (o.rects) {
       const mx = C.mean(xs), my = C.mean(ys);
@@ -393,7 +401,7 @@
       STATIC ? null : el('div', { class: 'denetimler' }, slider({ key: 'noise', label: 'Test 2\'de gürültü', min: 0, max: 20, step: 1, d: 0, unit: 'puan' }), check('Test 2\'de herkese +10', () => P.shift2 === 10, v => { P.shift2 = v ? 10 : 0; }, 'kaydir2'), check('z puanı birimleri', () => P.zMode, v => { P.zMode = v; }, 'zmod'), button(K.ui.yeniSinif, () => newClass())),
       el('div', { class: 'gostergeler' }, gosterge('Kovaryans s₁₂', 'm1.kovaryans'), gosterge('Korelasyon r', 'm1.r'), gosterge('Test 1 varyansı', 'm1.varyans1'), gosterge('Test 2 varyansı', 'm1.varyans2')));
     put(root, el('div', { class: 'izgara' }, scr1, scr2));
-    put(root, el('div', { class: 'bolum' }, el('h3', null, 'Formüller'), formulas(K.modules[0].formuller, { 'm1.varyans': N('s² = {m1.ss} / ' + (P.points.length - 1) + ' = {m1.varyans}'), 'm1.korelasyon': N('r = {m1.kovaryans} / √({m1.varyans1} × {m1.varyans2}) = {m1.r}') })));
+    put(root, el('div', { class: 'bolum' }, el('h3', null, 'Formüller'), formulas(K.modules[0].formuller, { 'm1.varyans': N('s² = {m1.ss} / ' + (S.denom === 'n' ? P.points.length : P.points.length - 1) + ' = {m1.varyans}'), 'm1.korelasyon': N('r = {m1.kovaryans} / √({m1.varyans1} × {m1.varyans2}) = {m1.r}') })));
     return { update() { draw1(); const q = C.derive(coreState()); let { t1, t2 } = q._series; if (P.zMode) { t1 = C.zScores(t1); t2 = C.zScores(t2); } plot2.innerHTML = ''; plot2.append(scatter(t1, t2, { rects: true, aria: 'Test 1 ve Test 2 saçılım grafiği', xlab: P.zMode ? 'Test 1 (z)' : 'Test 1', ylab: P.zMode ? 'Test 2 (z)' : 'Test 2' })); } };
   };
 
@@ -438,7 +446,7 @@
       slider({ key: 'sigmaE', label: 'Ölçme ne kadar gürültülü? σ_E', min: 1, max: 12, step: 0.5, d: 1, unit: 'puan' }),
       el('div', { class: 'satir' }, button(K.ui.yeniSinif, () => newClass()), check(K.ui.ikinciOlcme, () => P.second, v => { P.second = v; }, 'ikinci3')));
     put(root, el('div', { class: 'izgara' },
-      el('div', { class: 'panel' }, el('h3', null, '30 kişilik sınıf'), plot, el('div', { class: 'lejant' }, el('span', null, 'Halka: gözlenen puan X'), back ? el('span', null, 'Dolu daire: gerçek puan T (perde arkası); ok: hata E') : null), sc),
+      el('div', { class: 'panel' }, el('h3', null, '30 kişilik sınıf'), plot, el('div', { class: 'lejant' }, el('span', null, 'Halka: gözlenen puan X'), back ? el('span', null, 'Dolu daire: gerçek puan T; soluk çubuk: öğrencinin eğilim aralığı T ± ÖSH (hata varyansı bu genişliklerin ortalamasıdır); çizgi: hata E') : null), sc),
       el('div', { class: 'panel' }, ctr,
         el('div', { class: 'gostergeler' }, gosterge('Güvenirlik ρ (model ayarı)', 'm3.rho'), gosterge('ÖSH (model ayarı)', 'm3.osh'), gosterge('Bu sınıfta s²_X', 'm3.sX2'), P.second ? gosterge('İki ölçme r₁₂', 'm3.r12') : null, P.second ? gosterge('Kestirilen hata s̄²_X − s₁₂', 'm3.tahmini_hata') : null,
           back ? gosterge('Bu sınıfta s²_T', 'gizli.m3.sT2', { gizli: true }) : null, back ? gosterge('Bu sınıfta s²_E', 'gizli.m3.sE2', { gizli: true }) : null, back ? gosterge('Bu sınıfta s_TE (model: 0)', 'gizli.m3.sTE', { gizli: true }) : null, back ? gosterge('Bu sınıfta r_XT', 'gizli.m3.rXT', { gizli: true }) : null),
@@ -454,14 +462,18 @@
         ticks(lo, hi, 8).forEach(v => svg.append(sv('text', { x: x(v), y: yX + 38, 'text-anchor': 'middle' }, fmt(v, 0))));
         X.forEach((v, i) => {
           const jit = ((i * 37) % 11) - 5;
-          if (back) { svg.append(sv('line', { x1: x(T[i]), y1: yT + jit, x2: x(v), y2: yX + jit, stroke: 'var(--rol-E)', 'stroke-opacity': .5, 'data-role': 'E', 'data-term': 't-hata' })); svg.append(sv('circle', { cx: x(T[i]), cy: yT + jit, r: 4, fill: 'var(--rol-T)', 'data-role': 'T', 'data-term': 't-gercek' })); }
+          if (back) { svg.append(sv('line', { x1: x(T[i] - P.sigmaE), y1: yT + jit, x2: x(T[i] + P.sigmaE), y2: yT + jit, stroke: 'var(--rol-T)', 'stroke-opacity': .3, 'stroke-width': 3, 'data-term': 't-hata' })); svg.append(sv('line', { x1: x(T[i]), y1: yT + jit, x2: x(v), y2: yX + jit, stroke: 'var(--rol-E)', 'stroke-opacity': .5, 'data-role': 'E', 'data-term': 't-hata' })); svg.append(sv('circle', { cx: x(T[i]), cy: yT + jit, r: 4, fill: 'var(--rol-T)', 'data-role': 'T', 'data-term': 't-gercek' })); }
           svg.append(sv('circle', { cx: x(v), cy: yX + jit, r: 4.5, fill: 'none', stroke: 'var(--rol-X)', 'stroke-width': 1.5, 'data-role': 'X', 'data-term': 't-gozlenen' }));
         });
         svg.append(sv('text', { x: 30, y: yX - 14 }, 'Gözlenen X'));
         if (back) svg.append(sv('text', { x: 30, y: yT - 16 }, 'Gerçek T (perde arkası)'));
         put(plot, svg);
         sc.innerHTML = '';
-        if (back && S.expert) put(sc, scatter(T, X, { aria: 'T ve X saçılımı', xlab: 'T', ylab: 'X', diag: true, role: 'T', stroke: 'var(--rol-T)' }));
+        if (back) {
+          const b = C.covariance(T, X) / C.variance(T), line = S.expert ? { a: C.mean(X) - b * C.mean(T), b } : null;
+          put(sc, el('h4', null, 'Gerçek ve gözlenen puan (perde arkası)'), scatter(T, X, { aria: 'T ve X saçılımı', xlab: 'Gerçek puan T', ylab: 'Gözlenen puan X', diag: true, line, role: 'T', stroke: 'var(--rol-T)' }),
+            el('p', { class: 'not' }, 'Gözlenen puanın gerçek puanla korelasyonu güvenirliğin kareköküdür.' + (S.expert ? ' Uzman: düz çizgi X\'in T\'ye regresyonu, kesikli çizgi X = T.' : '')));
+        }
       },
     };
   };
@@ -484,6 +496,7 @@
           gosterge('Yapıyla korelasyon ρ_Xη (yalnızca simülasyonda)', 'm4.rho_xeta', { ek: 'tavan √ρ' }), gosterge('Tavan √ρ', 'm4.tavan'),
           S.expert ? gosterge('ICC(C,1)', 'm4.icc_c1') : null, S.expert ? gosterge('ICC(A,1), mutlak uyum', 'm4.icc_a1') : null, S.expert ? gosterge('Farkların ortalaması', 'm4.ortalama_fark') : null, S.expert ? gosterge('Grup içi güvenirlik', 'm4.grup_ici_rho') : null,
           back ? gosterge('Bu sınıfta r_Xη', 'gizli.m4.r_xeta_orneklem', { gizli: true }) : null),
+        el('p', { class: 'bayrak', id: 'm4-bayrak' }),
         el('p', { class: 'not' }, K.ui.geçerlikNotu)),
       el('div', { class: 'denetimler' }, p1, p2, p3)));
     put(root, el('div', { class: 'kart vurgu' }, el('h3', null, 'Ders kitaplarıyla uzlaştırma'), el('p', null, mod.uzlastirma.t), el('p', { class: 'not' }, 'İddialar: ' + mod.uzlastirma.c + '. ' + mod.uzlastirma.not)));
@@ -492,6 +505,7 @@
     return {
       update() {
         const q = C.derive(coreState()), { X1, X2 } = q._series; plot.innerHTML = '';
+        const fl = document.getElementById('m4-bayrak'); if (fl) { fl.textContent = [q['m4.model_simulasyon'] ? 'Tavan açık: 0-100 kesmesinin kapalı biçimli çözümü olmadığı için model değerleri sabit tohumlu 20000 kişilik simülasyondan hesaplanır.' : '', S.expert && q['m4.icc_kirpildi'] ? 'Negatif varyans bileşeni 0\'a çekildi; SPSS ve jamovi bu durumda farklı bir ICC(A,1) verir.' : ''].filter(Boolean).join(' '); }
         put(plot, scatter(X1, X2, { aria: 'Birinci ve ikinci ölçme saçılımı', xlab: 'Birinci ölçme X₁', ylab: 'İkinci ölçme X₂', diag: true, r: 2.6 }));
         if (back) {
           const h = q['gizli.m4.eta'], g = q['gizli.m4.g'];
@@ -513,7 +527,7 @@
       slider({ key: 'memory', label: 'Bellek etkisi (hatalar ilişkili)', min: 0, max: 0.9, step: 0.05, d: 2 }),
       slider({ key: 'change', label: 'Farklı gerçek değişim', min: 0, max: 6, step: 0.5, d: 1, unit: 'puan' }),
       check('Eşit olmayan hata varyansları (ikinci formda 2 kat)', () => P.unequal, v => { P.unequal = v; }, 'esitdegil'),
-      slider({ key: 'shift', label: 'Sabit kayma (ikinci formda)', min: 0, max: 5, step: 0.5, d: 1, unit: 'puan' })) : null;
+      slider({ key: 'shift', label: 'Sabit kayma (ikinci formda)', min: 0, max: 5, step: 0.5, d: 1, unit: 'puan', locked: !S.expert })) : null;
     put(root, el('div', { class: 'satir' }, modeCtr));
     put(root, el('div', { class: 'izgara' },
       el('div', { class: 'panel' }, el('h3', null, '(a) Fark yolu'), plot,
@@ -539,6 +553,7 @@
         const cell = (v, extra) => el('td', { class: 'n' }, fmt(v), extra ? el('div', { class: 'not' }, extra) : null);
         put(matrix, el('p', null, 'Kovaryans matrisi S. Köşegen dışı değer iki formun paylaştığıdır; gerçek varyansın kestirimidir.'),
           el('div', { class: 'tablo-kutu' }, el('table', { class: 'tablo' }, el('tbody', null, el('tr', null, filled ? cell(s12, 'kalan ' + fmt(qq['m5.kalan1'])) : cell(s1), cell(s12)), el('tr', null, cell(s12), filled ? cell(s12, 'kalan ' + fmt(qq['m5.kalan2'])) : cell(s2))))),
+          back && P.dataMode !== 'fixed' ? el('div', { class: 'kart' }, el('p', { class: 'etiket-gizli' }, 'Perde arkası: kovaryans yolunun çapraz terimleri (model gereği 0; bu sınıftaki örneklem değerleri)'), tableOf(['Terim', 'Bu sınıfta'], [['s²_T', fmt(qq['gizli.m5.sT2'])], ['s_TE₂', fmt(qq['gizli.m5.sTE2'])], ['s_E₁T', fmt(qq['gizli.m5.sE1T'])], ['s_E₁E₂', fmt(qq['gizli.m5.sE1E2'])], ['Toplam = s₁₂', fmt(qq['gizli.m5.sT2'] + qq['gizli.m5.sTE2'] + qq['gizli.m5.sE1T'] + qq['gizli.m5.sE1E2'])]])) : null,
           STATIC ? null : button(filled ? 'Köşegeni geri al' : 'Köşegeni doldur', () => { filled = !filled; update(); }),
           filled ? el('p', null, 'Kalanların ortalaması ', el('b', null, fmt((qq['m5.kalan1'] + qq['m5.kalan2']) / 2)), ' = fark yolundaki s²_D/2. Fark yolu ile köşegen yolu aynı sayıyı verir.') : null);
         conv.innerHTML = '';
@@ -574,7 +589,9 @@
     const pick = el('div', { class: 'anahtar', role: 'group', 'aria-label': 'İki ölçme arasında ne değişiyor?' }, [['zaman', 'Zaman (test-tekrar test)'], ['form', 'Form (eşdeğer formlar)'], ['ikisi', 'İkisi (gecikmeli eşdeğer)']].map(([k, l]) => el('button', { type: 'button', 'aria-pressed': choice === k ? 'true' : 'false', onclick: () => { S.m6choice = k; renderModule(); } }, l)));
     const bars = el('div');
     put(root, el('div', { class: 'izgara' },
-      el('div', { class: 'panel' }, el('h3', null, 'Neyi tekrarlıyoruz?'), pick, roleTable, STATIC ? null : slider({ key: 'k', label: 'Formdaki madde sayısı k', min: 2, max: 40, step: 1, d: 0, hint: 'Madde sayısı arttıkça maddeye özgü sapmalar ortalamada küçülür; nedenini M7\'de göreceksin.' })),
+      el('div', { class: 'panel' }, el('h3', null, 'Neyi tekrarlıyoruz?'), pick, roleTable, STATIC ? null : slider({ key: 'k', label: 'Formdaki madde sayısı k', min: 2, max: 40, step: 1, d: 0, hint: 'Madde sayısı arttıkça maddeye özgü sapmalar ortalamada küçülür; nedenini M7\'de göreceksin.' }),
+        STATIC ? null : check('Bellek etkisi (öğrenciler ilk yanıtlarını hatırlıyor)', () => (P.memory || 0) > 0, v => { P.memory = v ? 0.5 : 0; }, 'bellek6'),
+        STATIC ? null : check('Farklı öğrenme (iki gün arasında kişiden kişiye değişen kazanç)', () => (P.learning || 0) > 0, v => { P.learning = v ? 0.5 : 0; }, 'ogrenme6')),
       el('div', { class: 'panel' }, el('h3', null, 'Aynı veri, dört yöntem'), bars, el('p', { class: 'not' }, 'α sütununu M7\'de elle hesaplayacaksın.'))));
     if (S.expert && !STATIC) put(root, el('details', { class: 'uzman-blok', open: true }, el('summary', null, 'Uzman: varyans kaynakları'), el('div', { class: 'denetimler' }, slider({ key: 'sp', label: 'Kişi σ²_p', min: 0.2, max: 2, step: 0.1, d: 1 }), slider({ key: 'spo', label: 'Kişi × gün σ²_po', min: 0, max: 1, step: 0.05, d: 2 }), slider({ key: 'spi', label: 'Kişi × madde σ²_pi', min: 0, max: 2, step: 0.1, d: 1 }), slider({ key: 'se', label: 'Artık σ²_e', min: 0.1, max: 2, step: 0.1, d: 1 }))));
     put(root, el('div', { class: 'bolum' }, el('h3', null, 'Yöntem kartları'), el('div', { class: 'formuller' }, mod.yontemler.map(y => el('div', { class: 'kart' }, el('h4', null, y.ad), el('p', null, el('b', null, 'Veri tasarımı: '), y.veri), el('p', null, el('b', null, 'Hesap: '), y.hesap), el('p', null, el('b', null, 'Hata sayılan kaynaklar: '), y.hata), el('p', null, el('b', null, 'Varsayım: '), y.varsayim), el('p', null, el('b', null, 'Tipik tuzak: '), y.tuzak))))));
@@ -582,9 +599,9 @@
     return {
       update(q) {
         draw(); bars.innerHTML = '';
-        const sim = C.simRepeatDesigner({ N: 400, k: Math.round(P.k), seed: S.seed, sp: P.sp, spo: P.spo, spi: P.spi, se: P.se });
+        const sim = C.simRepeatDesigner({ N: 400, k: Math.round(P.k), seed: S.seed, sp: P.sp, spo: P.spo, spi: P.spi, se: P.se, memory: P.memory, learning: P.learning });
         const rows = [['Test-tekrar test', 'm6.tekrar', sim.retest], ['Eşdeğer formlar', 'm6.esdeger', sim.equiv], ['Gecikmeli eşdeğer formlar', 'm6.gecikmeli', sim.delayed], ['Tek oturum α', 'm6.alfa', sim.alpha]];
-        put(bars, tableOf(['Yöntem', 'Bu sınıfta (400 kişi)', back ? 'Kuramsal hedef' : 'Evren (model ayarı)'], rows.map(([ad, key, est]) => [ad, fmt(est), qspan(key)])));
+        put(bars, back ? tableOf(['Yöntem', 'Bu sınıfta (400 kişi)', 'Kuramsal hedef (perde arkası)'], rows.map(([ad, key, est]) => [ad, fmt(est), qspan(key)])) : tableOf(['Yöntem', 'Bu sınıfta (400 kişi)'], rows.map(([ad, , est]) => [ad, fmt(est)])));
         bars.querySelectorAll('[data-q]').forEach(n => { n.textContent = fmt(q[n.getAttribute('data-q')]); });
       },
     };
@@ -651,6 +668,9 @@
         P.dataset === 'A5' ? el('p', { class: 'kart' }, 'Zayıf madde: 5. madde ilk dört maddenin toplamıyla ilişkisiz (kovaryans 0). Beş maddeyle α = ' + fmt(a) + '; 5. madde silinince 0,80\'e döner.') : null,
         el('h4', null, 'Madde analizi'), tableOf(['Madde', 'Madde silinirse α', '', 'Düzeltilmiş madde-toplam r'], C.itemAnalysis(data).map(r => ['Madde ' + (r.item + 1), fmt(r.alphaIfDeleted, 4), r.direction, fmt(r.correctedR, 3)]), { textCols: [2] }),
         P.dataset === 'A' ? el('p', { class: 'not' }, '4. madde silinince α 0,8015\'e çıkar; n = 6\'da bu fark örnekleme hatasının çok altındadır.') : null,
+        kr ? pqPanel(kr) : null,
+        S.expert ? el('p', { class: 'not' }, 'Madde güçlüğü notu: "p = 0,5" evrensel bir kural değildir; çoktan seçmeli maddelerde en uygun ortalama güçlük, şans düzeyi ile %100\'ün ortasından biraz daha kolay taraftadır (Lord, 1952). Bu seçim, yetenek aralığının farklı bölgelerindeki ölçme kesinliğiyle bir ödünleşim içerir.') : null,
+        S.expert ? el('p', { class: 'not' }, 'Aynı etki popülasyon modunda: λ = 0,9, 0,8, 0,3, 0,2 iken λ = 0,2 maddesi silinince α ' + fmt(C.factorModel([.9, .8, .3, .2]).alpha, 4) + '\'ten ' + fmt(C.factorModel([.9, .8, .3]).alpha, 4) + '\'e, ω ' + fmt(C.factorModel([.9, .8, .3, .2]).omega, 4) + '\'ten ' + fmt(C.factorModel([.9, .8, .3]).omega, 4) + '\'e çıkar.') : null,
         S.expert && kr ? el('p', null, 'KR-21 = ' + fmt(kr.kr21, 4) + ' ≤ KR-20 (eşit madde güçlüğü varsayar). Payda karışımı yanlış olarak ' + fmt(kr.mixed, 4) + ' verir.') : null,
         STATIC ? null : pasteBox(),
         formulas(kr ? ['m7.kr20', 'm7.toplam_varyans_n'] : ['m7.alpha', 'm7.osh_orneklem'], { 'm7.alpha': N('α̂ = {m7.alfa}'), 'm7.osh_orneklem': N('ÖSH = {m7.osh}') }));
@@ -658,6 +678,17 @@
     put(root, el('div', { class: 'bolum' }, el('h3', null, 'Görülmesi gereken'), el('ul', { class: 'duz gorulmesi' }, mod.gorulmesi.map(g => el('li', { 'data-iddia': g.c }, g.t)))));
     return { update() {} };
   };
+  function pqPanel(kr) {
+    const W = 360, H = 170, pad = { l: 40, r: 12, t: 10, b: 34 }, x = scale(0, 1, pad.l, W - pad.r), y = scale(0, 0.25, H - pad.b, pad.t);
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Madde güçlüğüne göre madde varyansı p(1 − p)' }), g = sv('g'); svg.append(g);
+    axes(g, x, y, W, H, pad, [], [], 'Madde güçlüğü p', 'p(1 − p)');
+    [0, .25, .5, .75, 1].forEach(v => g.append(sv('text', { x: x(v), y: H - pad.b + 16, 'text-anchor': 'middle' }, fmt(v, 2))));
+    [0, .125, .25].forEach(v => g.append(sv('text', { x: pad.l - 6, y: y(v) + 4, 'text-anchor': 'end' }, fmt(v, 3))));
+    let d = ''; for (let i = 0; i <= 50; i++) { const p = i / 50; d += (i ? 'L' : 'M') + x(p) + ',' + y(p * (1 - p)); }
+    g.append(sv('path', { d, fill: 'none', stroke: 'var(--rol-X)', 'stroke-width': 1.6 }));
+    kr.p.forEach((p, i) => g.append(sv('circle', { cx: x(p), cy: y(p * (1 - p)), r: 5, fill: 'var(--rol-madde)' }), sv('text', { x: x(p) + 6, y: y(p * (1 - p)) - 6 }, 'M' + (i + 1))));
+    return el('div', { class: 'panel' }, el('h4', null, 'Madde güçlüğü ve madde varyansı'), el('div', { class: 'grafik' }, svg), el('p', { class: 'not' }, 'Doğru-yanlış maddenin varyansı p(1 − p)\'dir ve p = 0,5\'te en büyüktür.'));
+  }
   function gostergeStatic(ad, v) { return el('div', { class: 'gosterge' }, el('span', { class: 'ad' }, ad), el('span', { class: 'deger' }, fmt(v))); }
   function pasteBox() {
     const ta = el('textarea', { id: 'yapistir', rows: 4, style: 'width:100%', 'aria-label': 'Sekmeyle ayrılmış veri' }), out = el('div', { 'aria-live': 'polite' });
@@ -675,7 +706,7 @@
     const heat = el('div'), pair = el('div');
     const presets = STATIC ? null : el('div', { class: 'satir', role: 'group', 'aria-label': 'Ön ayar modeller' }, [['tau', 'Tau eşdeğer'], ['konjenerik', 'Konjenerik'], ['iliskili', 'İlişkili hata (madde demeti)'], ['bloklar', 'İki blok']].map(([k, l]) => el('button', { type: 'button', class: 'dugme', 'aria-pressed': P.preset === k ? 'true' : 'false', onclick: () => { applyPreset('m8.' + k); } }, l)));
     const ctr = STATIC ? null : P.preset === 'bloklar' ? el('div', { class: 'denetimler' }, slider({ key: 'rf', label: 'Faktörler arası korelasyon', min: 0, max: 1, step: 0.05, d: 2 }), el('div', { class: 'satir' }, button('6 madde', () => { P.blocksK = 6; update(); }), button('12 madde', () => { P.blocksK = 12; update(); })))
-      : el('div', { class: 'denetimler' }, P.lambda ? null : slider({ key: 'meanLambda', label: 'Ortalama yük', min: 0.2, max: 0.9, step: 0.025, d: 3 }), P.lambda ? null : slider({ key: 'spread', label: 'Yük yayılımı', min: 0, max: 0.4, step: 0.05, d: 2 }), P.lambda ? null : slider({ key: 'k', label: 'Madde sayısı k', min: 3, max: 8, step: 1, d: 0 }),
+      : el('div', { class: 'denetimler' }, P.lambda ? null : slider({ key: 'meanLambda', label: 'Ortalama yük', min: 0.2, max: 0.9, step: 0.025, d: 3 }), P.lambda ? null : slider({ key: 'spread', label: 'Yük yayılımı', min: 0, max: 0.4, step: 0.05, d: 2 }), P.lambda ? null : slider({ key: 'k', label: 'Madde sayısı k', min: 3, max: 8, step: 1, d: 0, locked: !S.expert }),
         S.expert && P.lambda ? el('div', null, P.lambda.map((l, i) => slider({ key: 'lam' + i, label: 'λ' + (i + 1), min: 0.05, max: 0.95, step: 0.05, d: 2, get: () => P.lambda[i], set: v => { P.lambda[i] = v; } }))) : null,
         button(S.fillDiag ? 'Köşegeni geri al' : 'Köşegeni doldur', () => { S.fillDiag = !S.fillDiag; renderModule(); }));
     put(root, presets, el('div', { class: 'izgara' }, el('div', { class: 'panel' }, el('h3', null, 'Kovaryans matrisi Σ (popülasyon modu)'), heat, pair),
@@ -764,6 +795,7 @@
     const mod = K.modules.find(m => m.id === S.module);
     document.querySelectorAll('.nav button').forEach(b => b.setAttribute('aria-current', b.dataset.go === (S.page === 'modul' ? S.module : S.page) ? 'page' : 'false'));
     if (S.page !== 'modul') { renderPage(main); document.getElementById('butce').hidden = true; current = null; return; }
+    syncStrip();
     put(main, el('header', { class: 'baslik-blok' }, el('div', { class: 'ust-etiket' }, mod.id.toUpperCase() + ' · yaklaşık ' + mod.dakika + ' dakika'), el('h2', null, mod.baslik), el('ul', { class: 'kazanim' }, mod.kazanimlar.map(k => el('li', null, k))), el('p', { class: 'giris' }, mod.giris)));
     put(main, el('div', { class: 'ne-degisti', id: 'ne-degisti', 'aria-live': 'off' }, S.module === 'm10' ? 'Yanılgı denetimi: her ifadeyi değerlendir.' : 'Bir denetimi değiştir; burada ne değiştiğini ve nedenini göreceksin.'));
     const box = el('div', { class: 'bolum' }); put(main, box);
@@ -799,7 +831,8 @@
   }
   function exportBlock() {
     const out = el('div', { 'aria-live': 'polite' });
-    return el('div', { class: 'kart' }, el('h3', null, 'Veriyi dışa aktar'), el('p', null, 'Geçerli sınıf kodundaki simülasyon verisini (M4: iki ölçme) CSV olarak al; jamovi, SPSS veya R ile doğrulayabilirsin.'), button('CSV olarak al', () => exportCSV(out)), out);
+    return el('div', { class: 'kart' }, el('h3', null, 'Veriyi dışa aktar'), el('p', null, 'Geçerli sınıf kodundaki simülasyon verisini (M4: iki ölçme) CSV olarak al; jamovi, SPSS veya R ile doğrulayabilirsin.'),
+      el('p', { class: 'not' }, 'Kod kitabı. Biçim: UTF-8, alan ayırıcı virgül, ondalık nokta. ogrenci: öğrenci sırası (1-200). olcme1: birinci ölçmenin gözlenen puanı. olcme2: ikinci ölçmenin gözlenen puanı. Değerler M4\'teki geçerli ayarlarla ve sınıf koduyla üretilir; aynı kod aynı veriyi verir.'), button('CSV olarak al', () => exportCSV(out)), out);
   }
   function csvData() {
     const st = coreState('m4'); st.params = S.params.m4; const d = C.derive(st)._series;
@@ -823,8 +856,9 @@
     catch (e) { out.innerHTML = ''; put(out, el('p', null, 'Metni seçip kopyala:'), el('textarea', { rows: 6, style: 'width:100%', readonly: true, 'aria-label': 'CSV metni' }, text)); }
   }
 
+  const DEFAULT_VIEW = { m2: 'backstage', m3: 'backstage', m4: 'backstage' };
   function go(id) {
-    if (MODS.includes(id)) { S.page = 'modul'; S.module = id; store('modul', id); logEvent('modul_giris', { module: id }); }
+    if (MODS.includes(id)) { S.page = 'modul'; S.module = id; S.view = DEFAULT_VIEW[id] || 'real'; syncStrip(); store('modul', id); logEvent('modul_giris', { module: id }); }
     else S.page = id;
     renderModule(); window.scrollTo(0, 0);
   }
@@ -839,6 +873,7 @@
   // Kabuk
   // ---------------------------------------------------------------------------
   function syncStrip() {
+    const vg = document.querySelector('.serit [aria-label="Görünüm"]'); if (vg) vg.hidden = S.page === 'modul' && S.module === 'm1';
     document.querySelectorAll('[data-gorunum]').forEach(b => b.setAttribute('aria-pressed', b.dataset.gorunum === S.view ? 'true' : 'false'));
     const e = document.getElementById('o-uzman'); if (e) e.checked = S.expert;
     const pd = document.getElementById('payda'); if (pd) pd.value = S.denom;

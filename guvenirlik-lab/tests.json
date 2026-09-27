@@ -5319,7 +5319,7 @@
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
       "status": "geçti",
-      "detail": "7 data-q; uyuşmayan: "
+      "detail": "3 data-q; uyuşmayan: "
     },
     {
       "id": "B4.7",
@@ -5799,7 +5799,7 @@
       "tolerance": "tam",
       "spec_line": 480,
       "status": "geçti",
-      "detail": "Node 7d4a1413,10a04b79,0375d7d8,199fc063,477d0ca1,7cf225fd,b37982ca,7dfb29f3,124d86fa / Chromium 7d4a1413,10a04b79,0375d7d8,199fc063,477d0ca1,7cf225fd,b37982ca,7dfb29f3,124d86fa"
+      "detail": "Node 7d4a1413,10a04b79,0375d7d8,e0b6b4e3,f09b226b,7cf225fd,b37982ca,7dfb29f3,124d86fa / Chromium 7d4a1413,10a04b79,0375d7d8,e0b6b4e3,f09b226b,7cf225fd,b37982ca,7dfb29f3,124d86fa"
     },
     {
       "id": "B17.2",

@@ -349,12 +349,14 @@
     const rhoB = o.rhoBEta || 0, w = o.w == null ? 1 : o.w;
     const covEtaU = rhoB * Math.sqrt(sB2 * sEta2);          // g ⊥ η varsayılır
     const sU2 = sB2 + gamma * gamma * pi * (1 - pi);
-    let sE2eff = sE2, sTrue2 = sEta2 + sU2 + 2 * covEtaU;
-    if (o.biasVaries) { sE2eff = sE2 + sU2; sTrue2 = sEta2; } // yanlılık tekrarda değişirse hata gibi
+    const sG2 = gamma * gamma * pi * (1 - pi);
+    let sE2eff = sE2, sTrue2 = sEta2 + sU2 + 2 * covEtaU, withinTrue = sEta2 + sB2 + 2 * covEtaU, withinErr = sE2;
+    // Yanlılık tekrarda değişirse (ve yapıyla ilişkisizse) bu tasarım için hata gibi davranır; γg kararlı kalır
+    if (o.biasVaries) { sE2eff = sE2 + sB2; sTrue2 = sEta2 + sG2; withinTrue = sEta2; withinErr = sE2 + sB2; }
     const sX2 = sTrue2 + sE2eff;
     const covXEta = o.biasVaries ? sEta2 : sEta2 + covEtaU;
     const rho = sTrue2 / sX2, rhoXEta = covXEta / Math.sqrt(sX2 * sEta2);
-    const within = (sEta2 + sB2 + 2 * covEtaU) / (sEta2 + sB2 + 2 * covEtaU + sE2);
+    const within = withinTrue / (withinTrue + withinErr);
     const mean = (o.mu || 0) + (o.c || 0) + gamma * pi;
     return {
       rho, rhoXEta: rhoXEta * Math.sign(w || 1), ceiling: Math.sqrt(rho), withinRho: within,
@@ -365,12 +367,15 @@
   // Tekrar tasarımcısı popülasyonu (k maddelik formun madde ortalaması puanı)
   function repeatDesignerPopulation(o) {
     const { sp, spo, spi, se, k } = o;
-    const retest = (sp + spi / k) / (sp + spi / k + spo + se / k);
+    const mem = o.memory || 0, learn = o.learning || 0;
+    // Bellek: aynı formun iki gününde artık hataların mem oranı ortak; öğrenme: 2. günde kişiden kişiye değişen kazanç (varyans learn)
+    const v1 = sp + spo + (spi + se) / k, v2 = v1 + learn;
+    const retest = (sp + spi / k + mem * se / k) / Math.sqrt(v1 * v2);
     const equiv = (sp + spo) / (sp + spo + (spi + se) / k);
-    const delayed = sp / (sp + spo + (spi + se) / k);
+    const delayed = sp / Math.sqrt(v1 * v2);
     return {
       retest, equiv, delayed, alpha: equiv,
-      halfDiff: { retest: spo + se / k, equiv: (spi + se) / k, delayed: spo + (spi + se) / k },
+      halfDiff: { retest: spo + se / k - mem * se / k + learn / 2, equiv: (spi + se) / k, delayed: spo + (spi + se) / k + learn / 2 },
     };
   }
 
@@ -455,7 +460,8 @@
   // Tekrar tasarımcısı simülasyonu: 2 gün × 2 form, formda k madde, madde ortalaması puanı
   function simRepeatDesigner(o) {
     const N = o.N, k = o.k, seed = o.seed;
-    const P = latentZ(seed, 'p', N, 1), PO = latentZ(seed, 'po', N, 2), PI = latentZ(seed, 'pi', N, 2 * k), Ez = latentZ(seed, 'e', N, 4 * k);
+    const P = latentZ(seed, 'p', N, 1), PO = latentZ(seed, 'po', N, 2), PI = latentZ(seed, 'pi', N, 2 * k), Ez = latentZ(seed, 'e', N, 4 * k), LZ = latentZ(seed, 'ogrenme', N, 1);
+    const mem = o.memory || 0, learn = Math.sqrt(o.learning || 0);
     const sp = Math.sqrt(o.sp), spo = Math.sqrt(o.spo), spi = Math.sqrt(o.spi), se = Math.sqrt(o.se);
     const X = { d1f1: [], d2f1: [], d1f2: [], d2f2: [] }, items11 = [];
     for (let q = 0; q < N; q++) {
@@ -463,7 +469,9 @@
       for (const [key, day, form, off] of [['d1f1', 0, 0, 0], ['d2f1', 1, 0, k], ['d1f2', 0, 1, 2 * k], ['d2f2', 1, 1, 3 * k]]) {
         let s = 0; const row = [];
         for (let i = 0; i < k; i++) {
-          const v = round6(sp * P[q][0] + spo * PO[q][day] + spi * PI[q][form * k + i] + se * Ez[q][off + i]);
+          // Bellek: aynı formun 2. günündeki artık, 1. gündeki artıkla mem oranında ortak
+          const e = (key === 'd2f1') ? mem * Ez[q][i] + Math.sqrt(1 - mem * mem) * Ez[q][off + i] : Ez[q][off + i];
+          const v = round6(sp * P[q][0] + spo * PO[q][day] + spi * PI[q][form * k + i] + se * e + (day === 1 ? learn * LZ[q][0] : 0));
           s += v; if (key === 'd1f1') row.push(v);
         }
         acc[key] = s / k; if (key === 'd1f1') items11.push(row);
@@ -569,6 +577,25 @@
     return Object.assign(base, { params: P[base.module] || {} });
   }
 
+  // M4 örneklemi: iki ölçme, isteğe bağlı 0-100 kesmesi
+  function m4Sample(P, seed, n) {
+    const z = latentZ(seed, 'm4', n, 5), gs = uniformStream(seed, 'm4g', 0);
+    const eta = [], B = [], g = [], X1 = [], X2 = [];
+    for (let p = 0; p < n; p++) {
+          const e = P.sEta * z[p][0];
+          const bz = z[p][1], b2 = z[p][4];
+          const Bp = P.sB * (P.rhoBEta * z[p][0] + Math.sqrt(Math.max(0, 1 - P.rhoBEta * P.rhoBEta)) * bz);
+          const Bp2 = P.biasVaries ? P.sB * b2 : Bp;
+          const gp = gs() < (P.pi || 0) ? 1 : 0;
+          let x1 = P.mu + e + P.c + Bp + (P.gamma || 0) * gp + P.sE * z[p][2];
+          let x2 = P.mu + e + P.c + Bp2 + (P.gamma || 0) * gp + P.sE * z[p][3] + (P.shift2only || 0);
+          x1 = P.w * x1; x2 = P.w * x2;
+          if (P.ceiling) { x1 = Math.min(100, Math.max(0, x1)); x2 = Math.min(100, Math.max(0, x2)); }
+          eta.push(e); B.push(Bp); g.push(gp); X1.push(round6(x1)); X2.push(round6(x2));
+    }
+    return { eta, B, g, X1, X2 };
+  }
+
   // Modül 1-9 için canlı nicelikler. Anahtarlar data-q kimlikleridir.
   function derive(state) {
     const s = state, P = s.params || {}, q = {}, denom = s.denom || 'n-1';
@@ -611,24 +638,17 @@
         const pop = errorLabPopulation({ sEta2: P.sEta * P.sEta, sE2: P.sE * P.sE, sB2: P.sB * P.sB, pi: P.pi, gamma: P.gamma, rhoBEta: P.rhoBEta, biasVaries: P.biasVaries, w: P.w, c: P.c, mu: P.mu });
         q['m4.rho'] = pop.rho; q['m4.osh'] = pop.semVal; q['m4.ortalama'] = pop.mean; q['m4.tavan'] = pop.ceiling;
         q['m4.rho_xeta'] = pop.rhoXEta; q['m4.grup_ici_rho'] = pop.withinRho;
-        const n = P.n || 200, z = latentZ(s.seed, 'm4', n, 5), gs = uniformStream(s.seed, 'm4g', 0);
-        const eta = [], B = [], g = [], X1 = [], X2 = [];
-        for (let p = 0; p < n; p++) {
-          const e = P.sEta * z[p][0];
-          const bz = z[p][1], b2 = z[p][4];
-          const Bp = P.sB * (P.rhoBEta * z[p][0] + Math.sqrt(Math.max(0, 1 - P.rhoBEta * P.rhoBEta)) * bz);
-          const Bp2 = P.biasVaries ? P.sB * b2 : Bp;
-          const gp = gs() < (P.pi || 0) ? 1 : 0;
-          let x1 = P.mu + e + P.c + Bp + (P.gamma || 0) * gp + P.sE * z[p][2];
-          let x2 = P.mu + e + P.c + Bp2 + (P.gamma || 0) * gp + P.sE * z[p][3] + (P.shift2only || 0);
-          x1 = P.w * x1; x2 = P.w * x2;
-          if (P.ceiling) { x1 = Math.min(100, Math.max(0, x1)); x2 = Math.min(100, Math.max(0, x2)); }
-          eta.push(e); B.push(Bp); g.push(gp); X1.push(round6(x1)); X2.push(round6(x2));
+        if (P.ceiling) {
+          // 0-100 kesmesinin kapalı biçimli bir çözümü yok: model değeri sabit tohumlu 20000 kişilik simülasyondan
+          const big = m4Sample(P, 'm4-model', 20000);
+          q['m4.rho'] = correlation(big.X1, big.X2); q['m4.rho_xeta'] = correlation(big.X1, big.eta); q['m4.ortalama'] = mean(big.X1);
+          q['m4.tavan'] = Math.sqrt(Math.max(0, q['m4.rho'])); q['m4.model_simulasyon'] = 1;
         }
+        const smp = m4Sample(P, s.seed, P.n || 200), n = smp.X1.length, { eta, B, g, X1, X2 } = smp;
         q['m4.r12'] = correlation(X1, X2); q['m4.s1'] = variance(X1, denom); q['m4.s12'] = covariance(X1, X2, denom); q['m4.hata_kestirim'] = (variance(X1, denom) + variance(X2, denom)) / 2 - q['m4.s12']; q['m4.ortalama_orneklem'] = mean(X1); q['m4.gecme_orani'] = X1.filter(x => x >= P.cut).length / n;
         q['m4.ortalama_fark'] = mean(X1.map((x, i) => x - X2[i]));
         const an = anova(X1.map((x, i) => [x, X2[i]]));
-        q['m4.icc_c1'] = iccC1(an); q['m4.icc_a1'] = iccA1(an);
+        q['m4.icc_c1'] = iccC1(an); q['m4.icc_a1'] = iccA1(an); q['m4.icc_kirpildi'] = an.clamped ? 1 : 0;
         q[HIDDEN_PREFIX + 'm4.r_xeta_orneklem'] = correlation(X1, eta);
         q[HIDDEN_PREFIX + 'm4.eta'] = eta; q[HIDDEN_PREFIX + 'm4.B'] = B; q[HIDDEN_PREFIX + 'm4.g'] = g;
         q._series = { X1, X2 };
@@ -645,6 +665,8 @@
           // Farklı gerçek değişim: kişiden kişiye değişen, T'den bağımsız bir öğrenme kazancı (r[3])
           x2 = z.map((r, i) => round6(T[i] + (P.change || 0) * r[3] + P.sigmaE * (mem * r[1] + Math.sqrt(1 - mem * mem) * r[2]) * (P.unequal ? 2 : 1)));
           q[HIDDEN_PREFIX + 'm5.T'] = T; q[HIDDEN_PREFIX + 'm5.rho'] = P.sigmaT ** 2 / (P.sigmaT ** 2 + P.sigmaE ** 2);
+          const E1 = x1.map((v, i) => v - T[i]), E2 = x2.map((v, i) => v - T[i]);
+          q[HIDDEN_PREFIX + 'm5.sT2'] = variance(T, denom); q[HIDDEN_PREFIX + 'm5.sTE2'] = covariance(T, E2, denom); q[HIDDEN_PREFIX + 'm5.sE1T'] = covariance(E1, T, denom); q[HIDDEN_PREFIX + 'm5.sE1E2'] = covariance(E1, E2, denom);
         }
         x2 = x2.map(v => v + (P.shift || 0));
         const tf = twoForms(x1, x2, denom);
@@ -733,11 +755,11 @@
     { id: 'm4.tesadufi', module: 'm4', params: { sE: Math.sqrt(40) } },
     { id: 'm4.ters', module: 'm4', params: { sB: Math.sqrt(20), rhoBEta: -0.9, expert: true } },
     { id: 'm4.altgrup', module: 'm4', params: { pi: 0.5, gamma: Math.sqrt(60) } },
-    { id: 'm4.tavan', module: 'm4', params: { mu: 90, ceiling: true } },
+    { id: 'm4.tavan', module: 'm4', params: { mu: 85, c: 10, ceiling: true } },
     { id: 'm4.ikinci', module: 'm4', params: { shift2only: 5 } },
     { id: 'm3.hata', module: 'm3', params: { sigmaE: 8 } },
     { id: 'm3.gercek', module: 'm3', params: { sigmaT: 12 } },
-    { id: 'm4.tavan_once', module: 'm4', params: { mu: 90 } },
+    { id: 'm4.tavan_once', module: 'm4', params: { mu: 85, ceiling: true } },
     { id: 'm5.varsayilan', module: 'm5', params: {} },
     { id: 'm5.sim', module: 'm5', params: { dataMode: 'sim', n: 1000, sigmaT: 4, sigmaE: 2 } },
     { id: 'm5.bellek', module: 'm5', params: { dataMode: 'sim', n: 1000, sigmaT: 4, sigmaE: 2, memory: 0.6 } },
