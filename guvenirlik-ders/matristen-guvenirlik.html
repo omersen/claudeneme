@@ -1,0 +1,410 @@
+<title>Matristen Güvenirlik</title>
+<style>
+:root {
+  --zemin: #f6f8f7; --yuzey: #ffffff; --yuzey2: #eef2f0; --cizgi: #cdd6d2; --ince: #e3e9e6;
+  --metin: #1e2a33; --metin2: #44535c; --soluk: #5d6b72;
+  --vurgu: #0e7c7b; --vurgu-zemin: #d9efee; --vurgu-metin: #ffffff;
+  --gercek: #1f6fb2; --gercek-zemin: #dbe9f6; --hata: #c9560f; --hata-zemin: #fbe5d6; --gozlenen: #4a5860;
+  --iyi: #1f7a3a; --kotu: #b3261e; --isik: #ffe38a;
+  --baslik: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --govde: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --sayi: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --zemin: #121a1e; --yuzey: #1a242a; --yuzey2: #222e35; --cizgi: #36464f; --ince: #2b3840;
+    --metin: #e7eef0; --metin2: #bac8ce; --soluk: #9aabb3;
+    --vurgu: #4cc2c0; --vurgu-zemin: #173b3c; --vurgu-metin: #0b1b1c;
+    --gercek: #6cb2ef; --gercek-zemin: #1b3550; --hata: #f19350; --hata-zemin: #4a2a14; --gozlenen: #c7d3d8;
+    --iyi: #6bd38a; --kotu: #ff8a80; --isik: #6a5714;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --zemin: #121a1e; --yuzey: #1a242a; --yuzey2: #222e35; --cizgi: #36464f; --ince: #2b3840;
+  --metin: #e7eef0; --metin2: #bac8ce; --soluk: #9aabb3;
+  --vurgu: #4cc2c0; --vurgu-zemin: #173b3c; --vurgu-metin: #0b1b1c;
+  --gercek: #6cb2ef; --gercek-zemin: #1b3550; --hata: #f19350; --hata-zemin: #4a2a14; --gozlenen: #c7d3d8;
+  --iyi: #6bd38a; --kotu: #ff8a80; --isik: #6a5714;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--zemin); color: var(--metin); font-family: var(--govde); font-size: 17px; line-height: 1.55; }
+.sayfa { max-width: 1040px; margin: 0 auto; padding-block: 18px 40px; padding-inline: 20px; display: flex; flex-direction: column; gap: 18px; }
+h1, h2, h3 { font-family: var(--baslik); margin: 0; line-height: 1.2; text-wrap: balance; }
+h1 { font-size: 1.25rem; font-weight: 700; }
+h2 { font-size: 1.7rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; max-width: 64ch; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--vurgu); outline-offset: 2px; border-radius: 4px; }
+.n, .mat td, .tablo td { font-family: var(--sayi); font-variant-numeric: tabular-nums; }
+.ust { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; }
+.ust .alt { color: var(--soluk); font-size: .9rem; }
+.adimlar { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+.adimlar button { flex: none; border: 1px solid var(--cizgi); background: var(--yuzey); border-radius: 999px; padding: 6px 12px; min-height: 40px; cursor: pointer; font-size: .9rem; color: var(--metin2); }
+.adimlar button[aria-current="step"] { background: var(--vurgu); border-color: var(--vurgu); color: var(--vurgu-metin); font-weight: 700; }
+.adimlar button.goruldu { border-color: var(--vurgu); }
+.adim { display: flex; flex-direction: column; gap: 16px; }
+.soru { font-size: .85rem; letter-spacing: .07em; text-transform: uppercase; color: var(--vurgu); font-weight: 700; }
+.iki { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.kutu { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.kabul { background: var(--vurgu-zemin); border: 2px solid var(--vurgu); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.kabul b { color: var(--metin); }
+.not { font-size: .9rem; color: var(--soluk); }
+.satir { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn { border: 1px solid var(--cizgi); background: var(--yuzey); border-radius: 6px; padding: 8px 14px; min-height: 44px; cursor: pointer; }
+.btn:hover { border-color: var(--vurgu); }
+.btn[aria-pressed="true"] { background: var(--vurgu-zemin); border-color: var(--vurgu); font-weight: 700; }
+.btn.ana { background: var(--vurgu); border-color: var(--vurgu); color: var(--vurgu-metin); font-weight: 700; }
+.gezinme { display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid var(--cizgi); padding-top: 14px; }
+.sembol { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: baseline; }
+.sembol .s { font-family: var(--baslik); font-size: 1.15rem; font-weight: 700; }
+.g { color: var(--gercek); } .h { color: var(--hata); }
+.buyuk { font-family: var(--sayi); font-size: 2.4rem; font-weight: 600; line-height: 1; }
+.denklem { font-family: var(--sayi); font-size: 1.05rem; background: var(--yuzey2); border-radius: 6px; padding: 10px 12px; overflow-x: auto; white-space: nowrap; }
+.kaydir { overflow-x: auto; max-width: 100%; }
+.tablo { border-collapse: collapse; }
+.tablo th, .tablo td { padding: 5px 10px; border-bottom: 1px solid var(--ince); text-align: right; }
+.tablo th { font-size: .82rem; color: var(--soluk); }
+.tablo th:first-child, .tablo td:first-child { text-align: left; }
+.tablo tr.toplam td { border-top: 2px solid var(--cizgi); font-weight: 700; }
+.tablo .sec { background: var(--vurgu-zemin); }
+/* Matris */
+.matris { display: inline-grid; grid-template-columns: repeat(3, minmax(56px, 76px)); gap: 6px; padding: 10px 14px; border-left: 3px solid var(--metin); border-right: 3px solid var(--metin); border-radius: 6px; }
+.matris.buyuk { grid-template-columns: repeat(3, minmax(64px, 96px)); }
+.hucre { position: relative; aspect-ratio: 1; max-width: 100%; border-radius: 6px; border: 1px solid var(--cizgi); background: var(--yuzey); display: flex; align-items: center; justify-content: center; font-family: var(--sayi); font-size: 1.25rem; cursor: pointer; overflow: hidden; }
+.hucre.kosegen { background: var(--yuzey2); }
+.hucre.bos { color: var(--soluk); }
+.hucre.soluk { opacity: .35; }
+.hucre.isik { box-shadow: 0 0 0 3px var(--vurgu); }
+.hucre .yazi { position: relative; z-index: 1; text-align: center; line-height: 1.15; font-size: inherit; }
+.hucre .dolgu-g, .hucre .dolgu-h { position: absolute; left: 0; right: 0; bottom: 0; }
+.hucre .dolgu-g { background: var(--gercek-zemin); }
+.hucre .dolgu-h { background: var(--hata-zemin); }
+.hucre.sembolik { font-family: var(--baslik); font-size: 1.05rem; }
+.matris-yan { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.isaret { font-family: var(--sayi); font-size: 1.6rem; color: var(--soluk); }
+.etiket { font-size: .82rem; color: var(--soluk); text-align: center; margin-top: 4px; }
+.cip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 4px 12px; font-size: .9rem; border: 1px solid var(--cizgi); background: var(--yuzey); }
+.cip.g { border-color: var(--gercek); } .cip.h { border-color: var(--hata); }
+/* Çubuk */
+.cubuk { display: flex; height: 44px; border-radius: 6px; overflow: hidden; border: 1px solid var(--cizgi); }
+.cubuk div { display: flex; align-items: center; justify-content: center; font-family: var(--sayi); font-weight: 700; min-width: 0; transition: flex-basis .35s ease; }
+.cubuk .pg { background: var(--gercek); color: #fff; }
+.cubuk .ph { background: var(--hata); color: #fff; }
+.cubuk .px { background: var(--gozlenen); color: var(--yuzey); }
+svg text { fill: var(--metin); font-family: var(--govde); }
+.kaydirici { display: grid; grid-template-columns: minmax(0, 1fr) 3.5em; gap: 2px 10px; align-items: center; }
+.kaydirici label { grid-column: 1 / -1; font-size: .95rem; }
+.kaydirici input[type="range"] { width: 100%; min-height: 40px; accent-color: var(--vurgu); }
+.kaydirici output { font-family: var(--sayi); text-align: right; }
+input[type="text"] { font: inherit; width: 5em; min-height: 40px; padding: 4px 8px; border: 1px solid var(--cizgi); border-radius: 6px; background: var(--yuzey); color: var(--metin); font-family: var(--sayi); }
+.dogru { color: var(--iyi); font-weight: 700; } .yanlis { color: var(--kotu); font-weight: 700; }
+details { border: 1px solid var(--cizgi); border-radius: 8px; background: var(--yuzey); padding: 10px 14px; }
+details summary { cursor: pointer; font-weight: 700; min-height: 30px; }
+details[open] summary { margin-bottom: 8px; }
+ol, ul { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 4px; }
+@media (max-width: 760px) {
+  .iki { grid-template-columns: minmax(0, 1fr); }
+  h2 { font-size: 1.35rem; }
+  body { font-size: 16px; }
+  .sayfa { padding-inline: 16px; }
+  .matris { grid-template-columns: repeat(3, minmax(44px, 64px)); padding: 8px; }
+  .hucre { font-size: 1.05rem; }
+  .hucre.sembolik { font-size: .85rem; }
+  .buyuk { font-size: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,700&display=swap">
+
+<div class="sayfa">
+  <header class="ust">
+    <h1>Matristen güvenirlik, adım adım</h1>
+    <span class="alt">Klasik Test Kuramı · 3 madde, 9 öğrenci · ok tuşlarıyla da ilerleyebilirsin</span>
+  </header>
+  <nav class="adimlar" id="adimlar" aria-label="Adımlar"></nav>
+  <main id="icerik" class="adim" aria-live="polite"></main>
+  <div class="gezinme">
+    <button class="btn" id="geri" type="button">← Geri</button>
+    <button class="btn ana" id="ileri" type="button">İleri →</button>
+  </div>
+  <details>
+    <summary>Öğretim elemanı için: yaklaşık 40 dakikalık kullanım</summary>
+    <ol>
+      <li><b>Adım 1-3 (10 dk):</b> Tahtada veya projeksiyonda bir çifti birlikte hesaplayın (X₁ · X₂). Kalan beş hücreyi gruplara dağıtın; herkes kendi çiftini sayfada kontrol etsin.</li>
+      <li><b>Adım 4 (5 dk):</b> İki kabulü yüksek sesle okuyun. "Bu kabulü veriden mi bulduk?" diye sorun; yanıt: hayır.</li>
+      <li><b>Adım 5-6 (10 dk):</b> Öğrenciler hücreleri eşleştirsin, 6 bilgi ve 4 bilinmeyeni saysın, sonra "Köşegeni ayır" ile φ ve θ değerlerini bulsun.</li>
+      <li><b>Adım 7-8 (8 dk):</b> Önce yalnız köşegeni toplamanın (12) neden yanlış olduğunu tartışın, sonra 18 ÷ 24 ve α formülünü karşılaştırın.</li>
+      <li><b>Adım 9 (7 dk):</b> "Hata artarsa ne olur?" tahminini yazdırın, kaydırıcıyla kontrol ettirin. Alıştırma matrisi çıkış bileti olarak kullanılabilir (yanıt 0,60).</li>
+    </ol>
+    <p class="not">Bu sayfa "KTK: Kovaryanstan güvenirliğe" sunumunun 1-22. slaytlarının sadeleştirilmiş, etkileşimli hâlidir. Tanımlanabilirlik, SPSS ve simülasyon slaytları için sunuma dönün.</p>
+  </details>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // ---- Veri (sunumdaki öğretim verisi: 9 öğrenci, her maddede ortalama 10) ----
+  const X = [[9, 8, 11], [7, 8, 7], [11, 8, 7], [9, 8, 11], [11, 12, 9], [9, 12, 9], [13, 12, 13], [11, 12, 13], [10, 10, 10]];
+  const n = X.length, k = 3;
+  const col = j => X.map(r => r[j]);
+  const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+  const cov = (a, b) => { const ma = mean(a), mb = mean(b); return a.reduce((s, v, i) => s + (v - ma) * (b[i] - mb), 0) / (a.length - 1); };
+  const S = [0, 1, 2].map(i => [0, 1, 2].map(j => cov(col(i), col(j))));
+  const nf = new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 3 });
+  const f = v => nf.format(Math.round(v * 1000) / 1000).replace('-', '−');
+  const f2 = v => new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(v);
+  const sub = ['₁', '₂', '₃'];
+
+  // ---- Durum ----
+  const st = { adim: 0, cift: [0, 1], dolu: new Set(), bolundu: false, esle: null, phi: 2, th: [1, 2, 3], ortak: 0, gorulen: new Set([0]) };
+  try { const a = parseInt(localStorage.getItem('mg.adim'), 10); if (a >= 0 && a < 9) st.adim = a; } catch (e) { /* yok */ }
+
+  // ---- Yardımcılar ----
+  function el(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    for (const k2 in (attrs || {})) { const v = attrs[k2]; if (v == null || v === false) continue; if (k2 === 'class') e.className = v; else if (k2 === 'html') e.innerHTML = v; else if (k2.startsWith('on')) e.addEventListener(k2.slice(2), v); else e.setAttribute(k2, v === true ? '' : v); }
+    for (const c of kids.flat()) if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(String(c)));
+    return e;
+  }
+  function matris(cells, o) {
+    const opt = o || {};
+    const g = el('div', { class: 'matris' + (opt.buyuk ? ' buyuk' : ''), role: 'grid', 'aria-label': opt.aria || 'Matris' });
+    cells.forEach((row, i) => row.forEach((c, j) => {
+      const cls = ['hucre', i === j ? 'kosegen' : '', c.cls || ''].join(' ');
+      const h = el('button', { type: 'button', class: cls, 'aria-label': c.aria || (opt.aria || '') + ' satır ' + (i + 1) + ' sütun ' + (j + 1) + ': ' + (c.metin == null ? 'boş' : c.metin), 'data-i': i, 'data-j': j });
+      if (c.g != null) { const tot = c.g + c.h; h.append(el('div', { class: 'dolgu-h', style: `top:0` }), el('div', { class: 'dolgu-g', style: `height:${tot > 0 ? 100 * c.g / tot : 0}%` })); }
+      h.append(el('span', { class: 'yazi', html: c.html || '' }, c.html ? null : (c.metin == null ? '?' : c.metin)));
+      if (opt.tik) h.addEventListener('click', () => opt.tik(i, j));
+      g.append(h);
+    }));
+    return g;
+  }
+  const gozlenenHucreler = (goster) => S.map((r, i) => r.map((v, j) => ({ metin: goster ? f(v) : null, cls: goster ? '' : 'bos' })));
+
+  // ---- Adımlar ----
+  const ADIMLAR = [
+    { kisa: '1 Veri', soru: 'Elimizde ne var?', yap: adimVeri },
+    { kisa: '2 Birlikte değişim', soru: 'Sayılar birlikte nasıl değişiyor?', yap: adimKovaryans },
+    { kisa: '3 Matris', soru: 'Bilgiyi tek tabloda toplamak', yap: adimMatris },
+    { kisa: '4 Kabulümüz', soru: 'Hangi kabulle ilerliyoruz?', yap: adimKabul },
+    { kisa: '5 Model', soru: 'Kabulümüz matrisi nasıl öngörüyor?', yap: adimModel },
+    { kisa: '6 Bilinmeyen', soru: 'Görmediğimiz gerçek varyansı bulmak', yap: adimBilinmeyen },
+    { kisa: '7 Toplam puan', soru: 'Sınavın toplam puanı', yap: adimToplam },
+    { kisa: '8 Güvenirlik', soru: 'Sonuç: güvenirlik', yap: adimGuvenirlik },
+    { kisa: '9 Kendin dene', soru: 'Değiştir ve gözle', yap: adimDene },
+  ];
+
+  function adimVeri(k2) {
+    const secili = st.veriSutun == null ? -1 : st.veriSutun;
+    const tb = el('table', { class: 'tablo' }, el('thead', null, el('tr', null, el('th', null, 'Öğrenci'), [0, 1, 2].map(j => el('th', null, el('button', { type: 'button', class: 'btn', 'aria-pressed': secili === j ? 'true' : 'false', onclick: () => { st.veriSutun = j; ciz(); } }, 'X' + sub[j]))))),
+      el('tbody', null, X.map((r, i) => el('tr', null, el('td', null, String(i + 1)), r.map((v, j) => el('td', { class: secili === j ? 'sec' : '' }, String(v))))), el('tr', { class: 'toplam' }, el('td', null, 'Ortalama'), [0, 1, 2].map(j => el('td', null, f(mean(col(j))))))));
+    k2.append(el('div', { class: 'iki' },
+      el('div', { class: 'kutu' }, el('div', { class: 'kaydir' }, tb), el('p', { class: 'not' }, 'Ders için kurulmuş örnek veri: 9 öğrenci, 3 madde. Gerçek öğrenci verisi değildir.')),
+      el('div', { class: 'kutu' },
+        el('p', null, 'Dokuz öğrenci üç madde yanıtladı. Elimizde yalnızca gözlenen puanlar var: ', el('b', null, 'X₁, X₂, X₃'), '.'),
+        el('p', null, 'Öğrencinin gerçek düzeyini ve her maddedeki hatayı ', el('b', null, 'görmüyoruz'), '. Tabloda böyle sütunlar yok.'),
+        el('p', null, 'Soru şu: Yalnızca bu puanlarla, puanların ne kadarının gerçek farklardan, ne kadarının hatadan geldiğini söyleyebilir miyiz?'),
+        el('p', { class: 'not' }, secili >= 0 ? 'X' + sub[secili] + ' sütununun ortalaması ' + f(mean(col(secili))) + '. Her maddede ortalama 10.' : 'Bir madde başlığına dokun: sütun vurgulanır.'))));
+  }
+
+  function adimKovaryans(k2) {
+    const [a, b] = st.cift, ca = col(a), cb = col(b), ma = mean(ca), mb = mean(cb);
+    const ayni = a === b;
+    st.dolu.add(a + '-' + b); st.dolu.add(b + '-' + a);
+    const satirlar = X.map((r, i) => { const da = r[a] - ma, db = r[b] - mb; return el('tr', null, el('td', null, String(i + 1)), el('td', null, String(r[a])), el('td', null, String(r[b])), el('td', null, f(da)), el('td', null, f(db)), el('td', null, f(da * db))); });
+    const top = X.reduce((s, r) => s + (r[a] - ma) * (r[b] - mb), 0);
+    const baslik = ayni ? 'X' + sub[a] + ' kendisiyle' : 'X' + sub[a] + ' ile X' + sub[b];
+    const secim = el('div', { class: 'satir', role: 'group', 'aria-label': 'Madde çifti seç' }, [[0, 0], [1, 1], [2, 2], [0, 1], [0, 2], [1, 2]].map(([p, q]) => el('button', { type: 'button', class: 'btn', 'aria-pressed': a === p && b === q ? 'true' : 'false', onclick: () => { st.cift = [p, q]; ciz(); } }, p === q ? 'X' + sub[p] + ' · X' + sub[p] : 'X' + sub[p] + ' · X' + sub[q])));
+    const mini = matris(S.map((r, i) => r.map((v, j) => st.dolu.has(i + '-' + j) ? { metin: f(v), cls: i === a && j === b || i === b && j === a ? 'isik' : '' } : { metin: null, cls: 'bos' })), { aria: 'Doldurulan hücreler', tik: (i, j) => { st.cift = i <= j ? [i, j] : [j, i]; ciz(); } });
+    const kalan = 9 - st.dolu.size;
+    k2.append(secim, el('div', { class: 'iki' },
+      el('div', { class: 'kutu' }, el('h3', null, baslik),
+        el('div', { class: 'kaydir' }, el('table', { class: 'tablo' }, el('thead', null, el('tr', null, el('th', null, 'Öğr.'), el('th', null, 'X' + sub[a]), el('th', null, 'X' + sub[b]), el('th', null, 'Fark₁'), el('th', null, 'Fark₂'), el('th', null, 'Çarpım'))), el('tbody', null, satirlar, el('tr', { class: 'toplam' }, el('td', null, 'Toplam'), el('td'), el('td'), el('td', null, '0'), el('td', null, '0'), el('td', null, f(top)))))),
+        el('div', { class: 'denklem' }, 'Toplam ÷ (n − 1) = ' + f(top) + ' ÷ 8 = ', el('b', null, f(top / 8)))),
+      el('div', { class: 'kutu' },
+        el('p', null, '1. Her puandan ortalamayı (10) çıkar: ', el('b', null, 'fark'), '.'),
+        el('p', null, '2. İki farkı çarp. İkisi de ortalamanın aynı tarafındaysa çarpım artı, farklı taraftaysa eksidir.'),
+        el('p', null, '3. Çarpımları topla ve öğrenci sayısının bir eksiğine (8) böl.'),
+        el('p', null, ayni ? 'Bir madde kendisiyle eşleşince bu sayıya ' : 'İki farklı madde için bu sayıya ', el('b', null, ayni ? 'varyans' : 'kovaryans'), ' denir: ', ayni ? 'maddenin puanları ne kadar yayılıyor?' : 'iki madde birlikte ne kadar değişiyor?'),
+        el('div', null, mini, el('p', { class: 'etiket' }, kalan > 0 ? 'Diğer çiftleri de seç: ' + kalan + ' hücre boş.' : 'Bütün hücreler doldu. Sonraki adıma geç.')))));
+  }
+
+  function adimMatris(k2) {
+    const sadece6 = !!st.sadece6;
+    const aciklama = el('p', { class: 'not', 'aria-live': 'polite' }, 'Bir hücreye dokun.');
+    const m = matris(S.map((r, i) => r.map((v, j) => ({ metin: f(v), cls: sadece6 && j < i ? 'soluk' : '' }))), { buyuk: true, aria: 'Gözlenen matris', tik: (i, j) => { aciklama.textContent = i === j ? 'Köşegen: X' + sub[i] + ' maddesinin varyansı (' + f(S[i][j]) + '). Maddenin puanları ne kadar yayılıyor?' : 'Köşegen dışı: X' + sub[i] + ' ile X' + sub[j] + ' maddelerinin kovaryansı (' + f(S[i][j]) + '). Karşı köşedeki hücre aynı sayıdır.'; } });
+    k2.append(el('div', { class: 'iki' },
+      el('div', { class: 'kutu' }, m, aciklama, el('button', { type: 'button', class: 'btn', 'aria-pressed': sadece6 ? 'true' : 'false', onclick: () => { st.sadece6 = !sadece6; ciz(); } }, sadece6 ? 'Bütün hücreleri göster' : 'Tekrarlayan hücreleri soldur')),
+      el('div', { class: 'kutu' },
+        el('p', null, 'Bulduğumuz dokuz sayıyı bir tabloya yerleştirdik. Buna ', el('b', null, 'kovaryans matrisi'), ' denir. Sembolü ', el('b', null, 'Σ'), ' (sigma).'),
+        el('ul', null, el('li', null, el('b', null, 'Köşegen'), ' (sol üstten sağ alta): ', el('b', null, '3, 4, 5'), '. Her maddenin kendi varyansı.'), el('li', null, el('b', null, 'Köşegen dışı'), ': hep ', el('b', null, '2'), '. Madde çiftlerinin kovaryansı.')),
+        el('p', null, 'Matris simetriktir: X₁·X₂ ile X₂·X₁ aynı sayıdır. Bu yüzden 9 hücrede yalnızca ', el('b', null, '6 farklı bilgi'), ' vardır: 3 varyans + 3 kovaryans.'))));
+  }
+
+  function adimKabul(k2) {
+    const W = 520, H = 300;
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', 'Model çizimi: F üç maddeye bir katsayısıyla bağlanır; her maddenin kendi hatası vardır.');
+    svg.style.width = '100%'; svg.style.height = 'auto'; svg.style.maxWidth = '100%';
+    const ns = (t, a, txt) => { const e = document.createElementNS('http://www.w3.org/2000/svg', t); for (const q in a) e.setAttribute(q, a[q]); if (txt != null) e.textContent = txt; svg.append(e); return e; };
+    ns('defs').innerHTML = '<marker id="ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--metin2)"/></marker>';
+    ns('ellipse', { cx: 260, cy: 50, rx: 92, ry: 34, fill: 'var(--gercek-zemin)', stroke: 'var(--gercek)', 'stroke-width': 2.5 });
+    ns('text', { x: 260, y: 47, 'text-anchor': 'middle', 'font-size': 22, 'font-weight': 700 }, 'F');
+    ns('text', { x: 260, y: 68, 'text-anchor': 'middle', 'font-size': 12 }, 'gerçek düzey (görünmez)');
+    [110, 260, 410].forEach((x, j) => {
+      ns('line', { x1: 260, y1: 82, x2: x, y2: 160, stroke: 'var(--gercek)', 'stroke-width': 2.5, 'marker-end': 'url(#ok)' });
+      const lx = (260 + x) / 2 + (j === 0 ? -34 : j === 2 ? 34 : 18), ly = 125;
+      ns('rect', { x: lx - 30, y: ly - 15, width: 60, height: 24, rx: 12, fill: 'var(--yuzey)', stroke: 'var(--vurgu)', 'stroke-width': 1.5 });
+      ns('text', { x: lx, y: ly + 3, 'text-anchor': 'middle', 'font-size': 14, 'font-weight': 700 }, 'λ' + sub[j] + ' = 1');
+      ns('rect', { x: x - 38, y: 162, width: 76, height: 46, rx: 6, fill: 'var(--yuzey2)', stroke: 'var(--gozlenen)', 'stroke-width': 2 });
+      ns('text', { x, y: 191, 'text-anchor': 'middle', 'font-size': 20, 'font-weight': 700 }, 'X' + sub[j]);
+      ns('circle', { cx: x, cy: 262, r: 22, fill: 'var(--hata-zemin)', stroke: 'var(--hata)', 'stroke-width': 2 });
+      ns('text', { x, y: 268, 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 700 }, 'E' + sub[j]);
+      ns('line', { x1: x, y1: 240, x2: x, y2: 211, stroke: 'var(--hata)', 'stroke-width': 2, 'marker-end': 'url(#ok)' });
+    });
+    k2.append(el('div', { class: 'iki' },
+      el('div', { class: 'kutu' }, svg, el('p', { class: 'etiket' }, 'Mavi: ortak gerçek düzey. Gri kutu: gözlenen madde puanı. Turuncu: o maddenin hatası.')),
+      el('div', { class: 'kutu' },
+        el('div', { class: 'kabul' },
+          el('b', null, 'KABUL 1 · Üç madde aynı özelliğin doğrudan göstergesidir.'),
+          el('p', null, 'Her maddede puan şöyle oluşur:'),
+          el('div', { class: 'denklem' }, 'Xⱼ = 10 + ', el('b', null, '1'), ' × F + Eⱼ'),
+          el('p', null, 'F\'nin önündeki katsayılar (', el('b', null, 'λ₁ = λ₂ = λ₃ = 1'), ') eşit ve 1. Yani F bir birim artınca her maddede puan bir birim artar. ', el('b', null, 'Bunu veriden bulmadık; biz kabul ediyoruz.'))),
+        el('div', { class: 'kabul' },
+          el('b', null, 'KABUL 2 · Hatalar bağımsızdır.'),
+          el('p', null, 'Bir maddedeki hata, gerçek düzeyle ve öteki maddelerin hatalarıyla birlikte değişmez.')),
+        el('details', null, el('summary', null, 'Dikkat: "1" ne demek, ne demek değil?'),
+          el('ul', null, el('li', null, '1 olan F değil, F\'nin önündeki katsayıdır. F öğrenciden öğrenciye değişir.'), el('li', null, '"Doğrudan gösterge" hatasız demek değildir. Her maddenin kendi hatası (Eⱼ) vardır.'), el('li', null, 'Bu, öğretim için seçtiğimiz basit bir modeldir. Maddeler özelliği farklı güçte yansıtıyorsa katsayılar farklı olur ve hesap değişir.'))))));
+  }
+
+  function adimModel(k2) {
+    const e = st.esle;
+    const tik = (i, j) => { st.esle = [i, j]; ciz(); };
+    const isik = (i, j) => e && ((e[0] === i && e[1] === j) || (e[0] === j && e[1] === i)) ? 'isik' : '';
+    const sol = matris(S.map((r, i) => r.map((v, j) => ({ metin: f(v), cls: isik(i, j) }))), { aria: 'Gözlenen matris', tik });
+    const sag = matris([0, 1, 2].map(i => [0, 1, 2].map(j => ({ html: i === j ? '<span class="g">φ</span> + <span class="h">θ' + sub[i] + '</span>' : '<span class="g">φ</span>', cls: 'sembolik ' + isik(i, j), aria: i === j ? 'φ artı θ' + (i + 1) : 'φ' }))), { aria: 'Modelin matrisi', tik });
+    let aciklama = 'İki matristen birinde bir hücreye dokun: eşi yanıyor.';
+    if (e) aciklama = e[0] === e[1] ? 'Köşegen: gözlenen ' + f(S[e[0]][e[1]]) + ' = φ + θ' + sub[e[0]] + '. Maddenin varyansı, ortak kısım ile o maddenin hatasının toplamıdır.' : 'Köşegen dışı: gözlenen ' + f(S[e[0]][e[1]]) + ' = φ. İki farklı maddeyi yalnızca ortak F bağlar; hatalar bağımsız olduğu için başka bir şey kalmaz.';
+    k2.append(el('div', { class: 'kutu' },
+      el('div', { class: 'matris-yan' }, el('div', null, sol, el('p', { class: 'etiket' }, 'Veriden bulduğumuz')), el('span', { class: 'isaret' }, '='), el('div', null, sag, el('p', { class: 'etiket' }, 'Kabulümüzün öngördüğü'))),
+      el('p', { 'aria-live': 'polite' }, aciklama)),
+      el('div', { class: 'iki' },
+        el('div', { class: 'kutu' }, el('h3', null, 'Semboller'),
+          el('div', { class: 'sembol' },
+            el('span', { class: 's g' }, 'φ'), el('span', null, 'fi: F\'nin varyansı. Öğrencilerin gerçek düzeyleri ne kadar farklı? (KTK\'daki gerçek puan varyansı.)'),
+            el('span', { class: 's h' }, 'θ₁, θ₂, θ₃'), el('span', null, 'teta: her maddenin hata varyansı. Madde ne kadar gürültülü?'))),
+        el('div', { class: 'kutu' }, el('h3', null, 'Say: bilgi ve bilinmeyen'),
+          el('div', { class: 'satir' }, el('span', { class: 'buyuk' }, '6'), el('span', null, 'farklı bilgi (3 varyans + 3 kovaryans)')),
+          el('div', { class: 'satir' }, el('span', { class: 'buyuk' }, '4'), el('span', null, 'bilinmeyen: ', el('span', { class: 'cip g' }, 'φ'), ' ', el('span', { class: 'cip h' }, 'θ₁'), ' ', el('span', { class: 'cip h' }, 'θ₂'), ' ', el('span', { class: 'cip h' }, 'θ₃'))),
+          el('p', { class: 'not' }, 'φ dokuz hücrede görünse de tek bir bilinmeyendir. Bilgi bilinmeyenden fazla olduğu için çözüm bulabiliriz.'))));
+  }
+
+  function adimBilinmeyen(k2) {
+    const bol = st.bolundu;
+    const phi = (S[0][1] + S[0][2] + S[1][2]) / 3, th = [0, 1, 2].map(i => S[i][i] - phi);
+    const m = matris(S.map((r, i) => r.map((v, j) => bol ? { metin: null, html: i === j ? `<span class="g">${f(phi)}</span> + <span class="h">${f(th[i])}</span>` : `<span class="g">${f(v)}</span>`, g: i === j ? phi : v, h: i === j ? th[i] : 0, aria: i === j ? 'gerçek ' + f(phi) + ' artı hata ' + f(th[i]) : 'gerçek ' + f(v) } : { metin: f(v) })), { buyuk: true, aria: 'Ayrıştırılan matris' });
+    k2.append(el('div', { class: 'iki' },
+      el('div', { class: 'kutu' }, m, el('button', { type: 'button', class: 'btn ana', onclick: () => { st.bolundu = !bol; ciz(); } }, bol ? 'Ayrıştırmayı geri al' : 'Köşegeni ayır'),
+        el('p', { class: 'etiket' }, el('span', { class: 'g' }, '■ gerçek (ortak) kısım'), '   ', el('span', { class: 'h' }, '■ hata'))),
+      el('div', { class: 'kutu' },
+        el('p', null, 'Gerçek varyansı ', el('b', null, 'hiç görmedik'), '. Ama kabulümüze göre köşegen dışındaki her hücre φ\'ye eşit. O hâlde onlardan buluruz:'),
+        el('div', { class: 'denklem' }, el('span', { class: 'g' }, 'φ'), ' = (2 + 2 + 2) ÷ 3 = ', el('b', null, f(phi))),
+        el('p', null, 'Sonra köşegenden φ\'yi çıkar; kalan o maddenin hatasıdır:'),
+        el('div', { class: 'denklem' }, el('span', { class: 'h' }, 'θ₁'), ' = 3 − 2 = ', el('b', null, '1'), '   ', el('span', { class: 'h' }, 'θ₂'), ' = 4 − 2 = ', el('b', null, '2'), '   ', el('span', { class: 'h' }, 'θ₃'), ' = 5 − 2 = ', el('b', null, '3')),
+        el('p', { class: 'not' }, 'Bu basit bir kestirimdir. Gerçek veride üç kovaryans tam eşit çıkmazsa ortalamalarını alırız ve kabulün tam tutmadığını not ederiz.'))));
+  }
+
+  function adimToplam(k2) {
+    const phi = 2, th = [1, 2, 3];
+    const m = matris([0, 1, 2].map(i => [0, 1, 2].map(j => ({ html: i === j ? `<span class="g">2</span>+<span class="h">${th[i]}</span>` : '<span class="g">2</span>', g: phi, h: i === j ? th[i] : 0 }))), { aria: 'Gerçek ve hata kısımlarıyla matris' });
+    const topG = 9 * phi, topH = th.reduce((a, b) => a + b, 0), top = topG + topH;
+    const goster = !!st.toplaGoster;
+    k2.append(el('div', { class: 'iki' },
+      el('div', { class: 'kutu' }, m, el('button', { type: 'button', class: 'btn ana', onclick: () => { st.toplaGoster = !goster; ciz(); } }, goster ? 'Gizle' : 'Bütün hücreleri topla'),
+        goster ? el('div', null,
+          el('div', { class: 'cubuk', role: 'img', 'aria-label': 'Toplam puan varyansı 24: gerçek 18, hata 6' }, el('div', { class: 'pg', style: `flex:0 0 ${100 * topG / top}%` }, 'gerçek ' + topG), el('div', { class: 'ph', style: `flex:0 0 ${100 * topH / top}%` }, 'hata ' + topH)),
+          el('p', { class: 'etiket' }, 'Toplam puanın varyansı = ' + top + ' = ' + topG + ' (9 mavi hücre × 2) + ' + topH + ' (1 + 2 + 3)')) : null),
+      el('div', { class: 'kutu' },
+        el('p', null, 'Sınav puanı üç maddenin toplamıdır: ', el('b', null, 'Toplam = X₁ + X₂ + X₃'), '.'),
+        el('p', null, 'Toplamın varyansı, matrisin ', el('b', null, 'dokuz hücresinin hepsinin'), ' toplamıdır: 3 + 4 + 5 + 2 × (2 + 2 + 2) = ', el('b', null, '24'), '.'),
+        el('p', null, 'Yalnızca köşegeni (3 + 4 + 5 = 12) toplarsak yanılırız. Maddeler birlikte değiştiği için kovaryanslar da toplama girer.'),
+        el('p', null, 'Mavi kısımları ayrı, turuncu kısımları ayrı toplayınca varyans ikiye bölünür: ', el('b', { class: 'g' }, '18 gerçek'), ' ve ', el('b', { class: 'h' }, '6 hata'), '.'))));
+  }
+
+  function adimGuvenirlik(k2) {
+    const oran = 18 / 24;
+    k2.append(el('div', { class: 'iki' },
+      el('div', { class: 'kutu' },
+        el('div', { class: 'cubuk', role: 'img', 'aria-label': 'Güvenirlik 0,75: toplam varyansın dörtte üçü gerçek' }, el('div', { class: 'pg', style: 'flex:0 0 75%' }, '18'), el('div', { class: 'ph', style: 'flex:0 0 25%' }, '6')),
+        el('div', { class: 'denklem' }, 'Güvenirlik = ', el('span', { class: 'g' }, 'gerçek'), ' ÷ toplam = ', el('span', { class: 'g' }, '18'), ' ÷ 24 = ', el('b', null, f2(oran))),
+        el('div', { class: 'denklem' }, 'ya da   1 − ', el('span', { class: 'h' }, 'hata'), ' ÷ toplam = 1 − ', el('span', { class: 'h' }, '6'), ' ÷ 24 = ', el('b', null, f2(oran))),
+        el('p', null, el('span', { class: 'buyuk' }, f2(oran))),
+        el('p', null, 'Toplam puanlardaki farkların ', el('b', null, 'dörtte üçü'), ' öğrenciler arasındaki gerçek farklardan, dörtte biri hatadan geliyor.'),
+        el('p', { class: 'not' }, '"Öğrencilerin %75\'i doğru ölçüldü" demek değildir. Bu, varyansın bir payıdır; tek tek öğrenciler hakkında bir ifade değildir.')),
+      el('div', { class: 'kutu' }, el('h3', null, 'Kısa yol: Cronbach alfa'),
+        el('p', null, 'Bütün bu adımları tek formülde yapabiliriz. Yalnızca gözlenen matris gerekir:'),
+        el('div', { class: 'denklem' }, 'α = k ÷ (k − 1) × (1 − köşegen toplamı ÷ bütün hücreler)'),
+        el('div', { class: 'denklem' }, 'α = 3 ÷ 2 × (1 − 12 ÷ 24) = ', el('b', null, '0,75')),
+        el('details', null, el('summary', null, '3 ÷ 2 nereden geliyor?'),
+          el('p', null, 'Köşegen dışında 6 hücre var, her biri φ: toplam 6φ = 12. Ama toplam puanın gerçek varyansı dokuz hücrenin hepsindeki φ\'lerdir: 9φ = 18. 6φ\'den 9φ\'ye geçmek için 9 ÷ 6 = 3 ÷ 2 ile çarparız. Genel olarak bu çarpan k ÷ (k − 1).')),
+        el('p', { class: 'not' }, 'α\'yı her zaman hesaplayabiliriz. α\'nın güvenirliğe eşit olduğunu söylemek için ise 4. adımdaki iki kabul gerekir.'))));
+  }
+
+  function adimDene(k2) {
+    const sonuc = el('div', { class: 'kutu' });
+    function hesapla() {
+      const phi = st.phi, th = st.th, c = st.ortak;
+      // X₁ ile X₂'nin ortak hatası c: gözlenen kovaryansa girer ama gerçek özellikten gelmez
+      const G = [0, 1, 2].map(i => [0, 1, 2].map(j => phi + (i === j ? th[i] : 0) + ((i < 2 && j < 2) ? c : 0)));
+      const top = G.flat().reduce((a, b) => a + b, 0), kos = G[0][0] + G[1][1] + G[2][2];
+      const gercek = 9 * phi, alfa = 1.5 * (1 - kos / top), rho = gercek / top;
+      sonuc.innerHTML = '';
+      sonuc.append(matris(G.map(r => r.map(v => ({ metin: f(v), g: phi, h: v - phi }))), { aria: 'Gözlenen matris' }),
+        el('div', { class: 'cubuk', role: 'img', 'aria-label': 'Gerçek ' + f(gercek) + ', diğer ' + f(top - gercek) }, el('div', { class: 'pg', style: `flex:0 0 ${100 * gercek / top}%` }, f(gercek)), el('div', { class: 'ph', style: `flex:0 0 ${100 * (top - gercek) / top}%` }, f(top - gercek))),
+        el('p', null, 'Güvenirlik (gerçek ÷ toplam): ', el('b', { class: 'n' }, f2(rho))),
+        el('p', null, 'Gözlenen matristen α: ', el('b', { class: 'n' }, f2(alfa))),
+        c > 0 ? el('p', { class: 'yanlis' }, 'Ortak hata varken α (' + f2(alfa) + '), gerçek güvenirliği (' + f2(rho) + ') olduğundan yüksek gösterir. α bu durumu matristen ayırt edemez.') : el('p', { class: 'not' }, 'İki kabul geçerliyken α ile güvenirlik aynıdır. φ\'yi büyüt ya da hataları küçült: güvenirlik artar.'));
+    }
+    const kay = (id, label, min, max, step, get, set) => {
+      const inp = el('input', { type: 'range', id, min, max, step, value: get() }), out = el('output', { for: id }, f(get()));
+      inp.addEventListener('input', () => { set(parseFloat(inp.value)); out.textContent = f(get()); hesapla(); });
+      return el('div', { class: 'kaydirici' }, el('label', { for: id }, label), inp, out);
+    };
+    k2.append(el('div', { class: 'iki' },
+      el('div', { class: 'kutu' },
+        kay('k-phi', 'φ: öğrenciler gerçekte ne kadar farklı?', 0.5, 6, 0.5, () => st.phi, v => { st.phi = v; }),
+        kay('k-t1', 'θ₁: 1. maddenin hatası', 0, 8, 0.5, () => st.th[0], v => { st.th[0] = v; }),
+        kay('k-t2', 'θ₂: 2. maddenin hatası', 0, 8, 0.5, () => st.th[1], v => { st.th[1] = v; }),
+        kay('k-t3', 'θ₃: 3. maddenin hatası', 0, 8, 0.5, () => st.th[2], v => { st.th[2] = v; }),
+        el('details', null, el('summary', null, 'İleri: Kabul 2 bozulursa'), kay('k-c', 'X₁ ile X₂\'nin ortak hatası (ör. aynı okuma parçası)', 0, 3, 0.5, () => st.ortak, v => { st.ortak = v; }), el('p', { class: 'not' }, 'Ortak hata iki maddeyi birlikte değiştirir, ama gerçek özellikten gelmez.')),
+        el('button', { type: 'button', class: 'btn', onclick: () => { st.phi = 2; st.th = [1, 2, 3]; st.ortak = 0; ciz(); } }, 'Sunumdaki değerlere dön')),
+      sonuc),
+      el('div', { class: 'kutu' }, el('h3', null, 'Alıştırma'),
+        el('p', null, 'Aynı kabullerle bu matristen güvenirliği bul:'),
+        matris([[5, 2, 2], [2, 6, 2], [2, 2, 7]].map(r => r.map(v => ({ metin: String(v) }))), { aria: 'Alıştırma matrisi' }),
+        el('div', { class: 'satir' }, el('label', { for: 'cevap' }, 'Güvenirlik = '), el('input', { type: 'text', id: 'cevap', inputmode: 'decimal', autocomplete: 'off' }), el('button', { type: 'button', class: 'btn ana', onclick: () => { const v = parseFloat(document.getElementById('cevap').value.replace(',', '.')); const g = document.getElementById('geri-bildirim'); const ok = Math.abs(v - 0.6) < 0.006; g.textContent = ok ? 'Doğru: φ = 2; hatalar 3, 4, 5; toplam 30; gerçek 18; 18 ÷ 30 = 0,60.' : 'Tekrar dene. İpucu: φ = köşegen dışı ortalaması; toplam = bütün hücreler; gerçek = 9 × φ.'; g.className = ok ? 'dogru' : 'yanlis'; } }, 'Kontrol et')),
+        el('p', { id: 'geri-bildirim', 'aria-live': 'polite' })));
+    hesapla();
+  }
+
+  // ---- Çizim ----
+  function ciz() {
+    const nav = document.getElementById('adimlar'); nav.innerHTML = '';
+    ADIMLAR.forEach((a, i) => nav.append(el('button', { type: 'button', class: st.gorulen.has(i) ? 'goruldu' : '', 'aria-current': i === st.adim ? 'step' : 'false', onclick: () => git(i) }, a.kisa)));
+    const ic = document.getElementById('icerik'); ic.innerHTML = '';
+    const a = ADIMLAR[st.adim];
+    ic.append(el('div', { class: 'soru' }, 'Adım ' + (st.adim + 1) + ' / ' + ADIMLAR.length), el('h2', null, a.soru));
+    a.yap(ic);
+    document.getElementById('geri').disabled = st.adim === 0;
+    const ileri = document.getElementById('ileri'); ileri.textContent = st.adim === ADIMLAR.length - 1 ? 'Başa dön' : 'İleri →';
+  }
+  function git(i) { st.adim = Math.max(0, Math.min(ADIMLAR.length - 1, i)); st.gorulen.add(st.adim); try { localStorage.setItem('mg.adim', st.adim); } catch (e) { /* yok */ } ciz(); document.getElementById('adimlar').scrollIntoView({ block: 'nearest' }); }
+  document.getElementById('geri').addEventListener('click', () => git(st.adim - 1));
+  document.getElementById('ileri').addEventListener('click', () => git(st.adim === ADIMLAR.length - 1 ? 0 : st.adim + 1));
+  document.addEventListener('keydown', e => { if (e.target.closest('input, textarea, select')) return; if (e.key === 'ArrowRight') git(st.adim + 1); if (e.key === 'ArrowLeft') git(st.adim - 1); });
+  ciz();
+})();
+</script>
