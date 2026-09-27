@@ -1,0 +1,460 @@
+<title>Hata Türleri ve Güvenirlik</title>
+<style>
+:root {
+  --zemin: #f3f6f8; --yuzey: #ffffff; --yuzey2: #edf2f5; --cizgi: #ccd7de; --ince: #e2e9ee;
+  --metin: #17232c; --metin2: #3e505c; --soluk: #5b6c77;
+  --lacivert: #10263a; --lacivert-metin: #eef4f8; --lacivert-soluk: #a9bfcf;
+  --vurgu: #0b7a86; --vurgu-zemin: #d7eef0;
+  --T: #1f6fb2; --T-zemin: #dce9f6; --E: #d0610f; --E-zemin: #fbe6d5; --B: #7b4fa6; --B-zemin: #ece2f5; --c: #2f7d53; --c-zemin: #dcefe3; --w: #a37a00; --w-zemin: #f5ecd0;
+  --iyi: #1f7a3a; --kotu: #b3261e; --uyari: #9a6200;
+  --baslik: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --govde: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --sayi: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --zemin: #0f171d; --yuzey: #17222a; --yuzey2: #1f2c35; --cizgi: #33444f; --ince: #283742;
+    --metin: #e6eef2; --metin2: #b7c7d0; --soluk: #97a9b3;
+    --lacivert: #0a1a27; --lacivert-metin: #eef4f8; --lacivert-soluk: #9fb6c7;
+    --vurgu: #4cc4cf; --vurgu-zemin: #163a3e;
+    --T: #6db3f0; --T-zemin: #1b3550; --E: #f39a58; --E-zemin: #4a2c16; --B: #bf9ae6; --B-zemin: #37284a; --c: #6fd09a; --c-zemin: #1d3a2a; --w: #e6c15a; --w-zemin: #3d3214;
+    --iyi: #6bd38a; --kotu: #ff8a80; --uyari: #e6b54a;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --zemin: #0f171d; --yuzey: #17222a; --yuzey2: #1f2c35; --cizgi: #33444f; --ince: #283742;
+  --metin: #e6eef2; --metin2: #b7c7d0; --soluk: #97a9b3;
+  --lacivert: #0a1a27; --lacivert-metin: #eef4f8; --lacivert-soluk: #9fb6c7;
+  --vurgu: #4cc4cf; --vurgu-zemin: #163a3e;
+  --T: #6db3f0; --T-zemin: #1b3550; --E: #f39a58; --E-zemin: #4a2c16; --B: #bf9ae6; --B-zemin: #37284a; --c: #6fd09a; --c-zemin: #1d3a2a; --w: #e6c15a; --w-zemin: #3d3214;
+  --iyi: #6bd38a; --kotu: #ff8a80; --uyari: #e6b54a;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--zemin); color: var(--metin); font-family: var(--govde); font-size: 16px; line-height: 1.5; }
+h1, h2, h3 { font-family: var(--baslik); margin: 0; line-height: 1.15; text-wrap: balance; }
+p { margin: 0; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--vurgu); outline-offset: 2px; border-radius: 4px; }
+.n { font-family: var(--sayi); font-variant-numeric: tabular-nums; }
+.ust { background: var(--lacivert); color: var(--lacivert-metin); }
+.ust-ic { max-width: 1240px; margin: 0 auto; padding-block: 22px 20px; padding-inline: 20px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 18px 32px; align-items: end; }
+.ust h1 { font-size: 2rem; color: var(--lacivert-metin); }
+.ust p { color: var(--lacivert-soluk); max-width: 60ch; margin-top: 6px; }
+.formul-bant { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; font-family: var(--baslik); font-size: 2.2rem; justify-content: flex-end; }
+.formul-bant .p { padding: 0 6px; border-radius: 6px; }
+.formul-bant .pT { color: #8cc4f2; } .formul-bant .pE { color: #f5a86c; } .formul-bant .pB { color: #cfb0ef; } .formul-bant .pc { color: #86dcaa; }
+.formul-bant small { font-family: var(--govde); font-size: .8rem; color: var(--lacivert-soluk); flex-basis: 100%; text-align: right; }
+.sayfa { max-width: 1240px; margin: 0 auto; padding-block: 18px 48px; padding-inline: 20px; display: flex; flex-direction: column; gap: 18px; }
+.senaryolar { display: grid; grid-template-columns: repeat(auto-fill, minmax(158px, 1fr)); gap: 10px; }
+.sen { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.sen.aktif { border-color: var(--vurgu); box-shadow: 0 0 0 2px var(--vurgu) inset; }
+.sen b { font-size: .95rem; }
+.sen .alt { font-size: .82rem; color: var(--soluk); }
+.tahmin { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; font-size: .8rem; color: var(--soluk); }
+.tahmin button { border: 1px solid var(--cizgi); background: var(--yuzey2); border-radius: 999px; padding: 3px 10px; min-height: 32px; cursor: pointer; font-size: .82rem; }
+.tahmin button[aria-pressed="true"] { background: var(--vurgu); color: #fff; border-color: var(--vurgu); }
+.geri { font-size: .82rem; min-height: 1.2em; }
+.dogru { color: var(--iyi); font-weight: 700; } .yanlis { color: var(--kotu); font-weight: 700; }
+.izgara { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 18px; align-items: start; }
+.panel { background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.panel h2 { font-size: 1.15rem; }
+.panel h3 { font-size: 1rem; }
+.yapiskan { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 10px); }
+.hata-kart { border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--cizgi); }
+.hata-kart .bas { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.hata-kart .bas b { font-size: .98rem; }
+.hata-kart .deger { font-family: var(--sayi); font-weight: 600; white-space: nowrap; font-size: .9rem; }
+.hata-kart p { font-size: .82rem; color: var(--metin2); }
+.hata-kart input[type="range"] { width: 100%; min-height: 34px; }
+.kE { background: var(--E-zemin); border-color: var(--E); } .kE input { accent-color: var(--E); }
+.kc { background: var(--c-zemin); border-color: var(--c); } .kc input { accent-color: var(--c); }
+.kw { background: var(--w-zemin); border-color: var(--w); } .kw input { accent-color: var(--w); }
+.kB { background: var(--B-zemin); border-color: var(--B); } .kB input { accent-color: var(--B); }
+.onay { display: flex; align-items: center; gap: 8px; font-size: .88rem; cursor: pointer; min-height: 30px; }
+.onay input { width: 18px; height: 18px; }
+.btn { border: 1px solid var(--cizgi); background: var(--yuzey); border-radius: 8px; padding: 8px 14px; min-height: 42px; cursor: pointer; }
+.btn:hover { border-color: var(--vurgu); }
+.anahtar { display: inline-flex; border: 1px solid var(--cizgi); border-radius: 999px; overflow: hidden; }
+.anahtar button { border: 0; background: transparent; padding: 7px 14px; min-height: 40px; cursor: pointer; color: var(--metin2); }
+.anahtar button[aria-pressed="true"] { background: var(--vurgu); color: #fff; font-weight: 700; }
+.ikili { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+.gostergeler { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.gosterge { background: var(--yuzey2); border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+.gosterge .ad { font-size: .78rem; color: var(--soluk); }
+.gosterge .d { font-family: var(--sayi); font-size: 1.45rem; font-weight: 600; }
+.gosterge .fark { font-size: .78rem; font-family: var(--sayi); }
+.up { color: var(--iyi); } .down { color: var(--kotu); } .same { color: var(--soluk); }
+.grafik svg { width: 100%; height: auto; display: block; max-width: 100%; }
+svg text { fill: var(--metin2); font-family: var(--govde); font-size: 12px; }
+.nokta { transition: transform .45s ease; }
+.lejant { display: flex; flex-wrap: wrap; gap: 10px; font-size: .8rem; color: var(--metin2); }
+.mat { display: inline-grid; grid-template-columns: repeat(2, auto); gap: 6px; padding: 6px 12px; border-left: 3px solid var(--metin); border-right: 3px solid var(--metin); border-radius: 6px; }
+.mat span { min-width: 5.2em; text-align: center; padding: 8px 6px; border-radius: 6px; background: var(--yuzey2); font-family: var(--sayi); }
+.mat span.k { background: var(--T-zemin); }
+.mat.sembol span { font-family: var(--baslik); }
+.matrisler { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.esit { font-size: 1.5rem; color: var(--soluk); font-family: var(--sayi); }
+.etiket { font-size: .78rem; color: var(--soluk); text-align: center; margin-top: 4px; }
+.denklemler { display: flex; flex-direction: column; gap: 6px; }
+.denk { font-family: var(--sayi); font-size: .95rem; background: var(--yuzey2); border-radius: 6px; padding: 7px 10px; overflow-x: auto; white-space: nowrap; }
+.denk .bil { display: inline-block; border-radius: 4px; padding: 0 4px; }
+.bil.T { background: var(--T-zemin); color: var(--T); font-weight: 700; } .bil.E { background: var(--E-zemin); color: var(--E); font-weight: 700; }
+.cubuk { display: flex; height: 34px; border-radius: 6px; overflow: hidden; border: 1px solid var(--cizgi); }
+.cubuk div { display: flex; align-items: center; justify-content: center; font-family: var(--sayi); font-size: .82rem; font-weight: 700; color: #fff; min-width: 0; overflow: hidden; white-space: nowrap; transition: flex-basis .4s ease; }
+.cT { background: var(--T); } .cE { background: repeating-linear-gradient(45deg, var(--E) 0 6px, color-mix(in srgb, var(--E) 70%, #fff) 6px 10px); } .cB { background: var(--B); } .cW { background: var(--w); }
+.kabuller { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.kabuller li { display: grid; grid-template-columns: 1.6em minmax(0, 1fr); gap: 6px; font-size: .9rem; align-items: start; }
+.kabuller .i { font-weight: 700; }
+.tablo-kutu { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { padding: 6px 8px; border-bottom: 1px solid var(--ince); text-align: right; }
+th { font-size: .78rem; color: var(--soluk); font-weight: 700; }
+th:first-child, td:first-child { text-align: left; }
+td { font-family: var(--sayi); font-variant-numeric: tabular-nums; }
+td:first-child { font-family: var(--govde); }
+tr.vurgu td { background: var(--c-zemin); }
+.not { font-size: .84rem; color: var(--soluk); }
+.ders { background: var(--vurgu-zemin); border-radius: 8px; padding: 10px 12px; font-size: .92rem; }
+details { border: 1px solid var(--cizgi); border-radius: 8px; padding: 8px 12px; background: var(--yuzey); }
+details summary { cursor: pointer; font-weight: 700; }
+@media (max-width: 980px) {
+  .izgara { grid-template-columns: minmax(0, 1fr); }
+  .yapiskan { position: static; }
+  .ust-ic { grid-template-columns: minmax(0, 1fr); }
+  .formul-bant { justify-content: flex-start; font-size: 1.7rem; }
+  .formul-bant small { text-align: left; }
+}
+@media (max-width: 640px) {
+  .ikili { grid-template-columns: minmax(0, 1fr); }
+  .gostergeler { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .senaryolar { display: flex; overflow-x: auto; padding-bottom: 6px; }
+  .sen { flex: 0 0 78%; }
+  .ust h1 { font-size: 1.55rem; }
+  .sayfa, .ust-ic { padding-inline: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .nokta, .cubuk div { transition: none; } }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+
+<header class="ust">
+  <div class="ust-ic">
+    <div>
+      <h1>Hata türleri güvenirliği nasıl etkiler?</h1>
+      <p>Hafta 2 simülasyon verisi: 30 öğrenci, iki ölçüm. Gerçek puanı (T) ve hatayı (E) biz ürettiğimiz için görebiliyoruz. Bir hata türünü aç, puanların nasıl hareket ettiğini ve güvenirlik hesabının nasıl değiştiğini izle.</p>
+    </div>
+    <div class="formul-bant" aria-label="Gözlenen puan eşittir w çarpı parantez içinde gerçek puan artı sabit hata artı yanlılık artı tesadüfi hata">
+      <span>X =</span><span class="p pw" style="color:#ecd07a">w·(</span><span class="p pT">T</span><span>+</span><span class="p pc">c</span><span>+</span><span class="p pB">B</span><span>+</span><span class="p pE">E</span><span style="color:#ecd07a">)</span>
+      <small>w: orantılı sistematik hata · c: sabit hata · B: kişiye özgü yanlılık · E: tesadüfi hata</small>
+    </div>
+  </div>
+</header>
+
+<div class="sayfa">
+  <section aria-labelledby="sen-b">
+    <h2 id="sen-b" style="font-size:1.15rem;margin-bottom:8px">Hazır senaryolar: önce tahmin et, sonra aç</h2>
+    <div class="senaryolar" id="senaryolar"></div>
+  </section>
+
+  <div class="izgara">
+    <aside class="panel yapiskan" aria-label="Hata denetimleri">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+        <h2>Hataları ayarla</h2>
+        <button class="btn" type="button" id="sifirla">Başlangıca dön</button>
+      </div>
+      <div class="hata-kart kE">
+        <div class="bas"><b>Tesadüfi hata E</b><span class="deger" id="v-k"></span></div>
+        <input type="range" id="k" min="0" max="3" step="0.1" aria-describedby="d-k">
+        <p id="d-k">Yorgunluk, dikkat, şans: her ölçmede farklı. SPSS'teki E ve E2 sütunları bu çarpanla büyür ya da küçülür (1 = sizin veriniz, SD ≈ 5).</p>
+      </div>
+      <div class="hata-kart kc">
+        <div class="bas"><b>Sabit hata c</b><span class="deger" id="v-c"></span></div>
+        <input type="range" id="c" min="-10" max="10" step="1" aria-describedby="d-c">
+        <p id="d-c">Cömert puanlayıcı: her kâğıda aynı puanı ekler (sunumdaki X_cömert = X + 3).</p>
+        <label class="onay" for="c2"><input type="checkbox" id="c2">Yalnızca ikinci ölçmede</label>
+      </div>
+      <div class="hata-kart kw">
+        <div class="bas"><b>Orantılı (sistematik) hata w</b><span class="deger" id="v-w"></span></div>
+        <input type="range" id="w" min="0.5" max="1.5" step="0.05" aria-describedby="d-w">
+        <p id="d-w">Her puanı aynı oranda büyüten kural: her kilogramda 100 g fazla tartan terazi gibi (w = 1,1 → %10 fazla).</p>
+      </div>
+      <div class="hata-kart kB">
+        <div class="bas"><b>Yanlılık B (kişiye özgü)</b><span class="deger" id="v-b"></span></div>
+        <input type="range" id="b" min="0" max="8" step="0.5" aria-describedby="d-b">
+        <p id="d-b">Puanlayıcı bazı öğrencilere (ör. düzgün yazanlara) fazla, bazılarına az verir. Miktar öğrenciden öğrenciye değişir.</p>
+        <label class="onay" for="bdeg"><input type="checkbox" id="bdeg">İkinci ölçmede farklı puanlayıcı (yanlılık değişiyor)</label>
+      </div>
+      <div class="anahtar" role="group" aria-label="Görünüm">
+        <button type="button" id="g-gercek" aria-pressed="true">Gerçek dünya</button>
+        <button type="button" id="g-perde" aria-pressed="false">Perde arkası</button>
+      </div>
+      <p class="not" id="g-not"></p>
+    </aside>
+
+    <main style="display:flex;flex-direction:column;gap:18px;min-width:0">
+      <section class="panel" aria-labelledby="oz-b">
+        <h2 id="oz-b">Ne değişti? (başlangıç verisine göre)</h2>
+        <div class="gostergeler" id="gostergeler"></div>
+        <p class="ders" id="ders" aria-live="polite"></p>
+      </section>
+
+      <div class="ikili">
+        <section class="panel" aria-labelledby="sac-b">
+          <h2 id="sac-b">Aynı öğrenciler, iki ölçüm</h2>
+          <div class="grafik" id="sacilim"></div>
+          <div class="lejant"><span>● her nokta bir öğrenci</span><span>kesikli çizgi: X₁ = X₂</span><span>yeşil çizgiler: geçme sınırı 60</span></div>
+        </section>
+        <section class="panel" aria-labelledby="but-b">
+          <h2 id="but-b">Varyans bütçesi</h2>
+          <div id="butce"></div>
+          <h3>KTK kabulleri bu senaryoda</h3>
+          <ul class="kabuller" id="kabuller"></ul>
+        </section>
+      </div>
+
+      <section class="panel" aria-labelledby="mat-b">
+        <h2 id="mat-b">Görmediğimizi matrisle bulmak: 2 ölçüm, 3 bilgi, 2 bilinmeyen</h2>
+        <div class="ikili">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="matrisler">
+              <div><div class="mat" id="m-gozlenen"></div><p class="etiket">Veriden hesapladığımız kovaryans matrisi</p></div>
+              <span class="esit">=</span>
+              <div><div class="mat sembol" id="m-model"></div><p class="etiket">KTK modelinin öngördüğü</p></div>
+            </div>
+            <p class="not">Model: X₁ = T + E₁, X₂ = T + E₂. İki ölçmede gerçek puan aynı, hatalar birbirinden ve T'den bağımsız. Hata varyanslarının eşit olduğunu kabul ediyoruz (paralel ölçmeler).</p>
+          </div>
+          <div class="denklemler" id="denklemler" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="anova-b">
+        <h2 id="anova-b">Kabaca varyans analizi: kişi × ölçme</h2>
+        <div class="ikili">
+          <div class="tablo-kutu"><table id="anova"></table></div>
+          <div style="display:flex;flex-direction:column;gap:8px" id="anova-yorum"></div>
+        </div>
+      </section>
+
+      <details>
+        <summary>Tablo: ilk 10 öğrenci</summary>
+        <div class="tablo-kutu" style="margin-top:8px"><table id="veri"></table></div>
+      </details>
+      <p class="not">Veri: Hafta2_KTK_Ornek.sav (T ~ N(60, 10), E ve E2 ~ N(0, 5), 30 öğrenci). Yanlılık B için öğrenciye özgü değerler sabit tohumla üretildi ve bu örneklemde T, E ve E2 ile tam ilişkisiz olacak şekilde düzeltildi (KTK kabulüne uygun, öğretim amaçlı). Güvenirlik kestirimleri 30 kişilik tek bir örneklemden gelir ve örnekleme dalgalanması içerir.</p>
+    </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // ---- Hafta2_KTK_Ornek.sav: T, E, E2 ----
+  const T = [64.0, 58.4, 76.3, 60.6, 65.5, 58.2, 54.1, 48.5, 43.6, 51.8, 56.4, 54.3, 60.8, 58.1, 64.3, 44.9, 68.3, 63.0, 49.3, 46.3, 79.9, 56.7, 61.0, 62.1, 74.8, 57.4, 63.2, 70.7, 80.7, 57.1];
+  const E1 = [4.2, 2.1, 6.1, 7.4, -0.3, -5.3, 1.9, -8.1, -1.2, 5.4, -7.5, 7.0, 0.8, -2.8, -0.8, -2.2, -1.0, 6.3, -1.6, 6.3, -0.4, 0.4, 3.6, -9.7, 5.6, 2.7, -4.7, -4.2, -6.6, 11.6];
+  const E2 = [-4.3, 7.0, -1.4, -5.0, -2.2, -8.6, -1.4, 10.3, 0.8, -11.9, -8.8, -3.8, 0.9, -1.0, -2.4, -1.6, -0.5, -0.6, 0.5, 3.9, 1.1, -4.9, -7.4, -0.8, 2.2, 4.3, -3.6, -1.4, 3.3, 2.1];
+  const n = T.length;
+  // Öğrenciye özgü yanlılık için sabit tohumlu standart normal değerler (mulberry32 + Box-Muller)
+  function rng(a) { return function () { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function normals(seed) { const r = rng(seed), out = []; for (let i = 0; i < n; i++) { const u = Math.max(r(), 1e-12), v = r(); out.push(Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)); } const m = out.reduce((a, b) => a + b, 0) / n, s = Math.sqrt(out.reduce((a, b) => a + (b - m) ** 2, 0) / (n - 1)); return out.map(z => (z - m) / s); }
+  // Yanlılık değerleri bu örneklemde T, E₁ ve E₂ ile (ve birbiriyle) tam ilişkisiz olsun diye onlara dik hâle getirilir
+  function dik(z, bazlar) {
+    let v = z.slice();
+    for (const b of bazlar) { const mb = b.reduce((a, c) => a + c, 0) / n, bc = b.map(x => x - mb), mv = v.reduce((a, c) => a + c, 0) / n, vc = v.map(x => x - mv); const k2 = vc.reduce((a, c, i) => a + c * bc[i], 0) / bc.reduce((a, c) => a + c * c, 0); v = vc.map((x, i) => x - k2 * bc[i]); }
+    const sd = Math.sqrt(v.reduce((a, c) => a + c * c, 0) / (n - 1)); return v.map(x => x / sd);
+  }
+  function gs(z, bazlar) { const tam = []; for (const b of bazlar) tam.push(tam.length ? dik(b, tam) : b); return dik(z, tam); }
+  const ZB1 = gs(normals(20260924), [T, E1, E2]), ZB2 = gs(normals(20261001), [T, E1, E2, ZB1]);
+
+  const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+  const cov = (a, b) => { const ma = mean(a), mb = mean(b); return a.reduce((s, v, i) => s + (v - ma) * (b[i] - mb), 0) / (a.length - 1); };
+  const vr = a => cov(a, a);
+  const cor = (a, b) => cov(a, b) / Math.sqrt(vr(a) * vr(b));
+  const nf2 = new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const nf1 = new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const f2 = v => nf2.format(v).replace('-', '−'), f1 = v => nf1.format(v).replace('-', '−');
+  const esc = s => String(s);
+
+  const BASLANGIC = { k: 1, c: 0, c2: false, w: 1, b: 0, bdeg: false };
+  const st = Object.assign({}, BASLANGIC, { perde: false, sen: null, tahmin: {} });
+
+  function hesapla(p) {
+    const Bs = ZB1.map(z => p.b * z), Bs2 = (p.bdeg ? ZB2 : ZB1).map(z => p.b * z);
+    const c1 = p.c2 ? 0 : p.c, c2 = p.c;
+    const X1 = T.map((t, i) => p.w * (t + c1 + Bs[i] + p.k * E1[i]));
+    const X2 = T.map((t, i) => p.w * (t + c2 + Bs2[i] + p.k * E2[i]));
+    const s1 = vr(X1), s2 = vr(X2), s12 = cov(X1, X2), r = cor(X1, X2);
+    const ort = (s1 + s2) / 2, hata = ort - s12;
+    // Kişi × ölçme ANOVA (30 × 2)
+    const g = (mean(X1) + mean(X2)) / 2, pm = X1.map((x, i) => (x + X2[i]) / 2), om = [mean(X1), mean(X2)];
+    const KTp = 2 * pm.reduce((s, v) => s + (v - g) ** 2, 0), KTo = n * om.reduce((s, v) => s + (v - g) ** 2, 0);
+    let KTa = 0; for (let i = 0; i < n; i++) { KTa += (X1[i] - pm[i] - om[0] + g) ** 2 + (X2[i] - pm[i] - om[1] + g) ** 2; }
+    const KOp = KTp / (n - 1), KOo = KTo / 1, KOa = KTa / (n - 1);
+    const iccC = (KOp - KOa) / (KOp + KOa), iccA = (KOp - KOa) / (KOp + KOa + 2 * (KOo - KOa) / n), hoyt = 1 - KOa / KOp;
+    // Perde arkası: KTK gerçek puanı (tekrarlarda aynı kalan her şey) ve doğruluk
+    const Tktk = T.map((t, i) => p.w * (t + c1 + (p.bdeg ? 0 : Bs[i])));
+    const gercekPay = vr(Tktk) / s1;
+    return { X1, X2, s1, s2, s12, r, ort, hata, osh: Math.sqrt(Math.max(0, hata)), m1: mean(X1), m2: mean(X2), gecti: X1.filter(x => x >= 60).length, gecti2: X2.filter(x => x >= 60).length,
+      KTp, KTo, KTa, KOp, KOo, KOa, iccC, iccA, hoyt, dogruluk: cor(X1, T), gercekPay, Bs, Bs2, Tktk,
+      vT: p.w * p.w * vr(T), vB: p.bdeg ? 0 : vr(Tktk) - p.w * p.w * vr(T), vE: s1 - vr(Tktk) };
+  }
+  const BAS = hesapla(BASLANGIC);
+
+  // ---- Senaryolar ----
+  const SEN = [
+    { id: 'sifir', ad: 'Sizin veriniz', alt: 'SPSS\'teki X ve X2: r ≈ 0,78', p: {}, dogru: 'ayni' },
+    { id: 'comert', ad: 'Cömert puanlayıcı +3', alt: 'Her kâğıda 3 puan (X_cömert)', p: { c: 3 }, dogru: 'ayni', ders: 'Sabit hata herkesi aynı miktarda kaydırır: ortalama ve geçen öğrenci sayısı değişir, noktalar köşegen boyunca kayar. Sıralama, farklar ve güvenirlik aynı kalır.' },
+    { id: 'gurultu', ad: 'Gürültülü sınav salonu', alt: 'Tesadüfi hata iki katına çıkar', p: { k: 2 }, dogru: 'dusuk', ders: 'Tesadüfi hata her ölçmede farklıdır: iki ölçüm birbirinden uzaklaşır, bulut genişler ve güvenirlik düşer. Ortalama neredeyse aynı kalır.' },
+    { id: 'terazi', ad: 'Her puan %10 fazla', alt: 'Orantılı sistematik hata (w = 1,1)', p: { w: 1.1 }, dogru: 'ayni', ders: 'Herkese aynı kuralla uygulanan orantılı hata güvenirliği değiştirmez; ortalama, varyans ve ÖSH aynı oranda büyür.' },
+    { id: 'hale', ad: 'Düzgün yazıya hale etkisi', alt: 'Aynı puanlayıcı, iki ölçmede de aynı yanlılık', p: { b: 5 }, dogru: 'yuksek', ders: 'Her ölçmede aynı öğrenciye aynı fazlalık verilirse yanlılık tekrarlarda yinelenir; KTK onu gerçek puanın parçası sayar. Güvenirlik yükselir ama puanın asıl özellikle (T) ilişkisi zayıflar: güvenilir ama daha az geçerli.' },
+    { id: 'farkli', ad: 'Her ölçmede farklı puanlayıcı', alt: 'Yanlılık tekrardan tekrara değişir', p: { b: 5, bdeg: true }, dogru: 'dusuk', ders: 'Yanlılık tekrardan tekrara değişirse, adı "sistematik" olsa bile bu tasarımda tesadüfi hata gibi davranır ve güvenirliği düşürür.' },
+    { id: 'ikinci', ad: 'Yalnız 2. ölçmede +5', alt: 'Sabit kayma tek ölçmede', p: { c: 5, c2: true }, dogru: 'ayni', ders: 'r değişmez, ama iki ölçmenin puanları artık aynı düzeyde değildir. ANOVA\'daki "ölçme" satırı bu kaymayı yakalar; mutlak uyum (ICC-A) düşer.' },
+  ];
+  const TAH = { yuksek: 'artar', dusuk: 'azalır', ayni: 'değişmez' };
+
+  function yon(v, b, esik) { const d = v - b; return Math.abs(d) < (esik || 0.005) ? 'ayni' : d > 0 ? 'yuksek' : 'dusuk'; }
+
+  // ---- Çizimler ----
+  const $ = id => document.getElementById(id);
+  function senaryolar() {
+    const kap = $('senaryolar'); kap.innerHTML = '';
+    SEN.forEach(s => {
+      const kart = document.createElement('div'); kart.className = 'sen' + (st.sen === s.id ? ' aktif' : '');
+      const t = st.tahmin[s.id];
+      kart.innerHTML = `<b>${esc(s.ad)}</b><span class="alt">${esc(s.alt)}</span>`;
+      if (s.id !== 'sifir') {
+        const th = document.createElement('div'); th.className = 'tahmin'; th.setAttribute('role', 'group'); th.setAttribute('aria-label', s.ad + ': güvenirlik tahmini');
+        th.append('Güvenirlik: ');
+        ['yuksek', 'dusuk', 'ayni'].forEach(y => { const b = document.createElement('button'); b.type = 'button'; b.textContent = TAH[y]; b.setAttribute('aria-pressed', t && t.tahmin === y ? 'true' : 'false'); b.addEventListener('click', () => { st.tahmin[s.id] = { tahmin: y }; uygula(s); }); th.append(b); });
+        kart.append(th);
+      }
+      const gb = document.createElement('div'); gb.className = 'geri';
+      if (t) { const sonuc = yon(hesapla(Object.assign({}, BASLANGIC, s.p)).r, BAS.r, 0.01); gb.innerHTML = (t.tahmin === sonuc ? '<span class="dogru">Doğru tahmin.</span> ' : '<span class="yanlis">Sonuç farklı:</span> ') + 'güvenirlik ' + TAH[sonuc] + '.'; }
+      else if (s.id !== 'sifir') gb.innerHTML = '<span class="not">Tahminini seç; senaryo açılır.</span>';
+      else { const b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = 'Aç'; b.style.minHeight = '34px'; b.addEventListener('click', () => uygula(s)); gb.append(b); }
+      kart.append(gb); kap.append(kart);
+    });
+  }
+  function uygula(s) { Object.assign(st, BASLANGIC, s.p); st.sen = s.id; denetimleriEsle(); ciz(s.ders); }
+
+  function denetimleriEsle() {
+    $('k').value = st.k; $('c').value = st.c; $('c2').checked = st.c2; $('w').value = st.w; $('b').value = st.b; $('bdeg').checked = st.bdeg;
+    $('v-k').textContent = 'SD ≈ ' + f1(5 * st.k); $('v-c').textContent = (st.c > 0 ? '+' : '') + st.c + ' puan'; $('v-w').textContent = '× ' + f2(st.w); $('v-b').textContent = 'SD ' + f1(st.b);
+    ['k', 'c', 'w', 'b'].forEach(id => $(id).setAttribute('aria-valuetext', $('v-' + id).textContent));
+  }
+
+  function gostergeler(h) {
+    const kutu = $('gostergeler');
+    const rows = [['Ortalama X₁', h.m1, BAS.m1, 2, 'n'], ['Varyans X₁', h.s1, BAS.s1, 2, 'n'], ['Güvenirlik r(X₁, X₂)', h.r, BAS.r, 2, 'g'], ['ÖSH (ölçmenin std. hatası)', h.osh, BAS.osh, 2, 'h'],
+      ['60 ve üzeri (1. ölçüm)', h.gecti, BAS.gecti, 0, 'n'], ['Mutlak uyum ICC(A)', h.iccA, BAS.iccA, 2, 'g']];
+    if (st.perde) rows.push(['Doğruluk r(X₁, T)', h.dogruluk, BAS.dogruluk, 2, 'g']);
+    kutu.innerHTML = rows.map(([ad, v, b, d, tur]) => {
+      const dv = v - b, s = Math.abs(dv) < (d ? 0.005 : 0.5) ? 'same' : ((dv > 0) === (tur !== 'h') ? (tur === 'n' ? 'same' : 'up') : (tur === 'n' ? 'same' : 'down'));
+      const ok = Math.abs(dv) < (d ? 0.005 : 0.5) ? '= değişmedi' : (dv > 0 ? '▲ ' : '▼ ') + (d ? f2(Math.abs(dv)) : Math.abs(dv));
+      return `<div class="gosterge"><span class="ad">${ad}</span><span class="d">${d ? f2(v) : v}</span><span class="fark ${s}">${ok}</span></div>`;
+    }).join('');
+  }
+
+  // Saçılım: eksenler her seferinde çizilir, 30 nokta kalıcıdır ve yeni konumlarına kayar
+  let noktaG = null, izG = null, eksenG = null, rYazi = null;
+  function sacilim(h) {
+    const W = 460, H = 360, pl = 46, pr = 14, pt = 12, pb = 40, NS = 'http://www.w3.org/2000/svg';
+    const tum = h.X1.concat(h.X2), lo = Math.min(30, Math.floor(Math.min(...tum) / 10) * 10), hi = Math.max(100, Math.ceil(Math.max(...tum) / 10) * 10);
+    const x = v => pl + (v - lo) * (W - pl - pr) / (hi - lo), y = v => H - pb - (v - lo) * (H - pt - pb) / (hi - lo);
+    if (!noktaG) {
+      const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('role', 'img');
+      eksenG = document.createElementNS(NS, 'g'); izG = document.createElementNS(NS, 'g'); noktaG = document.createElementNS(NS, 'g');
+      rYazi = document.createElementNS(NS, 'text'); rYazi.setAttribute('x', W - pr - 4); rYazi.setAttribute('y', pt + 14); rYazi.setAttribute('text-anchor', 'end'); rYazi.setAttribute('style', 'font-weight:700;fill:var(--metin)');
+      for (let i = 0; i < n; i++) { const c = document.createElementNS(NS, 'circle'); c.setAttribute('class', 'nokta'); c.setAttribute('r', '5.5'); c.setAttribute('fill', 'var(--T)'); c.setAttribute('fill-opacity', '.8'); c.setAttribute('stroke', 'var(--yuzey)'); c.setAttribute('stroke-width', '1.2'); c.append(document.createElementNS(NS, 'title')); noktaG.append(c); }
+      svg.append(eksenG, izG, noktaG, rYazi); $('sacilim').append(svg);
+    }
+    let e = '';
+    for (let v = lo; v <= hi; v += 10) e += `<line x1="${x(v)}" y1="${pt}" x2="${x(v)}" y2="${H - pb}" stroke="var(--ince)"/><line x1="${pl}" y1="${y(v)}" x2="${W - pr}" y2="${y(v)}" stroke="var(--ince)"/><text x="${x(v)}" y="${H - pb + 16}" text-anchor="middle">${v}</text><text x="${pl - 6}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+    e += `<line x1="${x(60)}" y1="${pt}" x2="${x(60)}" y2="${H - pb}" stroke="var(--c)" stroke-width="1.5"/><line x1="${pl}" y1="${y(60)}" x2="${W - pr}" y2="${y(60)}" stroke="var(--c)" stroke-width="1.5"/>`;
+    e += `<line x1="${x(lo)}" y1="${y(lo)}" x2="${x(hi)}" y2="${y(hi)}" stroke="var(--soluk)" stroke-dasharray="5 4"/>`;
+    e += `<text x="${(pl + W - pr) / 2}" y="${H - 6}" text-anchor="middle">1. ölçüm X₁</text><text x="12" y="${(pt + H - pb) / 2}" transform="rotate(-90 12 ${(pt + H - pb) / 2})" text-anchor="middle">2. ölçüm X₂</text>`;
+    eksenG.innerHTML = e;
+    let iz = '';
+    if (st.perde) h.X1.forEach((v, i) => { iz += `<line x1="${x(h.Tktk[i])}" y1="${y(h.Tktk[i])}" x2="${x(v)}" y2="${y(h.X2[i])}" stroke="var(--E)" stroke-opacity=".45"/><rect x="${x(h.Tktk[i]) - 3}" y="${y(h.Tktk[i]) - 3}" width="6" height="6" fill="var(--B)" opacity=".8"/>`; });
+    izG.innerHTML = iz;
+    [...noktaG.children].forEach((c, i) => { c.style.transform = `translate(${x(h.X1[i]).toFixed(1)}px,${y(h.X2[i]).toFixed(1)}px)`; c.firstChild.textContent = `Öğrenci ${i + 1}: X₁ = ${f1(h.X1[i])}, X₂ = ${f1(h.X2[i])}`; });
+    rYazi.textContent = 'r = ' + f2(h.r);
+    noktaG.ownerSVGElement.setAttribute('aria-label', 'Birinci ve ikinci ölçüm saçılım grafiği. Korelasyon ' + f2(h.r) + '.');
+  }
+
+  function butce(h) {
+    const kutu = $('butce'), tot = h.s1;
+    const pc = v => Math.max(0, 100 * v / tot);
+    let html = `<p class="not">1. ölçümün varyansı ${f2(tot)}. Gerçek dünyada yalnızca iki ölçümden kestirebiliriz:</p>
+      <div class="cubuk" role="img" aria-label="Kestirilen: gerçek ${f2(h.s12)}, hata ${f2(h.hata)}"><div class="cT" style="flex:0 0 ${pc(h.s12)}%">${pc(h.s12) > 22 ? 'gerçek ' + f1(h.s12) : ''}</div><div class="cE" style="flex:0 0 ${pc(h.hata)}%">${pc(h.hata) > 22 ? 'hata ' + f1(h.hata) : ''}</div></div>
+      <p class="not n"><span style="color:var(--T)">■</span> kestirilen gerçek ${f1(h.s12)}   <span style="color:var(--E)">■</span> kestirilen hata ${f1(h.hata)}</p>
+      <p class="not">Kestirilen gerçek payı: <b class="n">${f2(h.s12 / h.ort)}</b> (≈ güvenirlik).</p>`;
+    if (st.perde) {
+      html += `<p class="not"><b>Perde arkası:</b> T'yi bildiğimiz için gerçek ayrışım:</p>
+      <div class="cubuk" role="img" aria-label="Gerçek ayrışım"><div class="cT" style="flex:0 0 ${pc(h.vT)}%">${pc(h.vT) > 14 ? 'T' : ''}</div>${h.vB > 0.05 ? `<div class="cB" style="flex:0 0 ${pc(h.vB)}%">${pc(h.vB) > 14 ? 'B' : ''}</div>` : ''}<div class="cE" style="flex:0 0 ${pc(h.vE)}%">${pc(h.vE) > 14 ? 'E' : ''}</div></div>
+      <p class="not n"><span style="color:var(--T)">■</span> T ${f1(h.vT)}   ${h.vB > 0.05 ? `<span style="color:var(--B)">■</span> B ${f1(h.vB)}   ` : ''}<span style="color:var(--E)">■</span> E ${f1(h.vE)}</p>
+      <p class="not">${h.vB > 0.05 ? 'Mor kısım (kararlı yanlılık) KTK\'nın gerçek puanına katılır: güvenirliği yükseltir ama asıl özellik (T) değildir.' : st.bdeg && st.b > 0 ? 'Değişen yanlılık hata kısmına (turuncu) eklendi.' : 'Sabit hata c varyansta görünmez: sabit bir sayının varyansı yoktur.'}</p>`;
+    }
+    kutu.innerHTML = html;
+  }
+
+  function kabuller(h) {
+    const E1s = h.X1.map((x, i) => x - h.Tktk[i]);
+    const ortE = mean(E1s), rTE = cor(h.Tktk, E1s);
+    const items = [
+      { ok: !st.c2, t: 'Hataların ortalaması 0 (iki ölçümde de aynı düzey)', aciklama: st.c2 ? 'Yalnızca ikinci ölçmeye eklenen sabit, iki ölçüm arasında ortalama farkı yaratır.' : 'Sabit hata her ölçmede varsa T\'nin içine yerleşir; hatanın ortalaması 0 kalır.' },
+      { ok: true, t: 'r(T, E) ≈ 0: hata gerçek puanla ilişkisiz', aciklama: st.perde ? 'Bu veride r(T, E₁) = ' + f2(rTE) + '.' : 'Perde arkasında görülebilir.' },
+      { ok: true, t: 'İki ölçümün hataları ilişkisiz', aciklama: 'Bu senaryoların hiçbiri hataları birbirine bağlamıyor.' },
+      { ok: !(st.b > 0 && !st.bdeg), uyari: true, t: 'Gerçek puan = ölçmek istediğimiz özellik', aciklama: st.b > 0 && !st.bdeg ? 'KTK kabulü bozulmaz, ama KTK\'nın gerçek puanı artık yanlılığı da içerir. Güvenirlik ile geçerlik ayrışır.' : 'KTK\'nın kabulü değil, bizim yorumumuz. Kararlı yanlılık olmadığı sürece doğru.' },
+    ];
+    $('kabuller').innerHTML = items.map(it => `<li><span class="i ${it.ok ? 'dogru' : it.uyari ? '' : 'yanlis'}" style="${!it.ok && it.uyari ? 'color:var(--uyari)' : ''}">${it.ok ? '✓' : it.uyari ? '!' : '✗'}</span><span><b>${it.t}</b><br><span class="not">${it.aciklama}</span></span></li>`).join('');
+    void ortE;
+  }
+
+  function matris(h) {
+    $('m-gozlenen').innerHTML = `<span>${f2(h.s1)}</span><span class="k">${f2(h.s12)}</span><span class="k">${f2(h.s12)}</span><span>${f2(h.s2)}</span>`;
+    $('m-model').innerHTML = `<span><b style="color:var(--T)">σ²_T</b> + <b style="color:var(--E)">σ²_E</b></span><span class="k"><b style="color:var(--T)">σ²_T</b></span><span class="k"><b style="color:var(--T)">σ²_T</b></span><span><b style="color:var(--T)">σ²_T</b> + <b style="color:var(--E)">σ²_E</b></span>`;
+    const rel = h.s12 / h.ort;
+    $('denklemler').innerHTML = `
+      <div class="denk">1) Köşegen dışı: <span class="bil T">σ²_T</span> = s₁₂ = <b>${f2(h.s12)}</b></div>
+      <div class="denk">2) Köşegen: <span class="bil T">σ²_T</span> + <span class="bil E">σ²_E</span> = (s²₁ + s²₂) ÷ 2 = ${f2(h.ort)}</div>
+      <div class="denk">3) <span class="bil E">σ²_E</span> = ${f2(h.ort)} − ${f2(h.s12)} = <b>${f2(h.hata)}</b></div>
+      <div class="denk">4) Güvenirlik ρ = <span class="bil T">σ²_T</span> ÷ σ²_X = ${f2(h.s12)} ÷ ${f2(h.ort)} = <b>${f2(rel)}</b></div>
+      <div class="denk">5) ÖSH = √<span class="bil E">σ²_E</span> = <b>${f2(h.osh)}</b>   ·   doğrudan r = ${f2(h.r)}</div>
+      <p class="not">Kovaryansta c ve w nereye gider? c sapmalarda birbirini götürür; w bütün hücreleri w² ile çarpar, oran değişmez. Kararlı B iki ölçmede ortak olduğu için s₁₂'ye (σ²_T'ye) girer; değişen B yalnız köşegene (σ²_E'ye) girer.</p>`;
+  }
+
+  function anova(h) {
+    const satir = (ad, kt, sd, ko, cls) => `<tr class="${cls || ''}"><td>${ad}</td><td>${f2(kt)}</td><td>${sd}</td><td>${f2(ko)}</td></tr>`;
+    $('anova').innerHTML = `<thead><tr><th>Kaynak</th><th>KT</th><th>sd</th><th>KO</th></tr></thead><tbody>${satir('Kişi (öğrenciler arası)', h.KTp, n - 1, h.KOp)}${satir('Ölçme (1. ve 2. ölçüm arası)', h.KTo, 1, h.KOo, h.KOo > 5 ? 'vurgu' : '')}${satir('Artık (tutarsızlık)', h.KTa, n - 1, h.KOa)}</tbody>`;
+    $('anova-yorum').innerHTML = `
+      <div class="denk">Tek ölçmenin güvenirliği = (KO_kişi − KO_artık) ÷ (KO_kişi + KO_artık) = <b>${f2(h.iccC)}</b></div>
+      <div class="denk">Mutlak uyum ICC(A) = <b>${f2(h.iccA)}</b></div>
+      <p class="not">Kişi satırı öğrenciler arasındaki farkı, artık satırı iki ölçüm arasındaki tutarsızlığı taşır. "Ölçme" satırı yalnızca iki ölçümün ortalaması farklıysa büyür: tek ölçmedeki sabit kaymayı burada görürüz. Tutarlılık (ilk satır) bu kaymayı hata saymaz, mutlak uyum sayar. İki ölçümün ortalamasının güvenirliği (Hoyt) ${f2(h.hoyt)}'dir; tek ölçmeninkinden yüksektir, çünkü iki ölçümü ortalamak hatayı küçültür.</p>`;
+  }
+
+  function veri(h) {
+    const b = st.b > 0;
+    $('veri').innerHTML = `<thead><tr><th>Öğr.</th>${st.perde ? '<th>T</th>' : ''}${st.perde && b ? '<th>B₁</th><th>B₂</th>' : ''}${st.perde ? '<th>E₁</th><th>E₂</th>' : ''}<th>X₁</th><th>X₂</th></tr></thead><tbody>` +
+      h.X1.slice(0, 10).map((x, i) => `<tr><td>${i + 1}</td>${st.perde ? `<td>${f1(T[i])}</td>` : ''}${st.perde && b ? `<td>${f1(h.Bs[i])}</td><td>${f1(h.Bs2[i])}</td>` : ''}${st.perde ? `<td>${f1(st.k * E1[i])}</td><td>${f1(st.k * E2[i])}</td>` : ''}<td>${f1(x)}</td><td>${f1(h.X2[i])}</td></tr>`).join('') + '</tbody>';
+  }
+
+  function ders(h, metin) {
+    if (metin) { $('ders').textContent = metin; return; }
+    const d = h.r - BAS.r;
+    $('ders').textContent = Math.abs(d) < 0.005 ? 'Güvenirlik değişmedi (' + f2(h.r) + '). ' + (Math.abs(h.m1 - BAS.m1) > 0.05 ? 'Ortalama değişti; puanlar yalnızca kaydı.' : '') : 'Güvenirlik ' + f2(BAS.r) + ' → ' + f2(h.r) + ': ' + (d > 0 ? 'arttı.' : 'azaldı.') + (st.perde && Math.abs(h.dogruluk - BAS.dogruluk) > 0.005 ? ' Asıl özellikle ilişki (doğruluk) ' + (h.dogruluk > BAS.dogruluk ? 'arttı.' : 'azaldı.') : '');
+  }
+
+  function ciz(metin) {
+    const h = hesapla(st);
+    gostergeler(h); sacilim(h); butce(h); kabuller(h); matris(h); anova(h); veri(h); ders(h, metin); senaryolar();
+    $('g-not').textContent = st.perde ? 'Perde arkası: T ve hataları görüyorsun. Mor kareler KTK gerçek puanı, çizgiler hatayı gösterir.' : 'Gerçek dünya: yalnızca X₁ ve X₂ görünür. T\'yi bilmeden güvenirliği matristen kestiriyoruz.';
+  }
+
+  ['k', 'c', 'w', 'b'].forEach(id => $(id).addEventListener('input', e => { st[id] = parseFloat(e.target.value); st.sen = null; denetimleriEsle(); ciz(); }));
+  ['c2', 'bdeg'].forEach(id => $(id).addEventListener('change', e => { st[id] = e.target.checked; st.sen = null; ciz(); }));
+  $('sifirla').addEventListener('click', () => { Object.assign(st, BASLANGIC); st.sen = null; denetimleriEsle(); ciz(); });
+  const gorunum = v => { st.perde = v; $('g-gercek').setAttribute('aria-pressed', v ? 'false' : 'true'); $('g-perde').setAttribute('aria-pressed', v ? 'true' : 'false'); ciz(); };
+  $('g-gercek').addEventListener('click', () => gorunum(false)); $('g-perde').addEventListener('click', () => gorunum(true));
+  denetimleriEsle(); ciz('Başlangıç: sizin SPSS verinizdeki X ve X2. Bir senaryonun sonucunu tahmin et ya da soldaki kaydırıcıları oynat.');
+})();
+</script>
