@@ -19,6 +19,7 @@
   S.tga = load('tga', {}); S.effect = load('etki', {}); S.m10 = load('m10', {});
   const startMod = load('modul', 'm1'); if (MODS.includes(startMod)) S.module = startMod;
   if (/^#m(10|[1-9])$/.test(location.hash)) S.module = location.hash.slice(1);
+  S.view = { m2: 'backstage', m3: 'backstage', m4: 'backstage' }[S.module] || 'real';
 
   function coreState(mod) {
     const m = mod || S.module;
@@ -248,7 +249,8 @@
       if (back) bar('Perde arkası (evren)', [{ seg: 'T', ad: 'σ²_T', v: q['m3.sigmaT2'] }, { seg: 'E', ad: 'σ²_E', v: q['m3.sigmaE2'] }]);
     } else if (m === 'm4') {
       bar('Gerçek dünya (' + K.ui.butceKestirim + ')', [{ seg: 'kestT', ad: 'kestirilen gerçek s₁₂', v: q['m4.s12'] }, { seg: 'kestE', ad: 'kestirilen hata s̄²_X − s₁₂', v: q['m4.hata_kestirim'] }]);
-      if (back) {
+      if (back && P.ceiling) out.note = 'Tavan açık: kesmeli modelin kapalı biçimli ayrıştırması yok; evren çubuğu gösterilmiyor, güvenirlik 20000 kişilik simülasyondan gelir.';
+      else if (back) {
         const pop = C.errorLabPopulation({ sEta2: P.sEta ** 2, sE2: P.sE ** 2, sB2: P.sB ** 2, pi: P.pi, gamma: P.gamma, rhoBEta: P.rhoBEta, biasVaries: P.biasVaries, w: P.w });
         const w2 = P.w * P.w;
         const contrib = pop.sTrue2 - P.sEta ** 2, segs = [];
@@ -595,14 +597,12 @@
       el('div', { class: 'panel' }, el('h3', null, 'Aynı veri, dört yöntem'), bars, el('p', { class: 'not' }, 'α sütununu M7\'de elle hesaplayacaksın.'))));
     if (S.expert && !STATIC) put(root, el('details', { class: 'uzman-blok', open: true }, el('summary', null, 'Uzman: varyans kaynakları'), el('div', { class: 'denetimler' }, slider({ key: 'sp', label: 'Kişi σ²_p', min: 0.2, max: 2, step: 0.1, d: 1 }), slider({ key: 'spo', label: 'Kişi × gün σ²_po', min: 0, max: 1, step: 0.05, d: 2 }), slider({ key: 'spi', label: 'Kişi × madde σ²_pi', min: 0, max: 2, step: 0.1, d: 1 }), slider({ key: 'se', label: 'Artık σ²_e', min: 0.1, max: 2, step: 0.1, d: 1 }))));
     put(root, el('div', { class: 'bolum' }, el('h3', null, 'Yöntem kartları'), el('div', { class: 'formuller' }, mod.yontemler.map(y => el('div', { class: 'kart' }, el('h4', null, y.ad), el('p', null, el('b', null, 'Veri tasarımı: '), y.veri), el('p', null, el('b', null, 'Hesap: '), y.hesap), el('p', null, el('b', null, 'Hata sayılan kaynaklar: '), y.hata), el('p', null, el('b', null, 'Varsayım: '), y.varsayim), el('p', null, el('b', null, 'Tipik tuzak: '), y.tuzak))))));
-    put(root, el('div', { class: 'bolum' }, el('h3', null, 'Formüller (uzman katmanı)'), formulas(mod.formuller, { 'm6.rho_tekrar': N('= {m6.tekrar}'), 'm6.rho_esdeger': N('= {m6.esdeger}'), 'm6.rho_gecikmeli_esdeger': N('= {m6.gecikmeli}') })));
+    put(root, el('div', { class: 'bolum' }, el('h3', null, 'Formüller (uzman katmanı)'), formulas(mod.formuller, back ? { 'm6.rho_tekrar': N('= {m6.tekrar} (kuramsal hedef; bellek ve öğrenme varken beklenen r = {m6.tekrar_gozlenen})'), 'm6.rho_esdeger': N('= {m6.esdeger}'), 'm6.rho_gecikmeli_esdeger': N('= {m6.gecikmeli} (bozucularla beklenen r = {m6.gecikmeli_gozlenen})') } : null)));
     return {
       update(q) {
         draw(); bars.innerHTML = '';
-        const sim = C.simRepeatDesigner({ N: 400, k: Math.round(P.k), seed: S.seed, sp: P.sp, spo: P.spo, spi: P.spi, se: P.se, memory: P.memory, learning: P.learning });
-        const rows = [['Test-tekrar test', 'm6.tekrar', sim.retest], ['Eşdeğer formlar', 'm6.esdeger', sim.equiv], ['Gecikmeli eşdeğer formlar', 'm6.gecikmeli', sim.delayed], ['Tek oturum α', 'm6.alfa', sim.alpha]];
-        put(bars, back ? tableOf(['Yöntem', 'Bu sınıfta (400 kişi)', 'Kuramsal hedef (perde arkası)'], rows.map(([ad, key, est]) => [ad, fmt(est), qspan(key)])) : tableOf(['Yöntem', 'Bu sınıfta (400 kişi)'], rows.map(([ad, , est]) => [ad, fmt(est)])));
-        bars.querySelectorAll('[data-q]').forEach(n => { n.textContent = fmt(q[n.getAttribute('data-q')]); });
+        const rows = [['Test-tekrar test', 'm6.tekrar', 'm6.s_tekrar'], ['Eşdeğer formlar', 'm6.esdeger', 'm6.s_esdeger'], ['Gecikmeli eşdeğer formlar', 'm6.gecikmeli', 'm6.s_gecikmeli'], ['Tek oturum α', 'm6.alfa', 'm6.s_alfa']];
+        put(bars, back ? tableOf(['Yöntem', 'Bu sınıfta (400 kişi)', 'Kuramsal hedef (perde arkası)'], rows.map(([ad, key, sk]) => [ad, qspan(sk), qspan(key)])) : tableOf(['Yöntem', 'Bu sınıfta (400 kişi)'], rows.map(([ad, , sk]) => [ad, qspan(sk)])));
       },
     };
   };

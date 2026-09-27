@@ -11,7 +11,7 @@ const TESTS = path.join(ROOT, 'tests.json');
 const doc = JSON.parse(fs.readFileSync(TESTS, 'utf8'));
 const byId = new Map(doc.tests.map(t => [t.id, t]));
 const results = new Map();
-const layers = (process.argv.find(a => a.startsWith('--layers=')) || '--layers=A,B,L').slice(9).split(',');
+const layers = (process.argv.find(a => a.startsWith('--layers=')) || '--layers=A,B,L,C').slice(9).split(',');
 
 function record(id, pass, detail) {
   if (!byId.has(id)) { console.error('tests.json içinde olmayan kimlik: ' + id); process.exitCode = 1; return; }
@@ -64,6 +64,9 @@ if ((layers.includes('B') || layers.includes('L')) && fs.existsSync(browserOut))
   for (const r of br.results) if (layers.includes(r.id[0])) record(r.id, r.pass, r.detail);
 }
 
+// Katman C: gözden geçirici kararları test/review/layerC.json'dan okunur
+const reviewOut = path.join(ROOT, 'test/review/layerC.json');
+if (layers.includes('C') && fs.existsSync(reviewOut)) for (const r of JSON.parse(fs.readFileSync(reviewOut, 'utf8')).results) record(r.id, r.pass, r.detail);
 let pass = 0, fail = 0, pending = 0;
 for (const t of doc.tests) {
   const r = results.get(t.id);

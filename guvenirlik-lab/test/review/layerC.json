@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-27",
+  "reviewer": "Bağlamı temiz tek bir gözden geçirici alt ajan; ilk gözden geçirme ve düzeltmelerden sonra yeniden denetim",
+  "results": [
+    { "id": "C.1", "pass": false, "detail": "İlk denetim FAIL (16 bulgu). Yeniden denetimde 1-6 ve 9-16 düzeltilmiş bulundu; kalan üç küçük sorun (M6 kuramsal hedef, ilk açılışta varsayılan görünüm, M4 tavanlı bütçe çubuğu) sonradan düzeltildi ama yeniden denetlenmedi. Açık gereksinimler: M7 yarıya bölme sekmesinde dört çözümlü tur, M7 bağımlılık izi, TGA ön ayarlarında çizilmiş durağan şekiller, M5 açılış TGA'sı ve M2-M4 'perdeyi kapat' maddesinin kapalı uçlu TGA olarak yapılması." },
+    { "id": "C.2", "pass": true, "detail": "Yeniden denetim PASS: hata tablosu 3. satırı, Özet kartı ve uzlaştırma kartı B.0, B.1, B.3, B.4 ve B.8 ile çelişmiyor." },
+    { "id": "C.3", "pass": true, "detail": "Yeniden denetim PASS: 13 etki haritası satırı G.1-G.13 ile hücre hücre eşleşiyor; 15 TGA kartının yanıtı doğru; G.10 ön ayarları sabit eklemeyi tavanla sahneliyor." }
+  ]
+}

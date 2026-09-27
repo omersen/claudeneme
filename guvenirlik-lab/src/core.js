@@ -370,11 +370,13 @@
     const mem = o.memory || 0, learn = o.learning || 0;
     // Bellek: aynı formun iki gününde artık hataların mem oranı ortak; öğrenme: 2. günde kişiden kişiye değişen kazanç (varyans learn)
     const v1 = sp + spo + (spi + se) / k, v2 = v1 + learn;
-    const retest = (sp + spi / k + mem * se / k) / Math.sqrt(v1 * v2);
+    // Kuramsal hedefler bellek ve öğrenmeden bağımsızdır; bozucuların etkisi ayrı "gözlenen evren r" olarak verilir
+    const retest = (sp + spi / k) / v1;
     const equiv = (sp + spo) / (sp + spo + (spi + se) / k);
-    const delayed = sp / Math.sqrt(v1 * v2);
+    const delayed = sp / v1;
+    const retestObs = (sp + spi / k + mem * se / k) / Math.sqrt(v1 * v2), delayedObs = sp / Math.sqrt(v1 * v2);
     return {
-      retest, equiv, delayed, alpha: equiv,
+      retest, equiv, delayed, alpha: equiv, retestObs, delayedObs,
       halfDiff: { retest: spo + se / k - mem * se / k + learn / 2, equiv: (spi + se) / k, delayed: spo + (spi + se) / k + learn / 2 },
     };
   }
@@ -679,6 +681,9 @@
       }
       case 'm6': {
         const pop = repeatDesignerPopulation(P);
+        const sim = simRepeatDesigner({ N: 400, k: Math.round(P.k), seed: s.seed, sp: P.sp, spo: P.spo, spi: P.spi, se: P.se, memory: P.memory, learning: P.learning });
+        q['m6.s_tekrar'] = sim.retest; q['m6.s_esdeger'] = sim.equiv; q['m6.s_gecikmeli'] = sim.delayed; q['m6.s_alfa'] = sim.alpha;
+        q['m6.tekrar_gozlenen'] = pop.retestObs; q['m6.gecikmeli_gozlenen'] = pop.delayedObs;
         q['m6.tekrar'] = pop.retest; q['m6.esdeger'] = pop.equiv; q['m6.gecikmeli'] = pop.delayed; q['m6.alfa'] = pop.alpha;
         q[HIDDEN_PREFIX + 'm6.hd_tekrar'] = pop.halfDiff.retest; q[HIDDEN_PREFIX + 'm6.hd_esdeger'] = pop.halfDiff.equiv; q[HIDDEN_PREFIX + 'm6.hd_gecikmeli'] = pop.halfDiff.delayed;
         break;

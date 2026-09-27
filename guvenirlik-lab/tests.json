@@ -7,11 +7,12 @@
       "layers": [
         "A",
         "B",
-        "L"
+        "L",
+        "C"
       ],
-      "pass": 490,
-      "fail": 0,
-      "pending": 3
+      "pass": 492,
+      "fail": 1,
+      "pending": 0
     }
   },
   "tests": [
@@ -5319,7 +5320,7 @@
       "tolerance": "0,5 × son basamak birimi",
       "spec_line": 467,
       "status": "geçti",
-      "detail": "3 data-q; uyuşmayan: "
+      "detail": "4 data-q; uyuşmayan: "
     },
     {
       "id": "B4.7",
@@ -5799,7 +5800,7 @@
       "tolerance": "tam",
       "spec_line": 480,
       "status": "geçti",
-      "detail": "Node 7d4a1413,10a04b79,0375d7d8,e0b6b4e3,f09b226b,7cf225fd,b37982ca,7dfb29f3,124d86fa / Chromium 7d4a1413,10a04b79,0375d7d8,e0b6b4e3,f09b226b,7cf225fd,b37982ca,7dfb29f3,124d86fa"
+      "detail": "Node 7d4a1413,10a04b79,0375d7d8,e0b6b4e3,f09b226b,aed95b9d,b37982ca,7dfb29f3,124d86fa / Chromium 7d4a1413,10a04b79,0375d7d8,e0b6b4e3,f09b226b,aed95b9d,b37982ca,7dfb29f3,124d86fa"
     },
     {
       "id": "B17.2",
@@ -5906,7 +5907,8 @@
       "expected": "doğruluğu etkileyen eksik yok",
       "tolerance": "gözden geçirici kararı",
       "spec_line": 489,
-      "status": "bekliyor"
+      "status": "kaldı",
+      "detail": "İlk denetim FAIL (16 bulgu). Yeniden denetimde 1-6 ve 9-16 düzeltilmiş bulundu; kalan üç küçük sorun (M6 kuramsal hedef, ilk açılışta varsayılan görünüm, M4 tavanlı bütçe çubuğu) sonradan düzeltildi ama yeniden denetlenmedi. Açık gereksinimler: M7 yarıya bölme sekmesinde dört çözümlü tur, M7 bağımlılık izi, TGA ön ayarlarında çizilmiş durağan şekiller, M5 açılış TGA'sı ve M2-M4 'perdeyi kapat' maddesinin kapalı uçlu TGA olarak yapılması."
     },
     {
       "id": "C.2",
@@ -5917,7 +5919,8 @@
       "expected": "çelişki yok",
       "tolerance": "gözden geçirici kararı",
       "spec_line": 489,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "Yeniden denetim PASS: hata tablosu 3. satırı, Özet kartı ve uzlaştırma kartı B.0, B.1, B.3, B.4 ve B.8 ile çelişmiyor."
     },
     {
       "id": "C.3",
@@ -5928,7 +5931,8 @@
       "expected": "çelişki yok",
       "tolerance": "gözden geçirici kararı",
       "spec_line": 489,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "Yeniden denetim PASS: 13 etki haritası satırı G.1-G.13 ile hücre hücre eşleşiyor; 15 TGA kartının yanıtı doğru; G.10 ön ayarları sabit eklemeyi tavanla sahneliyor."
     }
   ]
 }
