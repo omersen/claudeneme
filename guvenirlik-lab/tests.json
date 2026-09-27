@@ -2,7 +2,15 @@
   "_meta": {
     "spec_sha256": "ef10d02f4309ba3c43715bb1bd64cd3dfa5f223e191e2e36f05da8320c00121e",
     "created": "2026-09-26",
-    "note_tr": "Aşama 0'da başlangıç listesi olarak oluşturuldu. Aşama 1'den itibaren bu dosyayı yalnızca npm test çalıştırıcısı yazar (SPEC <dogrulama>)."
+    "note_tr": "Aşama 0'da başlangıç listesi olarak oluşturuldu. Aşama 1'den itibaren bu dosyayı yalnızca npm test çalıştırıcısı yazar (SPEC <dogrulama>).",
+    "last_run": {
+      "layers": [
+        "A"
+      ],
+      "pass": 421,
+      "fail": 0,
+      "pending": 72
+    }
   },
   "tests": [
     {
@@ -14,7 +22,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A1.2",
@@ -25,7 +34,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A1.3",
@@ -36,7 +46,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A1.4",
@@ -47,7 +58,8 @@
       "expected": "en büyük mutlak fark ≤ 1e-10",
       "tolerance": "1e-10",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A1.5",
@@ -58,7 +70,8 @@
       "expected": "25",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 25, beklenen 25"
     },
     {
       "id": "A1.6",
@@ -69,7 +82,8 @@
       "expected": "6",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 6, beklenen 6"
     },
     {
       "id": "A1.7",
@@ -80,7 +94,8 @@
       "expected": "15",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 15, beklenen 15"
     },
     {
       "id": "A1.8",
@@ -91,7 +106,8 @@
       "expected": "46",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 46, beklenen 46"
     },
     {
       "id": "A1.9",
@@ -102,7 +118,8 @@
       "expected": "46",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 46, beklenen 46"
     },
     {
       "id": "A1.10",
@@ -113,7 +130,8 @@
       "expected": "5",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 5, beklenen 5"
     },
     {
       "id": "A1.11",
@@ -124,7 +142,8 @@
       "expected": "2",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2, beklenen 2"
     },
     {
       "id": "A1.12",
@@ -135,7 +154,8 @@
       "expected": "1",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1, beklenen 1"
     },
     {
       "id": "A1.13",
@@ -146,7 +166,8 @@
       "expected": "1",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1, beklenen 1"
     },
     {
       "id": "A1.14",
@@ -157,7 +178,8 @@
       "expected": "1/6",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.1666666667, beklenen 0.1666666667"
     },
     {
       "id": "A1.15",
@@ -168,7 +190,8 @@
       "expected": "1",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1, beklenen 1"
     },
     {
       "id": "A1.16",
@@ -179,7 +202,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A1.17",
@@ -190,7 +214,8 @@
       "expected": "24/31",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7741935484, beklenen 0.7741935484"
     },
     {
       "id": "A1.18",
@@ -201,7 +226,8 @@
       "expected": "2",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2, beklenen 2"
     },
     {
       "id": "A1.19",
@@ -212,7 +238,8 @@
       "expected": "4",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4, beklenen 4"
     },
     {
       "id": "A1.20",
@@ -223,7 +250,8 @@
       "expected": "4",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4, beklenen 4"
     },
     {
       "id": "A1.21",
@@ -234,7 +262,8 @@
       "expected": "4",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4, beklenen 4"
     },
     {
       "id": "A1.22",
@@ -245,7 +274,8 @@
       "expected": "4",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4, beklenen 4"
     },
     {
       "id": "A1.23",
@@ -256,7 +286,8 @@
       "expected": "16",
       "tolerance": "1e-9",
       "spec_line": 445,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 16, beklenen 16"
     },
     {
       "id": "A1.24",
@@ -267,7 +298,8 @@
       "expected": "5",
       "tolerance": "1e-9",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 5, beklenen 5"
     },
     {
       "id": "A1.25",
@@ -278,7 +310,8 @@
       "expected": "3",
       "tolerance": "1e-9",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 3, beklenen 3"
     },
     {
       "id": "A1.26",
@@ -289,7 +322,8 @@
       "expected": "15",
       "tolerance": "1e-9",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 15, beklenen 15"
     },
     {
       "id": "A1.27",
@@ -300,7 +334,8 @@
       "expected": "2.5",
       "tolerance": "5e-2",
       "spec_line": 385,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2.5, beklenen 2.5"
     },
     {
       "id": "A1.28",
@@ -311,7 +346,8 @@
       "expected": "2.5",
       "tolerance": "5e-2",
       "spec_line": 385,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2.5, beklenen 2.5"
     },
     {
       "id": "A1.29",
@@ -322,7 +358,8 @@
       "expected": "3.5",
       "tolerance": "5e-2",
       "spec_line": 385,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 3.5, beklenen 3.5"
     },
     {
       "id": "A1.30",
@@ -333,7 +370,8 @@
       "expected": "3.5",
       "tolerance": "5e-2",
       "spec_line": 385,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 3.5, beklenen 3.5"
     },
     {
       "id": "A1.31",
@@ -344,7 +382,8 @@
       "expected": "3",
       "tolerance": "1e-9",
       "spec_line": 385,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 3, beklenen 3"
     },
     {
       "id": "A1.32",
@@ -355,7 +394,8 @@
       "expected": "12",
       "tolerance": "1e-9",
       "spec_line": 385,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 12, beklenen 12"
     },
     {
       "id": "A1.33",
@@ -366,7 +406,8 @@
       "expected": "3/2",
       "tolerance": "1e-9",
       "spec_line": 386,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.5, beklenen 1.5"
     },
     {
       "id": "A1.34",
@@ -377,7 +418,8 @@
       "expected": "3/2",
       "tolerance": "1e-9",
       "spec_line": 386,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.5, beklenen 1.5"
     },
     {
       "id": "A1.35",
@@ -388,7 +430,8 @@
       "expected": "31/10",
       "tolerance": "1e-9",
       "spec_line": 386,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 3.1, beklenen 3.1"
     },
     {
       "id": "A1.36",
@@ -399,7 +442,8 @@
       "expected": "19/10",
       "tolerance": "1e-9",
       "spec_line": 386,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.9, beklenen 1.9"
     },
     {
       "id": "A1.37",
@@ -410,7 +454,8 @@
       "expected": "8",
       "tolerance": "1e-9",
       "spec_line": 386,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 8, beklenen 8"
     },
     {
       "id": "A1.38",
@@ -421,7 +466,8 @@
       "expected": "20",
       "tolerance": "1e-9",
       "spec_line": 386,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 20, beklenen 20"
     },
     {
       "id": "A1.39",
@@ -432,7 +478,8 @@
       "expected": "20/3",
       "tolerance": "1e-9",
       "spec_line": 386,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 6.666666667, beklenen 6.666666667"
     },
     {
       "id": "A1.40",
@@ -443,7 +490,8 @@
       "expected": "50/3",
       "tolerance": "1e-9",
       "spec_line": 386,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 16.66666667, beklenen 16.66666667"
     },
     {
       "id": "A1.41",
@@ -454,7 +502,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 386,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A1.42",
@@ -465,7 +514,8 @@
       "expected": "0.7",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7, beklenen 0.7"
     },
     {
       "id": "A1.43",
@@ -476,7 +526,8 @@
       "expected": "1.5",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.5, beklenen 1.5"
     },
     {
       "id": "A1.44",
@@ -487,7 +538,8 @@
       "expected": "0.7",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7, beklenen 0.7"
     },
     {
       "id": "A1.45",
@@ -498,7 +550,8 @@
       "expected": "1.3",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.3, beklenen 1.3"
     },
     {
       "id": "A1.46",
@@ -509,7 +562,8 @@
       "expected": "0.7",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7, beklenen 0.7"
     },
     {
       "id": "A1.47",
@@ -520,7 +574,8 @@
       "expected": "1.1",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.1, beklenen 1.1"
     },
     {
       "id": "A1.48",
@@ -531,7 +586,8 @@
       "expected": "8",
       "tolerance": "1e-9",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 8, beklenen 8"
     },
     {
       "id": "A1.49",
@@ -542,7 +598,8 @@
       "expected": "12",
       "tolerance": "1e-9",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 12, beklenen 12"
     },
     {
       "id": "A1.50",
@@ -553,7 +610,8 @@
       "expected": "20",
       "tolerance": "1e-9",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 20, beklenen 20"
     },
     {
       "id": "A1.51",
@@ -564,7 +622,8 @@
       "expected": "1",
       "tolerance": "1e-9",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1, beklenen 1"
     },
     {
       "id": "A1.52",
@@ -575,7 +634,8 @@
       "expected": "16/20",
       "tolerance": "1e-9",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A1.53",
@@ -586,7 +646,8 @@
       "expected": "0.5",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5, beklenen 0.5"
     },
     {
       "id": "A1.54",
@@ -597,7 +658,8 @@
       "expected": "0.5",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5, beklenen 0.5"
     },
     {
       "id": "A1.55",
@@ -608,7 +670,8 @@
       "expected": "2.1",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2.1, beklenen 2.1"
     },
     {
       "id": "A1.56",
@@ -619,7 +682,8 @@
       "expected": "0.9",
       "tolerance": "5e-2",
       "spec_line": 387,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9, beklenen 0.9"
     },
     {
       "id": "A1.57",
@@ -630,7 +694,8 @@
       "expected": "-1",
       "tolerance": "1e-9",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap -1, beklenen -1"
     },
     {
       "id": "A1.58",
@@ -641,7 +706,8 @@
       "expected": "1.25",
       "tolerance": "5e-3",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.25, beklenen 1.25"
     },
     {
       "id": "A1.59",
@@ -652,7 +718,8 @@
       "expected": "-1.25",
       "tolerance": "5e-3",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap -1.25, beklenen -1.25"
     },
     {
       "id": "A1.60",
@@ -663,7 +730,8 @@
       "expected": "0.75",
       "tolerance": "5e-3",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.75, beklenen 0.75"
     },
     {
       "id": "A1.61",
@@ -674,7 +742,8 @@
       "expected": "-0.75",
       "tolerance": "5e-3",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap -0.75, beklenen -0.75"
     },
     {
       "id": "A1.62",
@@ -685,7 +754,8 @@
       "expected": "1",
       "tolerance": "1e-9",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1, beklenen 1"
     },
     {
       "id": "A1.63",
@@ -696,7 +766,8 @@
       "expected": "-0.5",
       "tolerance": "5e-2",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap -0.5, beklenen -0.5"
     },
     {
       "id": "A1.64",
@@ -707,7 +778,8 @@
       "expected": "-0.5",
       "tolerance": "5e-2",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap -0.5, beklenen -0.5"
     },
     {
       "id": "A1.65",
@@ -718,7 +790,8 @@
       "expected": "0.5",
       "tolerance": "5e-2",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5, beklenen 0.5"
     },
     {
       "id": "A1.66",
@@ -729,7 +802,8 @@
       "expected": "0.5",
       "tolerance": "5e-2",
       "spec_line": 389,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5, beklenen 0.5"
     },
     {
       "id": "A1.67",
@@ -740,7 +814,8 @@
       "expected": "Math.sqrt(3.2)",
       "tolerance": "1e-9",
       "spec_line": 396,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.788854382, beklenen 1.788854382"
     },
     {
       "id": "A1.68",
@@ -751,7 +826,8 @@
       "expected": "14.08",
       "tolerance": "5e-3",
       "spec_line": 396,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 14.08, beklenen 14.08"
     },
     {
       "id": "A1.69",
@@ -762,7 +838,8 @@
       "expected": "21.92",
       "tolerance": "5e-3",
       "spec_line": 396,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 21.92, beklenen 21.92"
     },
     {
       "id": "A1.70",
@@ -773,7 +850,8 @@
       "expected": "16.8",
       "tolerance": "5e-2",
       "spec_line": 396,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 16.8, beklenen 16.8"
     },
     {
       "id": "A1.71",
@@ -784,7 +862,8 @@
       "expected": "13.29",
       "tolerance": "5e-3",
       "spec_line": 396,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 13.29384541, beklenen 13.29"
     },
     {
       "id": "A1.72",
@@ -795,7 +874,8 @@
       "expected": "20.31",
       "tolerance": "5e-3",
       "spec_line": 396,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 20.30615459, beklenen 20.31"
     },
     {
       "id": "A2.1",
@@ -806,7 +886,8 @@
       "expected": "19/25",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.76, beklenen 0.76"
     },
     {
       "id": "A2.2",
@@ -817,7 +898,8 @@
       "expected": "21/25",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.84, beklenen 0.84"
     },
     {
       "id": "A2.3",
@@ -828,7 +910,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A2.4",
@@ -839,7 +922,8 @@
       "expected": "19/25",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.76, beklenen 0.76"
     },
     {
       "id": "A2.5",
@@ -850,7 +934,8 @@
       "expected": "21/25",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.84, beklenen 0.84"
     },
     {
       "id": "A2.6",
@@ -861,7 +946,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A2.7",
@@ -872,7 +958,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A2.8",
@@ -883,7 +970,8 @@
       "expected": "19/48",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.3958333333, beklenen 0.3958333333"
     },
     {
       "id": "A2.9",
@@ -894,7 +982,8 @@
       "expected": "49/88",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5568181818, beklenen 0.5568181818"
     },
     {
       "id": "A2.10",
@@ -905,7 +994,8 @@
       "expected": "25/54",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.462962963, beklenen 0.462962963"
     },
     {
       "id": "A2.11",
@@ -916,7 +1006,8 @@
       "expected": ".8123",
       "tolerance": "5e-5",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8122808547, beklenen 0.8123 | doğru"
     },
     {
       "id": "A2.12",
@@ -927,7 +1018,8 @@
       "expected": ".6292",
       "tolerance": "5e-5",
       "spec_line": 394,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6291528696, beklenen 0.6292"
     },
     {
       "id": "A2.13",
@@ -938,7 +1030,8 @@
       "expected": ".7462",
       "tolerance": "5e-5",
       "spec_line": 394,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7462025072, beklenen 0.7462"
     },
     {
       "id": "A2.14",
@@ -949,7 +1042,8 @@
       "expected": ".6804",
       "tolerance": "5e-5",
       "spec_line": 394,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6804138174, beklenen 0.6804"
     },
     {
       "id": "A2.15",
@@ -960,7 +1054,8 @@
       "expected": ".7724",
       "tolerance": "5e-5",
       "spec_line": 394,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7723681201, beklenen 0.7724"
     },
     {
       "id": "A2.16",
@@ -971,7 +1066,8 @@
       "expected": ".8547",
       "tolerance": "5e-5",
       "spec_line": 394,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8546574686, beklenen 0.8547"
     },
     {
       "id": "A2.17",
@@ -982,7 +1078,8 @@
       "expected": ".8098",
       "tolerance": "5e-5",
       "spec_line": 394,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8098169753, beklenen 0.8098"
     },
     {
       "id": "A2.18",
@@ -993,7 +1090,8 @@
       "expected": "38/5",
       "tolerance": "1e-9",
       "spec_line": 394,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 7.6, beklenen 7.6"
     },
     {
       "id": "A2.19",
@@ -1004,7 +1102,8 @@
       "expected": "24/5",
       "tolerance": "1e-9",
       "spec_line": 394,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4.8, beklenen 4.8"
     },
     {
       "id": "A2.20",
@@ -1015,7 +1114,8 @@
       "expected": "19/5",
       "tolerance": "1e-9",
       "spec_line": 394,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 3.8, beklenen 3.8"
     },
     {
       "id": "A2.21",
@@ -1026,7 +1126,8 @@
       "expected": "184/265",
       "tolerance": "1e-9",
       "spec_line": 446,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6943396226, beklenen 0.6943396226"
     },
     {
       "id": "A2.22",
@@ -1037,7 +1138,8 @@
       "expected": "115/159*24/25",
       "tolerance": "1e-9",
       "spec_line": 416,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6943396226, beklenen 0.6943396226"
     },
     {
       "id": "A2.23",
@@ -1048,7 +1150,8 @@
       "expected": "10",
       "tolerance": "1e-9",
       "spec_line": 416,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 10, beklenen 10"
     },
     {
       "id": "A2.24",
@@ -1059,7 +1162,8 @@
       "expected": "3",
       "tolerance": "1e-9",
       "spec_line": 218,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 3, beklenen 3"
     },
     {
       "id": "A2.25",
@@ -1070,7 +1174,8 @@
       "expected": "10",
       "tolerance": "1e-9",
       "spec_line": 218,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 10, beklenen 10"
     },
     {
       "id": "A3.1",
@@ -1081,7 +1186,8 @@
       "expected": "3/5",
       "tolerance": "1e-9",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6, beklenen 0.6"
     },
     {
       "id": "A3.2",
@@ -1092,7 +1198,8 @@
       "expected": ".8101",
       "tolerance": "5e-5",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8100793501, beklenen 0.8101"
     },
     {
       "id": "A3.3",
@@ -1103,7 +1210,8 @@
       "expected": "L2 >= 4/5",
       "tolerance": "tam (eşitsizlik)",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A3.4",
@@ -1114,7 +1222,8 @@
       "expected": ".8050",
       "tolerance": "5e-5",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8050368953, beklenen 0.805"
     },
     {
       "id": "A3.5",
@@ -1125,7 +1234,8 @@
       "expected": "93/127",
       "tolerance": "1e-9",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7322834646, beklenen 0.7322834646"
     },
     {
       "id": "A3.6",
@@ -1136,7 +1246,8 @@
       "expected": "99/131",
       "tolerance": "1e-9",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7557251908, beklenen 0.7557251908"
     },
     {
       "id": "A3.7",
@@ -1147,7 +1258,8 @@
       "expected": "9/13",
       "tolerance": "1e-9",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6923076923, beklenen 0.6923076923"
     },
     {
       "id": "A3.8",
@@ -1158,7 +1270,8 @@
       "expected": "105/131",
       "tolerance": "1e-9",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8015267176, beklenen 0.8015267176"
     },
     {
       "id": "A3.9",
@@ -1169,7 +1282,8 @@
       "expected": ".664",
       "tolerance": "5e-4",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6644319501, beklenen 0.664"
     },
     {
       "id": "A3.10",
@@ -1180,7 +1294,8 @@
       "expected": ".609",
       "tolerance": "5e-4",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.609091427, beklenen 0.609"
     },
     {
       "id": "A3.11",
@@ -1191,7 +1306,8 @@
       "expected": ".734",
       "tolerance": "5e-4",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7342823074, beklenen 0.734"
     },
     {
       "id": "A3.12",
@@ -1202,7 +1318,8 @@
       "expected": ".501",
       "tolerance": "5e-4",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5011036434, beklenen 0.501"
     },
     {
       "id": "A3.13",
@@ -1213,7 +1330,8 @@
       "expected": "15/22",
       "tolerance": "1e-9",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6818181818, beklenen 0.6818181818"
     },
     {
       "id": "A3.14",
@@ -1224,7 +1342,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A3.15",
@@ -1235,7 +1354,8 @@
       "expected": "0",
       "tolerance": "1e-9",
       "spec_line": 447,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0, beklenen 0"
     },
     {
       "id": "A3.16",
@@ -1246,7 +1366,8 @@
       "expected": ".4667",
       "tolerance": "5e-5",
       "spec_line": 388,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.4666666667, beklenen 0.4667"
     },
     {
       "id": "A3.17",
@@ -1257,7 +1378,8 @@
       "expected": ".6956",
       "tolerance": "5e-5",
       "spec_line": 388,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6956083436, beklenen 0.6956"
     },
     {
       "id": "A3.18",
@@ -1268,7 +1390,8 @@
       "expected": ".4146",
       "tolerance": "5e-5",
       "spec_line": 388,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.4146442144, beklenen 0.4146"
     },
     {
       "id": "A3.19",
@@ -1279,7 +1402,8 @@
       "expected": ".6029",
       "tolerance": "5e-5",
       "spec_line": 388,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6028605645, beklenen 0.6029"
     },
     {
       "id": "A3.20",
@@ -1290,7 +1414,8 @@
       "expected": ".4146",
       "tolerance": "5e-5",
       "spec_line": 388,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.4146442144, beklenen 0.4146"
     },
     {
       "id": "A3.21",
@@ -1301,19 +1426,22 @@
       "expected": ".4532",
       "tolerance": "5e-5",
       "spec_line": 388,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.4532471039, beklenen 0.4532"
     },
     {
       "id": "A3.22",
       "layer": "A",
       "group": "A3",
-      "claim_tr": "α_std'nin girdisi (sabit_veri destek değeri): ortalama madde korelasyonu r̄ = 0,5080.",
+      "claim_tr": "α_std'nin girdisi: ortalama madde korelasyonu r̄ = 0,5079 (SPEC'teki .5080 çift yuvarlama hatası; kullanıcının 'hepsini yap' talimatıyla düzeltildi, SPEC_SORULARI madde 20).",
       "inputs": "Sabit Veri A (6 kişi × 4 madde), n−1 paydası",
-      "expected": ".5080",
+      "expected": ".5079",
       "tolerance": "5e-5",
       "spec_line": 388,
-      "status": "bekliyor",
-      "recompute_mismatch": "0.507945 (Python: altı korelasyon r12=7/15, r13=1.5/√4.65, r14=r24=0.7/√2.85, r23=1.3/√4.65, r34=1.1/√5.89 ortalaması = 3.047671/6 = 0.5079452; 4 basamakta .5079; fark 5.5e-5 > 5e-5. α_std = 4r̄/(1+3r̄) = 0.805037, yani .8050 bu r̄ ile tutarlı) | Bağımsız çekişmeli yeniden hesap doğruladı: r̄ = 0,50794518; 4 basamakta .5079. .5080, .507945 → .50795 → .5080 biçiminde çift yuvarlamadan gelmiş görünüyor. Ayrıca r̄ = .5080 alınırsa α_std = 4r̄/(1+3r̄) = 0,805071, yani 4 basamakta .8051 olur; SPEC'teki .5080 ile .8050 birbiriyle tutarsızdır ve hatalı olan .5080'dir. Beklenen değer SPEC'teki gibi bırakıldı; Spec soruları'na yazılmalı."
+      "status": "geçti",
+      "recompute_mismatch": "0.507945 (Python: altı korelasyon r12=7/15, r13=1.5/√4.65, r14=r24=0.7/√2.85, r23=1.3/√4.65, r34=1.1/√5.89 ortalaması = 3.047671/6 = 0.5079452; 4 basamakta .5079; fark 5.5e-5 > 5e-5. α_std = 4r̄/(1+3r̄) = 0.805037, yani .8050 bu r̄ ile tutarlı) | Bağımsız çekişmeli yeniden hesap doğruladı: r̄ = 0,50794518; 4 basamakta .5079. .5080, .507945 → .50795 → .5080 biçiminde çift yuvarlamadan gelmiş görünüyor. Ayrıca r̄ = .5080 alınırsa α_std = 4r̄/(1+3r̄) = 0,805071, yani 4 basamakta .8051 olur; SPEC'teki .5080 ile .8050 birbiriyle tutarsızdır ve hatalı olan .5080'dir. Beklenen değer SPEC'teki gibi bırakıldı; Spec soruları'na yazılmalı.",
+      "spec_value": ".5080",
+      "detail": "hesap 0.5079451846, beklenen 0.5079"
     },
     {
       "id": "A3.23",
@@ -1324,7 +1452,8 @@
       "expected": "3",
       "tolerance": "1e-9",
       "spec_line": 398,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 3, beklenen 3"
     },
     {
       "id": "A3.24",
@@ -1335,7 +1464,8 @@
       "expected": "2",
       "tolerance": "1e-9",
       "spec_line": 398,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2, beklenen 2"
     },
     {
       "id": "A3.25",
@@ -1346,7 +1476,8 @@
       "expected": "0",
       "tolerance": "1e-9",
       "spec_line": 398,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0, beklenen 0"
     },
     {
       "id": "A4.1",
@@ -1357,7 +1488,8 @@
       "expected": "1/2",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5, beklenen 0.5"
     },
     {
       "id": "A4.2",
@@ -1368,7 +1500,8 @@
       "expected": "6/13",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.4615384615, beklenen 0.4615384615"
     },
     {
       "id": "A4.3",
@@ -1379,7 +1512,8 @@
       "expected": "2/3",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.6666666667"
     },
     {
       "id": "A4.4",
@@ -1390,7 +1524,8 @@
       "expected": "12/19",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6315789474, beklenen 0.6315789474"
     },
     {
       "id": "A4.5",
@@ -1401,7 +1536,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A4.6",
@@ -1412,7 +1548,8 @@
       "expected": "24/31",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7741935484, beklenen 0.7741935484"
     },
     {
       "id": "A4.7",
@@ -1423,7 +1560,8 @@
       "expected": "8/9",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8888888889, beklenen 0.8888888889"
     },
     {
       "id": "A4.8",
@@ -1434,7 +1572,8 @@
       "expected": "48/55",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8727272727, beklenen 0.8727272727"
     },
     {
       "id": "A4.9",
@@ -1445,7 +1584,8 @@
       "expected": "12/13",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9230769231, beklenen 0.9230769231"
     },
     {
       "id": "A4.10",
@@ -1456,7 +1596,8 @@
       "expected": "72/79",
       "tolerance": "1e-9",
       "spec_line": 391,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9113924051, beklenen 0.9113924051"
     },
     {
       "id": "A4.11",
@@ -1467,7 +1608,8 @@
       "expected": "fark ≤ 1e-12",
       "tolerance": "1e-12",
       "spec_line": 448,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A4.12",
@@ -1478,7 +1620,8 @@
       "expected": "Phi <= Erho2",
       "tolerance": "tam (eşitsizlik)",
       "spec_line": 448,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A4.13",
@@ -1489,7 +1632,8 @@
       "expected": "1/2",
       "tolerance": "1e-9",
       "spec_line": 448,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5, beklenen 0.5"
     },
     {
       "id": "A4.14",
@@ -1500,7 +1644,8 @@
       "expected": "24/31",
       "tolerance": "1e-9",
       "spec_line": 448,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7741935484, beklenen 0.7741935484"
     },
     {
       "id": "A4.15",
@@ -1511,7 +1656,8 @@
       "expected": "24/31",
       "tolerance": "1e-9",
       "spec_line": 448,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7741935484, beklenen 0.7741935484 | doğru"
     },
     {
       "id": "A4.16",
@@ -1522,7 +1668,8 @@
       "expected": "7/6",
       "tolerance": "1e-9",
       "spec_line": 448,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.166666667, beklenen 1.166666667"
     },
     {
       "id": "A4.17",
@@ -1533,7 +1680,8 @@
       "expected": "23/24",
       "tolerance": "1e-9",
       "spec_line": 448,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9583333333, beklenen 0.9583333333"
     },
     {
       "id": "A4.18",
@@ -1544,7 +1692,8 @@
       "expected": "23/30",
       "tolerance": "1e-9",
       "spec_line": 448,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7666666667, beklenen 0.7666666667"
     },
     {
       "id": "A4.19",
@@ -1555,7 +1704,8 @@
       "expected": "21",
       "tolerance": "1e-9",
       "spec_line": 393,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 21, beklenen 21"
     },
     {
       "id": "A4.20",
@@ -1566,7 +1716,8 @@
       "expected": "7/6",
       "tolerance": "1e-9",
       "spec_line": 400,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.166666667, beklenen 1.166666667"
     },
     {
       "id": "A4.21",
@@ -1577,7 +1728,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 400,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A4.22",
@@ -1588,7 +1740,8 @@
       "expected": "24/31",
       "tolerance": "1e-9",
       "spec_line": 400,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7741935484, beklenen 0.7741935484"
     },
     {
       "id": "A4.23",
@@ -1599,7 +1752,8 @@
       "expected": "1/2",
       "tolerance": "1e-9",
       "spec_line": 400,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5, beklenen 0.5"
     },
     {
       "id": "A4.24",
@@ -1610,7 +1764,8 @@
       "expected": "6/13",
       "tolerance": "1e-9",
       "spec_line": 400,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.4615384615, beklenen 0.4615384615"
     },
     {
       "id": "A4.25",
@@ -1621,7 +1776,8 @@
       "expected": "1/6 + 1",
       "tolerance": "1e-9",
       "spec_line": 193,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.166666667, beklenen 1.166666667 | doğru"
     },
     {
       "id": "A4.26",
@@ -1632,7 +1788,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 249,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8 | doğru"
     },
     {
       "id": "A5.1",
@@ -1643,7 +1800,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A5.2",
@@ -1654,7 +1812,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A5.3",
@@ -1665,7 +1824,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A5.4",
@@ -1676,7 +1836,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A5.5",
@@ -1687,7 +1848,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A5.6",
@@ -1698,7 +1860,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 399,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A5.7",
@@ -1709,7 +1872,8 @@
       "expected": "24/31",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7741935484, beklenen 0.7741935484"
     },
     {
       "id": "A5.8",
@@ -1720,7 +1884,8 @@
       "expected": "24/31",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7741935484, beklenen 0.7741935484"
     },
     {
       "id": "A5.9",
@@ -1731,7 +1896,8 @@
       "expected": "16/23",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6956521739, beklenen 0.6956521739"
     },
     {
       "id": "A5.10",
@@ -1742,7 +1908,8 @@
       "expected": "24/41",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5853658537, beklenen 0.5853658537"
     },
     {
       "id": "A5.11",
@@ -1753,7 +1920,8 @@
       "expected": "3/4",
       "tolerance": "1e-9",
       "spec_line": 399,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.75, beklenen 0.75"
     },
     {
       "id": "A5.12",
@@ -1764,7 +1932,8 @@
       "expected": "80",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 80, beklenen 80"
     },
     {
       "id": "A5.13",
@@ -1775,7 +1944,8 @@
       "expected": "4",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4, beklenen 4"
     },
     {
       "id": "A5.14",
@@ -1786,7 +1956,8 @@
       "expected": "2.2",
       "tolerance": "5e-2",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2.2, beklenen 2.2"
     },
     {
       "id": "A5.15",
@@ -1797,7 +1968,8 @@
       "expected": "13.2",
       "tolerance": "5e-2",
       "spec_line": 399,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 13.2, beklenen 13.2"
     },
     {
       "id": "A5.16",
@@ -1808,7 +1980,8 @@
       "expected": "2",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2, beklenen 2"
     },
     {
       "id": "A5.17",
@@ -1819,7 +1992,8 @@
       "expected": "68/Math.sqrt(5180)",
       "tolerance": "1e-12",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9448090244, beklenen 0.9448090244"
     },
     {
       "id": "A5.18",
@@ -1830,7 +2004,8 @@
       "expected": "17/18",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9444444444, beklenen 0.9444444444"
     },
     {
       "id": "A5.19",
@@ -1841,7 +2016,8 @@
       "expected": "408/803",
       "tolerance": "1e-9",
       "spec_line": 449,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5080946451, beklenen 0.5080946451"
     },
     {
       "id": "A5.20",
@@ -1852,7 +2028,8 @@
       "expected": "0",
       "tolerance": "1e-9",
       "spec_line": 408,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0, beklenen 0"
     },
     {
       "id": "A6.1",
@@ -1863,7 +2040,8 @@
       "expected": "280/377",
       "tolerance": "1e-9",
       "spec_line": 450,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7427055703, beklenen 0.7427055703"
     },
     {
       "id": "A6.2",
@@ -1874,7 +2052,8 @@
       "expected": "!= 4/5",
       "tolerance": "|α − 4/5| > 1e-9",
       "spec_line": 450,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A7.1",
@@ -1885,7 +2064,8 @@
       "expected": "76/91",
       "tolerance": "1e-9",
       "spec_line": 451,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8351648352, beklenen 0.8351648352"
     },
     {
       "id": "A7.2",
@@ -1896,7 +2076,8 @@
       "expected": "152/187",
       "tolerance": "1e-9",
       "spec_line": 451,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8128342246, beklenen 0.8128342246"
     },
     {
       "id": "A7.3",
@@ -1907,7 +2088,8 @@
       "expected": "10/11",
       "tolerance": "1e-9",
       "spec_line": 451,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9090909091, beklenen 0.9090909091"
     },
     {
       "id": "A7.4",
@@ -1918,7 +2100,8 @@
       "expected": "2/7",
       "tolerance": "1e-9",
       "spec_line": 451,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.2857142857, beklenen 0.2857142857"
     },
     {
       "id": "A8.1",
@@ -1929,7 +2112,8 @@
       "expected": "115/159",
       "tolerance": "1e-9",
       "spec_line": 452,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7232704403, beklenen 0.7232704403"
     },
     {
       "id": "A8.2",
@@ -1940,7 +2124,8 @@
       "expected": "115/159",
       "tolerance": "1e-9",
       "spec_line": 452,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7232704403, beklenen 0.7232704403"
     },
     {
       "id": "A8.3",
@@ -1951,7 +2136,8 @@
       "expected": "33/53",
       "tolerance": "1e-9",
       "spec_line": 452,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6226415094, beklenen 0.6226415094"
     },
     {
       "id": "A8.4",
@@ -1962,7 +2148,8 @@
       "expected": "33/53 <= 115/159",
       "tolerance": "tam (eşitsizlik)",
       "spec_line": 413,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A8.5",
@@ -1973,7 +2160,8 @@
       "expected": "115/159",
       "tolerance": "1e-9",
       "spec_line": 452,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7232704403, beklenen 0.7232704403"
     },
     {
       "id": "A8.6",
@@ -1984,7 +2172,8 @@
       "expected": "4015/5088",
       "tolerance": "1e-9",
       "spec_line": 452,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7891116352, beklenen 0.7891116352"
     },
     {
       "id": "A8.7",
@@ -1995,7 +2184,8 @@
       "expected": "karışık girdi için true, tutarlı girdi için false",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 452,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A8.8",
@@ -2006,7 +2196,8 @@
       "expected": "11/16",
       "tolerance": "1e-9",
       "spec_line": 452,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6875, beklenen 0.6875"
     },
     {
       "id": "A8.9",
@@ -2017,7 +2208,8 @@
       "expected": "0",
       "tolerance": "1e-9",
       "spec_line": 415,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0, beklenen 0"
     },
     {
       "id": "A8.10",
@@ -2028,7 +2220,8 @@
       "expected": "1",
       "tolerance": "1e-9",
       "spec_line": 415,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1, beklenen 1"
     },
     {
       "id": "A8.11",
@@ -2039,7 +2232,8 @@
       "expected": "Math.sqrt(3/2)",
       "tolerance": "1e-9",
       "spec_line": 415,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.224744871, beklenen 1.224744871"
     },
     {
       "id": "A8.12",
@@ -2050,7 +2244,8 @@
       "expected": "Math.sqrt(3/2)",
       "tolerance": "1e-9",
       "spec_line": 415,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.224744871, beklenen 1.224744871"
     },
     {
       "id": "A8.13",
@@ -2061,7 +2256,8 @@
       "expected": "1",
       "tolerance": "1e-9",
       "spec_line": 415,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1, beklenen 1"
     },
     {
       "id": "A8.14",
@@ -2072,7 +2268,8 @@
       "expected": "0",
       "tolerance": "1e-9",
       "spec_line": 415,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0, beklenen 0"
     },
     {
       "id": "A8.15",
@@ -2083,7 +2280,8 @@
       "expected": ".75",
       "tolerance": "5e-3",
       "spec_line": 412,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.75, beklenen 0.75"
     },
     {
       "id": "A8.16",
@@ -2094,7 +2292,8 @@
       "expected": ".75",
       "tolerance": "5e-3",
       "spec_line": 412,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.75, beklenen 0.75"
     },
     {
       "id": "A8.17",
@@ -2105,7 +2304,8 @@
       "expected": ".50",
       "tolerance": "5e-3",
       "spec_line": 412,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5, beklenen 0.5"
     },
     {
       "id": "A8.18",
@@ -2116,7 +2316,8 @@
       "expected": ".375",
       "tolerance": "5e-4",
       "spec_line": 412,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.375, beklenen 0.375"
     },
     {
       "id": "A8.19",
@@ -2127,7 +2328,8 @@
       "expected": ".25",
       "tolerance": "5e-3",
       "spec_line": 412,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.25, beklenen 0.25"
     },
     {
       "id": "A8.20",
@@ -2138,7 +2340,8 @@
       "expected": "67/64",
       "tolerance": "1e-9",
       "spec_line": 412,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.046875, beklenen 1.046875"
     },
     {
       "id": "A8.21",
@@ -2149,7 +2352,8 @@
       "expected": "21/8",
       "tolerance": "1e-9",
       "spec_line": 412,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2.625, beklenen 2.625"
     },
     {
       "id": "A8.22",
@@ -2160,7 +2364,8 @@
       "expected": "159/64",
       "tolerance": "1e-9",
       "spec_line": 412,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2.484375, beklenen 2.484375"
     },
     {
       "id": "A9.1",
@@ -2171,7 +2376,8 @@
       "expected": ".7194",
       "tolerance": "5e-5",
       "spec_line": 419,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7194244604, beklenen 0.7194"
     },
     {
       "id": "A9.2",
@@ -2182,7 +2388,8 @@
       "expected": ".7194",
       "tolerance": "5e-5",
       "spec_line": 419,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7194244604, beklenen 0.7194"
     },
     {
       "id": "A9.3",
@@ -2193,7 +2400,8 @@
       "expected": ".7194",
       "tolerance": "5e-5",
       "spec_line": 419,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7194244604, beklenen 0.7194"
     },
     {
       "id": "A9.4",
@@ -2204,7 +2412,8 @@
       "expected": ".6667",
       "tolerance": "5e-5",
       "spec_line": 420,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.6667"
     },
     {
       "id": "A9.5",
@@ -2215,7 +2424,8 @@
       "expected": ".6667",
       "tolerance": "5e-5",
       "spec_line": 420,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.6667"
     },
     {
       "id": "A9.6",
@@ -2226,7 +2436,8 @@
       "expected": ".6667",
       "tolerance": "5e-5",
       "spec_line": 420,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.6667"
     },
     {
       "id": "A9.7",
@@ -2237,7 +2448,8 @@
       "expected": ".7132",
       "tolerance": "5e-5",
       "spec_line": 421,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7131782946, beklenen 0.7132"
     },
     {
       "id": "A9.8",
@@ -2248,7 +2460,8 @@
       "expected": ".7267",
       "tolerance": "5e-5",
       "spec_line": 421,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.726744186, beklenen 0.7267"
     },
     {
       "id": "A9.9",
@@ -2259,7 +2472,8 @@
       "expected": ".7208",
       "tolerance": "5e-5",
       "spec_line": 421,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7208139171, beklenen 0.7208"
     },
     {
       "id": "A9.10",
@@ -2270,7 +2484,8 @@
       "expected": ".5987",
       "tolerance": "5e-5",
       "spec_line": 422,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5987144169, beklenen 0.5987"
     },
     {
       "id": "A9.11",
@@ -2281,7 +2496,8 @@
       "expected": ".6667",
       "tolerance": "5e-5",
       "spec_line": 422,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.6667"
     },
     {
       "id": "A9.12",
@@ -2292,7 +2508,8 @@
       "expected": ".6386",
       "tolerance": "5e-5",
       "spec_line": 422,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6386320816, beklenen 0.6386"
     },
     {
       "id": "A9.13",
@@ -2303,7 +2520,8 @@
       "expected": ".6758",
       "tolerance": "5e-5",
       "spec_line": 423,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6758241758, beklenen 0.6758"
     },
     {
       "id": "A9.14",
@@ -2314,7 +2532,8 @@
       "expected": ".7326",
       "tolerance": "5e-5",
       "spec_line": 423,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7326007326, beklenen 0.7326"
     },
     {
       "id": "A9.15",
@@ -2325,7 +2544,8 @@
       "expected": ".7061",
       "tolerance": "5e-5",
       "spec_line": 423,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7060882627, beklenen 0.7061"
     },
     {
       "id": "A9.16",
@@ -2336,7 +2556,8 @@
       "expected": ".7712",
       "tolerance": "5e-5",
       "spec_line": 424,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7711901625, beklenen 0.7712"
     },
     {
       "id": "A9.17",
@@ -2347,7 +2568,8 @@
       "expected": ".6588",
       "tolerance": "5e-5",
       "spec_line": 424,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6587615283, beklenen 0.6588"
     },
     {
       "id": "A9.18",
@@ -2358,7 +2580,8 @@
       "expected": ".7752",
       "tolerance": "5e-5",
       "spec_line": 424,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7752451463, beklenen 0.7752"
     },
     {
       "id": "A9.19",
@@ -2369,7 +2592,8 @@
       "expected": ".6087",
       "tolerance": "5e-5",
       "spec_line": 425,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6086956522, beklenen 0.6087"
     },
     {
       "id": "A9.20",
@@ -2380,7 +2604,8 @@
       "expected": ".6576",
       "tolerance": "5e-5",
       "spec_line": 425,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6576086957, beklenen 0.6576"
     },
     {
       "id": "A9.21",
@@ -2391,7 +2616,8 @@
       "expected": ".6447",
       "tolerance": "5e-5",
       "spec_line": 425,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6446573453, beklenen 0.6447"
     },
     {
       "id": "A9.22",
@@ -2402,7 +2628,8 @@
       "expected": ".6975",
       "tolerance": "5e-5",
       "spec_line": 426,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.697466468, beklenen 0.6975"
     },
     {
       "id": "A9.23",
@@ -2413,7 +2640,8 @@
       "expected": ".7452",
       "tolerance": "5e-5",
       "spec_line": 426,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7451564829, beklenen 0.7452"
     },
     {
       "id": "A9.24",
@@ -2424,7 +2652,8 @@
       "expected": ".6995",
       "tolerance": "5e-5",
       "spec_line": 426,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6994927295, beklenen 0.6995"
     },
     {
       "id": "A9.25",
@@ -2435,7 +2664,8 @@
       "expected": ".5939",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5939393939, beklenen 0.5939"
     },
     {
       "id": "A9.26",
@@ -2446,7 +2676,8 @@
       "expected": ".7424",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7424242424, beklenen 0.7424"
     },
     {
       "id": "A9.27",
@@ -2457,7 +2688,8 @@
       "expected": ".7043",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7043370508, beklenen 0.7043"
     },
     {
       "id": "A9.28",
@@ -2468,7 +2700,8 @@
       "expected": ".7893",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7893432466, beklenen 0.7893"
     },
     {
       "id": "A9.29",
@@ -2479,7 +2712,8 @@
       "expected": ".7580",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7580110497, beklenen 0.758"
     },
     {
       "id": "A9.30",
@@ -2490,7 +2724,8 @@
       "expected": ".8122",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8121546961, beklenen 0.8122"
     },
     {
       "id": "A9.31",
@@ -2501,7 +2736,8 @@
       "expected": ".8522",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.852173913, beklenen 0.8522"
     },
     {
       "id": "A9.32",
@@ -2512,7 +2748,8 @@
       "expected": ".8522",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.852173913, beklenen 0.8522"
     },
     {
       "id": "A9.33",
@@ -2523,7 +2760,8 @@
       "expected": ".7747",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7747035573, beklenen 0.7747"
     },
     {
       "id": "A9.34",
@@ -2534,7 +2772,8 @@
       "expected": ".8522",
       "tolerance": "5e-5",
       "spec_line": 427,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.852173913, beklenen 0.8522"
     },
     {
       "id": "A9.35",
@@ -2545,7 +2784,8 @@
       "expected": "omega - alpha > 0 (200/200)",
       "tolerance": "tam (eşitsizlik)",
       "spec_line": 453,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A9.36",
@@ -2556,7 +2796,8 @@
       "expected": "L2 >= alpha (200/200)",
       "tolerance": "tam (eşitsizlik)",
       "spec_line": 453,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A9.37",
@@ -2567,7 +2808,8 @@
       "expected": "|omega - alpha| < 1e-12",
       "tolerance": "1e-12",
       "spec_line": 453,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A9.38",
@@ -2578,7 +2820,8 @@
       "expected": "|omega - alpha| < 1e-12",
       "tolerance": "1e-12",
       "spec_line": 453,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A10.1",
@@ -2589,7 +2832,8 @@
       "expected": "göreli fark ≤ 1e-10",
       "tolerance": "1e-10 göreli",
       "spec_line": 454,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A10.2",
@@ -2600,7 +2844,8 @@
       "expected": "KT toplamı tutar",
       "tolerance": "1e-9 göreli (SPEC'te sayı verilmemiş; varsayılan)",
       "spec_line": 454,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A10.3",
@@ -2611,7 +2856,8 @@
       "expected": "bileşen = 0",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 454,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A10.4",
@@ -2622,7 +2868,8 @@
       "expected": "mean(FR) = alpha",
       "tolerance": "1e-9 göreli (SPEC'te sayı verilmemiş; varsayılan)",
       "spec_line": 454,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A10.5",
@@ -2633,7 +2880,8 @@
       "expected": "mean(FR) = alpha*(k*k-1)/(k*k)",
       "tolerance": "1e-9 göreli (SPEC'te sayı verilmemiş; varsayılan)",
       "spec_line": 454,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A10.6",
@@ -2644,7 +2892,8 @@
       "expected": "atlanır",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 454,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "s_Y² = 0 olan 0 matris atlandı"
     },
     {
       "id": "A10.7",
@@ -2655,7 +2904,8 @@
       "expected": "bayrak = true",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 454,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A11.1",
@@ -2666,7 +2916,8 @@
       "expected": "5/6",
       "tolerance": "1e-9",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8333333333, beklenen 0.8333333333"
     },
     {
       "id": "A11.2",
@@ -2677,7 +2928,8 @@
       "expected": "5/6",
       "tolerance": "0.01 mutlak",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.8327, 0.8352, 0.8335, 0.8311, 0.8356; beklenen 0.8333333333"
     },
     {
       "id": "A11.3",
@@ -2688,7 +2940,8 @@
       "expected": "5/6",
       "tolerance": "0.01 mutlak",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.8344, 0.8355, 0.8299, 0.8291, 0.8366; beklenen 0.8333333333"
     },
     {
       "id": "A11.4",
@@ -2699,7 +2952,8 @@
       "expected": "5/6",
       "tolerance": "0.01 mutlak",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.8327, 0.8349, 0.8323, 0.8286, 0.8382; beklenen 0.8333333333"
     },
     {
       "id": "A11.5",
@@ -2710,7 +2964,8 @@
       "expected": "Math.sqrt(5)",
       "tolerance": "%2 göreli",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 2.2410, 2.2392, 2.2406, 2.2621, 2.2205; beklenen 2.236067977"
     },
     {
       "id": "A11.6",
@@ -2721,7 +2976,8 @@
       "expected": "10/11",
       "tolerance": "1e-12",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9090909091, beklenen 0.9090909091 | doğru"
     },
     {
       "id": "A11.7",
@@ -2732,7 +2988,8 @@
       "expected": "149/169",
       "tolerance": "1e-9",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8816568047, beklenen 0.8816568047"
     },
     {
       "id": "A11.8",
@@ -2743,7 +3000,8 @@
       "expected": "100/169",
       "tolerance": "1e-9",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5917159763, beklenen 0.5917159763"
     },
     {
       "id": "A11.9",
@@ -2754,7 +3012,8 @@
       "expected": "149/169",
       "tolerance": "0.01 mutlak",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.8810, 0.8836, 0.8806, 0.8798, 0.8826; beklenen 0.8816568047"
     },
     {
       "id": "A11.10",
@@ -2765,7 +3024,8 @@
       "expected": "100/169",
       "tolerance": "0.01 mutlak",
       "spec_line": 455,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.5927, 0.5984, 0.5906, 0.5851, 0.5996; beklenen 0.5917159763"
     },
     {
       "id": "A12.1",
@@ -2776,7 +3036,8 @@
       "expected": "2/3",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.6666666667"
     },
     {
       "id": "A12.2",
@@ -2787,7 +3048,8 @@
       "expected": "Math.sqrt(2/3)",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8164965809, beklenen 0.8164965809"
     },
     {
       "id": "A12.3",
@@ -2798,7 +3060,8 @@
       "expected": "3/4",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.75, beklenen 0.75"
     },
     {
       "id": "A12.4",
@@ -2809,7 +3072,8 @@
       "expected": "Math.sqrt(1/2)",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7071067812, beklenen 0.7071067812"
     },
     {
       "id": "A12.5",
@@ -2820,7 +3084,8 @@
       "expected": "5/7",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7142857143, beklenen 0.7142857143"
     },
     {
       "id": "A12.6",
@@ -2831,7 +3096,8 @@
       "expected": "2/3",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.6666666667"
     },
     {
       "id": "A12.7",
@@ -2842,7 +3108,8 @@
       "expected": "2/Math.sqrt(7)",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.755928946, beklenen 0.755928946"
     },
     {
       "id": "A12.8",
@@ -2853,7 +3120,8 @@
       "expected": "3/4",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.75, beklenen 0.75"
     },
     {
       "id": "A12.9",
@@ -2864,7 +3132,8 @@
       "expected": "Math.sqrt(3/4)",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8660254038, beklenen 0.8660254038"
     },
     {
       "id": "A12.10",
@@ -2875,7 +3144,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A12.11",
@@ -2886,7 +3156,8 @@
       "expected": "Math.sqrt(3/5)",
       "tolerance": "1e-9",
       "spec_line": 429,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7745966692, beklenen 0.7745966692"
     },
     {
       "id": "A12.12",
@@ -2897,7 +3168,8 @@
       "expected": "2/3",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.6692, 0.6744, 0.6666, 0.6598, 0.6726; beklenen 0.6666666667"
     },
     {
       "id": "A12.13",
@@ -2908,7 +3180,8 @@
       "expected": "Math.sqrt(2/3)",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.8184, 0.8193, 0.8186, 0.8140, 0.8215; beklenen 0.8164965809"
     },
     {
       "id": "A12.14",
@@ -2919,7 +3192,8 @@
       "expected": "3/4",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.7519, 0.7575, 0.7492, 0.7436, 0.7535; beklenen 0.75"
     },
     {
       "id": "A12.15",
@@ -2930,7 +3204,8 @@
       "expected": "Math.sqrt(1/2)",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.7088, 0.7126, 0.7064, 0.7033, 0.7135; beklenen 0.7071067812"
     },
     {
       "id": "A12.16",
@@ -2941,7 +3216,8 @@
       "expected": "5/7",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.7184, 0.7201, 0.7140, 0.7080, 0.7178; beklenen 0.7142857143"
     },
     {
       "id": "A12.17",
@@ -2952,7 +3228,8 @@
       "expected": "2/3",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.6691, 0.6744, 0.6666, 0.6599, 0.6727; beklenen 0.6666666667"
     },
     {
       "id": "A12.18",
@@ -2963,7 +3240,8 @@
       "expected": "2/Math.sqrt(7)",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.7610, 0.7576, 0.7552, 0.7529, 0.7623; beklenen 0.755928946"
     },
     {
       "id": "A12.19",
@@ -2974,7 +3252,8 @@
       "expected": "3/4",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.7520, 0.7565, 0.7500, 0.7446, 0.7546; beklenen 0.75"
     },
     {
       "id": "A12.20",
@@ -2985,7 +3264,8 @@
       "expected": "Math.sqrt(3/4)",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.8675, 0.8684, 0.8677, 0.8642, 0.8695; beklenen 0.8660254038"
     },
     {
       "id": "A12.21",
@@ -2996,7 +3276,8 @@
       "expected": "4/5",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.8017, 0.8064, 0.7993, 0.7947, 0.8031; beklenen 0.8"
     },
     {
       "id": "A12.22",
@@ -3007,7 +3288,8 @@
       "expected": "Math.sqrt(3/5)",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.7760, 0.7792, 0.7743, 0.7718, 0.7795; beklenen 0.7745966692"
     },
     {
       "id": "A12.23",
@@ -3018,7 +3300,8 @@
       "expected": "3/4",
       "tolerance": "1e-9",
       "spec_line": 431,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.75, beklenen 0.75"
     },
     {
       "id": "A12.24",
@@ -3029,7 +3312,8 @@
       "expected": "65/72",
       "tolerance": "1e-9",
       "spec_line": 431,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9027777778, beklenen 0.9027777778"
     },
     {
       "id": "A12.25",
@@ -3040,7 +3324,8 @@
       "expected": "65/72",
       "tolerance": "1e-9",
       "spec_line": 431,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9027777778, beklenen 0.9027777778"
     },
     {
       "id": "A12.26",
@@ -3051,7 +3336,8 @@
       "expected": "25/36",
       "tolerance": "1e-9",
       "spec_line": 431,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6944444444, beklenen 0.6944444444"
     },
     {
       "id": "A12.27",
@@ -3062,7 +3348,8 @@
       "expected": "9/25",
       "tolerance": "1e-9",
       "spec_line": 431,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.36, beklenen 0.36"
     },
     {
       "id": "A12.28",
@@ -3073,7 +3360,8 @@
       "expected": "7/50",
       "tolerance": "1e-9",
       "spec_line": 431,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.14, beklenen 0.14"
     },
     {
       "id": "A12.29",
@@ -3084,7 +3372,8 @@
       "expected": "11/25",
       "tolerance": "1e-9",
       "spec_line": 431,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.44, beklenen 0.44"
     },
     {
       "id": "A12.30",
@@ -3095,7 +3384,8 @@
       "expected": "3/4",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.7532, 0.7524, 0.7459, 0.7520, 0.7467; beklenen 0.75"
     },
     {
       "id": "A12.31",
@@ -3106,7 +3396,8 @@
       "expected": "65/72",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.9033, 0.9045, 0.9003, 0.9041, 0.9036; beklenen 0.9027777778"
     },
     {
       "id": "A12.32",
@@ -3117,7 +3408,8 @@
       "expected": "65/72",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.9032, 0.9017, 0.9017, 0.9037, 0.9019; beklenen 0.9027777778"
     },
     {
       "id": "A12.33",
@@ -3128,7 +3420,8 @@
       "expected": "25/36",
       "tolerance": "0.015 mutlak",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.6949, 0.7000, 0.6867, 0.6975, 0.6887; beklenen 0.6944444444"
     },
     {
       "id": "A12.34",
@@ -3139,7 +3432,8 @@
       "expected": "9/25",
       "tolerance": "%3 göreli",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.3588, 0.3564, 0.3615, 0.3635, 0.3644; beklenen 0.36"
     },
     {
       "id": "A12.35",
@@ -3150,7 +3444,8 @@
       "expected": "7/50",
       "tolerance": "%3 göreli",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.1407, 0.1372, 0.1413, 0.1397, 0.1394; beklenen 0.14"
     },
     {
       "id": "A12.36",
@@ -3161,7 +3456,8 @@
       "expected": "11/25",
       "tolerance": "%3 göreli",
       "spec_line": 456,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "tohum 1-5: 0.4482, 0.4327, 0.4450, 0.4454, 0.4488; beklenen 0.44"
     },
     {
       "id": "A13.1",
@@ -3172,7 +3468,8 @@
       "expected": "özetler bit düzeyinde aynı",
       "tolerance": "tam",
       "spec_line": 457,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A13.2",
@@ -3183,7 +3480,8 @@
       "expected": "özetler farklı",
       "tolerance": "tam",
       "spec_line": 457,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A13.3",
@@ -3194,7 +3492,8 @@
       "expected": "E₁, E₂ dizileri bit düzeyinde aynı",
       "tolerance": "tam",
       "spec_line": 457,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "B açıkken E₁ − E₂ farkları aynı (yuvarlama 1e-6)"
     },
     {
       "id": "A13.4",
@@ -3205,7 +3504,8 @@
       "expected": "z dizisi bit düzeyinde aynı",
       "tolerance": "tam",
       "spec_line": 457,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A13.5",
@@ -3216,7 +3516,8 @@
       "expected": "ilk 10 kişinin bütün gizil bileşenleri aynı",
       "tolerance": "tam",
       "spec_line": 457,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A14.1",
@@ -3227,7 +3528,8 @@
       "expected": "8/3",
       "tolerance": "1e-9",
       "spec_line": 458,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2.666666667, beklenen 2.666666667"
     },
     {
       "id": "A14.2",
@@ -3238,7 +3540,8 @@
       "expected": "3/5",
       "tolerance": "1e-9",
       "spec_line": 458,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6, beklenen 0.6"
     },
     {
       "id": "A14.3",
@@ -3249,7 +3552,8 @@
       "expected": "9/10",
       "tolerance": "1e-9",
       "spec_line": 458,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9, beklenen 0.9"
     },
     {
       "id": "A14.4",
@@ -3260,7 +3564,8 @@
       "expected": "0.42/Math.sqrt(0.56)",
       "tolerance": "1e-9",
       "spec_line": 458,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.561248608, beklenen 0.561248608"
     },
     {
       "id": "A14.5",
@@ -3271,7 +3576,8 @@
       "expected": "16",
       "tolerance": "1e-9",
       "spec_line": 435,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 16, beklenen 16"
     },
     {
       "id": "A14.6",
@@ -3282,7 +3588,8 @@
       "expected": "4",
       "tolerance": "1e-9",
       "spec_line": 435,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4, beklenen 4"
     },
     {
       "id": "A14.7",
@@ -3293,7 +3600,8 @@
       "expected": "8",
       "tolerance": "1e-9",
       "spec_line": 435,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 8, beklenen 8"
     },
     {
       "id": "A14.8",
@@ -3304,7 +3612,8 @@
       "expected": "Math.sqrt(0.4)",
       "tolerance": "1e-9",
       "spec_line": 458,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.632455532, beklenen 0.632455532"
     },
     {
       "id": "A14.9",
@@ -3315,7 +3624,8 @@
       "expected": "15",
       "tolerance": "1e-9",
       "spec_line": 403,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 15, beklenen 15"
     },
     {
       "id": "A14.10",
@@ -3326,7 +3636,8 @@
       "expected": "15",
       "tolerance": "1e-9",
       "spec_line": 403,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 15, beklenen 15"
     },
     {
       "id": "A14.11",
@@ -3337,7 +3648,8 @@
       "expected": "70",
       "tolerance": "1e-9",
       "spec_line": 403,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 70, beklenen 70"
     },
     {
       "id": "A14.12",
@@ -3348,7 +3660,8 @@
       "expected": "74",
       "tolerance": "1e-9",
       "spec_line": 403,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 74, beklenen 74"
     },
     {
       "id": "A14.13",
@@ -3359,7 +3672,8 @@
       "expected": "68",
       "tolerance": "1e-9",
       "spec_line": 403,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 68, beklenen 68"
     },
     {
       "id": "A14.14",
@@ -3370,7 +3684,8 @@
       "expected": "68/Math.sqrt(5180)",
       "tolerance": "1e-9",
       "spec_line": 403,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9448090244, beklenen 0.9448090244"
     },
     {
       "id": "A14.15",
@@ -3381,7 +3696,8 @@
       "expected": "14",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 14, beklenen 14"
     },
     {
       "id": "A14.16",
@@ -3392,7 +3708,8 @@
       "expected": "74/5",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 14.8, beklenen 14.8"
     },
     {
       "id": "A14.17",
@@ -3403,7 +3720,8 @@
       "expected": "68/5",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 13.6, beklenen 13.6"
     },
     {
       "id": "A14.18",
@@ -3414,7 +3732,8 @@
       "expected": "8/5",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.6, beklenen 1.6"
     },
     {
       "id": "A14.19",
@@ -3425,7 +3744,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A14.20",
@@ -3436,7 +3756,8 @@
       "expected": "72/5",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 14.4, beklenen 14.4"
     },
     {
       "id": "A14.21",
@@ -3447,7 +3768,8 @@
       "expected": "17/18",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9444444444, beklenen 0.9444444444"
     },
     {
       "id": "A14.22",
@@ -3458,7 +3780,8 @@
       "expected": "4/3",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.333333333, beklenen 1.333333333"
     },
     {
       "id": "A14.23",
@@ -3469,7 +3792,8 @@
       "expected": "2/3",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.6666666667"
     },
     {
       "id": "A14.24",
@@ -3480,7 +3804,8 @@
       "expected": "12",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 12, beklenen 12"
     },
     {
       "id": "A14.25",
@@ -3491,7 +3816,8 @@
       "expected": "17/18",
       "tolerance": "1e-9",
       "spec_line": 404,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9444444444, beklenen 0.9444444444"
     },
     {
       "id": "A14.26",
@@ -3502,7 +3828,8 @@
       "expected": "[[14, 68/5], [68/5, 74/5]]",
       "tolerance": "1e-9",
       "spec_line": 183,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap [14,13.6,13.6,14.8], beklenen [14,13.6,13.6,14.8]"
     },
     {
       "id": "A14.27",
@@ -3513,7 +3840,8 @@
       "expected": "2/5",
       "tolerance": "1e-9",
       "spec_line": 405,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.4, beklenen 0.4"
     },
     {
       "id": "A14.28",
@@ -3524,7 +3852,8 @@
       "expected": "6/5",
       "tolerance": "1e-9",
       "spec_line": 405,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1.2, beklenen 1.2"
     },
     {
       "id": "A14.29",
@@ -3535,7 +3864,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 405,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A14.30",
@@ -3546,7 +3876,8 @@
       "expected": "68/Math.sqrt(5180)",
       "tolerance": "1e-9",
       "spec_line": 406,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9448090244, beklenen 0.9448090244"
     },
     {
       "id": "A14.31",
@@ -3557,7 +3888,8 @@
       "expected": ".7873",
       "tolerance": "5e-5",
       "spec_line": 406,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7873408537, beklenen 0.7873"
     },
     {
       "id": "A14.32",
@@ -3568,7 +3900,8 @@
       "expected": "17/18",
       "tolerance": "1e-9",
       "spec_line": 407,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9444444444, beklenen 0.9444444444"
     },
     {
       "id": "A14.33",
@@ -3579,7 +3912,8 @@
       "expected": "17/18",
       "tolerance": "1e-9",
       "spec_line": 407,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9444444444, beklenen 0.9444444444"
     },
     {
       "id": "A14.34",
@@ -3590,7 +3924,8 @@
       "expected": "115957/131072",
       "tolerance": "1e-9",
       "spec_line": 433,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8846817017, beklenen 0.8846817017"
     },
     {
       "id": "A14.35",
@@ -3601,7 +3936,8 @@
       "expected": ".9974",
       "tolerance": "5e-5",
       "spec_line": 433,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9974260597, beklenen 0.9974"
     },
     {
       "id": "A14.36",
@@ -3612,7 +3948,8 @@
       "expected": ".894",
       "tolerance": "5e-4",
       "spec_line": 181,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.894427191, beklenen 0.894"
     },
     {
       "id": "A14.37",
@@ -3623,7 +3960,8 @@
       "expected": ".816",
       "tolerance": "5e-4",
       "spec_line": 181,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8164965809, beklenen 0.816"
     },
     {
       "id": "A14.38",
@@ -3634,7 +3972,8 @@
       "expected": ".25",
       "tolerance": "5e-3",
       "spec_line": 223,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.25, beklenen 0.25"
     },
     {
       "id": "A15.1",
@@ -3645,7 +3984,8 @@
       "expected": "Eşit (s² = 100 ve 100)",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 135,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: esit, anahtar: esit"
     },
     {
       "id": "A15.2",
@@ -3656,7 +3996,8 @@
       "expected": "değişmez",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 135,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degismez, anahtar: degismez"
     },
     {
       "id": "A15.3",
@@ -3667,7 +4008,8 @@
       "expected": "1",
       "tolerance": "1e-9",
       "spec_line": 135,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 1, beklenen 1"
     },
     {
       "id": "A15.4",
@@ -3678,7 +4020,8 @@
       "expected": "r < 1",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 135,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: r<1, anahtar: r<1"
     },
     {
       "id": "A15.5",
@@ -3689,7 +4032,8 @@
       "expected": "Kovaryans ortalamada değişmez",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 135,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degismez, anahtar: degismez"
     },
     {
       "id": "A15.6",
@@ -3700,7 +4044,8 @@
       "expected": "r düşer",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 135,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: duser, anahtar: duser"
     },
     {
       "id": "A15.7",
@@ -3711,7 +4056,8 @@
       "expected": "60",
       "tolerance": "1e-9",
       "spec_line": 143,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 60, beklenen 60"
     },
     {
       "id": "A15.8",
@@ -3722,7 +4068,8 @@
       "expected": "[2, -2, 5, -5, 0]",
       "tolerance": "1e-9",
       "spec_line": 143,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap [2,-2,5,-5,0], beklenen [2,-2,5,-5,0]"
     },
     {
       "id": "A15.9",
@@ -3733,7 +4080,8 @@
       "expected": "63",
       "tolerance": "1e-9",
       "spec_line": 143,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 63, beklenen 63"
     },
     {
       "id": "A15.10",
@@ -3744,7 +4092,8 @@
       "expected": "[2, -2, 5, -5, 0]",
       "tolerance": "1e-9",
       "spec_line": 143,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap [2,-2,5,-5,0], beklenen [2,-2,5,-5,0]"
     },
     {
       "id": "A15.11",
@@ -3755,7 +4104,8 @@
       "expected": ".80",
       "tolerance": "5e-3",
       "spec_line": 153,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A15.12",
@@ -3766,7 +4116,8 @@
       "expected": ".50",
       "tolerance": "5e-3",
       "spec_line": 153,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5, beklenen 0.5"
     },
     {
       "id": "A15.13",
@@ -3777,7 +4128,8 @@
       "expected": "4",
       "tolerance": "1e-9",
       "spec_line": 153,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4, beklenen 4"
     },
     {
       "id": "A15.14",
@@ -3788,7 +4140,8 @@
       "expected": "4",
       "tolerance": "1e-9",
       "spec_line": 153,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4, beklenen 4"
     },
     {
       "id": "A15.15",
@@ -3799,7 +4152,8 @@
       "expected": "düşer",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 151,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: duser, anahtar: duser"
     },
     {
       "id": "A15.16",
@@ -3810,7 +4164,8 @@
       "expected": "değişmez",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 151,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degismez, anahtar: degismez"
     },
     {
       "id": "A15.17",
@@ -3821,7 +4176,8 @@
       "expected": "değişmez",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 163,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degismez, anahtar: degismez"
     },
     {
       "id": "A15.18",
@@ -3832,7 +4188,8 @@
       "expected": "değişmez",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 163,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degismez, anahtar: degismez"
     },
     {
       "id": "A15.19",
@@ -3843,7 +4200,8 @@
       "expected": "değişmez",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 163,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degismez, anahtar: degismez"
     },
     {
       "id": "A15.20",
@@ -3854,7 +4212,8 @@
       "expected": "ortalama + c",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 163,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: ortalama+c, anahtar: ortalama+c"
     },
     {
       "id": "A15.21",
@@ -3865,7 +4224,8 @@
       "expected": "geçme oranı değişir",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 163,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degisir, anahtar: degisir"
     },
     {
       "id": "A15.22",
@@ -3876,7 +4236,8 @@
       "expected": "4/5",
       "tolerance": "1e-9",
       "spec_line": 164,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A15.23",
@@ -3887,7 +4248,8 @@
       "expected": "değişmez",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 164,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degismez, anahtar: degismez"
     },
     {
       "id": "A15.24",
@@ -3898,7 +4260,8 @@
       "expected": "2.2",
       "tolerance": "5e-2",
       "spec_line": 164,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2.2, beklenen 2.2"
     },
     {
       "id": "A15.25",
@@ -3909,7 +4272,8 @@
       "expected": "13.2",
       "tolerance": "5e-2",
       "spec_line": 164,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 13.2, beklenen 13.2"
     },
     {
       "id": "A15.26",
@@ -3920,7 +4284,8 @@
       "expected": ".75",
       "tolerance": "5e-3",
       "spec_line": 165,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.75, beklenen 0.75"
     },
     {
       "id": "A15.27",
@@ -3931,7 +4296,8 @@
       "expected": "Math.sqrt(0.75)",
       "tolerance": "1e-9",
       "spec_line": 165,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8660254038, beklenen 0.8660254038"
     },
     {
       "id": "A15.28",
@@ -3942,7 +4308,8 @@
       "expected": ".80",
       "tolerance": "5e-3",
       "spec_line": 165,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A15.29",
@@ -3953,7 +4320,8 @@
       "expected": "Math.sqrt(0.60)",
       "tolerance": "1e-9",
       "spec_line": 165,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7745966692, beklenen 0.7745966692"
     },
     {
       "id": "A15.30",
@@ -3964,7 +4332,8 @@
       "expected": "Math.sqrt(0.80)",
       "tolerance": "1e-9",
       "spec_line": 165,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.894427191, beklenen 0.894427191"
     },
     {
       "id": "A15.31",
@@ -3975,7 +4344,8 @@
       "expected": "düşer",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 166,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: duser, anahtar: duser"
     },
     {
       "id": "A15.32",
@@ -3986,7 +4356,8 @@
       "expected": "düşer",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 167,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: duser, anahtar: duser"
     },
     {
       "id": "A15.33",
@@ -3997,7 +4368,8 @@
       "expected": "düşer",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 167,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: duser, anahtar: duser"
     },
     {
       "id": "A15.34",
@@ -4008,7 +4380,8 @@
       "expected": "17/18",
       "tolerance": "1e-9",
       "spec_line": 168,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9444444444, beklenen 0.9444444444"
     },
     {
       "id": "A15.35",
@@ -4019,7 +4392,8 @@
       "expected": "408/803",
       "tolerance": "1e-9",
       "spec_line": 168,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.5080946451, beklenen 0.5080946451"
     },
     {
       "id": "A15.36",
@@ -4030,7 +4404,8 @@
       "expected": "68/Math.sqrt(5180)",
       "tolerance": "1e-9",
       "spec_line": 168,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9448090244, beklenen 0.9448090244"
     },
     {
       "id": "A15.37",
@@ -4041,7 +4416,8 @@
       "expected": "farkların ortalaması ≠ 0",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 168,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: sifir_degil, anahtar: sifir_degil"
     },
     {
       "id": "A15.38",
@@ -4052,7 +4428,8 @@
       "expected": "2/7",
       "tolerance": "1e-9",
       "spec_line": 169,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.2857142857, beklenen 0.2857142857"
     },
     {
       "id": "A15.39",
@@ -4063,7 +4440,8 @@
       "expected": "σ_U² + 2σ_ηU < 0",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 169,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: negatif, anahtar: negatif"
     },
     {
       "id": "A15.40",
@@ -4074,7 +4452,8 @@
       "expected": "5/7",
       "tolerance": "1e-9",
       "spec_line": 170,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7142857143, beklenen 0.7142857143"
     },
     {
       "id": "A15.41",
@@ -4085,7 +4464,8 @@
       "expected": "2/3",
       "tolerance": "1e-9",
       "spec_line": 170,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.6666666667"
     },
     {
       "id": "A15.42",
@@ -4096,7 +4476,8 @@
       "expected": "yanlılık = γ",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 170,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: gamma, anahtar: gamma"
     },
     {
       "id": "A15.43",
@@ -4107,7 +4488,8 @@
       "expected": "280/377",
       "tolerance": "1e-9",
       "spec_line": 171,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7427055703, beklenen 0.7427055703"
     },
     {
       "id": "A15.44",
@@ -4118,7 +4500,8 @@
       "expected": "s_Y² ≠ 20",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 171,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degisir, anahtar: degisir"
     },
     {
       "id": "A15.45",
@@ -4129,7 +4512,8 @@
       "expected": "76/91",
       "tolerance": "1e-9",
       "spec_line": 173,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8351648352, beklenen 0.8351648352"
     },
     {
       "id": "A15.46",
@@ -4140,7 +4524,8 @@
       "expected": "10/11",
       "tolerance": "1e-9",
       "spec_line": 173,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9090909091, beklenen 0.9090909091"
     },
     {
       "id": "A15.47",
@@ -4151,7 +4536,8 @@
       "expected": "2/7",
       "tolerance": "1e-9",
       "spec_line": 173,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.2857142857, beklenen 0.2857142857"
     },
     {
       "id": "A15.48",
@@ -4162,7 +4548,8 @@
       "expected": "değişmez",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 174,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degismez, anahtar: degismez"
     },
     {
       "id": "A15.49",
@@ -4173,7 +4560,8 @@
       "expected": "değişmez",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 174,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degismez, anahtar: degismez"
     },
     {
       "id": "A15.50",
@@ -4184,7 +4572,8 @@
       "expected": "-4",
       "tolerance": "1e-9",
       "spec_line": 174,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap -4, beklenen -4"
     },
     {
       "id": "A15.51",
@@ -4195,7 +4584,8 @@
       "expected": "geçme oranı değişir",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 174,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: degisir, anahtar: degisir"
     },
     {
       "id": "A15.52",
@@ -4206,7 +4596,8 @@
       "expected": "yükselir",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 174,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: yukselir, anahtar: yukselir"
     },
     {
       "id": "A15.53",
@@ -4217,7 +4608,8 @@
       "expected": "düşer",
       "tolerance": "yön (farkın işareti)",
       "spec_line": 174,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: duser, anahtar: duser"
     },
     {
       "id": "A15.54",
@@ -4228,7 +4620,8 @@
       "expected": "16",
       "tolerance": "1e-9",
       "spec_line": 195,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 16, beklenen 16"
     },
     {
       "id": "A15.55",
@@ -4239,7 +4632,8 @@
       "expected": "4",
       "tolerance": "1e-9",
       "spec_line": 195,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 4, beklenen 4"
     },
     {
       "id": "A15.56",
@@ -4250,7 +4644,8 @@
       "expected": "[66, 74]",
       "tolerance": "1e-9",
       "spec_line": 195,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap [66,74], beklenen [66,74]"
     },
     {
       "id": "A15.57",
@@ -4261,7 +4656,8 @@
       "expected": "hata",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 207,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: hata, anahtar: hata"
     },
     {
       "id": "A15.58",
@@ -4272,7 +4668,8 @@
       "expected": "gerçek puan",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 207,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: gercek, anahtar: gercek"
     },
     {
       "id": "A15.59",
@@ -4283,7 +4680,8 @@
       "expected": "fazla kestirir (65/72 > 3/4)",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 207,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: fazla, anahtar: fazla"
     },
     {
       "id": "A15.60",
@@ -4294,7 +4692,8 @@
       "expected": ".75",
       "tolerance": "5e-3",
       "spec_line": 225,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.75, beklenen 0.75"
     },
     {
       "id": "A15.61",
@@ -4305,7 +4704,8 @@
       "expected": ".90",
       "tolerance": "5e-3",
       "spec_line": 225,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.9, beklenen 0.9"
     },
     {
       "id": "A15.62",
@@ -4316,7 +4716,8 @@
       "expected": "8/3",
       "tolerance": "1e-9",
       "spec_line": 225,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 2.666666667, beklenen 2.666666667"
     },
     {
       "id": "A15.63",
@@ -4327,7 +4728,8 @@
       "expected": "27",
       "tolerance": "1e-9",
       "spec_line": 237,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 27, beklenen 27"
     },
     {
       "id": "A15.64",
@@ -4338,7 +4740,8 @@
       "expected": ".667",
       "tolerance": "5e-4",
       "spec_line": 237,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.6666666667, beklenen 0.667"
     },
     {
       "id": "A15.65",
@@ -4349,7 +4752,8 @@
       "expected": ".80",
       "tolerance": "5e-3",
       "spec_line": 252,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.8, beklenen 0.8"
     },
     {
       "id": "A15.66",
@@ -4360,7 +4764,8 @@
       "expected": "Φ",
       "tolerance": "kategori eşleşmesi (tam)",
       "spec_line": 252,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap: phi, anahtar: phi"
     },
     {
       "id": "A15.67",
@@ -4371,7 +4776,8 @@
       "expected": "min Φ(λ) = Φ = 24/31",
       "tolerance": "1e-9",
       "spec_line": 252,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "hesap 0.7741935484, beklenen 0.7741935484"
     },
     {
       "id": "A16.1",
@@ -4382,7 +4788,8 @@
       "expected": "n = 6",
       "tolerance": "tam",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.2",
@@ -4393,7 +4800,8 @@
       "expected": "k ∈ {3, 4}",
       "tolerance": "tam",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.3",
@@ -4404,7 +4812,8 @@
       "expected": "puanlar ∈ {1, …, 5}",
       "tolerance": "tam",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.4",
@@ -4415,7 +4824,8 @@
       "expected": "madde ortalamaları tam sayı",
       "tolerance": "1e-9",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.5",
@@ -4426,7 +4836,8 @@
       "expected": "Ȳ tam sayı",
       "tolerance": "1e-9",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.6",
@@ -4437,7 +4848,8 @@
       "expected": "sᵢ² > 0",
       "tolerance": "tam",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.7",
@@ -4448,7 +4860,8 @@
       "expected": "farklı değer sayısı ≥ 3",
       "tolerance": "tam",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.8",
@@ -4459,7 +4872,8 @@
       "expected": "0.5 <= alpha <= 0.9",
       "tolerance": "tam (eşitsizlik)",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.9",
@@ -4470,7 +4884,8 @@
       "expected": "10·s² tam sayı",
       "tolerance": "1e-9",
       "spec_line": 216,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.10",
@@ -4481,7 +4896,8 @@
       "expected": "en büyük fark ≤ 1e-10",
       "tolerance": "1e-10",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.11",
@@ -4492,7 +4908,8 @@
       "expected": "n = 6",
       "tolerance": "tam",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.12",
@@ -4503,7 +4920,8 @@
       "expected": "puanlar ∈ {1, …, 20}",
       "tolerance": "tam",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.13",
@@ -4514,7 +4932,8 @@
       "expected": "X̄₁, X̄₂ tam sayı",
       "tolerance": "1e-9",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A16.14",
@@ -4525,7 +4944,8 @@
       "expected": "r > 0.5",
       "tolerance": "tam (eşitsizlik)",
       "spec_line": 460,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.1",
@@ -4536,7 +4956,8 @@
       "expected": "gizli anahtar sayısı 0 (T, E, η, B, g ve bunlardan hesaplanan örneklem istatistikleri)",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.2",
@@ -4547,7 +4968,8 @@
       "expected": "gizli anahtar sayısı 0 (T, E, η, B, g ve bunlardan hesaplanan örneklem istatistikleri)",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.3",
@@ -4558,7 +4980,8 @@
       "expected": "gizli anahtar sayısı 0 (T, E, η, B, g ve bunlardan hesaplanan örneklem istatistikleri)",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.4",
@@ -4569,7 +4992,8 @@
       "expected": "gizli anahtar sayısı 0 (T, E, η, B, g ve bunlardan hesaplanan örneklem istatistikleri)",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.5",
@@ -4580,7 +5004,8 @@
       "expected": "gizli anahtar sayısı 0 (T, E, η, B, g ve bunlardan hesaplanan örneklem istatistikleri)",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.6",
@@ -4591,7 +5016,8 @@
       "expected": "gizli anahtar sayısı 0 (T, E, η, B, g ve bunlardan hesaplanan örneklem istatistikleri)",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.7",
@@ -4602,7 +5028,8 @@
       "expected": "gizli anahtar sayısı 0 (T, E, η, B, g ve bunlardan hesaplanan örneklem istatistikleri)",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.8",
@@ -4613,7 +5040,8 @@
       "expected": "gizli anahtar sayısı 0 (T, E, η, B, g ve bunlardan hesaplanan örneklem istatistikleri)",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.9",
@@ -4624,7 +5052,8 @@
       "expected": "gizli anahtar sayısı 0 (T, E, η, B, g ve bunlardan hesaplanan örneklem istatistikleri)",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "A17.10",
@@ -4635,7 +5064,8 @@
       "expected": "gizli anahtar sayısı 0",
       "tolerance": "tam",
       "spec_line": 461,
-      "status": "bekliyor"
+      "status": "geçti",
+      "detail": "doğru"
     },
     {
       "id": "B1.1",

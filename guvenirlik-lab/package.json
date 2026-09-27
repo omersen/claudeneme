@@ -1,0 +1,12 @@
+{
+  "name": "guvenirlik-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Güvenirlik Laboratuvarı: KTK güvenirliği için etkileşimli öğrenme ortamı",
+  "scripts": {
+    "build": "node build.mjs",
+    "test:a": "node tools/run-tests.mjs --layers=A",
+    "test:b": "node build.mjs && node test/layerB.mjs",
+    "test": "node build.mjs && node test/layerB.mjs; node tools/run-tests.mjs --layers=A,B,L"
+  }
+}

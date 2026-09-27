@@ -3,7 +3,7 @@
     "spec_file": "guvenirlik-lab/SPEC.md",
     "spec_sha256": "ef10d02f4309ba3c43715bb1bd64cd3dfa5f223e191e2e36f05da8320c00121e",
     "extracted": "2026-09-26",
-    "status": "kullanici_onayi_bekliyor",
+    "status": "onaylandi_kullanici_talimatiyla",
     "rule": "B11: content.tr.js TeX, \\htmlClass sarmalayicilari kaldirildiktan sonra buradaki tex ile karakter duzeyinde esit olmalidir.",
     "render_check": {
       "katex_version": "0.18.9",
@@ -13,7 +13,8 @@
       "clean": 162,
       "u2014_in_file": false,
       "period_decimal_in_formulas": []
-    }
+    },
+    "onay_notu": "Kullanici 2026-09-27'de 'diger adimlarin hepsini yap, durmadan devam et' talimati verdi. Katalog bu talimatla onaylanmis sayildi; 17 oneri kataloga alindi. m4.icc_a_1 icin McGraw-Wong bicimi yerine hesaplamayla tutarli bilesen bicimi kullanildi (SPEC_SORULARI 19b)."
   },
   "formulas": [
     {
@@ -1395,180 +1396,196 @@
       "reading_tr": "",
       "spec_line": 325,
       "spec_quote": "- G.4 Kurala bağlı hata $X^*=wX$, $w>1$: ↑ | ↑ | = | ↑ | değişir | = (M4)"
-    }
-  ],
-  "_uncatalogued": [
+    },
     {
-      "oneri_id": "m1.varyans_n",
+      "id": "m1.varyans_n",
       "module": "M1",
       "card": "Formüller (n paydalı sürüm, anahtar arkasında)",
+      "tex": "\\hat\\sigma_X^2=\\frac{1}{n}\\sum_p (X_p-\\bar X)^2",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 132,
-      "prose": "$n$ paydalı sürüm anahtar arkasında",
-      "oneri": "\\hat\\sigma_X^2=\\frac{1}{n}\\sum_p (X_p-\\bar X)^2",
-      "durum": "oneri",
-      "not": "SPEC bu sürümün TeX yazımını M1 için vermez. Öneri, satır 47'deki genel biçimi (\\hat\\sigma^2=\\frac{1}{n}\\sum(\\cdot)^2) m1.varyans biçimine uyarlar."
+      "spec_quote": "$n$ paydalı sürüm anahtar arkasında",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m1.kovaryans_n",
+      "id": "m1.kovaryans_n",
       "module": "M1",
       "card": "Formüller (n paydalı sürüm, anahtar arkasında)",
+      "tex": "\\hat\\sigma_{X_1X_2}=\\frac{1}{n}\\sum_p (X_{1p}-\\bar X_1)(X_{2p}-\\bar X_2)",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 73,
-      "prose": "Anahtar yalnızca betimsel varyans ve kovaryansları, ÖSH'yi ve KR kartlarını etkiler.",
-      "oneri": "\\hat\\sigma_{X_1X_2}=\\frac{1}{n}\\sum_p (X_{1p}-\\bar X_1)(X_{2p}-\\bar X_2)",
-      "durum": "oneri",
-      "not": "Anahtar kovaryansı da etkilediği için n paydalı kovaryansın bir yazımı gerekir; SPEC vermez."
+      "spec_quote": "Anahtar yalnızca betimsel varyans ve kovaryansları, ÖSH'yi ve KR kartlarını etkiler.",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m1.z_puani",
+      "id": "m1.z_puani",
       "module": "M1",
       "card": "Ekran 2 (z puanı anahtarı)",
+      "tex": "z_{1p}=\\dfrac{X_{1p}-\\bar X_1}{s_{X_1}}",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 131,
-      "prose": "z puanı anahtarı",
-      "oneri": "z_{1p}=\\dfrac{X_{1p}-\\bar X_1}{s_{X_1}}",
-      "durum": "oneri",
-      "not": "m1.korelasyon z_{1p} kullanır, fakat z puanının tanımı SPEC'te TeX olarak yoktur. İsteğe bağlı."
+      "spec_quote": "z puanı anahtarı",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m2.sembol_sapka",
+      "id": "m2.sembol_sapka",
       "module": "M2",
       "card": "Semboller kartı",
+      "tex": "\\hat T",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 139,
-      "prose": "şapka \"kestirim\"",
-      "oneri": "\\hat T",
-      "durum": "oneri",
-      "not": "Semboller kartındaki yedi öğe TeX ile, şapka ise yalnızca sözle verilmiştir. Öneri M2 kontrol sorusundaki \\hat T yazımını kullanır; sesli okuma \"kestirim\"."
+      "spec_quote": "şapka \"kestirim\"",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m3.rho_xt_karekok",
+      "id": "m3.rho_xt_karekok",
       "module": "M3",
       "card": "Etkileşim (çekirdek cümle)",
+      "tex": "\\rho_{XT}=\\sqrt{\\rho_{XX'}}",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 148,
-      "prose": "\"Gözlenen puanın gerçek puanla korelasyonu güvenirliğin kareköküdür.\"",
-      "oneri": "\\rho_{XT}=\\sqrt{\\rho_{XX'}}",
-      "durum": "oneri",
-      "not": "İsteğe bağlı. m3.rho_oran zinciri \\rho_{XT}^2 ile aynı ilişkiyi zaten gösterir."
+      "spec_quote": "\"Gözlenen puanın gerçek puanla korelasyonu güvenirliğin kareköküdür.\"",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m3.hata_varyansi_egilim",
+      "id": "m3.hata_varyansi_egilim",
       "module": "M3",
       "card": "Etkileşim (perde arkası eğilim histogramları)",
+      "tex": "\\sigma_E^2=\\mathbb E_p\\left(\\sigma^2_{E\\mid p}\\right)",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 148,
-      "prose": "Sesli okuma: \"Hata varyansı, her öğrencinin kendi tekrarlarındaki yayılımın ortalamasıdır.\"",
-      "oneri": "\\sigma_E^2=\\mathbb E_p\\left(\\sigma^2_{E\\mid p}\\right)",
-      "durum": "oneri",
-      "not": "SPEC burada yalnızca sesli okuma verir. Öneri, gösterim tablosunda bulunmayan yeni bir sembol (\\sigma^2_{E\\mid p}) gerektirir; formülsüz bırakmak da mümkündür (C.2 aynı fikri sözle verir)."
+      "spec_quote": "Sesli okuma: \"Hata varyansı, her öğrencinin kendi tekrarlarındaki yayılımın ortalamasıdır.\"",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m4.icc_a_1",
+      "id": "m4.icc_a_1",
       "module": "M4",
       "card": "Göstergeler (uzman: mutlak uyum)",
+      "tex": "\\text{ICC}(A,1)=\\dfrac{\\hat\\sigma_p^2}{\\hat\\sigma_p^2+\\hat\\sigma_i^2+\\hat\\sigma^2_{pi,e}}",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 160,
-      "prose": "mutlak uyum göstergesi, $n\\times2$ matristen M9'un ANOVA yoluyla hesaplanan ICC(A,1) (negatif bileşen 0'a çekilerek), yanında tutarlılık karşılığı ICC(C,1)",
-      "oneri": "\\text{ICC}(A,1)=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}+k(KO_i-KO_{art})/n}",
-      "durum": "oneri",
-      "not": "ICC(A,1) formülü SPEC'te yoktur (McGraw ve Wong, 1996 biçimi önerildi). M5 verisinde X_2'ye +5 için 408/803 verdiği kesir aritmetiğiyle doğrulandı. Negatif bileşen 0'a çekildiğinde (KO_i<KO_{art}) (KO_i-KO_{art}) terimi 0 alınır; M5 verisinin kaydırılmamış hâlinde ICC(A,1)=17/18 sonucu ancak bu kuralla elde edilir. ICC(C,1) için m9.icc_c_1 kullanılabilir."
+      "spec_quote": "mutlak uyum göstergesi, $n\\times2$ matristen M9'un ANOVA yoluyla hesaplanan ICC(A,1) (negatif bileşen 0'a çekilerek), yanında tutarlılık karşılığı ICC(C,1)",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m5.ortalama_varyans",
+      "id": "m5.ortalama_varyans",
       "module": "M5",
       "card": "Etkileşim (a): fark yolu",
+      "tex": "\\bar s_X^2=(s^2_{X_1}+s^2_{X_2})/2",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 181,
-      "prose": "ortalama $s_X^2=(14+14{,}8)/2=14{,}4$",
-      "oneri": "\\bar s_X^2=(s^2_{X_1}+s^2_{X_2})/2",
-      "durum": "oneri",
-      "not": "SPEC yalnızca sayısal satırı verir; sembolik satır için öneri."
+      "spec_quote": "ortalama $s_X^2=(14+14{,}8)/2=14{,}4$",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m5.fark_yolu_orani",
+      "id": "m5.fark_yolu_orani",
       "module": "M5",
       "card": "Etkileşim (a): fark yolu",
+      "tex": "1-\\hat\\sigma_E^2/\\bar s_X^2",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 181,
-      "prose": "$1-0{,}8/14{,}4=17/18\\approx0{,}944$",
-      "oneri": "1-\\hat\\sigma_E^2/\\bar s_X^2",
-      "durum": "oneri",
-      "not": "Bu sembolik yazım SPEC'te yalnızca <sabit_veri> içinde (satır 404: $1-\\hat\\sigma_E^2/\\bar s_X^2=17/18$) geçer; modül metninde yalnızca sayısal satır vardır."
+      "spec_quote": "$1-0{,}8/14{,}4=17/18\\approx0{,}944$",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m5.kelley_bandi",
+      "id": "m5.kelley_bandi",
       "module": "M5",
       "card": "Etkileşim (e) uzman: Kelley kestirimi",
+      "tex": "\\hat T\\pm1{,}96\\,\\sigma_X\\sqrt{\\rho(1-\\rho)}",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 295,
-      "prose": "Kelley aralığı farklı bir soruyu yanıtlar ve başvuru grubunun ortalamasına doğru çeker",
-      "oneri": "\\hat T\\pm1{,}96\\,\\sigma_X\\sqrt{\\rho(1-\\rho)}",
-      "durum": "oneri",
-      "not": "Kelley bandı SPEC'te yalnızca sayısal olarak (satır 396: [13,29; 20,31]) geçer. Öneri m5.uc_standart_hata içindeki kestirimin standart hatasını kullanır; 16,8 ± 1,96·√3,2 ile sabit veriyi verir."
+      "spec_quote": "Kelley aralığı farklı bir soruyu yanıtlar ve başvuru grubunun ortalamasına doğru çeker",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m7.alpha_madde_silinirse",
+      "id": "m7.alpha_madde_silinirse",
       "module": "M7",
       "card": "Formüller",
+      "tex": "\\hat\\alpha_{(-i)}=\\dfrac{k-1}{k-2}\\left(1-\\dfrac{\\sum_{j\\neq i}s_j^2}{s^2_{Y-X_i}}\\right)",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 223,
-      "prose": "Madde silinirse α; düzeltilmiş madde-toplam korelasyonu.",
-      "oneri": "\\hat\\alpha_{(-i)}=\\dfrac{k-1}{k-2}\\left(1-\\dfrac{\\sum_{j\\neq i}s_j^2}{s^2_{Y-X_i}}\\right)",
-      "durum": "oneri",
-      "not": "Formüller satırında adı geçer ama TeX verilmez. Öneri Sabit Veri A'da 93/127, 99/131, 9/13, 105/131 değerlerini verir (doğrulandı)."
+      "spec_quote": "Madde silinirse α; düzeltilmiş madde-toplam korelasyonu.",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m7.duzeltilmis_madde_toplam_r",
+      "id": "m7.duzeltilmis_madde_toplam_r",
       "module": "M7",
       "card": "Formüller",
+      "tex": "r_{X_i(Y-X_i)}=\\dfrac{s_{X_iY}-s_i^2}{s_i\\sqrt{s_Y^2+s_i^2-2s_{X_iY}}}",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 223,
-      "prose": "Madde silinirse α; düzeltilmiş madde-toplam korelasyonu.",
-      "oneri": "r_{X_i(Y-X_i)}=\\dfrac{s_{X_iY}-s_i^2}{s_i\\sqrt{s_Y^2+s_i^2-2s_{X_iY}}}",
-      "durum": "oneri",
-      "not": "Formüller satırında adı geçer ama TeX verilmez. Öneri Sabit Veri A'da 0,664; 0,609; 0,734; 0,501 değerlerini verir (doğrulandı)."
+      "spec_quote": "Madde silinirse α; düzeltilmiş madde-toplam korelasyonu.",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m9.icc_c_k",
+      "id": "m9.icc_c_k",
       "module": "M9",
       "card": "Uzman ICC bağlantıları",
+      "tex": "\\alpha=\\text{ICC}(C,k)=\\text{ICC}(3,k)",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 249,
-      "prose": "Uzman ICC bağlantıları: α = ICC(C,k) = ICC(3,k)",
-      "oneri": "\\alpha=\\text{ICC}(C,k)=\\text{ICC}(3,k)",
-      "durum": "oneri",
-      "not": "Bu eşitlik SPEC'te tamamen düz metindir."
+      "spec_quote": "Uzman ICC bağlantıları: α = ICC(C,k) = ICC(3,k)",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m9.icc_a_k_tam",
+      "id": "m9.icc_a_k_tam",
       "module": "M9",
       "card": "Uzman ICC bağlantıları",
+      "tex": "\\Phi=\\text{ICC}(A,k)=\\text{ICC}(2,k)=\\dfrac{KO_p-KO_{art}}{KO_p+(KO_i-KO_{art})/n}",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 249,
-      "prose": "Φ = ICC(A,k) = ICC(2,k) $=\\dfrac{KO_p-KO_{art}}{KO_p+(KO_i-KO_{art})/n}$",
-      "oneri": "\\Phi=\\text{ICC}(A,k)=\\text{ICC}(2,k)=\\dfrac{KO_p-KO_{art}}{KO_p+(KO_i-KO_{art})/n}",
-      "durum": "oneri",
-      "not": "SPEC'te sol taraf düz metin, sağ taraf \"=\" ile başlayan TeX'tir; katalogda sağ taraf m9.icc_a_k olarak aynen durur. Bu öneri tam denklemi tek TeX olarak verir. Kullanıcı hangisinin ekranda kullanılacağını seçmelidir."
+      "spec_quote": "Φ = ICC(A,k) = ICC(2,k) $=\\dfrac{KO_p-KO_{art}}{KO_p+(KO_i-KO_{art})/n}$",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m9.icc_c_1_tam",
+      "id": "m9.icc_c_1_tam",
       "module": "M9",
       "card": "Uzman ICC bağlantıları",
+      "tex": "\\mathbb E\\rho^2(n_i'=1)=\\text{ICC}(C,1)=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}}",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 249,
-      "prose": "tek madde $\\mathbb E\\rho^2$ = ICC(C,1) $=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}}$",
-      "oneri": "\\mathbb E\\rho^2(n_i'=1)=\\text{ICC}(C,1)=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}}",
-      "durum": "oneri",
-      "not": "m9.icc_a_k_tam ile aynı durum; katalogda sağ taraf m9.icc_c_1 olarak aynen durur. \\mathbb E\\rho^2(n_i') yazımı D.4'ten alınmıştır."
+      "spec_quote": "tek madde $\\mathbb E\\rho^2$ = ICC(C,1) $=\\dfrac{KO_p-KO_{art}}{KO_p+(k-1)KO_{art}}$",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m9.phi_en_kucuk",
+      "id": "m9.phi_en_kucuk",
       "module": "M9",
       "card": "Formüller (uzman: kesme puanı)",
+      "tex": "\\Phi=\\min_\\lambda\\Phi(\\lambda)=\\Phi(\\mu)",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 247,
-      "prose": "Φ, Φ(λ)'nın en küçük değeridir (λ = μ).",
-      "oneri": "\\Phi=\\min_\\lambda\\Phi(\\lambda)=\\Phi(\\mu)",
-      "durum": "oneri",
-      "not": "İsteğe bağlı; SPEC'te düz metindir."
+      "spec_quote": "Φ, Φ(λ)'nın en küçük değeridir (λ = μ).",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     },
     {
-      "oneri_id": "m9.icice_tek_yonlu_not",
+      "id": "m9.icice_tek_yonlu_not",
       "module": "M9",
       "card": "Formüller (puanlayıcılar, uzman notu)",
+      "tex": "KO_{\\text{içi}}=7/6,\\quad \\hat\\sigma_p^2=23/24,\\quad \\mathbb E\\rho^2=\\Phi=\\text{ICC}(1,k)=23/30\\approx0{,}7667",
+      "display": true,
+      "reading_tr": "",
       "spec_line": 248,
-      "prose": "$KO_{içi}=7/6$, $\\hat\\sigma_p^2=23/24$, $\\mathbb E\\rho^2=\\Phi=$ ICC(1,k) $=23/30\\approx.7667$",
-      "oneri": "KO_{\\text{içi}}=7/6,\\quad \\hat\\sigma_p^2=23/24,\\quad \\mathbb E\\rho^2=\\Phi=\\text{ICC}(1,k)=23/30\\approx0{,}7667",
-      "durum": "oneri",
-      "not": "Tırnak içindeki uzman notunda TeX düz metinle parçalanmıştır ve iki biçim sorunu taşır: (1) KO_{içi} matematik kipinde Türkçe harf içerir; KaTeX 0.18.9 bunu strict uyarısıyla (unicodeTextInMathMode) konsola yazar (bu oturumda denendi), bu da B1'i bozar; öneri \\text{içi} kullanır. (2) .7667 noktalı ondalıktır; arayüz kuralı (satır 74) 0{,}7667 ister. Bunlar sayısal değer ifadeleri olduğu için formül listesine alınmadı."
+      "spec_quote": "$KO_{içi}=7/6$, $\\hat\\sigma_p^2=23/24$, $\\mathbb E\\rho^2=\\Phi=$ ICC(1,k) $=23/30\\approx.7667$",
+      "kaynak": "oneri_kullanici_talimatiyla_kabul"
     }
   ],
+  "_uncatalogued": [],
   "_sayisal_satir_adaylari": {
     "aciklama": "Modül metnindeki (sabit veri dışındaki) sayısal çalışılmış satırlar. Formül listesine alınmadı, çünkü bunlar büyük olasılıkla Sözle / Sembolle / Sayılarla kartının canlı \"Sayılarla\" satırıdır ve payda anahtarıyla değişir (ör. M5 (a)). Kullanıcı durağan TeX olarak gösterilmelerini isterse formulas listesine taşınabilir. Üç yol kartı ise SPEC'te Sabit Veri A'ya bağlı sabit bir kart olarak tanımlandığı için formulas içindedir.",
     "entries": [
