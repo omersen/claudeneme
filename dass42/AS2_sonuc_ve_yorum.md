@@ -100,6 +100,6 @@ Alfanın, bütün yedili kümeler içindeki yüzdeliği (rehberdeki "MAX21'in al
 
 ## Dosyalar
 
-- `berkcan_dass42_analiz.R`: AS1 ve AS2 blokları doldurulmuş şablon.
+- `berkcan_dass42_analiz.R`: şablonun güncel hâli (en son doldurulan bloklar için en yeni AS belgesine bakın).
 - `ciktilar_as2_01/`: dört AS2 tablosu, `sonuc_degerleri.csv`, `kabul_raporu.csv`, `cikti_denetimi.csv`, `ic_denetimler.csv`, `analiz_gunlugu.txt`, `calistirma_durumu.json`, `oturum_bilgisi.txt`, `karsilastirma_ref06.txt`.
 - `karsilastir_ref06.R`: AS tablolarını danışman başvuru çıktısıyla karşılaştıran betik.

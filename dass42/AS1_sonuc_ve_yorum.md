@@ -123,7 +123,7 @@ Rehberin genel kuralları gereği madde düzeyinde güven aralığı veya p değ
 
 ## Dosyalar
 
-- `berkcan_dass42_analiz.R`: AS1 ve AS2 blokları doldurulmuş şablonun güncel hâli (AS2 için `AS2_sonuc_ve_yorum.md` belgesine bakın).
+- `berkcan_dass42_analiz.R`: şablonun güncel hâli (en son doldurulan bloklar için en yeni AS belgesine bakın).
 - `ciktilar_as1_02/`: beş AS1 tablosu, `sonuc_degerleri.csv`, `kabul_raporu.csv`, `cikti_denetimi.csv`, `ic_denetimler.csv`, `analiz_gunlugu.txt`, `calistirma_durumu.json`, `oturum_bilgisi.txt`.
 - `karsilastir_ref06.R`: AS1 tablolarını danışman başvuru çıktısıyla karşılaştıran betik; çıktısı `ciktilar_as1_02/karsilastirma_ref06.txt` dosyasındadır.
 

@@ -1,0 +1,24 @@
+{
+  "kimlik": "as3_01",
+  "baslangic": "2026-09-28 14:51:33 UTC",
+  "bitis": "2026-09-28 14:52:38 UTC",
+  "surumler": {
+    "R": "4.5.3",
+    "lavaan": "0.7.2",
+    "semTools": "0.5.9",
+    "mirt": "1.47"
+  },
+  "beklenen_surumler": {
+    "R": "4.5.3",
+    "lavaan": "0.7.2",
+    "semTools": "0.5.9",
+    "mirt": "1.47"
+  },
+  "sabit_bolumler_ozeti": "9bef53a26b334da415fbd9ecac39a47b4dfc95a04fc3c531beb1ad16b24cc460",
+  "ic_denetim": 51,
+  "kabul_gecen": 95,
+  "kabul_eksik": 183,
+  "kabul_farkli": 1,
+  "kabul_toplam": 279,
+  "durum": "RED"
+}
