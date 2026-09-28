@@ -83,5 +83,5 @@ Rehbere göre düşük RMSE, seçilen yedi madde ile kalan yedi maddenin kişi d
 
 ## Dosyalar
 
-- `berkcan_dass42_analiz.R`: AS1, AS2 ve AS3 blokları doldurulmuş şablon.
+- `berkcan_dass42_analiz.R`: şablonun güncel hâli (en son doldurulan bloklar için en yeni belgeye bakın).
 - `ciktilar_as3_01/`: `tablo_AS3_uyum.csv`, `sonuc_degerleri.csv`, `kabul_raporu.csv`, `cikti_denetimi.csv`, `ic_denetimler.csv`, `analiz_gunlugu.txt`, `calistirma_durumu.json`, `oturum_bilgisi.txt`, `karsilastirma_ref06.txt`.

@@ -1,0 +1,14 @@
+                               dosya                     durum en_buyuk_fark
+              tablo_AS1_GRM_tani.csv ayni (satir sirasi dahil)  1.000444e-11
+                 tablo_AS1_ISI_a.csv ayni (satir sirasi dahil)  0.000000e+00
+    tablo_AS1_kategori_kullanimi.csv ayni (satir sirasi dahil)  0.000000e+00
+            tablo_AS1_kosinus_Q3.csv ayni (satir sirasi dahil)  0.000000e+00
+   tablo_AS1_madde_parametreleri.csv ayni (satir sirasi dahil)  0.000000e+00
+              tablo_AS2_DFA_uyum.csv ayni (satir sirasi dahil)  1.000444e-11
+ tablo_AS2_faktor_korelasyonlari.csv ayni (satir sirasi dahil)  0.000000e+00
+            tablo_AS2_guvenirlik.csv ayni (satir sirasi dahil)  0.000000e+00
+                tablo_AS2_yukler.csv ayni (satir sirasi dahil)  0.000000e+00
+                  tablo_AS3_uyum.csv ayni (satir sirasi dahil)  0.000000e+00
+                tablo_butunlesik.csv ayni (satir sirasi dahil)  0.000000e+00
+         tablo_form_yuzdelikleri.csv ayni (satir sirasi dahil)  0.000000e+00
+                 tum_alt_kumeler.csv ayni (satir sirasi dahil)  0.000000e+00
