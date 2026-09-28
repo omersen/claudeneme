@@ -72,5 +72,5 @@ Kaynak: `tablo_AS5_iliskiler.csv`. Ana analiz değerlendirme grubundadır (deg);
 
 ## Dosyalar
 
-- `berkcan_dass42_analiz.R`: AS1-AS5, ALT KÜME TABLOSU ve BOOTSTRAP blokları doldurulmuş şablon.
+- `berkcan_dass42_analiz.R`: şablonun güncel hâli (en son doldurulan bloklar için en yeni belgeye bakın).
 - `ciktilar_as5_01/`: `tablo_AS5_iliskiler.csv`, `sonuc_degerleri.csv`, `kabul_raporu.csv`, `cikti_denetimi.csv`, `ic_denetimler.csv`, `analiz_gunlugu.txt`, `calistirma_durumu.json`, `oturum_bilgisi.txt`, `karsilastirma_ref06.txt`.
