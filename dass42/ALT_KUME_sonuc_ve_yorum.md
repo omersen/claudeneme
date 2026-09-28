@@ -103,6 +103,6 @@ Bu okuma kesin değildir. PUB21'e göre farkların tutarlılığı (BOOTSTRAP) v
 
 ## Dosyalar
 
-- `berkcan_dass42_analiz.R`: AS1, AS2, AS3 ve ALT KÜME TABLOSU blokları doldurulmuş şablon.
+- `berkcan_dass42_analiz.R`: şablonun güncel hâli (en son doldurulan bloklar için en yeni belgeye bakın).
 - `ciktilar_altkume_01/`: `tum_alt_kumeler.csv`, `tablo_form_yuzdelikleri.csv`, `tablo_butunlesik.csv`, `sonuc_degerleri.csv`, `kabul_raporu.csv`, `cikti_denetimi.csv`, `ic_denetimler.csv`, `analiz_gunlugu.txt`, `calistirma_durumu.json`, `oturum_bilgisi.txt`, `karsilastirma_ref06.txt`.
 - `karsilastir_ref06.R`: bütün analiz tablolarını (`tablo_*` ve `tum_alt_kumeler.csv`) başvuru çıktısıyla karşılaştıran betik.
