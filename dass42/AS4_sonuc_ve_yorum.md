@@ -92,5 +92,5 @@ Rehberde yer almayan bir öneri: temsil tablosundaki örnekler (ör. Q23 → Q04
 
 ## Dosyalar
 
-- `berkcan_dass42_analiz.R`: AS1, AS2, AS3, ALT KÜME TABLOSU, BOOTSTRAP ve AS4 blokları doldurulmuş şablon.
+- `berkcan_dass42_analiz.R`: şablonun güncel hâli (en son doldurulan bloklar için en yeni belgeye bakın).
 - `ciktilar_as4_01/`: üç AS4 tablosu, `sonuc_degerleri.csv`, `kabul_raporu.csv`, `cikti_denetimi.csv`, `ic_denetimler.csv`, `analiz_gunlugu.txt`, `calistirma_durumu.json`, `oturum_bilgisi.txt`, `karsilastirma_ref06.txt`.
