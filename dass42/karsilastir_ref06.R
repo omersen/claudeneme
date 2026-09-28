@@ -1,10 +1,10 @@
-# AS1 tablolarını danışman başvuru çıktısıyla (ref06) karşılaştırır.
+# AS tablolarını danışman başvuru çıktısıyla (ref06) karşılaştırır.
 # Kullanım: Rscript karsilastir_as1_ref06.R <AS1 çalıştırma klasörü> <ref06 klasörü>
-# YZ_ISTEMLERI.md'nin son bölümündeki karşılaştırma koduna dayanır; yalnız tablo_AS1_* dosyalarını okur.
+# YZ_ISTEMLERI.md'nin son bölümündeki karşılaştırma koduna dayanır; yalnız tablo_AS* dosyalarını okur.
 args <- commandArgs(trailingOnly = TRUE)
 a_klasor <- args[1]; b_klasor <- args[2]
 stopifnot(dir.exists(a_klasor), dir.exists(b_klasor))
-dosyalar <- grep("^tablo_AS1", intersect(list.files(a_klasor, "\\.csv$"), list.files(b_klasor, "\\.csv$")), value = TRUE)
+dosyalar <- grep("^tablo_AS[0-9]", intersect(list.files(a_klasor, "\\.csv$"), list.files(b_klasor, "\\.csv$")), value = TRUE)
 karsilastir <- function(d) {
   a <- read.csv(file.path(a_klasor, d)); b <- read.csv(file.path(b_klasor, d))
   if (!identical(dim(a), dim(b)) || !identical(names(a), names(b)))

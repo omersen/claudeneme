@@ -24,7 +24,7 @@ Bu bulut ortamında R kurulu değildi. Paketteki `ortam/linux-explicit.txt` dosy
 | `cikti_denetimi.csv`, beş AS1 tablosu | Beşi de var; sütun adları ve satır sayıları doğru |
 | İç denetimler | 43 denetimin hepsi geçti; AS1 bloğu 21 denetim ekledi (ISI, parametre ve Q3 sırası, kategori toplamları) |
 | Günlükteki uyarılar | GRM, M2 veya Q3 için hiç uyarı yok |
-| Danışman başvuru çıktısı `ref06` ile karşılaştırma | Beş AS1 tablosu aynı, raporda puanlanmayan değerler (madde parametreleri, Q3 çiftleri, tanılar) ve satır sırası dahil; en büyük fark 1,0 × 10⁻¹¹ (C2 değerinde). Karşılaştırma kod yazılıp çalıştırıldıktan sonra yapıldı ve başvuru çözümünün kodu okunmadı. Betik: `karsilastir_as1_ref06.R` |
+| Danışman başvuru çıktısı `ref06` ile karşılaştırma | Beş AS1 tablosu aynı, raporda puanlanmayan değerler (madde parametreleri, Q3 çiftleri, tanılar) ve satır sırası dahil; en büyük fark 1,0 × 10⁻¹¹ (C2 değerinde). Karşılaştırma kod yazılıp çalıştırıldıktan sonra yapıldı ve başvuru çözümünün kodu okunmadı. Betik: `karsilastir_ref06.R` |
 | Bağımsız gözden geçirme | Ayrı bir ajan AS1'i yalnız tanımdan yeniden yazdı ve beş tabloyu birebir üretti. İki ajan daha sayıları, yorumları ve kaynakları denetledi; bulunan hatalar bu sürümde düzeltildi (belgenin sonuna bakın) |
 
 `KABUL`, hesapların başvuru değerleriyle eşleştiğini gösterir; GRM'nin iyi uyum verdiğini göstermez (rehber, genel kural 7). Tanılar aşağıda ayrıca değerlendirilmiştir.
@@ -123,8 +123,8 @@ Rehberin genel kuralları gereği madde düzeyinde güven aralığı veya p değ
 
 ## Dosyalar
 
-- `berkcan_dass42_analiz.R`: yalnız AS1 bloğu doldurulmuş şablon.
+- `berkcan_dass42_analiz.R`: AS1 ve AS2 blokları doldurulmuş şablonun güncel hâli (AS2 için `AS2_sonuc_ve_yorum.md` belgesine bakın).
 - `ciktilar_as1_02/`: beş AS1 tablosu, `sonuc_degerleri.csv`, `kabul_raporu.csv`, `cikti_denetimi.csv`, `ic_denetimler.csv`, `analiz_gunlugu.txt`, `calistirma_durumu.json`, `oturum_bilgisi.txt`.
-- `karsilastir_as1_ref06.R`: AS1 tablolarını danışman başvuru çıktısıyla karşılaştıran betik; çıktısı `ciktilar_as1_02/karsilastirma_ref06.txt` dosyasındadır.
+- `karsilastir_ref06.R`: AS1 tablolarını danışman başvuru çıktısıyla karşılaştıran betik; çıktısı `ciktilar_as1_02/karsilastirma_ref06.txt` dosyasındadır.
 
 Bu betik Berkcan'ın paketindeki şablonun yerine kopyalanırsa, sonraki blok (AS2) aynı dosya üzerinde sürdürülebilir. Ancak yönergeye göre Berkcan'ın kendi aracıyla blok blok ilerlemesi ve blok notunu kendisinin yazması beklenir. Bu dosyanın ona verilip verilmeyeceği danışmanın kararıdır.
