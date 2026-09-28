@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DASS-42 Analiz Kodu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&display=swap">
+<style>
+:root {
+  --bg: #F3F4F0;
+  --surface: #FFFFFF;
+  --surface-2: #F7F8F5;
+  --ink: #18212D;
+  --ink-2: #455060;
+  --ink-3: #687381;
+  --rule: #D7DCD4;
+  --accent: #1C5A8A;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E3ECF3;
+  --warn: #8A4B0F;
+  --warn-soft: #F6EEE3;
+  --code-bg: #111922;
+  --code-head: #18222D;
+  --code-edge: #1F2A36;
+  --code-ink: #E2E8EE;
+  --code-dim: #93A1AE;
+  --pub: #000000;
+  --min: #0072B2;
+  --max: #D55E00;
+  --cov: #009E73;
+  --serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E131A; --surface: #151C25; --surface-2: #19212B; --ink: #E4E8ED; --ink-2: #AEB8C3; --ink-3: #8C97A3;
+    --rule: #28323E; --accent: #8FBCE4; --accent-ink: #0E131A; --accent-soft: #1A2836;
+    --warn: #E3AA6B; --warn-soft: #2A2119; --code-bg: #0A0F15; --code-head: #111920; --code-edge: #1E2833;
+    --pub: #E4E8ED; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E131A; --surface: #151C25; --surface-2: #19212B; --ink: #E4E8ED; --ink-2: #AEB8C3; --ink-3: #8C97A3;
+  --rule: #28323E; --accent: #8FBCE4; --accent-ink: #0E131A; --accent-soft: #1A2836;
+  --warn: #E3AA6B; --warn-soft: #2A2119; --code-bg: #0A0F15; --code-head: #111920; --code-edge: #1E2833;
+  --pub: #E4E8ED; color-scheme: dark;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.65; padding-inline: 16px; padding-block: 0 72px; }
+a { color: var(--accent); text-underline-offset: 2px; }
+code:not(pre code) { font-family: var(--mono); font-size: 0.88em; background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.bas { max-width: 1080px; margin: 0 auto; padding-block: 48px 36px; border-bottom: 1px solid var(--rule); }
+.ust { font: 600 12px/1.2 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 14px; }
+h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2rem, 4.6vw, 3rem); line-height: 1.1; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.giris { font-size: 1.12rem; color: var(--ink-2); max-width: 62ch; margin: 14px 0 22px; }
+.formlar-serit { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 24px; padding: 0; list-style: none; font: 500 13px/1.3 var(--mono); color: var(--ink-2); }
+.formlar-serit li { display: flex; align-items: center; gap: 7px; }
+.isaret { width: 12px; height: 12px; flex: none; }
+.kunye { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px 28px; margin: 0; }
+.kunye div { min-width: 0; }
+.kunye dt { font: 600 11.5px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 4px; }
+.kunye dd { margin: 0; font-size: 14.5px; color: var(--ink); }
+
+.duzen { display: grid; grid-template-columns: 200px minmax(0, 760px); gap: 56px; justify-content: center; max-width: 1080px; margin: 0 auto; }
+nav.icindekiler { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); align-self: start; padding-top: 40px; }
+.nav-bas { font: 600 11.5px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; }
+nav ol { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 2px; }
+nav a { display: flex; gap: 8px; align-items: baseline; padding: 5px 8px; border-radius: 6px; color: var(--ink-2); text-decoration: none; font-size: 14px; }
+nav a:hover { background: var(--accent-soft); color: var(--ink); }
+nav a.etkin { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+nav a .n { font: 600 11.5px/1 var(--mono); color: var(--ink-3); min-width: 30px; }
+nav a.etkin .n { color: var(--accent); }
+.tumu { font: 600 13.5px/1 var(--sans); color: var(--accent-ink); background: var(--accent); border: 0; border-radius: 7px; padding: 10px 14px; cursor: pointer; }
+.tumu:hover { filter: brightness(1.08); }
+
+main { min-width: 0; padding-top: 16px; }
+main > section { padding-top: 36px; }
+h2 { font-family: var(--serif); font-weight: 600; font-size: 1.65rem; line-height: 1.25; margin: 0 0 12px; text-wrap: balance; }
+h3 { font: 600 12.5px/1.3 var(--sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); margin: 30px 0 10px; }
+p, li { max-width: 68ch; }
+main ul, main ol.adim { padding-left: 1.2em; margin: 8px 0; }
+main li { margin: 6px 0; }
+.not { font-size: 14px; color: var(--ink-2); }
+
+.soru { margin-top: 44px; border-top: 1px solid var(--rule); }
+.soru-etiket { display: flex; gap: 10px; align-items: center; margin: 0; font: 600 12.5px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.as-no { background: var(--accent); color: var(--accent-ink); padding: 5px 8px; border-radius: 4px; letter-spacing: 0.04em; }
+.soru-metni { font-family: var(--serif); font-weight: 500; font-style: italic; font-size: clamp(1.2rem, 2.3vw, 1.45rem); line-height: 1.45; margin: 16px 0 6px; max-width: 60ch; text-wrap: pretty; }
+
+.tanim { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; margin: 14px 0; }
+.tanim dt { font: 600 13.5px/1.5 var(--mono); color: var(--accent); }
+.tanim dd { margin: 0; }
+
+.tablo-kap { overflow-x: auto; margin: 12px 0 8px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); white-space: nowrap; vertical-align: top; }
+thead th { font: 600 11.5px/1.35 var(--sans); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-3); background: var(--surface-2); white-space: normal; min-width: 70px; }
+tbody th { font-weight: 600; font-family: var(--mono); font-size: 13px; }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+.ara { color: var(--ink-3); font-size: 12.5px; }
+.form-hucre { display: inline-flex; align-items: center; gap: 7px; }
+table.formlar th, table.formlar td { padding: 8px 10px; }
+table.formlar td:nth-child(2) { white-space: normal; min-width: 118px; }
+
+.kod { margin: 12px 0 18px; border-radius: 10px; overflow: hidden; background: var(--code-bg); border: 1px solid var(--code-edge); }
+.kod-bas { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 8px 7px 14px; background: var(--code-head); }
+.kod-ad { font: 500 12.5px/1.35 var(--mono); color: var(--code-dim); min-width: 0; }
+.kopya { flex: none; font: 600 12.5px/1 var(--sans); color: var(--code-ink); background: transparent; border: 1px solid #3A4757; border-radius: 6px; padding: 7px 11px; cursor: pointer; }
+.kopya:hover { background: #22303F; }
+.kod pre { margin: 0; padding: 14px 16px 16px; overflow-x: auto; }
+.kod code { display: block; font: 13px/1.62 var(--mono); color: var(--code-ink); white-space: pre; tab-size: 2; }
+.hljs-comment { color: #7F8E9C; font-style: italic; }
+.hljs-keyword, .hljs-literal { color: #F0B77E; }
+.hljs-string { color: #A8D08D; }
+.hljs-number { color: #9DCBF0; }
+.hljs-built_in, .hljs-title { color: #E2E8EE; }
+.hljs-operator, .hljs-punctuation { color: #C3CDD7; }
+.tum-kod-alani { width: 100%; min-height: 160px; font: 12.5px/1.5 var(--mono); background: var(--surface); color: var(--ink); border: 1px solid var(--rule); border-radius: 8px; padding: 10px; }
+.kopya-satiri { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin: 14px 0 6px; }
+
+.soylenmez { background: var(--warn-soft); border-radius: 8px; padding: 12px 16px 10px; margin: 16px 0; }
+.soylenmez .etiket { font: 600 12px/1.3 var(--sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--warn); margin: 0 0 2px; }
+.soylenmez ul { margin: 4px 0; }
+
+.sekil { margin: 18px 0 10px; }
+.sekil-kap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: #FFFFFF; }
+.sekil-kap img { display: block; width: 100%; min-width: 640px; height: auto; }
+.sekil figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 8px; max-width: 68ch; }
+
+.okuma { border-left: 0; padding: 0; }
+.sonuc-p { font-size: 1.02rem; }
+.oneri-grubu { margin: 18px 0; }
+.oneri-grubu h3 { margin-top: 22px; }
+.kaynak li { font-size: 14.5px; margin: 8px 0; padding-left: 1.6em; text-indent: -1.6em; list-style: none; }
+.kaynak { padding-left: 0 !important; }
+.son-not { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13.5px; color: var(--ink-3); }
+
+@media (max-width: 960px) {
+  .duzen { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  nav.icindekiler { position: static; padding-top: 22px; }
+  nav ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  body { font-size: 15.5px; }
+  .tanim { grid-template-columns: minmax(0, 1fr); gap: 2px 0; }
+  .tanim dd { margin-bottom: 10px; }
+  nav ol { grid-template-columns: minmax(0, 1fr); }
+}
+
+.dosya-seridi { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; padding: 0; list-style: none; }
+.dosya-seridi a, .dosya-seridi span { display: inline-flex; align-items: baseline; gap: 6px; font: 500 13px/1.2 var(--sans); padding: 7px 11px; border-radius: 7px; border: 1px solid var(--rule); color: var(--ink-2); text-decoration: none; background: var(--surface); }
+.dosya-seridi a:hover { border-color: var(--accent); color: var(--accent); }
+.dosya-seridi .bu { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.dosya-seridi b { font: 600 11.5px/1 var(--mono); }
+h4 { font: 600 12px/1.3 var(--sans); letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); margin: 22px 0 8px; }
+.tablo { margin: 22px 0 10px; }
+.tablo-bas { display: flex; flex-direction: column; gap: 2px; margin: 0 0 6px; }
+.tablo-no { font: 600 13.5px/1.3 var(--sans); color: var(--ink); }
+.tablo-ad { font: italic 400 14.5px/1.4 var(--serif); color: var(--ink-2); }
+.tablo .not { margin: 6px 0 0; }
+.bos { color: var(--ink-3); letter-spacing: 0.1em; }
+tr.grup-satiri th { font: 600 11.5px/1.3 var(--sans); letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); }
+table.kayit th { font-family: var(--sans); font-size: 13.5px; white-space: nowrap; }
+table.kayit td { white-space: normal; min-width: 240px; }
+.sekil-yer { border: 1.5px dashed var(--rule); border-radius: 8px; padding: 34px 18px; text-align: center; color: var(--ink-3); font-size: 14px; background: var(--surface-2); }
+details.bulgu { margin: 10px 0 8px; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+details.bulgu > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; }
+details.bulgu > summary::-webkit-details-marker { display: none; }
+details.bulgu > summary::before { content: ""; flex: none; width: 7px; height: 7px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); transition: transform 0.15s ease; margin-left: 2px; }
+details.bulgu[open] > summary::before { transform: rotate(45deg); }
+details.bulgu > summary:hover { background: var(--accent-soft); }
+.bulgu-ad { font: 600 14.5px/1.2 var(--sans); color: var(--accent); }
+.bulgu-ozet { font: 500 12.5px/1.2 var(--mono); color: var(--ink-3); }
+.bulgu-govde { padding: 2px 18px 16px; border-top: 1px solid var(--rule); }
+.bulgu-govde > h4:first-child { margin-top: 16px; }
+@media (prefers-reduced-motion: reduce) { details.bulgu > summary::before { transition: none; } }
+.acma { font: 600 13.5px/1 var(--sans); color: var(--accent); background: transparent; border: 1px solid var(--accent); border-radius: 7px; padding: 9px 13px; cursor: pointer; margin-top: 8px; }
+.acma:hover { background: var(--accent-soft); }
+nav .dugmeler { display: grid; gap: 8px; justify-items: start; }
+thead th { text-transform: none; letter-spacing: 0; font-size: 12.5px; }
+tbody th { font-family: var(--sans); font-size: 14px; }
+.form-hucre { font-family: var(--mono); font-size: 13px; }
+.kaynak li { overflow-wrap: anywhere; }
+</style>
+
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<header class="bas" lang="tr"><p class="ust">Yüksek lisans tezi · Dosya 1 / 3 · Kod ve boş tablolar</p><h1>DASS-42 Anlamsal Kısa Formlar</h1><p class="giris">Analizin baştan sona R kodu ve kod çalıştırıldığında dolacak boş tablolar. Akış hazırlıktan araştırma sorularına, oradan eklere ilerler; her parçanın altında çıktının nasıl okunacağı ve yorumda nelerin söylenmeyeceği yazılıdır.</p><ul class="dosya-seridi" aria-label="Üç dosya"><li><span class="bu" aria-current="page"><b>1</b>Kod ve boş tablolar</span></li><li><a href="DASS42_2_Bulgular.html"><b>2</b>Bulgular</a></li><li><a href="DASS42_3_Kod_ve_Bulgular.html"><b>3</b>Kod ve bulgular</a></li></ul><ul class="formlar-serit" aria-label="Karşılaştırılan dört kısa form"><li><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21 yayımlanmış</li><li><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21 en az benzer</li><li><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21 en çok benzer</li><li><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21 en düşük temsil kaybı</li></ul><dl class="kunye"><div><dt>Veri</dt><dd>Open-Source Psychometrics Project DASS arşivi, 39.775 kayıt</dd></div><div><dt>Çalışma grubu</dt><dd>4.000 kişi: 2.000 kalibrasyon, 2.000 değerlendirme</dd></div><div><dt>Gömme modeli</dt><dd>text-embedding-3-large, 3.072 boyut; Ravenda vd. (2025) arşivi; API seçeneği yer tutucu</dd></div><div><dt>Sürüm</dt><dd>28 Eylül 2026, düzeltilmiş</dd></div></dl></header>
+<div class="duzen" lang="tr"><nav class="icindekiler" aria-label="İçindekiler"><p class="nav-bas">İçindekiler</p><ol><li><a href="#onem"><span class="n">1</span>Önem ve amaç</a></li><li><a href="#tekrar"><span class="n">2</span>Tekrarlanabilirlik</a></li><li><a href="#hz1"><span class="n">3.1</span>Paketler ve tanımlar</a></li><li><a href="#hz2"><span class="n">3.2</span>Veri ve örneklem</a></li><li><a href="#hz3"><span class="n">3.3</span>Gömme vektörleri</a></li><li><a href="#hz4"><span class="n">3.4</span>Dört form</a></li><li><a href="#hz5"><span class="n">3.5</span>Alt küme testi</a></li><li><a href="#as1"><span class="n">AS1</span>Madde düzeyi</a></li><li><a href="#as2"><span class="n">AS2</span>Yapı, güvenirlik ve bilgi</a></li><li><a href="#as3"><span class="n">AS3</span>Tam form uyumu</a></li><li><a href="#as4"><span class="n">AS4</span>Çeşitlilik ve temsil</a></li><li><a href="#as5"><span class="n">AS5</span>Alt küme ilişkileri</a></li><li><a href="#sonuc"><span class="n">5</span>Sonuç</a></li><li><a href="#kaynaklar"><span class="n">7</span>Kaynaklar</a></li><li><a href="#ekA"><span class="n">Ek A</span>Gömme modeli denetimi</a></li><li><a href="#ekB"><span class="n">Ek B</span>COV21 eşit çözümleri</a></li><li><a href="#ekC"><span class="n">Ek C</span>Yanıt kalitesi (VCL)</a></li><li><a href="#ekD"><span class="n">Ek D</span>Omega hesaplama biçimi</a></li><li><a href="#ekE"><span class="n">Ek E</span>Alfa farkları</a></li></ol><div class="dugmeler"><button type="button" class="tumu">Bütün kodu kopyala</button></div></nav><main><section id="onem">
+<h2>Önem ve amaç</h2>
+<p>Kısa formlar katılımcı yükünü azaltır; ancak hangi maddelerin kaldığı, puanların güvenirliğini, faktör yapısını ve içeriğin temsilini doğrudan belirler. Dil modelleri madde seçimini yanıt verisi toplamadan, yalnız madde metinlerinden yapmaya olanak tanır; bu yolun psikometrik sonuçları ise az sayıda çalışmada incelenmiştir (ör. Kilmen ve Bulut, 2025).</p>
+<p>Bu çalışmanın amacı, madde metinlerinden farklı hedeflerle yapılan seçimlerin nasıl kısa formlar ortaya çıkardığını ve bu formların psikometrik özelliklerini Depresyon Anksiyete Stres Ölçeği'nin 42 maddelik sürümü (DASS-42; Lovibond ve Lovibond, 1995) üzerinde incelemektir. İnceleme üç düzeyde yapılır: madde düzeyi (AS1), form düzeyi (AS2, AS3, AS4) ve bir alt boyuttan seçilebilecek bütün yedili formlar düzeyi (AS5). Çalışma betimsel ve karşılaştırmalıdır; nedensel bir düzenek sınanmaz.</p>
+<p>Anlamsal seçim, maddelerin yanıt verisine bakılmadan yalnız metinlerinden yararlanılarak seçilmesidir. Madde metinleri bir dil modeliyle sayısal vektörlere (gömme, <i lang="en">embedding</i>) dönüştürülür; iki maddenin anlamca ne kadar benzediği bu vektörler arasındaki kosinüs benzerliğiyle ölçülür. Her alt boyutun 14 maddesinden yedisi aşağıdaki kurallardan biriyle seçilir. Kurallar Hazırlık 3.4'teki kodla uygulanır; formların maddeleri bu kodun çıktısıdır.</p>
+<div class="tablo-kap"><table><thead><tr><th scope="col">Form</th><th scope="col">Seçim kuralı</th><th scope="col">Hedef</th></tr></thead><tbody>
+<tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td>Yayımlanmış DASS-21 (Lovibond ve Lovibond, 1995)</td><td>Karşılaştırma formu</td></tr>
+<tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td>Her alt boyutta ISI'si en düşük yedi madde</td><td>Anlamca en ayrışık maddeler</td></tr>
+<tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td>Her alt boyutta ISI'si en yüksek yedi madde</td><td>Anlamca en merkezî maddeler</td></tr>
+<tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td>Her alt boyutta CL'si en küçük yedili küme</td><td>14 maddeye gömme uzayında en yakın küme</td></tr>
+</tbody></table></div>
+<dl class="tanim">
+<dt>ISI</dt><dd>Madde anlamsal benzerlik indeksi: bir maddenin aynı alt boyuttaki diğer 13 maddeyle ortalama kosinüs benzerliği.</dd>
+<dt>SB</dt><dd>Anlamsal çeşitlilik (<i lang="en">semantic breadth</i>): 1 eksi seçilen yedi maddenin 21 çiftinin ortalama kosinüs benzerliği. Yüksek SB daha çeşitli form demektir.</dd>
+<dt>CL</dt><dd>Temsil kaybı (<i lang="en">coverage loss</i>): alt boyuttaki 14 maddenin her birinin en yakın seçili maddeye uzaklığının (1 eksi kosinüs) ortalaması. Seçili maddeler sıfır uzaklıkla katılır; bu yüzden elenen yedi maddenin ortalama uzaklığı 2 × CL'dir. Düşük CL, elenen maddelerin gömme uzayında seçilen maddelere daha yakın olduğu anlamına gelir.</dd>
+<dt>CL<sub>b</sub></dt><dd>Bölünme temsil kaybı: 14 maddenin her birinin karşı yarıdaki en yakın maddeye ortalama uzaklığı. Bir küme ile tümleyeninde aynı değeri alır.</dd>
+</dl>
+</section>
+<section id="tekrar"><h2>Tekrarlanabilirlik</h2><p>Kodlar öğrenci paketinin klasöründe (<code>berkcan_dass42</code>) yukarıdan aşağıya sırayla çalıştırılır; her parça öncekilerin nesnelerini kullanır. Veri, gömme vektörleri ve referans örneklem bölmesi <code>girdiler/</code> klasöründen okunur; tablolar ve şekiller <code>html_ciktilari/</code> klasörüne yazılır. Tam çalıştırma yaklaşık iki buçuk dakika sürer.</p>
+<div class="tablo-kap"><table><thead><tr><th scope="col">Adım</th><th scope="col">Tohum veya ayar</th><th scope="col">Etkisi</th></tr></thead><tbody>
+<tr><th scope="row">Bütün adımlar</th><td><code>RNGkind("Mersenne-Twister", "Inversion", "Rejection")</code></td><td>R sürümleri arasında aynı üreteç</td></tr>
+<tr><th scope="row">3.2 Örneklem seçimi</th><td><code>set.seed(20260905)</code></td><td>Uygun kayıtlardan 4.000 kayıt</td></tr>
+<tr><th scope="row">3.2 Grup bölmesi</th><td><code>set.seed(260905)</code></td><td>2.000 kalibrasyon ve 2.000 değerlendirme; referans bölmeyle aynı olduğu denetlenir</td></tr>
+<tr><th scope="row">AS3 Bootstrap</th><td><code>set.seed(20260913 + b)</code>, b = 1, …, 2.000</td><td>Her tekrar kendi tohumuyla başlar; sonuç tekrarların sırasından bağımsızdır</td></tr>
+<tr><th scope="row">GRM, DFA, test bilgisi, gömme</th><td>yok</td><td>Rastgelelik içermez; aynı girdi aynı sonucu verir</td></tr>
+</tbody></table></div>
+<p>Kod, girdilerin değişmediğini SHA-256 özetleriyle denetler: ham veri <code>38d1707c…f3f5</code>, gömme vektörleri <code>fd765117…1955</code>. Vektör dosyası, Ravenda vd.'nin (2025) deposundaki <code>data/dass_embedding_large.csv</code> dosyasından (commit <code>9c7e5013</code>) yalnız satırlar madde sırasına konarak türetilmiştir; özgün dosyanın özeti <code>embedding_provenance.json</code> kaydındadır. Vektörler API ile yeniden üretilmek istenirse Hazırlık 3.3'teki yer tutucu kullanılır; o durumda yeni vektörler tarihli bir dosyaya ve özet kaydına yazılır ve sonuçlar bu sayfadaki sayılardan farklı olabilir.</p>
+<p>Önerilen ortam: R 4.5.3 (R Core Team, 2026), lavaan 0.7-2, semTools 0.5-9, mirt 1.47, ggplot2, digest ve jsonlite; API seçeneği için ayrıca httr2. Bu kod, tezde kullanılan kabul denetimli betiğin (<code>berkcan_dass42_analiz.R</code>) okunabilir karşılığıdır ve aynı tanımlarla çalışır. AS2'deki test bilgi fonksiyonu, Ek A (gömme modeli denetimi) ve Ek D (omeganın ikinci hesaplama biçimi) betikte bulunmayan eklemelerdir; bu değerlerin referans karşılığı yoktur. Tezde kullanılacak sayılar kabul denetiminden geçmiş son çalıştırmadan alınır.</p>
+<p><strong>Yapay zekâ kullanımı.</strong> Kod parçalarının ve sayfa metinlerinin hazırlanmasında yapay zekâ araçlarından (ChatGPT ve Claude) yararlanılmıştır. Bütün sayılar kodun çalıştırılmasıyla üretilmiş ve kabul denetimli çalıştırmayla karşılaştırılmıştır; yorumların doğruluğu ve kapsamı yazarların sorumluluğundadır.</p><div class="kopya-satiri"><button type="button" class="tumu">Bütün kodu kopyala</button><span class="not">Beş hazırlık parçası, beş soru, Sonuç tablosu ve beş ek, çalışma sırasıyla tek metin olarak kopyalanır.</span></div><textarea id="tum-kod-alani" class="tum-kod-alani" hidden readonly aria-label="Bütün R kodu"></textarea></section>
+<section id="hz1" class="soru"><p class="soru-etiket"><span class="as-no">3.1</span>Hazırlık</p><h2>Paketler, ayarlar ve tanım fonksiyonları</h2><h3>Ne yapılır</h3><p>Paketleri yükler, rastgele sayı üretecini sabitler; madde anahtarlarını ve bütün göstergelerin tanım fonksiyonlarını (ISI, SB, CL, CL<sub>b</sub>, alfa, RMSE, orta sıra yüzdeliği, GRM ve DFA kurulumu, kategorik omega) tanımlar. GRM mirt (Chalmers, 2012), sıralı DFA lavaan (Rosseel, 2012), kategorik omega semTools (Jorgensen vd., 2022), şekiller ggplot2 (Wickham, 2016) ile hesaplanır.</p><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>3.1 · Paketler, ayarlar ve tanım fonksiyonları</span><button type='button' class='kopya' data-hedef='k-hz1' aria-label='3.1 · Paketler, ayarlar ve tanım fonksiyonları kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-hz1' class='language-r'># ---- 3.1 Paketler, ayarlar ve tanım fonksiyonları ---------------------------------
+# Bütün kodlar öğrenci paketinin klasöründe (berkcan_dass42) ve yukarıdan aşağıya sırayla çalıştırılır.
+# Önerilen sürümler: R 4.5.3, lavaan 0.7-2, semTools 0.5-9, mirt 1.47, ggplot2; ayrıca digest ve jsonlite.
+# httr2 yalnız 3.3&#x27;te vektörler API ile yeniden üretilecekse gerekir.
+library(lavaan); library(semTools); library(mirt); library(ggplot2)
+RNGkind(&quot;Mersenne-Twister&quot;, &quot;Inversion&quot;, &quot;Rejection&quot;)
+dir.create(&quot;html_ciktilari&quot;, showWarnings = FALSE)
+
+key42 &lt;- list(D = c(3, 5, 10, 13, 16, 17, 21, 24, 26, 31, 34, 37, 38, 42),   # DASS-42 alt boyutları
+              A = c(2, 4, 7, 9, 15, 19, 20, 23, 25, 28, 30, 36, 40, 41),
+              S = c(1, 6, 8, 11, 12, 14, 18, 22, 27, 29, 32, 33, 35, 39))
+key21 &lt;- list(D = c(3, 10, 17, 26, 31, 38, 42),                              # yayımlanmış DASS-21 (PUB21)
+              A = c(2, 4, 20, 25, 28, 40, 41),
+              S = c(6, 8, 12, 18, 22, 35, 39))
+item_id &lt;- function(x) sprintf(&quot;Q%02d&quot;, x)
+alt_boyutlar &lt;- c(&quot;D&quot;, &quot;A&quot;, &quot;S&quot;)
+kisa_formlar &lt;- c(&quot;PUB21&quot;, &quot;MIN21&quot;, &quot;MAX21&quot;, &quot;COV21&quot;)
+anlamsal_formlar &lt;- c(&quot;MIN21&quot;, &quot;MAX21&quot;, &quot;COV21&quot;)
+tol &lt;- 1e-12                                                  # sayısal eşitlik toleransı
+
+# Anlamsal göstergeler
+cosine_matrix &lt;- function(E) {
+  nr &lt;- sqrt(rowSums(E^2)); C &lt;- tcrossprod(E / nr)
+  C[C &gt; 1] &lt;- 1; C[C &lt; -1] &lt;- -1; diag(C) &lt;- 1
+  dimnames(C) &lt;- list(rownames(E), rownames(E)); C
+}
+isi_values &lt;- function(Cf) (rowSums(Cf) - diag(Cf)) / (nrow(Cf) - 1)   # ISI: diğer 13 maddeye ortalama kosinüs
+rank_with_tolerance &lt;- function(values, decreasing = FALSE) {           # eşitlikte küçük madde numarası önce
+  z &lt;- if (decreasing) -values else values
+  kalan &lt;- names(z)[order(z, names(z))]; sira &lt;- character(0)
+  while (length(kalan)) {
+    grup &lt;- kalan[z[kalan] &lt;= z[kalan[1L]] + tol]
+    sira &lt;- c(sira, sort(grup)); kalan &lt;- setdiff(kalan, grup)
+  }
+  sira
+}
+sirali_ortalama &lt;- function(x) sum(sort(x)) / length(x)
+anlamsal_olcu &lt;- function(Cf, S) {   # SB, CL ve CL_b (14 maddelik havuz üzerinden)
+  w &lt;- Cf[S, S, drop = FALSE]; R &lt;- setdiff(rownames(Cf), S)
+  c(SB   = 1 - sirali_ortalama(w[upper.tri(w)]),                        # 1 - 21 çiftin ortalama kosinüsü
+    CL   = sirali_ortalama(1 - apply(Cf[, S, drop = FALSE], 1L, max)),  # 14 maddenin en yakın seçili maddeye uzaklığı
+    CL_b = sirali_ortalama(c(1 - apply(Cf[R, S, drop = FALSE], 1L, max),
+                             1 - apply(Cf[S, R, drop = FALSE], 1L, max))))  # karşı yarıdaki en yakın maddeye uzaklık
+}
+alt_kume_anlamsal &lt;- function(Cf) {   # 3.432 yedili kümenin tamamı
+  pool &lt;- sort(rownames(Cf)); kombin &lt;- utils::combn(pool, 7)
+  anahtar &lt;- apply(kombin, 2, paste, collapse = &quot;|&quot;)
+  o &lt;- order(anahtar); kombin &lt;- kombin[, o, drop = FALSE]; anahtar &lt;- anahtar[o]
+  olc &lt;- t(apply(kombin, 2, function(s) anlamsal_olcu(Cf, s)))
+  tumleyen &lt;- match(apply(kombin, 2, function(s) paste(setdiff(pool, s), collapse = &quot;|&quot;)), anahtar)
+  data.frame(subset_key = anahtar, SB = olc[, &quot;SB&quot;], CL = olc[, &quot;CL&quot;], CL_b = olc[, &quot;CL_b&quot;],
+             tumleyen = tumleyen, kanonik_bolme = kombin[1, ] == pool[1], stringsAsFactors = FALSE)
+}
+
+# Psikometrik göstergeler
+alt_kume_psikometrik &lt;- function(X, pool, anahtarlar) {   # bütün kümeler için alfa, yanlılık, s_d, RMSE, r
+  k &lt;- 7; kumeler &lt;- strsplit(anahtarlar, &quot;|&quot;, fixed = TRUE)          # tamsayı toplamlarıyla (eşitlikler korunur)
+  Xf &lt;- as.matrix(X[, pool, drop = FALSE]); n &lt;- nrow(Xf)
+  G &lt;- vapply(kumeler, function(s) as.numeric(pool %in% s), numeric(length(pool)))
+  Ss &lt;- Xf %*% G; U &lt;- rowSums(Xf); Dt &lt;- 2 * Ss - U                  # Dt / 14 = kısa ortalama - tam ortalama
+  sD &lt;- colSums(Dt); sD2 &lt;- colSums(Dt^2); sS &lt;- colSums(Ss); vS &lt;- n * colSums(Ss^2) - sS^2
+  vi &lt;- n * colSums(Xf^2) - colSums(Xf)^2; sU &lt;- sum(U); vU &lt;- n * sum(U^2) - sU^2
+  data.frame(subset_key = anahtarlar, alpha = k / (k - 1) * (1 - as.numeric(crossprod(G, vi)) / vS),
+             bias = sD / (14 * n), sd_d = sqrt(n * sD2 - sD^2) / (14 * n), rmse = sqrt(sD2 / n) / 14,
+             r = (n * colSums(Ss * U) - sS * sU) / sqrt(vS * vU), stringsAsFactors = FALSE)
+}
+midrank_percentile &lt;- function(dagilim, deger)             # orta sıra yüzdeliği
+  100 * (mean(dagilim &lt; deger - tol) + 0.5 * mean(abs(dagilim - deger) &lt;= tol))
+alpha_raw &lt;- function(X) { V &lt;- stats::cov(as.matrix(X)); k &lt;- ncol(V); k / (k - 1) * (1 - sum(diag(V)) / sum(V)) }
+uyum_olculeri &lt;- function(kisa, tam) {
+  d &lt;- kisa - tam
+  c(r = stats::cor(kisa, tam), bias = mean(d), sd_d = sqrt(mean((d - mean(d))^2)), rmse = sqrt(mean(d^2)))
+}
+spearman &lt;- function(x, y) stats::cor(x, y, method = &quot;spearman&quot;)
+
+# Modeller
+fit_grm &lt;- function(X) {
+  mod &lt;- mirt::mirt(X, 1, itemtype = &quot;graded&quot;, SE = FALSE, verbose = FALSE,
+                    technical = list(NCYCLES = 2000L), TOL = 1e-4)
+  stopifnot(mirt::extract.mirt(mod, &quot;converged&quot;)); mod
+}
+grm_parameters &lt;- function(mod) {
+  z &lt;- mirt::coef(mod, IRTpars = TRUE, simplify = TRUE)$items
+  data.frame(item_id = rownames(z), a = as.numeric(z[, &quot;a&quot;]), z[, setdiff(colnames(z), &quot;a&quot;), drop = FALSE],
+             row.names = NULL)
+}
+q3_duzeltilmis &lt;- function(mod) {   # ortalaması çıkarılmış Q3; yalnız üst üçgen kullanılır
+  q &lt;- mirt::residuals(mod, type = &quot;Q3&quot;, verbose = FALSE); q - mean(q[upper.tri(q)])
+}
+fit_cfa &lt;- function(X, form) {      # üç ilişkili faktörlü sıralı DFA (WLSMV)
+  ids &lt;- unlist(form, use.names = FALSE)
+  model &lt;- paste(vapply(names(form), function(f) paste(f, &quot;=~&quot;, paste(form[[f]], collapse = &quot; + &quot;)), &quot;&quot;),
+                 collapse = &quot;\n&quot;)
+  fit &lt;- lavaan::cfa(model, data = X[, ids, drop = FALSE], ordered = ids, estimator = &quot;WLSMV&quot;, std.lv = TRUE)
+  stopifnot(lavaan::lavInspect(fit, &quot;converged&quot;), lavaan::lavInspect(fit, &quot;post.check&quot;)); fit
+}
+omega_values &lt;- function(fit, obs.var = FALSE) {
+  z &lt;- semTools::compRelSEM(fit, tau.eq = FALSE, ord.scale = TRUE, obs.var = obs.var)
+  if (is.list(z)) z &lt;- vapply(z[c(&quot;D&quot;, &quot;A&quot;, &quot;S&quot;)], as.numeric, numeric(1))
+  z[c(&quot;D&quot;, &quot;A&quot;, &quot;S&quot;)]
+}</code></pre></figure></section>
+<section id="hz2" class="soru"><p class="soru-etiket"><span class="as-no">3.2</span>Hazırlık</p><h2>Veri, örneklem ve gruplar</h2><h3>Ne yapılır</h3><ul><li>Ham veri dosyasının SHA-256 özetini denetler.</li><li>18-80 yaş aralığında, ana dili İngilizce olan ve 42 maddeyi 1-4 aralığında eksiksiz yanıtlayan kayıtları seçer. Ana dil ölçütü, madde metinlerinin ve gömme vektörlerinin İngilizce olmasından gelir.</li><li>Uygun kayıtlardan 4.000 kişiyi <code>set.seed(20260905)</code> ile seçer; <code>set.seed(260905)</code> ile 2.000 kalibrasyon ve 2.000 değerlendirme grubuna ayırır ve bölmenin referans bölmeyle aynı olduğunu denetler.</li><li>Yanıtları 0-3 aralığına çevirir; örneklem akışını ve grupların betimsel özelliklerini yazar.</li></ul><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>3.2 · Veri, örneklem ve gruplar</span><button type='button' class='kopya' data-hedef='k-hz2' aria-label='3.2 · Veri, örneklem ve gruplar kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-hz2' class='language-r'># ---- 3.2 Veri, örneklem ve gruplar ------------------------------------------------
+zip_yolu &lt;- &quot;girdiler/DASS_data_21.02.19.zip&quot;
+stopifnot(identical(digest::digest(file = zip_yolu, algo = &quot;sha256&quot;),                  # ham veri değişmemiş olmalı
+                    &quot;38d1707cf1f9effec45c41f61c4fdc0ab245021da635a57a7f0e69edd965f3f5&quot;))
+uyeler &lt;- unzip(zip_yolu, list = TRUE)$Name
+ham &lt;- read.delim(unz(zip_yolu, uyeler[grepl(&quot;(^|/)data[.]csv$&quot;, uyeler)]), sep = &quot;\t&quot;, quote = &quot;&quot;,
+                  check.names = FALSE, stringsAsFactors = FALSE, na.strings = c(&quot;&quot;, &quot;NA&quot;))
+kitap &lt;- readLines(unz(zip_yolu, uyeler[grepl(&quot;(^|/)codebook[.]txt$&quot;, uyeler)]), warn = FALSE, encoding = &quot;UTF-8&quot;)
+madde_satiri &lt;- kitap[grepl(&quot;^Q[0-9]+\t&quot;, kitap)]
+metin_duzelt &lt;- function(x) {
+  x &lt;- gsub(&quot;&amp;#39;|&amp;apos;&quot;, &quot;&#x27;&quot;, x); x &lt;- gsub(&quot;&amp;quot;&quot;, &#x27;&quot;&#x27;, x, fixed = TRUE)
+  x &lt;- gsub(&quot;&amp;amp;&quot;, &quot;&amp;&quot;, x, fixed = TRUE); trimws(gsub(&quot;[[:space:]]+&quot;, &quot; &quot;, enc2utf8(x)))
+}
+maddeler &lt;- data.frame(item_id = item_id(as.integer(sub(&quot;^Q([0-9]+)\t.*$&quot;, &quot;\\1&quot;, madde_satiri))),
+                       text = metin_duzelt(sub(&quot;^Q[0-9]+\t&quot;, &quot;&quot;, madde_satiri)))
+maddeler &lt;- maddeler[order(maddeler$item_id), ]
+
+Y &lt;- as.data.frame(lapply(ham[, paste0(&quot;Q&quot;, 1:42, &quot;A&quot;)], function(x) suppressWarnings(as.numeric(x))))
+names(Y) &lt;- item_id(1:42)
+yas &lt;- suppressWarnings(as.numeric(ham$age)); dil &lt;- suppressWarnings(as.numeric(ham$engnat))
+cinsiyet &lt;- suppressWarnings(as.numeric(ham$gender))
+uygun &lt;- which(!is.na(yas) &amp; yas &gt;= 18 &amp; yas &lt;= 80 &amp;                         # 18-80 yaş
+               !is.na(dil) &amp; dil == 1 &amp;                                        # ana dili İngilizce
+               apply(as.matrix(Y), 1, function(x) all(!is.na(x) &amp; x %in% 1:4)))   # 42 madde eksiksiz
+set.seed(20260905); secilen &lt;- sort(sample(uygun, 4000))                     # 4.000 kayıt
+set.seed(260905);   kal_sira &lt;- sort(sample(seq_along(secilen), 2000))        # 2.000 + 2.000 bölme
+deg_sira &lt;- setdiff(seq_along(secilen), kal_sira)
+bolme &lt;- data.frame(source_row = secilen,
+                    split = ifelse(seq_along(secilen) %in% kal_sira, &quot;calibration&quot;, &quot;validation&quot;))
+stopifnot(identical(bolme, read.csv(&quot;girdiler/referans_sample_split.csv&quot;, stringsAsFactors = FALSE)))
+
+X &lt;- Y[secilen, ] - 1; rownames(X) &lt;- NULL                                    # yanıtlar 0-3
+kal &lt;- X[kal_sira, ]; deg &lt;- X[deg_sira, ]                                    # kalibrasyon ve değerlendirme grupları
+
+yas_uygun &lt;- !is.na(yas) &amp; yas &gt;= 18 &amp; yas &lt;= 80
+akis &lt;- data.frame(asama = c(&quot;Ham kayıt&quot;, &quot;18-80 yaş&quot;, &quot;Ana dili İngilizce&quot;, &quot;42 madde eksiksiz ve geçerli&quot;,
+                             &quot;Seçilen örneklem&quot;, &quot;Kalibrasyon grubu&quot;, &quot;Değerlendirme grubu&quot;),
+                   n = c(nrow(ham), sum(yas_uygun), sum(yas_uygun &amp; !is.na(dil) &amp; dil == 1), length(uygun),
+                         length(secilen), nrow(kal), nrow(deg)))
+betim &lt;- do.call(rbind, lapply(list(toplam = seq_along(secilen), kalibrasyon = kal_sira, degerlendirme = deg_sira),
+  function(s) { i &lt;- secilen[s]; g &lt;- cinsiyet[i]                                # 1 erkek, 2 kadın, 3 diğer
+    data.frame(n = length(i), yas_ort = mean(yas[i]), yas_ss = sd(yas[i]), kadin_yzd = 100 * mean(g %in% 2),
+               erkek_yzd = 100 * mean(g %in% 1), diger_yzd = 100 * mean(g %in% 3), yanitsiz_yzd = 100 * mean(!(g %in% 1:3))) }))
+betim &lt;- cbind(grup = rownames(betim), betim); rownames(betim) &lt;- NULL
+print(akis); print(betim, digits = 3)
+write.csv(akis, &quot;html_ciktilari/orneklem_akisi.csv&quot;, row.names = FALSE)
+write.csv(betim, &quot;html_ciktilari/orneklem_betimleme.csv&quot;, row.names = FALSE)</code></pre></figure><figure class="tablo" id="tablo-1"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 1</span><span class="tablo-ad">Örneklem akışı</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Aşama</th><th scope="col">n</th></tr></thead><tbody><tr><th scope="row">Ham kayıt</th><td><span class="bos">…</span></td></tr><tr><th scope="row">18-80 yaş</th><td><span class="bos">…</span></td></tr><tr><th scope="row">Ana dili İngilizce</th><td><span class="bos">…</span></td></tr><tr><th scope="row">42 madde eksiksiz ve geçerli</th><td><span class="bos">…</span></td></tr><tr><th scope="row">Seçilen örneklem</th><td><span class="bos">…</span></td></tr><tr><th scope="row">Kalibrasyon grubu</th><td><span class="bos">…</span></td></tr><tr><th scope="row">Değerlendirme grubu</th><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Ölçütler sırayla uygulanır; her satır önceki ölçütleri de karşılayan kayıt sayısıdır. Kaynak dosya: <code>html_ciktilari/orneklem_akisi.csv</code>.</p></figure><figure class="tablo" id="tablo-2"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 2</span><span class="tablo-ad">Grupların betimsel özellikleri</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Grup</th><th scope="col">n</th><th scope="col">Yaş ort. (SS)</th><th scope="col">Kadın %</th><th scope="col">Erkek %</th><th scope="col">Diğer %</th><th scope="col">Yanıtsız %</th></tr></thead><tbody><tr><th scope="row">Toplam</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Kalibrasyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Değerlendirme</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Cinsiyet kodları arşivin kod kitabına göredir (1 erkek, 2 kadın, 3 diğer). Kaynak dosya: <code>html_ciktilari/orneklem_betimleme.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>İki grubun yaş ve cinsiyet dağılımı birbirine yakın olmalıdır; bölme rastgele olduğu için farklar küçük beklenir.</li><li>Ölçüt ölçüt düşen kayıt sayısı, sonuçların hangi gruba genellenebileceğini gösterir.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Örneklemin genel nüfusu veya klinik grupları temsil ettiği.</li><li>Bulguların ana dili İngilizce olmayan gruplara veya Türkçe uyarlamaya aktarılabileceği.</li></ul></div></section>
+<section id="hz3" class="soru"><p class="soru-etiket"><span class="as-no">3.3</span>Hazırlık</p><h2>Gömme vektörleri: model seçimi, arşiv ve API</h2><h3>Ne yapılır</h3><p>Kullanılan model OpenAI'nin <code>text-embedding-3-large</code> modelidir (3.072 boyut). Varsayılan çalıştırmada vektörler yeniden üretilmez; Ravenda vd.'nin (2025) yayımladığı arşivden alınır ve kod dosya özetinin kayıtla aynı olduğunu denetler. Model, analizden önce alanyazına dayanarak seçilmiştir:</p>
+<ul><li><strong>Aynı ölçekte doğrudan karşılaştırma.</strong> Ravenda vd. (2025) DASS-42'nin 42 maddesinde on gömme modelini (BERT ailesi, cümle dönüştürücüleri, T5 ve üç OpenAI modeli) karşılaştırmıştır. Kosinüs benzerlikleri ile görgül madde korelasyonları arasındaki en yüksek uyumu (r = 0,77) ve bir maddenin en yüksek korelasyonlu eşini en benzer üç madde arasında bulma oranındaki en yüksek değeri (%95,2) text-embedding-3-large vermiştir (makalenin Tablo 1'i). Psikometride sık kullanılan all-mpnet-base-v2 daha düşük kalmıştır (r = 0,67; %80,1).</li>
+<li><strong>Yalnız metne dayalı olma.</strong> Model genel amaçlı bir metin gömme modelidir; bilindiği kadarıyla madde korelasyonlarını hedefleyen bir ince ayardan (<i lang="en">fine-tuning</i>) geçmemiştir, ancak eğitim verisi açıklanmamıştır. SurveyBot3000 (Hommel ve Arslan, 2025) görgül madde korelasyonlarıyla ince ayar yapılmış bir modeldir ve eğitim verisi bu çalışmanın DASS arşivini de içerir; mpnet-personality (Wulff ve Mata, 2025) kişilik maddeleriyle ince ayar yapılmıştır. Bu tez anlamsal göstergelerin psikometrik özelliklerle ilişkisini sorduğu için, aynı yanıt verisiyle eğitilmiş bir model bu ilişkiyi kısmen modelin içine yerleştirir ve veri sızıntısı (<i lang="en">data leakage</i>) doğurur.</li>
+<li><strong>Alana özgü ince ayarın klinik yapılarda güvencesi yoktur.</strong> Varrasi vd. (2026) DASS-21'de kişilik maddeleriyle ince ayarlı modelin kaygı ve stres faktörlerinde daha düşük uyum verdiğini bildirmiştir. Kennedy vd. (2025) belirti envanterlerinde genel amaçlı bir modelin klinik metinlerle ön eğitilmiş modellerden biraz daha isabetli olduğunu bulmuştur.</li>
+<li><strong>Tekrarlanabilirlik.</strong> API ile sunulan modeller zamanla değişebilir veya kullanımdan kalkabilir. Özeti kayıtlı, yayımlanmış arşiv vektörleri analizin aynı vektörlerle tekrarlanmasını sağlar.</li></ul>
+<p><strong>API ile üretim (yer tutucu).</strong> <code>vektor_kaynagi</code> <code>"api_yeni"</code> yapılırsa 42 madde metni OpenAI Embeddings API'sine gönderilir (OpenAI, 2024); anahtar koda yazılmaz, <code>OPENAI_API_KEY</code> ortam değişkeninden okunur. Yanıt tarihli bir CSV dosyasına ve özet kaydına yazılır; sonraki çalıştırmalarda aynı dosya <code>"api_kayitli"</code> seçeneğiyle, yeni çağrı yapılmadan okunur. API vektörleri arşivle karşılaştırılır (madde vektörleri arasındaki kosinüs, iki kosinüs matrisinin korelasyonu ve en büyük fark); 3.4'te iki vektör kümesiyle kurulan formların ortak madde sayısı da yazılır. Yer tutucu bu çalıştırmada kullanılmamıştır; ağ erişimi olmadığı için sınanmamıştır.</p>
+<p>Seçimin bir bedeli de vardır: model kapalı ağırlıklıdır ve arşiv ortadan kalkarsa vektörler aynen yeniden üretilemeyebilir. Seçimin bu verideki davranışı, analizler belirlendikten sonra eklenen betimsel bir denetimle Ek A'da incelenmiştir.</p><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>3.3 · Gömme vektörleri: arşiv ve API</span><button type='button' class='kopya' data-hedef='k-hz3' aria-label='3.3 · Gömme vektörleri: arşiv ve API kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-hz3' class='language-r'># ---- 3.3 Gömme vektörleri: arşiv (varsayılan) ve API ile üretim (yer tutucu) ----------
+# vektor_kaynagi üç değer alır:
+#   &quot;arsiv&quot;       Ravenda vd. (2025) arşivindeki vektörler; özet denetlenir, API çağrısı yapılmaz (varsayılan).
+#   &quot;api_yeni&quot;    Vektörler OpenAI API ile yeniden üretilir, tarihli bir dosyaya ve özet kaydına yazılır.
+#   &quot;api_kayitli&quot; Daha önce &quot;api_yeni&quot; ile yazılmış dosya okunur ve özeti denetlenir; yeni çağrı yapılmaz.
+# API vektörleri arşivle bit düzeyinde aynı olmayabilir; bu durumda formlar ve bütün sonuçlar değişebilir.
+# Bu yüzden API ile üretilen vektörler aşağıda arşivle karşılaştırılır (3.4&#x27;te form üyeliği de karşılaştırılır).
+vektor_kaynagi &lt;- &quot;arsiv&quot;
+api_dosyasi &lt;- &quot;girdiler/api_embeddings_GGGGAAGG.csv&quot;         # YER TUTUCU: &quot;api_kayitli&quot; için dosya adını yazın
+
+vektor_yolu &lt;- &quot;girdiler/archived_embeddings.csv&quot;
+kaynak &lt;- jsonlite::fromJSON(&quot;girdiler/embedding_provenance.json&quot;)
+stopifnot(identical(digest::digest(file = vektor_yolu, algo = &quot;sha256&quot;), kaynak$derived_sha256),
+          kaynak$model == &quot;text-embedding-3-large&quot;, isFALSE(kaynak$new_API_call))   # arşiv dosyası değişmemiş olmalı
+vektor_oku &lt;- function(yol) {
+  tab &lt;- read.csv(yol, check.names = FALSE, stringsAsFactors = FALSE)
+  tab &lt;- tab[match(maddeler$item_id, tab$item_id), ]
+  E &lt;- as.matrix(tab[, setdiff(names(tab), &quot;item_id&quot;)]); rownames(E) &lt;- tab$item_id
+  stopifnot(identical(rownames(E), maddeler$item_id), !anyNA(E)); E
+}
+E_arsiv &lt;- vektor_oku(vektor_yolu)                                                  # 42 x 3072
+
+# API YER TUTUCUSU. Anahtar koda yazılmaz; R oturumundan önce OPENAI_API_KEY ortam değişkeni tanımlanır.
+# Gönderilen tek veri 42 madde metnidir (katılımcı verisi gönderilmez). httr2 paketi gerekir.
+api_embedding &lt;- function(metin, model = &quot;text-embedding-3-large&quot;) {
+  anahtar &lt;- Sys.getenv(&quot;OPENAI_API_KEY&quot;)
+  if (!nzchar(anahtar)) stop(&quot;OPENAI_API_KEY tanımlı değil.&quot;)
+  yanit &lt;- httr2::request(&quot;https://api.openai.com/v1/embeddings&quot;) |&gt;
+    httr2::req_auth_bearer_token(anahtar) |&gt;
+    httr2::req_body_json(list(model = model, input = as.list(metin), encoding_format = &quot;float&quot;)) |&gt;
+    httr2::req_retry(max_tries = 3) |&gt;
+    httr2::req_perform() |&gt;
+    httr2::resp_body_json()
+  sira &lt;- vapply(yanit$data, function(d) d$index, numeric(1))                      # yanıt sırası girdi sırasına göre dizilir
+  E &lt;- do.call(rbind, lapply(yanit$data[order(sira)], function(d) unlist(d$embedding)))
+  rownames(E) &lt;- names(metin); list(E = E, model = yanit$model)
+}
+if (vektor_kaynagi == &quot;api_yeni&quot;) {
+  api &lt;- api_embedding(setNames(maddeler$text, maddeler$item_id))
+  api_dosyasi &lt;- sprintf(&quot;girdiler/api_embeddings_%s.csv&quot;, format(Sys.Date(), &quot;%Y%m%d&quot;))
+  write.csv(data.frame(item_id = rownames(api$E), api$E, check.names = FALSE), api_dosyasi, row.names = FALSE)
+  jsonlite::write_json(list(model_istenen = &quot;text-embedding-3-large&quot;, model_yanit = api$model,
+                            cagri_zamani_utc = format(Sys.time(), tz = &quot;UTC&quot;, usetz = TRUE),
+                            boyut = ncol(api$E), madde = nrow(api$E),
+                            sha256 = digest::digest(file = api_dosyasi, algo = &quot;sha256&quot;)),
+                       sub(&quot;[.]csv$&quot;, &quot;_kaynak.json&quot;, api_dosyasi), auto_unbox = TRUE, pretty = TRUE)
+}
+if (vektor_kaynagi %in% c(&quot;api_yeni&quot;, &quot;api_kayitli&quot;)) {
+  api_kayit &lt;- jsonlite::fromJSON(sub(&quot;[.]csv$&quot;, &quot;_kaynak.json&quot;, api_dosyasi))
+  stopifnot(identical(digest::digest(file = api_dosyasi, algo = &quot;sha256&quot;), api_kayit$sha256))
+  E_api &lt;- vektor_oku(api_dosyasi)
+  birim &lt;- function(E) E / sqrt(rowSums(E^2))
+  C_ars &lt;- cosine_matrix(E_arsiv); C_api &lt;- cosine_matrix(E_api); u &lt;- upper.tri(C_ars)
+  api_arsiv &lt;- data.frame(madde_vektor_kosinusu_min = min(rowSums(birim(E_arsiv) * birim(E_api))),
+                          kosinus_matrisi_r = cor(C_ars[u], C_api[u]),
+                          kosinus_en_buyuk_fark = max(abs(C_ars[u] - C_api[u])))
+  print(api_arsiv, digits = 4)                                               # 1&#x27;e çok yakın değilse sonuçlar değişebilir
+  write.csv(api_arsiv, &quot;html_ciktilari/api_arsiv_karsilastirma.csv&quot;, row.names = FALSE)
+  E &lt;- E_api
+} else E &lt;- E_arsiv
+C &lt;- cosine_matrix(E)                                                                 # 42 x 42 kosinüs benzerliği</code></pre></figure><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>API ile yeniden üretilen vektörlerin arşivdekilerle aynı olacağı; aynı model adı altında sonuçlar değişebilir.</li><li>Modelin bütün modellerin en iyisi olduğu; seçim tek bir ölçekteki karşılaştırmaya dayanır.</li></ul></div></section>
+<section id="hz4" class="soru"><p class="soru-etiket"><span class="as-no">3.4</span>Hazırlık</p><h2>Üç anlamsal seçim kuralı ve dört form</h2><h3>Ne yapılır</h3><ul><li>Her alt boyutun 14 maddesi için ISI hesaplanır; ISI'si en düşük yedi madde MIN21'i, en yüksek yedi madde MAX21'i oluşturur.</li><li>3.432 yedili kümenin tamamı için SB, CL ve CL<sub>b</sub> hesaplanır; CL'si en küçük küme COV21'dir. Eşit değerlerde küçük madde numarası önce gelir. Birden çok küme aynı en küçük CL'yi verirse sıralamada ilk küme alınır ve eşit çözüm sayısı raporlanır (ayrıntı Ek B'de).</li><li>Vektörler API ile üretildiyse, formlar arşiv vektörleriyle kurulan formlarla karşılaştırılır.</li></ul><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>3.4 · Üç anlamsal seçim kuralı ve dört form</span><button type='button' class='kopya' data-hedef='k-hz4' aria-label='3.4 · Üç anlamsal seçim kuralı ve dört form kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-hz4' class='language-r'># ---- 3.4 Üç anlamsal seçim kuralı ve dört form ---------------------------------------
+form_olustur &lt;- function(Cm) {   # MIN21, MAX21 ve COV21 kurallarını verilen kosinüs matrisine uygular
+  z &lt;- list(ISI = list(), alt_kume = list(), MIN21 = list(), MAX21 = list(), COV21 = list())
+  for (f in alt_boyutlar) {
+    havuz &lt;- item_id(key42[[f]]); Cf &lt;- Cm[havuz, havuz]
+    z$ISI[[f]] &lt;- isi_values(Cf)
+    z$MIN21[[f]] &lt;- sort(rank_with_tolerance(z$ISI[[f]])[1:7])                      # ISI en düşük yedi madde
+    z$MAX21[[f]] &lt;- sort(rank_with_tolerance(z$ISI[[f]], decreasing = TRUE)[1:7])   # ISI en yüksek yedi madde
+    ak &lt;- alt_kume_anlamsal(Cf)                                                      # 3.432 kümenin SB, CL, CL_b
+    esit &lt;- which(abs(ak$CL - min(ak$CL)) &lt;= tol); ak$cov_esit_minimum &lt;- seq_len(nrow(ak)) %in% esit
+    z$COV21[[f]] &lt;- strsplit(sort(ak$subset_key[esit])[1], &quot;|&quot;, fixed = TRUE)[[1]]   # CL en küçük küme
+    z$alt_kume[[f]] &lt;- ak
+  }
+  z
+}
+ana &lt;- form_olustur(C)
+formlar &lt;- list(FULL42 = lapply(key42, item_id), PUB21 = lapply(key21, item_id),
+                MIN21 = ana$MIN21, MAX21 = ana$MAX21, COV21 = ana$COV21)
+ISI &lt;- ana$ISI; alt_kume &lt;- ana$alt_kume
+anahtar_yap &lt;- function(ids) paste(sort(ids), collapse = &quot;|&quot;)
+form_tablosu &lt;- do.call(rbind, lapply(kisa_formlar, function(nm)
+  data.frame(form = nm, subscale = alt_boyutlar,
+             maddeler = sapply(alt_boyutlar, function(f) paste(formlar[[nm]][[f]], collapse = &quot; &quot;)),
+             cov_esit_cozum = if (nm == &quot;COV21&quot;) sapply(alt_boyutlar, function(f) sum(alt_kume[[f]]$cov_esit_minimum)) else NA)))
+rownames(form_tablosu) &lt;- NULL
+print(form_tablosu)
+write.csv(form_tablosu, &quot;html_ciktilari/formlar.csv&quot;, row.names = FALSE)
+
+# API ile üretilmiş vektörler kullanıldıysa: arşiv vektörleriyle kurulan formlarla ortak madde sayısı (7 üzerinden)
+if (exists(&quot;E_api&quot;)) {
+  ana_arsiv &lt;- form_olustur(cosine_matrix(E_arsiv))
+  api_form &lt;- do.call(rbind, lapply(anlamsal_formlar, function(nm)
+    data.frame(form = nm, t(sapply(alt_boyutlar, function(f) length(intersect(ana_arsiv[[nm]][[f]], formlar[[nm]][[f]])))))))
+  print(api_form)                                                            # 7&#x27;den küçük değer: form arşivdekinden farklı
+  write.csv(api_form, &quot;html_ciktilari/api_arsiv_form_uyelik.csv&quot;, row.names = FALSE)
+}</code></pre></figure><figure class="tablo" id="tablo-3"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 3</span><span class="tablo-ad">Dört kısa formun maddeleri</span></figcaption><div class="tablo-kap"><table class="formlar"><thead><tr><th scope="col">Form</th><th scope="col">Seçim kuralı</th><th scope="col">Depresyon</th><th scope="col">Kaygı</th><th scope="col">Stres</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td>Yayımlanmış DASS-21</td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td>ISI en düşük yedi madde</td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td>ISI en yüksek yedi madde</td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td>CL en küçük yedili küme</td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Madde numaraları DASS-42 sırasıdır. MIN21 ile MAX21 her alt boyutta birbirinin tümleyenidir. COV21'de aynı en küçük CL'yi veren küme sayısı tablonun notuna yazılır (Ek B). Kaynak dosya: <code>html_ciktilari/formlar.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>MIN21 ile MAX21 her alt boyutta birbirinin tümleyenidir; ikisi birlikte 14 maddenin tamamını kapsar.</li><li>Eşit çözüm sayısı birden büyükse COV21 tek değildir; sonuçlar kuralın seçtiği ilk küme için geçerlidir.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Anlamsal formların DASS-21'in yerine önerildiği; formlar karşılaştırma amacıyla kurulmuştur.</li><li>COV21'in tek çözüm olduğu; eşit çözümler vardır.</li></ul></div></section>
+<section id="hz5" class="soru"><p class="soru-etiket"><span class="as-no">3.5</span>Hazırlık</p><h2>Alt küme testi: bütün yedili kümelerin psikometrik değerleri</h2><h3>Ne yapılır</h3><p>Her alt boyutta 3.432 yedili kümenin tamamı için alfa, yanlılık, s<sub>d</sub>, RMSE ve kısa-tam r değerlerini iki grupta hesaplar ve dört formun bu dağılımlardaki orta sıra yüzdeliklerini çıkarır. Hesap tamsayı toplamlarıyla yapılır; böylece eşit değerler bit düzeyinde eşit kalır. Yüzdelikler AS2, AS3 ve AS4 tablolarında kullanılır.</p><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>3.5 · Alt küme testi</span><button type='button' class='kopya' data-hedef='k-hz5' aria-label='3.5 · Alt küme testi kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-hz5' class='language-r'># ---- 3.5 Alt küme testi: bütün yedili kümelerin psikometrik değerleri -----------------
+tum_alt &lt;- do.call(rbind, lapply(alt_boyutlar, function(f) do.call(rbind, lapply(c(&quot;kal&quot;, &quot;deg&quot;), function(g) {
+  ps &lt;- alt_kume_psikometrik(if (g == &quot;kal&quot;) kal else deg, formlar$FULL42[[f]], alt_kume[[f]]$subset_key)
+  data.frame(subscale = f, grup = g, alt_kume[[f]], ps[, c(&quot;alpha&quot;, &quot;bias&quot;, &quot;sd_d&quot;, &quot;rmse&quot;, &quot;r&quot;)])
+}))))
+yuzdelik &lt;- do.call(rbind, lapply(kisa_formlar, function(form) do.call(rbind, lapply(alt_boyutlar, function(f) {
+  tv &lt;- tum_alt[tum_alt$subscale == f &amp; tum_alt$grup == &quot;deg&quot;, ]
+  i &lt;- match(anahtar_yap(formlar[[form]][[f]]), tv$subset_key)
+  data.frame(form = form, subscale = f,
+             alfa = tv$alpha[i], alfa_yzd = midrank_percentile(tv$alpha, tv$alpha[i]),
+             rmse = tv$rmse[i],  rmse_yzd = midrank_percentile(tv$rmse, tv$rmse[i]),
+             SB = tv$SB[i],      SB_yzd = midrank_percentile(tv$SB, tv$SB[i]),
+             CL = tv$CL[i],      CL_yzd = midrank_percentile(tv$CL, tv$CL[i]),
+             r = tv$r[i],        r_medyan = median(tv$r))
+}))))
+write.csv(yuzdelik, &quot;html_ciktilari/form_yuzdelikleri.csv&quot;, row.names = FALSE)
+dagilim &lt;- do.call(rbind, lapply(alt_boyutlar, function(f) {                 # değerlendirme grubunda 3.432 küme
+  tv &lt;- tum_alt[tum_alt$subscale == f &amp; tum_alt$grup == &quot;deg&quot;, ]
+  data.frame(subscale = f, alfa_min = min(tv$alpha), alfa_medyan = median(tv$alpha), alfa_maks = max(tv$alpha),
+             rmse_min = min(tv$rmse), rmse_medyan = median(tv$rmse), rmse_maks = max(tv$rmse),
+             r_min = min(tv$r), r_medyan = median(tv$r), r_maks = max(tv$r))
+}))
+print(dagilim, digits = 3)
+write.csv(dagilim, &quot;html_ciktilari/alt_kume_dagilimi.csv&quot;, row.names = FALSE)</code></pre></figure><figure class="tablo" id="tablo-4"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 4</span><span class="tablo-ad">Bütün yedili kümelerde alfa, RMSE ve kısa-tam r dağılımı</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Alt boyut</th><th scope="col">Alfa · en düşük / medyan / en yüksek</th><th scope="col">RMSE (0-42) · en düşük / medyan / en yüksek</th><th scope="col">Kısa-tam r · en düşük / medyan / en yüksek</th></tr></thead><tbody><tr><th scope="row">Depresyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Kaygı</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Stres</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu (n = 2.000); her alt boyutta 3.432 küme. RMSE (0-42), 0-3 madde ortalaması birimindeki RMSE'nin 14 katıdır. Kaynak dosya: <code>html_ciktilari/alt_kume_dagilimi.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>Dağılımlar, aynı uzunluktaki bütün seçeneklerin ne kadar farklı sonuç verebildiğini gösterir; dört formun konumu bu aralıklar içinde okunur.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Dağılımdan en iyi görünen kümeyi seçip beşinci bir form önermek.</li></ul></div></section>
+<section id="as1" class="soru"><p class="soru-etiket"><span class="as-no">AS1</span>Madde düzeyi</p><h2 class="soru-metni">DASS-42'nin her alt boyutunda, maddelerin aynı alt boyuttaki diğer maddelerle ortalama anlamsal benzerliği ile GRM altında kestirilen ayırt edicilik parametreleri arasında nasıl bir ilişki vardır?</h2><h3>Ne yapılır</h3><ul><li>Her alt boyutun 14 maddesine tek boyutlu aşamalı tepki modeli (<i lang="en">graded response model</i>, GRM; Samejima, 1969) kalibrasyon grubunda kestirilir; aynı analiz değerlendirme grubunda tekrarlanır. Değerlendirme grubundaki modeller AS2'deki test bilgisi için saklanır.</li><li>14 ISI değeri ile 14 ayırt edicilik (a) parametresi arasındaki Spearman korelasyonu hesaplanır. Modelden bağımsız destek olarak ISI ile düzeltilmiş madde-toplam korelasyonu (CITC) arasındaki ilişki verilir.</li><li>Model tanısı için C2 temelli uyum (Cai ve Monroe, 2014), yanıt kategorilerinin kullanımı ve ortalaması çıkarılmış Q3 (Christensen vd., 2017) incelenir; 91 madde çiftinde kosinüs benzerliği ile Q3 arasındaki ilişki ve en yüksek üç Q3 çifti raporlanır.</li><li>Madde düzeyinde güven aralığı hesaplanmaz: 14 madde sabittir; ISI değerleri aynı kosinüs matrisinden, a parametreleri aynı modelden gelir.</li></ul><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>AS1 · ISI ile GRM ayırt ediciliği</span><button type='button' class='kopya' data-hedef='k-as1' aria-label='AS1 · ISI ile GRM ayırt ediciliği kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-as1' class='language-r'># ---- AS1: ISI ile GRM ayırt ediciliği (a) arasındaki ilişki ----------------------------
+as1 &lt;- list(); par &lt;- list(); tani &lt;- list(); q3_cift &lt;- list(); kategori &lt;- list()
+grm_mod &lt;- list()                                                            # modeller AS2&#x27;deki test bilgisi için saklanır
+for (f in alt_boyutlar) {
+  havuz &lt;- formlar$FULL42[[f]]; isi &lt;- as.numeric(ISI[[f]][havuz])
+  hangi_form &lt;- sapply(havuz, function(j)                                    # maddenin yer aldığı kısa formlar
+    paste(kisa_formlar[sapply(kisa_formlar, function(nm) j %in% formlar[[nm]][[f]])], collapse = &quot; &quot;))
+  for (g in c(&quot;kal&quot;, &quot;deg&quot;)) {
+    Xg &lt;- (if (g == &quot;kal&quot;) kal else deg)[, havuz]
+    mod &lt;- fit_grm(Xg); grm_mod[[paste(f, g)]] &lt;- mod                      # tek boyutlu GRM
+    p &lt;- grm_parameters(mod); p &lt;- p[match(havuz, p$item_id), ]
+    citc &lt;- sapply(havuz, function(j) cor(Xg[[j]], rowSums(Xg[, setdiff(havuz, j)])))   # düzeltilmiş madde-toplam r
+    m2 &lt;- tryCatch(mirt::M2(mod, type = &quot;C2&quot;), error = function(e) NULL)            # C2 temelli uyum
+    q &lt;- q3_duzeltilmis(mod); ust &lt;- upper.tri(q); aq &lt;- q[ust]; cs &lt;- C[havuz, havuz][ust]
+    as1[[paste(f, g)]] &lt;- data.frame(subscale = f, grup = g, rho_ISI_a = spearman(isi, p$a),
+                                     rho_ISI_CITC = spearman(isi, citc), rho_a_CITC = spearman(p$a, citc))
+    par[[paste(f, g)]] &lt;- data.frame(subscale = f, grup = g, item_id = havuz, ISI = isi, a = p$a,
+                                     b1 = p$b1, b2 = p$b2, b3 = p$b3, CITC = as.numeric(citc), formlar = hangi_form)
+    tani[[paste(f, g)]] &lt;- data.frame(subscale = f, grup = g,
+                                      C2 = if (is.null(m2)) NA else m2$M2, df = if (is.null(m2)) NA else m2$df,
+                                      RMSEA = if (is.null(m2)) NA else m2$RMSEA, SRMSR = if (is.null(m2)) NA else m2$SRMSR,
+                                      maks_Q3 = max(aq), rho_cos_Q3 = spearman(cs, aq))       # 91 madde çifti
+    ij &lt;- which(ust, arr.ind = TRUE); en &lt;- order(-aq)[1:3]                                # en yüksek üç Q3 çifti
+    q3_cift[[paste(f, g)]] &lt;- data.frame(subscale = f, grup = g, cift = paste(havuz[ij[en, 1]], havuz[ij[en, 2]], sep = &quot;-&quot;),
+                                         Q3 = aq[en], kosinus = cs[en])
+    oran &lt;- sapply(havuz, function(j) tabulate(Xg[[j]] + 1, nbins = 4) / nrow(Xg))  # 0-3 kategorilerinin oranı
+    kategori[[paste(f, g)]] &lt;- data.frame(subscale = f, grup = g, en_az_kullanilan = min(oran),
+                                          madde = havuz[which(oran == min(oran), arr.ind = TRUE)[1, 2]],
+                                          kategori_3_ort = mean(oran[4, ]), kategori_0_ort = mean(oran[1, ]))
+  }
+}
+as1_tablo &lt;- do.call(rbind, as1); as1_parametreler &lt;- do.call(rbind, par)
+as1_tani &lt;- do.call(rbind, tani); as1_q3 &lt;- do.call(rbind, q3_cift); as1_kategori &lt;- do.call(rbind, kategori)
+rownames(as1_tablo) &lt;- rownames(as1_parametreler) &lt;- rownames(as1_tani) &lt;- rownames(as1_q3) &lt;- rownames(as1_kategori) &lt;- NULL
+print(as1_tablo, digits = 3); print(as1_tani, digits = 3); print(as1_q3, digits = 3); print(as1_kategori, digits = 3)
+write.csv(as1_tablo, &quot;html_ciktilari/AS1_ISI_a.csv&quot;, row.names = FALSE)
+write.csv(as1_parametreler, &quot;html_ciktilari/AS1_madde_parametreleri.csv&quot;, row.names = FALSE)
+write.csv(as1_tani, &quot;html_ciktilari/AS1_GRM_tani.csv&quot;, row.names = FALSE)
+write.csv(as1_q3, &quot;html_ciktilari/AS1_Q3_ciftleri.csv&quot;, row.names = FALSE)
+write.csv(as1_kategori, &quot;html_ciktilari/AS1_kategori_kullanimi.csv&quot;, row.names = FALSE)
+
+# Şekil: ISI ve a (kalibrasyon grubu)
+ap &lt;- as1_parametreler[as1_parametreler$grup == &quot;kal&quot;, ]
+rk &lt;- as1_tablo[as1_tablo$grup == &quot;kal&quot;, ]
+etiket &lt;- setNames(sprintf(&quot;%s (rho = %.2f)&quot;, rk$subscale, rk$rho_ISI_a), rk$subscale)
+ap$panel &lt;- factor(etiket[ap$subscale], levels = etiket)
+sekil1 &lt;- ggplot(ap, aes(x = ISI, y = a, label = item_id)) +
+  geom_point(colour = &quot;#0072B2&quot;, size = 2) + geom_text(size = 2.6, vjust = -0.8) +
+  facet_wrap(~panel, nrow = 1, scales = &quot;free&quot;) +
+  labs(x = &quot;Madde anlamsal benzerlik indeksi (ISI)&quot;, y = &quot;GRM ayırt edicilik (a), kalibrasyon grubu&quot;) +
+  theme_bw(base_size = 11)
+if (interactive()) print(sekil1)
+ggsave(&quot;html_ciktilari/sekil_AS1_ISI_a.png&quot;, sekil1, width = 9, height = 3.6, dpi = 300, bg = &quot;white&quot;)</code></pre></figure><figure class="tablo" id="tablo-5"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 5</span><span class="tablo-ad">ISI ile ayırt edicilik ilişkisi ve GRM tanısı</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Alt boyut</th><th scope="col">ρ(ISI, a) kal.</th><th scope="col">ρ(ISI, a) değ.</th><th scope="col">ρ(ISI, CITC) kal.</th><th scope="col">ρ(a, CITC) kal.</th><th scope="col">C2 (sd) kal. (değ.)</th><th scope="col">C2 RMSEA kal. (değ.)</th><th scope="col">SRMSR kal. (değ.)</th><th scope="col">En büyük Q3 kal.</th><th scope="col">ρ(kosinüs, Q3) kal. (değ.)</th></tr></thead><tbody><tr><th scope="row">Depresyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Kaygı</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Stres</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Her alt boyutta 14 madde; kal.: kalibrasyon, değ.: değerlendirme grubu (n = 2.000). Parantez içindeki değerler değerlendirme grubundandır. ρ(kosinüs, Q3) 91 madde çiftindedir. Kaynak dosya: <code>html_ciktilari/AS1_ISI_a.csv</code> ve <code>html_ciktilari/AS1_GRM_tani.csv</code>.</p></figure><figure class="tablo" id="tablo-6"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 6</span><span class="tablo-ad">Her alt boyutta en yüksek üç Q3 çifti</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Alt boyut</th><th scope="col">Madde çifti</th><th scope="col">Düzeltilmiş Q3</th><th scope="col">Kosinüs</th></tr></thead><tbody><tr><th scope="row">Depresyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Depresyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Depresyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Kaygı</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Kaygı</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Kaygı</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Stres</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Stres</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Stres</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Kalibrasyon grubu. Düzeltilmiş Q3: bütün çiftlerin ortalaması çıkarılmış artık korelasyon (Christensen vd., 2017). Kaynak dosya: <code>html_ciktilari/AS1_Q3_ciftleri.csv</code>.</p></figure><figure class="tablo" id="tablo-7"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 7</span><span class="tablo-ad">Yanıt kategorilerinin kullanımı</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Alt boyut</th><th scope="col">En az kullanılan kategori % (madde) kal.</th><th scope="col">Aynı ölçüt değ.</th><th scope="col">Ortalama % · 0 / 3 kategorisi, kal.</th></tr></thead><tbody><tr><th scope="row">Depresyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Kaygı</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Stres</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Her maddede dört yanıt kategorisinin (0-3) oranı hesaplanmış; tabloda 14 madde içinde en düşük oran ve ait olduğu madde verilmiştir. Kaynak dosya: <code>html_ciktilari/AS1_kategori_kullanimi.csv</code>.</p></figure><figure class="tablo" id="tablo-8"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 8</span><span class="tablo-ad">Madde parametreleri ve maddelerin yer aldığı formlar</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Madde</th><th scope="col">ISI</th><th scope="col">a</th><th scope="col">b1</th><th scope="col">b2</th><th scope="col">b3</th><th scope="col">CITC</th><th scope="col">Yer aldığı kısa formlar</th></tr></thead><tbody><tr class="grup-satiri"><th scope="colgroup" colspan="8">Depresyon</th></tr><tr><th scope="row">Q21</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q10</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q38</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q34</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q16</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q31</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q03</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q17</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q24</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q13</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q26</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q37</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q05</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q42</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr class="grup-satiri"><th scope="colgroup" colspan="8">Kaygı</th></tr><tr><th scope="row">Q07</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q28</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q15</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q41</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q36</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q04</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q20</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q19</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q40</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q25</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q30</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q09</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q23</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q02</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr class="grup-satiri"><th scope="colgroup" colspan="8">Stres</th></tr><tr><th scope="row">Q11</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q39</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q27</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q29</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q01</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q08</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q32</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q18</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q14</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q22</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q06</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q33</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q12</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Q35</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Kalibrasyon grubu; maddeler her alt boyutta ISI'ye göre büyükten küçüğe sıralıdır. a ve b parametreleri IRT gösterimindedir (GRM). Değerlendirme grubunun değerleri kaynak dosyadadır. Kaynak dosya: <code>html_ciktilari/AS1_madde_parametreleri.csv</code>.</p></figure><figure class="sekil" id="sekil-1"><figcaption class="tablo-bas"><span class="tablo-no">Şekil 1</span><span class="tablo-ad">ISI ve GRM ayırt edicilik parametresi</span></figcaption><div class="sekil-yer">Kod çalıştırıldığında şekil <code>html_ciktilari/sekil_AS1_ISI_a.png</code> dosyasına yazılır.</div></figure><h3>Nasıl okunur</h3><ul><li><code>rho_ISI_a</code> pozitifse anlamca merkezî (diğer maddelere daha çok benzeyen) maddelerin a değerleri daha yüksek olma eğilimindedir; negatifse tersi. İki grup ve <code>rho_ISI_CITC</code> aynı yönü gösteriyorsa ilişki tutarlı sayılır.</li><li>Büyüklük adlandırması: |ρ| &lt; 0,30 zayıf, 0,30 ≤ |ρ| &lt; 0,50 orta, |ρ| ≥ 0,50 güçlü. Bu bir başarı eşiği değildir.</li><li>C2 temelli RMSEA için bu çalışmada bir kesme değeri kullanılmaz; değerler sıfırdan belirgin biçimde büyükse a değerleri “bu model altında kestirilen ayırt edicilik” olarak adlandırılır. <code>rho_cos_Q3</code> pozitifse, anlamca daha yakın çiftlerde ortak faktörün açıklamadığı ilişki daha yüksek olma eğilimindedir.</li><li>Şekil 1'de her nokta bir maddedir. Uçta kalan tek bir madde görüntüyü etkileyebileceği için sıraya dayalı Spearman kullanılır.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Anlamsal benzerliğin ayırt ediciliği artırdığı gibi nedensel bir sonuç; ilişki 14 sabit madde içinde bir sıra korelasyonudur.</li><li>14 maddenin ötesine, madde evrenine veya başka ölçeklere genelleme.</li><li>Kosinüs-Q3 ilişkisinin a veya güvenirlikteki olası şişmenin miktarını gösterdiği.</li><li>Kilmen ve Bulut (2025) ile yön farkının bir yanlışlama sayılması; ölçek, örneklem ve gömme modeli farklı olduğu için karşılaştırma yalnız yön düzeyindedir.</li></ul></div></section>
+<section id="as2" class="soru"><p class="soru-etiket"><span class="as-no">AS2</span>Form düzeyi · yapı, güvenirlik ve test bilgisi</p><h2 class="soru-metni">Üç anlamsal seçim kuralıyla oluşturulan kısa formlar (MIN21, MAX21 ve COV21) ile yayımlanmış DASS-21, faktör yapısı ve alt boyut puanlarının güvenirliği bakımından nasıl farklılaşmaktadır?</h2><p class="soru-metni">Alt soru: Yayımlanmış DASS-21 ile anlamsal seçim kurallarıyla oluşturulan kısa formların, ilgili tam alt boyut için kestirilen GRM altında sağladıkları test bilgisi, örtük özellik düzeyine göre nasıl farklılaşmaktadır?</p><h3>Ne yapılır</h3><ul><li>Değerlendirme grubunda beş form için (karşılaştırma olarak tam DASS-42 ve dört kısa form) üç ilişkili faktörlü sıralı doğrulayıcı faktör analizi (DFA) WLSMV kestiricisiyle kurulur; çapraz yük ve artık kovaryans eklenmez.</li><li>Ölçeklenmiş χ² ve sd, CFI, TLI, RMSEA ve %90 güven aralığı, SRMR, faktör korelasyonları ve ortalama standartlaştırılmış yükler alınır.</li><li>Güvenirliğin ana göstergesi kategorik omegadır. Ham alfa yardımcıdır; her formun alfası 3.432 kümenin alfa dağılımındaki orta sıra yüzdeliğiyle konumlandırılır (Hazırlık 3.5).</li><li>Alt soru için AS1'de değerlendirme grubunda kestirilen 14 maddelik GRM kullanılır; yeni model kurulmaz. Her formun test bilgisi, o formdaki yedi maddenin madde bilgilerinin toplamıdır ve θ = −3 ile 3 arasında hesaplanır. Böylece dört kısa form ve tam alt boyut aynı θ ölçeği üzerinde karşılaştırılır. Standart hata SH = 1 / √bilgi'dir.</li></ul><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>AS2 · Faktör yapısı, güvenirlik ve test bilgisi</span><button type='button' class='kopya' data-hedef='k-as2' aria-label='AS2 · Faktör yapısı, güvenirlik ve test bilgisi kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-as2' class='language-r'># ---- AS2: faktör yapısı ve alt boyut puanlarının güvenirliği ----------------------------
+uyum &lt;- list(); guv &lt;- list(); kor &lt;- list(); yuk &lt;- list(); dfa_fit &lt;- list()   # modeller Ek D için saklanır
+olculer &lt;- c(&quot;chisq.scaled&quot;, &quot;df.scaled&quot;, &quot;cfi.scaled&quot;, &quot;tli.scaled&quot;, &quot;rmsea.scaled&quot;,
+             &quot;rmsea.ci.lower.scaled&quot;, &quot;rmsea.ci.upper.scaled&quot;, &quot;srmr&quot;)
+for (form in c(&quot;FULL42&quot;, kisa_formlar)) {
+  fit &lt;- fit_cfa(deg, formlar[[form]]); dfa_fit[[form]] &lt;- fit             # değerlendirme grubu
+  fm &lt;- lavaan::fitMeasures(fit, olculer)
+  uyum[[form]] &lt;- data.frame(form = form, as.list(setNames(as.numeric(fm), olculer)))
+  lv &lt;- lavaan::lavInspect(fit, &quot;cor.lv&quot;)
+  kor[[form]] &lt;- data.frame(form = form, D_A = lv[&quot;D&quot;, &quot;A&quot;], D_S = lv[&quot;D&quot;, &quot;S&quot;], A_S = lv[&quot;A&quot;, &quot;S&quot;])
+  ss &lt;- lavaan::standardizedSolution(fit); ss &lt;- ss[ss$op == &quot;=~&quot;, ]                  # standartlaştırılmış yükler
+  yuk[[form]] &lt;- data.frame(form = form, t(tapply(ss$est.std, ss$lhs, mean)[alt_boyutlar]), ortalama = mean(ss$est.std))
+  om &lt;- omega_values(fit)                                                 # ana güvenirlik göstergesi
+  guv[[form]] &lt;- data.frame(form = form, subscale = alt_boyutlar, omega = as.numeric(om),
+                            alfa = sapply(alt_boyutlar, function(f) alpha_raw(deg[, formlar[[form]][[f]]])))
+}
+as2_uyum &lt;- do.call(rbind, uyum); as2_kor &lt;- do.call(rbind, kor); as2_guvenirlik &lt;- do.call(rbind, guv)
+as2_yuk &lt;- do.call(rbind, yuk)                                              # alt boyut başına ortalama yük
+rownames(as2_uyum) &lt;- rownames(as2_kor) &lt;- rownames(as2_guvenirlik) &lt;- rownames(as2_yuk) &lt;- NULL
+as2_guvenirlik$alfa_yzd &lt;- yuzdelik$alfa_yzd[match(paste(as2_guvenirlik$form, as2_guvenirlik$subscale),
+                                                   paste(yuzdelik$form, yuzdelik$subscale))]   # FULL42 için NA
+print(as2_uyum, digits = 3); print(as2_kor, digits = 3); print(as2_guvenirlik, digits = 3); print(as2_yuk, digits = 3)
+write.csv(as2_uyum, &quot;html_ciktilari/AS2_DFA_uyum.csv&quot;, row.names = FALSE)
+write.csv(as2_guvenirlik, &quot;html_ciktilari/AS2_guvenirlik.csv&quot;, row.names = FALSE)
+write.csv(as2_kor, &quot;html_ciktilari/AS2_faktor_korelasyonlari.csv&quot;, row.names = FALSE)
+write.csv(as2_yuk, &quot;html_ciktilari/AS2_ortalama_yukler.csv&quot;, row.names = FALSE)
+
+# ---- AS2 alt sorusu: test bilgi fonksiyonu (GRM, değerlendirme grubu) ------------------
+# Her alt boyutta AS1&#x27;de değerlendirme grubunda kestirilen 14 maddelik GRM kullanılır; yeni model kurulmaz.
+# Bir formun test bilgisi, o formun yedi maddesinin madde bilgi fonksiyonlarının toplamıdır. Bu yüzden
+# kısa formlar aynı ölçek (theta) üzerinde karşılaştırılabilir; 14 maddelik tam alt boyut üst sınırı verir.
+# Standart hata: SH(theta) = 1 / sqrt(bilgi). theta, değerlendirme grubunda ortalaması 0, SS&#x27;si 1 olan örtük özelliktir.
+theta &lt;- seq(-3, 3, by = 0.05)
+tbf &lt;- do.call(rbind, lapply(alt_boyutlar, function(f) {
+  mod &lt;- grm_mod[[paste(f, &quot;deg&quot;)]]; havuz &lt;- formlar$FULL42[[f]]
+  stopifnot(identical(mirt::extract.mirt(mod, &quot;itemnames&quot;), havuz))
+  do.call(rbind, lapply(c(&quot;FULL42&quot;, kisa_formlar), function(form)
+    data.frame(subscale = f, form = form, theta = theta,
+               bilgi = mirt::testinfo(mod, matrix(theta), which.items = match(formlar[[form]][[f]], havuz)))))
+}))
+tbf_tablo &lt;- tbf[round(tbf$theta, 2) %in% c(-2, -1, 0, 1, 2), ]
+tbf_tablo$SH &lt;- 1 / sqrt(tbf_tablo$bilgi)
+tbf_tablo &lt;- tbf_tablo[order(match(tbf_tablo$form, c(&quot;FULL42&quot;, kisa_formlar)), match(tbf_tablo$subscale, alt_boyutlar),
+                             tbf_tablo$theta), ]
+rownames(tbf_tablo) &lt;- NULL
+print(tbf_tablo, digits = 3)
+write.csv(tbf, &quot;html_ciktilari/AS2_test_bilgisi_egri.csv&quot;, row.names = FALSE)
+write.csv(tbf_tablo, &quot;html_ciktilari/AS2_test_bilgisi.csv&quot;, row.names = FALSE)
+
+# Şekil: üç alt boyutta test bilgi fonksiyonları
+tbf$form_ad &lt;- factor(ifelse(tbf$form == &quot;FULL42&quot;, &quot;Tam alt boyut (14 madde)&quot;, tbf$form),
+                      levels = c(&quot;Tam alt boyut (14 madde)&quot;, kisa_formlar))
+tbf$panel &lt;- factor(c(D = &quot;Depresyon&quot;, A = &quot;Kaygı&quot;, S = &quot;Stres&quot;)[tbf$subscale], levels = c(&quot;Depresyon&quot;, &quot;Kaygı&quot;, &quot;Stres&quot;))
+sekil_tbf &lt;- ggplot(tbf, aes(x = theta, y = bilgi, colour = form_ad, linetype = form_ad)) +
+  geom_line(linewidth = 0.8) +
+  facet_wrap(~panel, nrow = 1) +
+  scale_colour_manual(values = c(&quot;Tam alt boyut (14 madde)&quot; = &quot;grey55&quot;, PUB21 = &quot;#000000&quot;, MIN21 = &quot;#0072B2&quot;,
+                                 MAX21 = &quot;#D55E00&quot;, COV21 = &quot;#009E73&quot;)) +
+  scale_linetype_manual(values = c(&quot;Tam alt boyut (14 madde)&quot; = &quot;dashed&quot;, PUB21 = &quot;solid&quot;, MIN21 = &quot;solid&quot;,
+                                   MAX21 = &quot;solid&quot;, COV21 = &quot;solid&quot;)) +
+  labs(x = expression(&quot;Örtük özellik düzeyi (&quot; * theta * &quot;)&quot;), y = &quot;Test bilgisi&quot;, colour = NULL, linetype = NULL) +
+  theme_bw(base_size = 11) + theme(legend.position = &quot;bottom&quot;)
+if (interactive()) print(sekil_tbf)
+ggsave(&quot;html_ciktilari/sekil_AS2_test_bilgisi.png&quot;, sekil_tbf, width = 9.5, height = 4, dpi = 300, bg = &quot;white&quot;)</code></pre></figure><figure class="tablo" id="tablo-9"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 9</span><span class="tablo-ad">Doğrulayıcı faktör analizi uyumu</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Form</th><th scope="col">χ² (sd)</th><th scope="col">CFI</th><th scope="col">TLI</th><th scope="col">RMSEA [%90 GA]</th><th scope="col">SRMR</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><span class="isaret" aria-hidden="true"></span>FULL42</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu (n = 2.000); sıralı DFA, WLSMV, ölçeklenmiş değerler. FULL42, 42 maddelik tam formdur. Formlar farklı madde kümeleri olduğundan modeller iç içe değildir; değerler yan yana betimlenir. Kaynak dosya: <code>html_ciktilari/AS2_DFA_uyum.csv</code>.</p></figure><figure class="tablo" id="tablo-10"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 10</span><span class="tablo-ad">Güvenirlik ve ortalama standartlaştırılmış yük</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Form</th><th scope="col">ω · D / A / S</th><th scope="col">Alfa · D / A / S</th><th scope="col">Alfa yüzdeliği · D / A / S</th><th scope="col">Ortalama yük · D / A / S</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><span class="isaret" aria-hidden="true"></span>FULL42</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu. ω: kategorik omega (obs.var = FALSE; diğer hesaplama biçimi Ek D'de). Alfa yüzdeliği, formun alfasının 3.432 kümenin alfa dağılımındaki orta sıra yüzdeliğidir. Kaynak dosya: <code>html_ciktilari/AS2_guvenirlik.csv</code> ve <code>html_ciktilari/AS2_ortalama_yukler.csv</code>.</p></figure><figure class="tablo" id="tablo-11"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 11</span><span class="tablo-ad">Faktörler arası korelasyonlar</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Form</th><th scope="col">Depresyon-Kaygı</th><th scope="col">Depresyon-Stres</th><th scope="col">Kaygı-Stres</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><span class="isaret" aria-hidden="true"></span>FULL42</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu; DFA'daki örtük değişken korelasyonları. Kaynak dosya: <code>html_ciktilari/AS2_faktor_korelasyonlari.csv</code>.</p></figure><figure class="tablo" id="tablo-12"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 12</span><span class="tablo-ad">Test bilgisi ve standart hata</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Form ve alt boyut</th><th scope="col">θ = −2</th><th scope="col">θ = −1</th><th scope="col">θ = 0</th><th scope="col">θ = 1</th><th scope="col">θ = 2</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><span class="isaret" aria-hidden="true"></span>Tam alt boyut</span> <span class="ara">Depresyon</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><span class="isaret" aria-hidden="true"></span>Tam alt boyut</span> <span class="ara">Kaygı</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><span class="isaret" aria-hidden="true"></span>Tam alt boyut</span> <span class="ara">Stres</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span> <span class="ara">Depresyon</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span> <span class="ara">Kaygı</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span> <span class="ara">Stres</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span> <span class="ara">Depresyon</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span> <span class="ara">Kaygı</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span> <span class="ara">Stres</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span> <span class="ara">Depresyon</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span> <span class="ara">Kaygı</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span> <span class="ara">Stres</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span> <span class="ara">Depresyon</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span> <span class="ara">Kaygı</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span> <span class="ara">Stres</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubunda her alt boyutun 14 maddesine kestirilen GRM'den. Hücrede test bilgisi, parantez içinde standart hata (SH = 1 / √bilgi). θ, değerlendirme grubunda ortalaması 0, standart sapması 1 olan örtük özelliktir. Tam alt boyut satırı 14 maddenin toplam bilgisidir. Kaynak dosya: <code>html_ciktilari/AS2_test_bilgisi.csv</code> (bütün θ ızgarası: <code>AS2_test_bilgisi_egri.csv</code>).</p></figure><figure class="sekil" id="sekil-2"><figcaption class="tablo-bas"><span class="tablo-no">Şekil 2</span><span class="tablo-ad">Test bilgi fonksiyonları</span></figcaption><div class="sekil-yer">Kod çalıştırıldığında şekil <code>html_ciktilari/sekil_AS2_test_bilgisi.png</code> dosyasına yazılır.</div></figure><h3>Nasıl okunur</h3><ul><li>Formların uyum değerleri yan yana betimlenir. Farklı madde kümeleri iç içe model olmadığı için formlar ΔCFI veya ΔRMSEA eşikleriyle sıralanmaz; ayrıca yükler yükseldikçe aynı yanlış belirlemede RMSEA kötüleşebilir (McNeish, An ve Hancock, 2018).</li><li>Omega farklarının büyüklüğü yazılır; omega için aralık hesaplanmamıştır. Alfa yüzdeliği 90 ise formun alfası olası yedili seçimlerin yaklaşık %90'ından yüksektir.</li><li>Anlamca dar bir formun yüksek güvenirliği “daha homojen puan” demektir, “daha iyi ölçme” değil. Faktörler arası korelasyonun düşük olması tek başına daha iyi bir form anlamına gelmez.</li><li>Test bilgisi eğrisi, formun örtük özelliğin hangi düzeylerinde daha kesin ölçtüğünü gösterir. Tam alt boyut (14 madde) üst sınırdır; kısa formların ondan az bilgi vermesi beklenir. MIN21 ile MAX21 tümleyen olduğundan bilgileri toplamı tam alt boyutun bilgisine eşittir.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Uyum indekslerine göre kazanan bir form ilan etmek.</li><li>Yüksek güvenirliği tek başına daha iyi ölçme saymak.</li><li>Alfa yüzdeliklerini omega için geçerli saymak.</li><li>Test bilgisini ikinci bir başarı ölçütü veya klinik kesinlik göstergesi saymak; GRM uyumu sınırlıdır ve yerel bağımlılık (AS1) bilgiyi olduğundan yüksek gösterebilir. θ ölçeği bu örneklemin 14 maddelik modeline göre tanımlıdır; test bilgisi için aralık hesaplanmamıştır.</li><li>Tam alt boyutun kısa formlardan daha çok bilgi vermesini bir bulgu saymak; bu, madde sayısının doğrudan sonucudur.</li></ul></div></section>
+<section id="as3" class="soru"><p class="soru-etiket"><span class="as-no">AS3</span>Form düzeyi · tam form uyumu</p><h2 class="soru-metni">Üç anlamsal seçim kuralıyla oluşturulan kısa formlar (MIN21, MAX21 ve COV21) ile yayımlanmış DASS-21'in alt boyut puanları, DASS-42'nin ilgili alt boyut puanlarıyla ne ölçüde uyumludur?</h2><h3>Ne yapılır</h3><ul><li>Değerlendirme grubundaki 2.000 kişi için her formun kısa (7 madde) ve tam (14 madde) alt boyut ortalamaları (0-3) karşılaştırılır: Pearson r, yanlılık (kısa eksi tam), farkların n paydalı standart sapması (s<sub>d</sub>) ve RMSE.</li><li>RMSE ayrıca 14 ile çarpılarak 0-42 puan biriminde verilir. Bu değer, DASS-21 alt boyut toplamının iki katı ile DASS-42 alt boyut toplamı arasındaki farkların karesel ortalamasının köküdür.</li><li>Her formun RMSE'si 3.432 kümenin RMSE dağılımında konumlandırılır; kısa-tam r bütün kümelerin medyan r'siyle karşılaştırılır.</li><li>Anlamsal formların RMSE'sinin PUB21'den farkı eşleştirilmiş bootstrap ile değerlendirilir: 2.000 tekrarın her birinde aynı kişiler bütün formlara uygulanır; tekrar b, <code>set.seed(20260913 + b)</code> ile başlar. Aynı tekrarlarda alfa farkları da hesaplanır (Ek E).</li></ul><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>AS3 · Tam form puanlarıyla uyum ve bootstrap</span><button type='button' class='kopya' data-hedef='k-as3' aria-label='AS3 · Tam form puanlarıyla uyum ve bootstrap kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-as3' class='language-r'># ---- AS3: kısa ve tam form puanlarının uyumu ----------------------------------------
+uy &lt;- list()
+for (form in kisa_formlar) for (f in alt_boyutlar) {
+  tam  &lt;- rowMeans(deg[, formlar$FULL42[[f]]])                            # 14 maddelik ortalama (0-3)
+  kisa &lt;- rowMeans(deg[, formlar[[form]][[f]]])                           # 7 maddelik ortalama (0-3)
+  u &lt;- uyum_olculeri(kisa, tam)
+  uy[[paste(form, f)]] &lt;- data.frame(form = form, subscale = f, r = u[[&quot;r&quot;]], bias = u[[&quot;bias&quot;]],
+                                     sd_d = u[[&quot;sd_d&quot;]], rmse = u[[&quot;rmse&quot;]], rmse_0_42 = 14 * u[[&quot;rmse&quot;]])
+}
+as3_uyum &lt;- do.call(rbind, uy); rownames(as3_uyum) &lt;- NULL
+ek &lt;- yuzdelik[match(paste(as3_uyum$form, as3_uyum$subscale), paste(yuzdelik$form, yuzdelik$subscale)), ]
+as3_uyum$rmse_yzd &lt;- ek$rmse_yzd; as3_uyum$r_medyan &lt;- ek$r_medyan            # konum ve karşılaştırma değerleri
+print(as3_uyum, digits = 3)
+write.csv(as3_uyum, &quot;html_ciktilari/AS3_uyum.csv&quot;, row.names = FALSE)
+
+# Eşleştirilmiş bootstrap: anlamsal form eksi PUB21 (RMSE; alfa farkları ek için)
+n &lt;- nrow(deg); Dm &lt;- as.matrix(deg)
+olcum &lt;- function(ix) {
+  Xs &lt;- Dm[ix, , drop = FALSE]; v &lt;- numeric(0)
+  for (f in alt_boyutlar) {
+    tam &lt;- rowMeans(Xs[, formlar$FULL42[[f]], drop = FALSE])
+    pub_alfa &lt;- alpha_raw(Xs[, formlar$PUB21[[f]], drop = FALSE])
+    pub_rmse &lt;- sqrt(mean((rowMeans(Xs[, formlar$PUB21[[f]], drop = FALSE]) - tam)^2))
+    for (form in anlamsal_formlar) {
+      v[paste(&quot;alfa&quot;, f, form, sep = &quot;|&quot;)] &lt;- alpha_raw(Xs[, formlar[[form]][[f]], drop = FALSE]) - pub_alfa
+      v[paste(&quot;rmse&quot;, f, form, sep = &quot;|&quot;)] &lt;- sqrt(mean((rowMeans(Xs[, formlar[[form]][[f]], drop = FALSE]) - tam)^2)) - pub_rmse
+    }
+  }
+  v
+}
+tahmin &lt;- olcum(seq_len(n))
+cekim &lt;- t(sapply(1:2000, function(b) { set.seed(20260913 + b); olcum(sample.int(n, n, replace = TRUE)) }))
+sinir &lt;- apply(cekim, 2, quantile, probs = c(0.025, 0.975), type = 7, names = FALSE)
+parca &lt;- strsplit(names(tahmin), &quot;|&quot;, fixed = TRUE)
+boot_tablo &lt;- data.frame(olcu = sapply(parca, `[`, 1), subscale = sapply(parca, `[`, 2), form = sapply(parca, `[`, 3),
+                         tahmin = unname(tahmin), alt = sinir[1, ], ust = sinir[2, ],
+                         sifiri_disliyor = sinir[1, ] &gt; 0 | sinir[2, ] &lt; 0)
+boot_tablo &lt;- boot_tablo[order(boot_tablo$olcu, match(boot_tablo$form, anlamsal_formlar),
+                               match(boot_tablo$subscale, alt_boyutlar)), ]
+rownames(boot_tablo) &lt;- NULL
+print(boot_tablo[boot_tablo$olcu == &quot;rmse&quot;, ], digits = 3)
+write.csv(boot_tablo, &quot;html_ciktilari/bootstrap_farklar.csv&quot;, row.names = FALSE)</code></pre></figure><figure class="tablo" id="tablo-13"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 13</span><span class="tablo-ad">Kısa ve tam form puanlarının uyumu</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Form</th><th scope="col">Alt boyut</th><th scope="col">r</th><th scope="col">Yanlılık</th><th scope="col">s<sub>d</sub></th><th scope="col">RMSE (0-3)</th><th scope="col">RMSE (0-42)</th><th scope="col">RMSE yüzdeliği</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu. Yanlılık: kısa ortalama eksi tam ortalama (0-3). RMSE² = yanlılık² + s<sub>d</sub>². Bütün kümelerde medyan kısa-tam r: 0,980 / 0,962 / 0,967 (D / A / S). Kaynak dosya: <code>html_ciktilari/AS3_uyum.csv</code>.</p></figure><figure class="tablo" id="tablo-14"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 14</span><span class="tablo-ad">RMSE farkı: anlamsal form eksi PUB21</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Karşılaştırma</th><th scope="col">Depresyon</th><th scope="col">Kaygı</th><th scope="col">Stres</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span> eksi PUB21</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span> eksi PUB21</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span> eksi PUB21</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu; fark ve %95 yüzdelik bootstrap aralığı; 2.000 eşleştirilmiş tekrar, set.seed(20260913 + b). Pozitif fark, anlamsal formun tam puandan daha çok saptığını gösterir. Kaynak dosya: <code>html_ciktilari/bootstrap_farklar.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>Ana gösterge ham RMSE'dir. RMSE² = yanlılık² + s<sub>d</sub>² olduğundan, sapmanın ortalama kaymadan mı yoksa kişi düzeyindeki dağılımdan mı geldiği her zaman yazılır.</li><li>Yarı uzunluktaki formlarda ham RMSE bölünmenin özelliğidir: bir küme ile tümleyeni aynı RMSE'yi verir. MIN21 ile MAX21 birbirinin tümleyeni olduğu için RMSE'leri ve PUB21'e göre farkları aynıdır; bu yeni bir bağımsız kanıt değildir. Kısa-tam korelasyon için bu eşitlik geçerli değildir.</li><li>RMSE yüzdeliği düşükse form olası kümelerin çoğundan daha az sapar. Yüksek r bütün kümelerde yaygınsa tek başına başarı göstergesi sayılmaz.</li><li>Bootstrap farkı “anlamsal form eksi PUB21” yönündedir. Aralık sıfırı dışlıyorsa fark, bu örneklemin yeniden örneklemelerinde tutarlı yöndedir; sıfırı içermesi eşdeğerlik kanıtı değildir. Karar yuvarlanmamış sınırlarla verilir.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>RMSE'yi ölçme hatası saymak; tam form gerçek puan değildir ve kısa formla ortak maddeler içerir.</li><li>Yüksek kısa-tam korelasyonunu geçerlik veya puan eşdeğerliği kanıtı saymak; ortak maddeler bu korelasyonu yükseltir (Smith, McCarthy ve Anderson, 2000).</li><li>0-42 birimindeki RMSE'yi klinik önem eşiği saymak veya kesme noktalarında sınıflama doğruluğu hakkında sonuç çıkarmak; bu çalışma sınıflamayı incelemez.</li></ul></div></section>
+<section id="as4" class="soru"><p class="soru-etiket"><span class="as-no">AS4</span>Form düzeyi · çeşitlilik ve temsil</p><h2 class="soru-metni">Üç anlamsal seçim kuralıyla oluşturulan kısa formlar (MIN21, MAX21 ve COV21) ile yayımlanmış DASS-21, seçilen maddelerin anlamsal çeşitliliği ve ilgili alt boyuttaki madde havuzunun anlamsal temsili bakımından nasıl farklılaşmaktadır?</h2><h3>Ne yapılır</h3><ul><li>Her formun SB ve CL değerleri ve bu değerlerin 3.432 kümedeki orta sıra yüzdelikleri alınır (Hazırlık 3.4 ve 3.5).</li><li>Bütün kümelerde SB ile CL arasındaki Spearman korelasyonu hesaplanır.</li><li>Her elenen madde, ona en yakın seçili madde, iki madde metni ve kosinüs uzaklığı yan yana verilir. Kod, CL'nin elenen yedi uzaklığın toplamının 14'e bölümüne eşit olduğunu da denetler.</li></ul><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>AS4 · Anlamsal çeşitlilik ve temsil</span><button type='button' class='kopya' data-hedef='k-as4' aria-label='AS4 · Anlamsal çeşitlilik ve temsil kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-as4' class='language-r'># ---- AS4: anlamsal çeşitlilik (SB) ve temsil (CL) -------------------------------------
+as4_tablo &lt;- yuzdelik[, c(&quot;form&quot;, &quot;subscale&quot;, &quot;SB&quot;, &quot;SB_yzd&quot;, &quot;CL&quot;, &quot;CL_yzd&quot;)]
+sb_cl &lt;- data.frame(subscale = alt_boyutlar,
+                    rho_SB_CL = sapply(alt_boyutlar, function(f) spearman(alt_kume[[f]]$SB, alt_kume[[f]]$CL)))
+temsil &lt;- do.call(rbind, lapply(kisa_formlar, function(form) do.call(rbind, lapply(alt_boyutlar, function(f) {
+  S &lt;- formlar[[form]][[f]]; elenen &lt;- setdiff(formlar$FULL42[[f]], S)
+  en_yakin &lt;- sapply(elenen, function(e) S[which.max(C[e, S])])          # elenen maddeye en yakın seçili madde
+  uzaklik &lt;- 1 - C[cbind(elenen, en_yakin)]
+  data.frame(form = form, subscale = f, elenen = elenen, en_yakin = unname(en_yakin), uzaklik = uzaklik,
+             en_zayif = uzaklik == max(uzaklik),
+             elenen_metin = maddeler$text[match(elenen, maddeler$item_id)],
+             en_yakin_metin = maddeler$text[match(en_yakin, maddeler$item_id)])
+}))))
+rownames(temsil) &lt;- NULL
+# Denetim: CL = elenen yedi maddenin uzaklıklarının toplamı / 14 (seçili maddeler sıfırla katılır)
+stopifnot(all(abs(tapply(temsil$uzaklik, paste(temsil$form, temsil$subscale), sum)[paste(as4_tablo$form, as4_tablo$subscale)] / 14 -
+                  as4_tablo$CL) &lt; 1e-12))
+print(as4_tablo, digits = 3); print(sb_cl, digits = 3)
+print(temsil[temsil$en_zayif, c(&quot;form&quot;, &quot;subscale&quot;, &quot;elenen&quot;, &quot;en_yakin&quot;, &quot;uzaklik&quot;)], digits = 3)
+write.csv(as4_tablo, &quot;html_ciktilari/AS4_anlamsal.csv&quot;, row.names = FALSE)
+write.csv(sb_cl, &quot;html_ciktilari/AS4_SB_CL.csv&quot;, row.names = FALSE)
+write.csv(temsil, &quot;html_ciktilari/AS4_madde_temsil.csv&quot;, row.names = FALSE)</code></pre></figure><figure class="tablo" id="tablo-15"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 15</span><span class="tablo-ad">Anlamsal çeşitlilik (SB) ve temsil kaybı (CL)</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Form</th><th scope="col">SB · D / A / S</th><th scope="col">SB yüzdeliği</th><th scope="col">CL · D / A / S</th><th scope="col">CL yüzdeliği</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Yüzdelikler her alt boyutta 3.432 küme içindedir. Bütün kümelerde ρ(SB, CL): −0,45 / −0,45 / −0,55 (D / A / S). Kaynak dosya: <code>html_ciktilari/AS4_anlamsal.csv</code> ve <code>html_ciktilari/AS4_SB_CL.csv</code>.</p></figure><figure class="tablo" id="tablo-16"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 16</span><span class="tablo-ad">Her formda en zayıf temsil edilen madde</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Form</th><th scope="col">Alt boyut</th><th scope="col">Elenen madde</th><th scope="col">En yakın seçili madde</th><th scope="col">Kosinüs uzaklığı</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Uzaklık 1 eksi kosinüs benzerliğidir. Tablo, her form ve alt boyutta en yakın seçili maddeye uzaklığı en büyük olan elenen maddeyi verir; bütün eşleşmeler ve madde metinleri kaynak dosyadadır. Kaynak dosya: <code>html_ciktilari/AS4_madde_temsil.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>SB yüzdeliği yüksekse form anlamca çeşitlidir; CL yüzdeliği düşükse elenen maddeler seçilen maddelere gömme uzayında yakındır.</li><li>Tanım gereği beklenen sonuçlar (MIN21'in yüksek, MAX21'in düşük SB'si; COV21'in en düşük CL'si) bulgu sayılmaz. Asıl bilgi PUB21'in konumunda, her formun kendi hedefi dışındaki göstergedeki konumunda (MIN21'in CL'si, COV21'in SB'si) ve SB ile CL'nin bütün kümelerde birlikte değişip değişmediğindedir.</li><li>Madde temsil tablosu CL'nin dayandığı eşleşmeleri gösterir.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Tanım gereği veya seçim kuralından beklenen sonuçları bulgu saymak: MIN21'in yüksek, MAX21'in düşük SB'si ve COV21'in en düşük CL'si.</li><li>Yüksek SB'yi tek başına düşük temsil kaybı saymak.</li><li>CL'yi içerik kapsamı veya kapsam geçerliği saymak; CL yalnız kullanılan gömme uzayındaki yakınlıktır ve uzman içerik yargısının yerine geçmez.</li></ul></div></section>
+<section id="as5" class="soru"><p class="soru-etiket"><span class="as-no">AS5</span>Bütün olası formlar · alt küme testi</p><h2 class="soru-metni">DASS-42'nin her alt boyutundan seçilebilecek bütün yedili madde kümelerinde, anlamsal çeşitlilik ve temsil ile puan güvenirliği ve tam form puanlarıyla uyum arasında nasıl bir ilişki vardır?</h2><h3>Ne yapılır</h3><ul><li>Her alt boyutta 3.432 yedili kümenin tamamında SB ile alfa arasındaki Spearman korelasyonu hesaplanır.</li><li>RMSE bir küme ile tümleyeninde aynı olduğu için CL<sub>b</sub> ile RMSE arasındaki ilişki 1.716 benzersiz bölünmede hesaplanır. Açıklayıcı olarak CL<sub>b</sub>'nin s<sub>d</sub> ve mutlak yanlılıkla ilişkisi verilir.</li><li>Ana analiz değerlendirme grubunda, tekrar kalibrasyon grubunda yapılır. AS5 ilk sonuçlardan sonra eklenmiş keşfedici bir sorudur; kümeler ortak maddeler içerdiği için p değeri verilmez. “Alt küme testi” adı çıkarımsal bir test değil, bütün olası kümelerin betimsel karşılaştırmasıdır.</li></ul><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>AS5 · Alt küme testi ilişkileri ve şekil</span><button type='button' class='kopya' data-hedef='k-as5' aria-label='AS5 · Alt küme testi ilişkileri ve şekil kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-as5' class='language-r'># ---- AS5: bütün olası formlarda anlamsal ve psikometrik göstergelerin ilişkisi (alt küme testi) ----
+as5 &lt;- do.call(rbind, lapply(alt_boyutlar, function(f) do.call(rbind, lapply(c(&quot;kal&quot;, &quot;deg&quot;), function(g) {
+  tb &lt;- tum_alt[tum_alt$subscale == f &amp; tum_alt$grup == g, ]              # 3.432 küme
+  bl &lt;- tb[tb$kanonik_bolme, ]                                            # 1.716 benzersiz bölünme
+  data.frame(subscale = f, grup = g, n_kume = nrow(tb), n_bolunme = nrow(bl),
+             rho_SB_alfa  = spearman(tb$SB, tb$alpha),
+             rho_CLb_rmse = spearman(bl$CL_b, bl$rmse),
+             rho_CLb_sd   = spearman(bl$CL_b, bl$sd_d),
+             rho_CLb_bias = spearman(bl$CL_b, abs(bl$bias)))
+}))))
+print(as5, digits = 3)
+write.csv(as5, &quot;html_ciktilari/AS5_iliskiler.csv&quot;, row.names = FALSE)
+
+# Şekil: bütün kümeler (gri) ve dört form (değerlendirme grubu)
+tv &lt;- tum_alt[tum_alt$grup == &quot;deg&quot;, ]; bl &lt;- tv[tv$kanonik_bolme, ]
+gri &lt;- rbind(data.frame(satir = &quot;SB-alfa&quot;, subscale = tv$subscale, x = tv$SB, y = tv$alpha),
+             data.frame(satir = &quot;CLb-RMSE&quot;, subscale = bl$subscale, x = bl$CL_b, y = bl$rmse))
+form_d &lt;- do.call(rbind, lapply(alt_boyutlar, function(f) do.call(rbind, lapply(kisa_formlar, function(form) {
+  z &lt;- tv[tv$subscale == f &amp; tv$subset_key == anahtar_yap(formlar[[form]][[f]]), ]
+  data.frame(satir = c(&quot;SB-alfa&quot;, &quot;CLb-RMSE&quot;), subscale = f, form = form, x = c(z$SB, z$CL_b), y = c(z$alpha, z$rmse))
+}))))
+form_d$form &lt;- factor(form_d$form, levels = kisa_formlar)
+d &lt;- as5[as5$grup == &quot;deg&quot;, ]
+etiket &lt;- c(setNames(sprintf(&quot;%s | SB ve alfa (rho = %.2f)&quot;, d$subscale, d$rho_SB_alfa), paste(&quot;SB-alfa&quot;, d$subscale)),
+            setNames(sprintf(&quot;%s | CL_b ve RMSE (rho = %.2f)&quot;, d$subscale, d$rho_CLb_rmse), paste(&quot;CLb-RMSE&quot;, d$subscale)))
+duzey &lt;- etiket[c(paste(&quot;SB-alfa&quot;, alt_boyutlar), paste(&quot;CLb-RMSE&quot;, alt_boyutlar))]
+gri$panel &lt;- factor(etiket[paste(gri$satir, gri$subscale)], levels = duzey)
+form_d$panel &lt;- factor(etiket[paste(form_d$satir, form_d$subscale)], levels = duzey)
+sekil2 &lt;- ggplot(gri, aes(x = x, y = y)) +
+  geom_point(colour = &quot;grey72&quot;, size = 0.35, alpha = 0.5) +
+  geom_point(data = form_d, aes(colour = form, shape = form), size = 2.6, stroke = 0.9) +
+  facet_wrap(~panel, nrow = 2, scales = &quot;free&quot;) +
+  scale_colour_manual(values = c(PUB21 = &quot;#000000&quot;, MIN21 = &quot;#0072B2&quot;, MAX21 = &quot;#D55E00&quot;, COV21 = &quot;#009E73&quot;)) +
+  scale_shape_manual(values = c(PUB21 = 15, MIN21 = 16, MAX21 = 17, COV21 = 18)) +
+  labs(x = &quot;Anlamsal gösterge (üst sıra: SB; alt sıra: CL_b)&quot;, y = &quot;Psikometrik gösterge (üst sıra: alfa; alt sıra: RMSE)&quot;,
+       caption = &quot;Gri noktalar: üst sırada 3.432 küme, alt sırada 1.716 bölünme. MIN21 ile MAX21 aynı bölünmedir; alt sırada üst üste düşer.&quot;) +
+  theme_bw(base_size = 11) +
+  theme(legend.position = &quot;bottom&quot;, legend.title = element_blank(), plot.caption = element_text(hjust = 0))
+if (interactive()) print(sekil2)
+ggsave(&quot;html_ciktilari/sekil_AS5_alt_kume_testi.png&quot;, sekil2, width = 10, height = 6.8, dpi = 300, bg = &quot;white&quot;)</code></pre></figure><figure class="tablo" id="tablo-17"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 17</span><span class="tablo-ad">Bütün olası kümelerde anlamsal ve psikometrik göstergelerin ilişkisi</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Alt boyut</th><th scope="col">ρ(SB, alfa)</th><th scope="col">ρ(CL<sub>b</sub>, RMSE)</th><th scope="col">ρ(CL<sub>b</sub>, s<sub>d</sub>)</th><th scope="col">ρ(CL<sub>b</sub>, |yanlılık|)</th></tr></thead><tbody><tr><th scope="row">Depresyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Kaygı</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Stres</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu; parantez içinde kalibrasyon grubu. SB ile alfa 3.432 kümede, CL<sub>b</sub> ile diğerleri 1.716 benzersiz bölünmede hesaplanmıştır. Kümeler ortak maddeler içerdiğinden p değeri verilmez. Kaynak dosya: <code>html_ciktilari/AS5_iliskiler.csv</code>.</p></figure><figure class="sekil" id="sekil-3"><figcaption class="tablo-bas"><span class="tablo-no">Şekil 3</span><span class="tablo-ad">Alt küme testi: bütün kümeler ve dört form</span></figcaption><div class="sekil-yer">Kod çalıştırıldığında şekil <code>html_ciktilari/sekil_AS5_alt_kume_testi.png</code> dosyasına yazılır.</div></figure><h3>Nasıl okunur</h3><ul><li>Şekil 3'ün üst sırasında her gri nokta bir yedili kümedir (yatay SB, dikey alfa); alt sırada her gri nokta bir bölünmedir (yatay CL<sub>b</sub>, dikey RMSE). Renkli işaretler dört formdur.</li><li>Üst sırada bulut sağa doğru iniyorsa daha çeşitli kümelerin alfası daha düşük olma eğilimindedir. Alt sırada bulut sağa doğru yükseliyorsa iki yarının birbirine anlamca uzak olduğu bölünmelerde tam puandan sapma daha büyük olma eğilimindedir.</li><li>Sonuç “bu madde havuzundaki kümeler boyunca şu yönde ve şu büyüklükte ilişki” biçiminde yazılır. CL<sub>b</sub>'nin s<sub>d</sub> ile ilişkisi mutlak yanlılıkla ilişkisinden belirgin biçimde güçlüyse, anlamsal uzaklık kişi düzeyindeki dağılımla daha çok, madde ortalamalarından doğan yanlılıkla daha az ilişkilidir.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Metnin psikometrik sonucu yordadığı iddiası, bir başarı eşiği, yeni madde havuzlarına genelleme veya nedensellik.</li><li>CL<sub>b</sub>'nin hangi yarının tutulacağını söylediği; iki yarı yer değiştirdiğinde CL<sub>b</sub> değişmez.</li><li>Dağılımdan en iyi görünen kümeyi seçip beşinci bir form önermek.</li></ul></div></section>
+<section id="sonuc" class="soru"><h2>Sonuç</h2><h3>Ne yapılır</h3><p>AS2, AS3 ve AS4'te üretilen değerleri form ve alt boyut satırlarında tek bir tabloda toplar; yeni hesap yapmaz.</p><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>Sonuç · Bütünleşik tablo</span><button type='button' class='kopya' data-hedef='k-sonuc' aria-label='Sonuç · Bütünleşik tablo kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-sonuc' class='language-r'># ---- Sonuç: bütünleşik tablo ---------------------------------------------------------
+# Yeni hesap yapmaz; AS2, AS3 ve AS4&#x27;te üretilen değerleri form ve alt boyut satırlarında bir araya getirir.
+anahtar_fs &lt;- function(d) paste(d$form, d$subscale)
+butunlesik &lt;- yuzdelik[, c(&quot;form&quot;, &quot;subscale&quot;)]
+butunlesik$omega    &lt;- as2_guvenirlik$omega[match(anahtar_fs(butunlesik), anahtar_fs(as2_guvenirlik))]
+butunlesik$alfa_yzd &lt;- yuzdelik$alfa_yzd
+butunlesik$rmse_0_42 &lt;- as3_uyum$rmse_0_42[match(anahtar_fs(butunlesik), anahtar_fs(as3_uyum))]
+butunlesik$rmse_yzd &lt;- yuzdelik$rmse_yzd
+butunlesik$SB_yzd   &lt;- yuzdelik$SB_yzd
+butunlesik$CL_yzd   &lt;- yuzdelik$CL_yzd
+print(butunlesik, digits = 3)
+write.csv(butunlesik, &quot;html_ciktilari/butunlesik_tablo.csv&quot;, row.names = FALSE)</code></pre></figure><figure class="tablo" id="tablo-18"><figcaption class="tablo-bas"><span class="tablo-no">Tablo 18</span><span class="tablo-ad">Bütünleşik tablo: dört formun göstergeleri bir arada</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Form</th><th scope="col">Alt boyut</th><th scope="col">ω</th><th scope="col">Alfa yüzdeliği</th><th scope="col">RMSE (0-42)</th><th scope="col">RMSE yüzdeliği</th><th scope="col">SB yüzdeliği</th><th scope="col">CL yüzdeliği</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu; yeni hesap içermez (Tablo 10, 13 ve 15'ten). Yüzdelikler 3.432 küme içindedir. Yüksek alfa ve SB yüzdeliği, düşük RMSE ve CL yüzdeliği, o göstergede kümelerin çoğundan daha yüksek güvenirlik, daha çok çeşitlilik, daha az sapma ve daha iyi temsil demektir; göstergeler tek bir puanda birleştirilmez. Kaynak dosya: <code>html_ciktilari/butunlesik_tablo.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>Her sütun ayrı bir göstergedir; göstergeler tek bir puanda birleştirilmez ve formlar tek bir sıralamaya dönüştürülmez.</li></ul></section>
+<section id="kaynaklar" class="soru"><h2>Kaynaklar</h2><ul class="kaynak"><li>Cai, L., &amp; Monroe, S. (2014). <em>A new statistic for evaluating item response theory models for ordinal data</em> (CRESST Report 839). University of California, Los Angeles.</li><li>Chalmers, R. P. (2012). mirt: A multidimensional item response theory package for the R environment. <em>Journal of Statistical Software, 48</em>(6), 1-29. https://doi.org/10.18637/jss.v048.i06</li><li>Christensen, K. B., Makransky, G., &amp; Horton, M. (2017). Critical values for Yen's Q3: Identification of local dependence in the Rasch model using residual correlations. <em>Applied Psychological Measurement, 41</em>(3), 178-194. https://doi.org/10.1177/0146621616677520</li><li>Hommel, B. E., &amp; Arslan, R. C. (2025). Language models accurately infer correlations between psychological items and scales from text alone. <em>Advances in Methods and Practices in Psychological Science, 8</em>(4).</li><li>Jorgensen, T. D., Pornprasertmanit, S., Schoemann, A. M., &amp; Rosseel, Y. (2022). <em>semTools: Useful tools for structural equation modeling</em> [R paketi].</li><li>Kennedy, E., Vadlamani, S., Lindsey, H. M., Peterson, K. S., Dams O'Connor, K., vd. (2025). Linking symptom inventories using semantic textual similarity. <em>Journal of Neurotrauma, 42</em>, 1008-1020. https://doi.org/10.1089/neu.2024.0301</li><li>Kilmen, S., &amp; Bulut, O. (2025). Shortening psychological scales: Semantic similarity matters. <em>Educational and Psychological Measurement, 85</em>(5), 910-934. https://doi.org/10.1177/00131644251319047</li><li>Loevinger, J. (1954). The attenuation paradox in test theory. <em>Psychological Bulletin, 51</em>(5), 493-504.</li><li>Lovibond, S. H., &amp; Lovibond, P. F. (1995). <em>Manual for the Depression Anxiety Stress Scales</em> (2. baskı). Psychology Foundation of Australia.</li><li>McNeish, D., An, J., &amp; Hancock, G. R. (2018). The thorny relation between measurement quality and fit index cutoffs in latent variable models. <em>Journal of Personality Assessment, 100</em>(1), 43-52.</li><li>OpenAI. (2024). <em>Vector embeddings</em> [Geliştirici belgesi]. https://developers.openai.com/api/docs/guides/embeddings (Erişim: 28 Eylül 2026).</li><li>Open-Source Psychometrics Project. <em>DASS verisi (DASS_data_21.02.19)</em>. https://openpsychometrics.org/_rawdata/</li><li>R Core Team. (2026). <em>R: A language and environment for statistical computing</em> (Sürüm 4.5.3). R Foundation for Statistical Computing.</li><li>Ravenda, F., Preti, A., Poletti, M., Mira, A., &amp; Raballo, A. (2025). Rethinking psychometrics through LLMs: How item semantics shape measurement and prediction in psychological questionnaires. <em>Scientific Reports, 15</em>, 37313. https://doi.org/10.1038/s41598-025-21289-8</li><li>Rosseel, Y. (2012). lavaan: An R package for structural equation modeling. <em>Journal of Statistical Software, 48</em>(2), 1-36. https://doi.org/10.18637/jss.v048.i02</li><li>Samejima, F. (1969). Estimation of latent ability using a response pattern of graded scores. <em>Psychometrika Monograph Supplement, 34</em>(4, Pt. 2).</li><li>Smith, G. T., McCarthy, D. M., &amp; Anderson, K. G. (2000). On the sins of short-form development. <em>Psychological Assessment, 12</em>(1), 102-111.</li><li>Steger, D., Jankowsky, K., Schroeders, U., &amp; Wilhelm, O. (2023). The road to hell is paved with good intentions: How common practices in scale construction hurt validity. <em>Assessment, 30</em>(6), 1811-1824. https://doi.org/10.1177/10731911221124846</li><li>Varrasi, S., Platania, G. A., Castellano, S., Ferraioli, F., Massimino, S., Vicario, C. M., Di Nuovo, S., &amp; D'Urso, E. D. (2026). Expanding psychometrics with pretrained language models: Evaluating pseudo-factor analysis in applied and multilingual contexts. <em>Methods in Psychology, 14</em>, 100244.</li><li>Wickham, H. (2016). <em>ggplot2: Elegant graphics for data analysis</em>. Springer.</li><li>Wulff, D. U., &amp; Mata, R. (2025). Semantic embeddings reveal and address taxonomic incommensurability in psychological measurement. <em>Nature Human Behaviour, 9</em>, 944-954. https://doi.org/10.1038/s41562-024-02089-y</li></ul></section>
+<section id="ekA" class="soru"><p class="soru-etiket"><span class="as-no">Ek A</span>Ek</p><h2>Gömme modeli için betimsel denetim</h2><h3>Ne yapılır</h3><p>Bu denetim, formlar ve analizler belirlendikten sonra eklenmiştir; bu nedenle bir karar kuralı olarak değil, betimsel bilgi olarak raporlanır ve sonucuna bakılarak model veya boyut değiştirilmemiştir. Kalibrasyon ve değerlendirme gruplarının verisini ikinci kez kullanmamak için görgül korelasyonlar, uygunluk ölçütlerini karşılayıp örnekleme seçilmeyen 6.362 kayıttan hesaplanır. Ölçütler araştırma sorularının sonuç göstergelerini kullanmaz.</p>
+<dl class="tanim"><dt>Ö1 · bütün çiftler</dt><dd>861 madde çiftinde kosinüs benzerliği ile görgül korelasyonun mutlak değerleri arasındaki Pearson r ve Spearman ρ (Ravenda vd.'nin ölçütü).</dd>
+<dt>Ö2 · alt ölçek içi</dt><dd>Aynı alt ölçekteki 273 çiftte aynı iki katsayı. ISI, SB ve CL alt ölçek içinde hesaplandığı için doğrudan ilgili ölçüttür.</dd>
+<dt>Ö3 · ilk-k isabeti</dt><dd>Bir maddenin görgül olarak en yüksek korelasyonlu eşinin, anlamca en benzer k madde arasında bulunma oranı (k = 1, 2, 3; şans düzeyi k/41).</dd>
+<dt>Ö4 · alt ölçek sınıflaması</dt><dd>Her madde, kendisi dışındaki maddelerle ortalama kosinüsünün en yüksek olduğu alt ölçeğe atanır; anahtarla uyuşma oranı hesaplanır. Yanıt verisi kullanmaz; şans düzeyi yaklaşık %33.</dd></dl>
+<p>Karşılaştırma temsilleri: aynı modelin kısaltılmış boyutları (ilk 256, 512, 1.024 ve 1.536 bileşen, yeniden birim uzunluğa ölçeklenmiş; OpenAI, 2024), madde metinlerindeki sözcük örtüşmesine dayanan TF-IDF temel çizgisi (Kennedy vd., 2025) ve <code>girdiler/modeller/</code> klasöründe bulunuyorsa açık ağırlıklı modeller. Aynı kurallar bu temsillere de uygulanarak formların temsile duyarlılığı incelenir.</p><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>Ek A · Gömme modeli denetimi ve form duyarlılığı</span><button type='button' class='kopya' data-hedef='k-ekA' aria-label='Ek A · Gömme modeli denetimi ve form duyarlılığı kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-ekA' class='language-r'># ---- Ek A: gömme modeli için sonradan eklenen betimsel denetim -------------------------
+# Denetim, analiz örnekleminde kullanılmayan uygun kayıtlarda (10.362 - 4.000 = 6.362 kayıt) yapılır; böylece
+# kalibrasyon ve değerlendirme gruplarının verisi iki kez kullanılmaz. Ölçütler araştırma sorularının
+# sonuç göstergelerini kullanmaz. Denetim, form ve analiz kararları verildikten sonra eklenmiştir.
+disari &lt;- setdiff(uygun, secilen)
+R_disari &lt;- cor(Y[disari, ] - 1)                                            # 42 x 42 görgül madde korelasyonu
+
+tfidf &lt;- function(metin, kimlik) {                                          # sözcüksel temel çizgi
+  s &lt;- lapply(strsplit(gsub(&quot;[^a-z&#x27;]+&quot;, &quot; &quot;, tolower(metin)), &quot; &quot;), function(x) x[nzchar(x)])
+  sozluk &lt;- sort(unique(unlist(s)))
+  tf &lt;- t(vapply(s, function(x) as.numeric(table(factor(x, levels = sozluk))), numeric(length(sozluk))))
+  w &lt;- sweep(tf, 2, log(length(metin) / colSums(tf &gt; 0)), &quot;*&quot;); rownames(w) &lt;- kimlik; w
+}
+boyutlar &lt;- c(3072, 1536, 1024, 512, 256)                                   # ilk d bileşen; kosinüs yeniden ölçekler
+temsiller &lt;- c(setNames(lapply(boyutlar, function(d) cosine_matrix(E[, 1:d, drop = FALSE])), boyutlar),
+               list(`TF-IDF` = cosine_matrix(tfidf(maddeler$text, maddeler$item_id))))
+# İsteğe bağlı: girdiler/modeller/ klasöründe açık ağırlıklı modellerin vektörleri (emb_&lt;model&gt;.csv) varsa eklenir.
+for (yol in list.files(&quot;girdiler/modeller&quot;, &quot;^emb_.*[.]csv$&quot;, full.names = TRUE)) {
+  ad &lt;- sub(&quot;^emb_(.*)[.]csv$&quot;, &quot;\\1&quot;, basename(yol))
+  if (ad != &quot;text-embedding-3-large&quot;) temsiller[[ad]] &lt;- cosine_matrix(vektor_oku(yol))
+}
+
+alt_of &lt;- setNames(rep(names(key42), lengths(key42)), item_id(unlist(key42)))[rownames(C)]
+ust &lt;- upper.tri(C); ic &lt;- ust &amp; outer(alt_of, alt_of, &quot;==&quot;)                # 861 çift; 273 alt ölçek içi çift
+alt_olcek_tahmini &lt;- function(Cm) sapply(rownames(Cm), function(i)         # yanıt verisi kullanmaz
+  names(which.max(sapply(names(key42), function(f) mean(Cm[i, setdiff(item_id(key42[[f]]), i)])))))
+model_denetimi &lt;- function(Cm, R) {
+  Cm &lt;- Cm[rownames(R), rownames(R)]
+  ilk_k &lt;- sapply(1:3, function(k) mean(sapply(rownames(R), function(i) {   # en yüksek r&#x27;li eş ilk k komşuda mı
+    diger &lt;- setdiff(rownames(R), i)
+    names(which.max(abs(R[i, diger]))) %in% diger[order(-Cm[i, diger])][1:k]
+  })))
+  c(r_tum = cor(abs(Cm[ust]), abs(R[ust])), rho_tum = spearman(abs(Cm[ust]), abs(R[ust])),
+    r_ic = cor(Cm[ic], R[ic]), rho_ic = spearman(Cm[ic], R[ic]),
+    ilk1 = ilk_k[1], ilk2 = ilk_k[2], ilk3 = ilk_k[3], alt_olcek = mean(alt_olcek_tahmini(Cm) == alt_of[rownames(Cm)]))
+}
+denetim &lt;- do.call(rbind, lapply(names(temsiller), function(m)
+  data.frame(temsil = m, t(model_denetimi(temsiller[[m]], R_disari)))))
+denetim$n &lt;- length(disari)
+print(denetim, digits = 3)
+write.csv(denetim, &quot;html_ciktilari/ekA_model_denetimi.csv&quot;, row.names = FALSE)
+tahmin_as &lt;- alt_olcek_tahmini(C)                                           # yanlış sınıflanan maddeler
+print(data.frame(madde = names(tahmin_as), anahtar = alt_of[names(tahmin_as)], tahmin = tahmin_as)[tahmin_as != alt_of[names(tahmin_as)], ],
+      row.names = FALSE)
+
+# Formların temsile duyarlılığı: başka temsillerle kurulan formların ana formlarla ortak madde sayısı (7 üzerinden)
+duyarlilik &lt;- do.call(rbind, lapply(setdiff(names(temsiller), &quot;3072&quot;), function(m) {
+  z &lt;- form_olustur(temsiller[[m]])
+  do.call(rbind, lapply(anlamsal_formlar, function(nm)
+    data.frame(temsil = m, form = nm, t(sapply(alt_boyutlar, function(f) length(intersect(z[[nm]][[f]], formlar[[nm]][[f]])))))))
+}))
+rownames(duyarlilik) &lt;- NULL
+print(duyarlilik)
+write.csv(duyarlilik, &quot;html_ciktilari/ekA_form_duyarliligi.csv&quot;, row.names = FALSE)
+
+# Şekil: kosinüs benzerliği ve görgül korelasyon (6.362 kayıt, 861 çift)
+cift &lt;- data.frame(kosinus = C[ust], r = R_disari[ust],
+                   tur = ifelse(ic[ust], &quot;Alt ölçek içi (273 çift)&quot;, &quot;Alt ölçekler arası (588 çift)&quot;))
+sekil_ekA &lt;- ggplot(cift, aes(x = kosinus, y = r, colour = tur)) +
+  geom_point(size = 1.1, alpha = 0.65) +
+  scale_colour_manual(values = c(&quot;Alt ölçek içi (273 çift)&quot; = &quot;#0072B2&quot;, &quot;Alt ölçekler arası (588 çift)&quot; = &quot;grey62&quot;)) +
+  labs(x = &quot;Kosinüs benzerliği (text-embedding-3-large, 3072 boyut)&quot;,
+       y = &quot;Görgül madde korelasyonu (analiz dışı 6.362 kayıt)&quot;, colour = NULL) +
+  theme_bw(base_size = 11) + theme(legend.position = &quot;bottom&quot;)
+if (interactive()) print(sekil_ekA)
+ggsave(&quot;html_ciktilari/sekil_ekA_kosinus_r.png&quot;, sekil_ekA, width = 6.8, height = 4.8, dpi = 300, bg = &quot;white&quot;)</code></pre></figure><figure class="tablo" id="tablo-a1"><figcaption class="tablo-bas"><span class="tablo-no">Tablo A1</span><span class="tablo-ad">Gömme temsillerinin betimsel denetimi (analiz dışı 6.362 kayıt)</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Temsil</th><th scope="col">Ö1 · 861 çift, r (ρ)</th><th scope="col">Ö2 · 273 alt ölçek içi çift, r (ρ)</th><th scope="col">Ö3 · ilk-1 / ilk-2 / ilk-3 %</th><th scope="col">Ö4 · alt ölçek sınıflaması %</th></tr></thead><tbody><tr class="grup-satiri"><th scope="colgroup" colspan="5">Ana model ve kısaltılmış boyutları</th></tr><tr><th scope="row">3.072 boyut (ana)</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">1.536 boyut</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">1.024 boyut</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">512 boyut</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">256 boyut</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr class="grup-satiri"><th scope="colgroup" colspan="5">Karşılaştırma temsilleri</th></tr><tr><th scope="row">TF-IDF (sözcüksel)</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">all-MiniLM-L6-v2</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">bge-base-en-v1.5</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">bge-base-en</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">bge-small-en</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">multilingual-e5-large</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Görgül korelasyonlar, uygunluk ölçütlerini karşılayıp 4.000 kişilik örnekleme seçilmeyen 6.362 kayıttan hesaplanmıştır. Ö3 için şans düzeyi k/41, Ö4 için yaklaşık %33'tür. Açık ağırlıklı model satırları <code>girdiler/modeller/</code> klasöründeki vektörlerdendir (bu vektörler ONNX Runtime ile, bu denetim için üretilmiştir; üretim betiği depodadır). Kaynak dosya: <code>html_ciktilari/ekA_model_denetimi.csv</code>.</p></figure><figure class="tablo" id="tablo-a2"><figcaption class="tablo-bas"><span class="tablo-no">Tablo A2</span><span class="tablo-ad">Formların temsile duyarlılığı: ana formla ortak madde sayısı</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Temsil</th><th scope="col">MIN21 · D / A / S</th><th scope="col">MAX21 · D / A / S</th><th scope="col">COV21 · D / A / S</th></tr></thead><tbody><tr><th scope="row">1.536 boyut</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">1.024 boyut</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">512 boyut</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">256 boyut</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">TF-IDF (sözcüksel)</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">all-MiniLM-L6-v2</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">bge-base-en-v1.5</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">bge-base-en</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">bge-small-en</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">multilingual-e5-large</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Her hücre, o temsille kurulan formun 3.072 boyutlu vektörlerle kurulan formla ortak madde sayısıdır (en çok 7). Kaynak dosya: <code>html_ciktilari/ekA_form_duyarliligi.csv</code>.</p></figure><figure class="sekil" id="sekil-a1"><figcaption class="tablo-bas"><span class="tablo-no">Şekil A1</span><span class="tablo-ad">Kosinüs benzerliği ve görgül madde korelasyonu</span></figcaption><div class="sekil-yer">Kod çalıştırıldığında şekil <code>html_ciktilari/sekil_ekA_kosinus_r.png</code> dosyasına yazılır.</div></figure><h3>Nasıl okunur</h3><ul><li>Ö1 ve Ö2 yüksekse anlamca yakın madde çiftleri yanıtlarda da daha yüksek korelasyon gösteriyordur. Ö2'nin Ö1'den düşük olması beklenir; alt ölçek içindeki korelasyonlar daha dar bir aralıktadır.</li><li>Ö3 ve Ö4 şans düzeyiyle birlikte okunur. TF-IDF ile fark, benzerliğin sözcük örtüşmesinin ötesinde bilgi taşıyıp taşımadığını gösterir.</li><li>Tablo A2'de 7, formun ana formla aynı olduğunu gösterir; değer düştükçe form üyeliği temsil seçimine daha duyarlıdır.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Denetimin modeli bütün modellerin en iyisi yaptığı; yalnız burada hesaplanabilen temsiller karşılaştırılmıştır.</li><li>Kosinüs-korelasyon uyumunun anlamsal göstergelerin geçerliği için tek başına yeterli olduğu.</li><li>Denetimin önceden belirlenmiş bir karar kuralı olduğu; denetim sonradan eklenmiştir.</li></ul></div></section>
+<section id="ekB" class="soru"><p class="soru-etiket"><span class="as-no">Ek B</span>Ek</p><h2>COV21 eşit çözümleri</h2><h3>Ne yapılır</h3><p>Aynı en küçük CL'yi veren bütün kümeler listelenir; bu kümelerin kuralın seçtiği COV21 ile ortak madde sayısı, değerlendirme grubundaki alfa ve RMSE aralığı ve en küçük CL ile ondan büyük ilk CL arasındaki fark yazılır.</p><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>Ek B · COV21 eşit çözümleri</span><button type='button' class='kopya' data-hedef='k-ekB' aria-label='Ek B · COV21 eşit çözümleri kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-ekB' class='language-r'># ---- Ek B: COV21 eşit çözümleri ---------------------------------------------------------
+# Aynı en küçük CL&#x27;yi veren bütün kümeler; kuralın seçtiği küme ile ortak madde sayıları ve bu kümelerin
+# değerlendirme grubundaki alfa ve RMSE aralığı. En küçük CL ile ondan sonraki farklı CL arasındaki boşluk da verilir.
+ekB &lt;- do.call(rbind, lapply(alt_boyutlar, function(f) {
+  ak &lt;- alt_kume[[f]]; tv &lt;- tum_alt[tum_alt$subscale == f &amp; tum_alt$grup == &quot;deg&quot;, ]
+  esit &lt;- ak$subset_key[ak$cov_esit_minimum]; sec &lt;- anahtar_yap(formlar$COV21[[f]])
+  ps &lt;- tv[match(esit, tv$subset_key), ]
+  ortak &lt;- sapply(strsplit(esit, &quot;|&quot;, fixed = TRUE), function(s) length(intersect(s, formlar$COV21[[f]])))
+  cl &lt;- sort(ak$CL); sonraki &lt;- cl[cl &gt; min(cl) + tol][1]
+  data.frame(subscale = f, n_esit = length(esit), ortak_min = min(ortak),
+             alfa_min = min(ps$alpha), alfa_maks = max(ps$alpha), alfa_COV21 = tv$alpha[tv$subset_key == sec],
+             rmse_min = min(ps$rmse), rmse_maks = max(ps$rmse), rmse_COV21 = tv$rmse[tv$subset_key == sec],
+             CL_min = min(cl), CL_bosluk = sonraki - min(cl))
+}))
+print(ekB, digits = 4)
+write.csv(ekB, &quot;html_ciktilari/ekB_COV21_esit_cozumler.csv&quot;, row.names = FALSE)</code></pre></figure><figure class="tablo" id="tablo-b1"><figcaption class="tablo-bas"><span class="tablo-no">Tablo B1</span><span class="tablo-ad">COV21 eşit çözümleri</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Alt boyut</th><th scope="col">Eşit çözüm</th><th scope="col">En az ortak madde</th><th scope="col">Alfa aralığı (COV21)</th><th scope="col">RMSE aralığı, 0-3 (COV21)</th><th scope="col">Sonraki CL ile boşluk</th></tr></thead><tbody><tr><th scope="row">Depresyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Kaygı</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">Stres</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu. Eşit çözüm: CL'si en küçük CL'ye eşit (tolerans 10<sup>−12</sup>) kümeler. En az ortak madde: bu kümelerin kuralın seçtiği COV21 ile en az ortak madde sayısı. Son sütun, en küçük CL ile ondan büyük ilk CL değeri arasındaki farktır. Kaynak dosya: <code>html_ciktilari/ekB_COV21_esit_cozumler.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>Alfa ve RMSE aralığı dar ise COV21'e ilişkin sonuçlar eşitlik bozma kuralına duyarlı değildir; geniş ise sonuçlar seçilen kümeye bağlıdır.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Kuralın seçtiği kümenin tek veya en iyi COV21 olduğu.</li></ul></div></section>
+<section id="ekC" class="soru"><p class="soru-etiket"><span class="as-no">Ek C</span>Ek</p><h2>Yanıt kalitesi (VCL) duyarlılığı</h2><h3>Ne yapılır</h3><p>DASS arşivindeki sözcük listesinde VCL6, VCL9 ve VCL12 uydurma sözcüklerdir. Bunlardan en az birini “biliyorum” diye işaretleyen kayıtlar iki gruptan çıkarılır ve AS1, AS2, AS3 ve AS5'in ana değerleri yeniden hesaplanır. Formlar, ISI ve kümeler yanıt verisi kullanmadığı için değişmez.</p><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>Ek C · Yanıt kalitesi duyarlılığı</span><button type='button' class='kopya' data-hedef='k-ekC' aria-label='Ek C · Yanıt kalitesi duyarlılığı kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-ekC' class='language-r'># ---- Ek C: yanıt kalitesi (VCL) duyarlılığı -----------------------------------------------
+# Arşivdeki sözcük listesinde VCL6, VCL9 ve VCL12 uydurma sözcüklerdir. Bunlardan en az birini &quot;biliyorum&quot; (1)
+# diye işaretleyen kayıtlar iki gruptan çıkarılır; AS1, AS2, AS3 ve AS5&#x27;in ana değerleri yeniden hesaplanır.
+# Formlar, ISI ve bütün kümeler değişmez (bunlar yanıt verisi kullanmaz).
+vcl_dislan &lt;- apply(ham[secilen, c(&quot;VCL6&quot;, &quot;VCL9&quot;, &quot;VCL12&quot;)], 1, function(v) any(suppressWarnings(as.numeric(v)) %in% 1))
+kal_v &lt;- kal[!vcl_dislan[kal_sira], ]; deg_v &lt;- deg[!vcl_dislan[deg_sira], ]
+ekC_orneklem &lt;- data.frame(grup = c(&quot;kal&quot;, &quot;deg&quot;), n_dislanan = c(sum(vcl_dislan[kal_sira]), sum(vcl_dislan[deg_sira])),
+                           n_kalan = c(nrow(kal_v), nrow(deg_v)))
+print(ekC_orneklem)
+satir &lt;- function(soru, form, f, olcu, deger, ana) data.frame(soru = soru, form = form, subscale = f, olcu = olcu,
+                                                             deger = deger, ana_deger = ana, fark = deger - ana)
+ekC &lt;- list()
+for (f in alt_boyutlar) {                                                    # AS1: kalibrasyon grubu
+  havuz &lt;- formlar$FULL42[[f]]; p &lt;- grm_parameters(fit_grm(kal_v[, havuz])); p &lt;- p[match(havuz, p$item_id), ]
+  ekC[[length(ekC) + 1]] &lt;- satir(&quot;AS1&quot;, &quot;FULL42&quot;, f, &quot;rho_ISI_a&quot;, spearman(ISI[[f]][havuz], p$a),
+                                  as1_tablo$rho_ISI_a[as1_tablo$subscale == f &amp; as1_tablo$grup == &quot;kal&quot;])
+}
+for (form in kisa_formlar) {                                                 # AS2 ve AS3: değerlendirme grubu
+  om &lt;- omega_values(fit_cfa(deg_v, formlar[[form]]))
+  for (f in alt_boyutlar) {
+    ana &lt;- as2_guvenirlik[as2_guvenirlik$form == form &amp; as2_guvenirlik$subscale == f, ]
+    ekC[[length(ekC) + 1]] &lt;- satir(&quot;AS2&quot;, form, f, &quot;omega&quot;, as.numeric(om[f]), ana$omega)
+    ekC[[length(ekC) + 1]] &lt;- satir(&quot;AS2&quot;, form, f, &quot;alfa&quot;, alpha_raw(deg_v[, formlar[[form]][[f]]]), ana$alfa)
+    u &lt;- uyum_olculeri(rowMeans(deg_v[, formlar[[form]][[f]]]), rowMeans(deg_v[, formlar$FULL42[[f]]]))
+    ekC[[length(ekC) + 1]] &lt;- satir(&quot;AS3&quot;, form, f, &quot;rmse&quot;, u[[&quot;rmse&quot;]],
+                                    as3_uyum$rmse[as3_uyum$form == form &amp; as3_uyum$subscale == f])
+  }
+}
+for (f in alt_boyutlar) {                                                    # AS5: değerlendirme grubu
+  ps &lt;- alt_kume_psikometrik(deg_v, formlar$FULL42[[f]], alt_kume[[f]]$subset_key); kb &lt;- alt_kume[[f]]$kanonik_bolme
+  ana &lt;- as5[as5$subscale == f &amp; as5$grup == &quot;deg&quot;, ]
+  ekC[[length(ekC) + 1]] &lt;- satir(&quot;AS5&quot;, NA, f, &quot;rho_SB_alfa&quot;, spearman(alt_kume[[f]]$SB, ps$alpha), ana$rho_SB_alfa)
+  ekC[[length(ekC) + 1]] &lt;- satir(&quot;AS5&quot;, NA, f, &quot;rho_CLb_rmse&quot;, spearman(alt_kume[[f]]$CL_b[kb], ps$rmse[kb]), ana$rho_CLb_rmse)
+}
+ekC &lt;- do.call(rbind, ekC); rownames(ekC) &lt;- NULL
+ekC_ozet &lt;- aggregate(cbind(en_buyuk_mutlak_fark = abs(fark)) ~ soru + olcu, data = ekC, FUN = max)
+print(ekC_ozet, digits = 3)
+write.csv(ekC_orneklem, &quot;html_ciktilari/ekC_VCL_orneklem.csv&quot;, row.names = FALSE)
+write.csv(ekC, &quot;html_ciktilari/ekC_VCL_duyarlilik.csv&quot;, row.names = FALSE)
+write.csv(ekC_ozet, &quot;html_ciktilari/ekC_VCL_ozet.csv&quot;, row.names = FALSE)</code></pre></figure><figure class="tablo" id="tablo-c1"><figcaption class="tablo-bas"><span class="tablo-no">Tablo C1</span><span class="tablo-ad">Yanıt kalitesi (VCL) duyarlılığı</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Soru ve gösterge</th><th scope="col">Değer sayısı</th><th scope="col">Dışlama sonrası aralık</th><th scope="col">En büyük mutlak fark</th></tr></thead><tbody><tr><th scope="row">AS1 · ρ(ISI, a), kalibrasyon</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">AS2 · Kategorik omega</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">AS2 · Alfa</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">AS3 · RMSE (0-3)</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">AS5 · ρ(SB, alfa)</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row">AS5 · ρ(CL<sub>b</sub>, RMSE)</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Dışlanan kayıt sayıları tablonun notuna yazılır. Fark = dışlama sonrası değer eksi ana değer. Her satır ilgili form ve alt boyutların tamamını özetler; satır satır değerler kaynak dosyadadır. Kaynak dosya: <code>html_ciktilari/ekC_VCL_duyarlilik.csv</code> ve <code>html_ciktilari/ekC_VCL_orneklem.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>Farkların büyüklüğü ve form sıralarının korunup korunmadığı yazılır; dışlama sonrası değerler ana sonuçların yerine geçmez.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>VCL işaretinin geçersiz yanıtı kesin olarak belirlediği; bu bir yanıt kalitesi göstergesidir.</li></ul></div></section>
+<section id="ekD" class="soru"><p class="soru-etiket"><span class="as-no">Ek D</span>Ek</p><h2>Kategorik omeganın iki hesaplama biçimi</h2><h3>Ne yapılır</h3><p>Ana analizde omega, paydada modelin örtük yanıt varyansını kullanır (<code>obs.var = FALSE</code>). <code>obs.var = TRUE</code> paydada gözlenen polikorik matristen gelen varyansı kullanır; model uyumu kusursuz değilse iki değer ayrışabilir.</p><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>Ek D · Omega hesaplama biçimi</span><button type='button' class='kopya' data-hedef='k-ekD' aria-label='Ek D · Omega hesaplama biçimi kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-ekD' class='language-r'># ---- Ek D: kategorik omeganın iki hesaplama biçimi ------------------------------------------
+# Ana analizde obs.var = FALSE (payda modelin örtük yanıt varyansı). obs.var = TRUE paydada gözlenen
+# polikorik matristen gelen varyansı kullanır; model uyumu kusursuz değilse iki değer ayrışabilir.
+ekD &lt;- do.call(rbind, lapply(c(&quot;FULL42&quot;, kisa_formlar), function(form) {
+  a &lt;- omega_values(dfa_fit[[form]], obs.var = FALSE); b &lt;- omega_values(dfa_fit[[form]], obs.var = TRUE)
+  data.frame(form = form, subscale = alt_boyutlar, omega_model = as.numeric(a), omega_gozlenen = as.numeric(b),
+             fark = as.numeric(b - a))
+}))
+rownames(ekD) &lt;- NULL
+print(ekD, digits = 3)
+write.csv(ekD, &quot;html_ciktilari/ekD_omega_obsvar.csv&quot;, row.names = FALSE)</code></pre></figure><figure class="tablo" id="tablo-d1"><figcaption class="tablo-bas"><span class="tablo-no">Tablo D1</span><span class="tablo-ad">Kategorik omeganın iki hesaplama biçimi</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Form</th><th scope="col">obs.var = FALSE · D / A / S</th><th scope="col">obs.var = TRUE · D / A / S</th><th scope="col">Fark · D / A / S</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><span class="isaret" aria-hidden="true"></span>FULL42</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><rect x="1" y="1" width="10" height="10" fill="var(--pub)"/></svg>PUB21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span></th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu; AS2'deki DFA modelleri. obs.var = FALSE ana analizdeki değerdir (Tablo 10). Fark = TRUE eksi FALSE. Kaynak dosya: <code>html_ciktilari/ekD_omega_obsvar.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>Fark büyükse omega değeri hesaplama biçimine duyarlıdır; formlar arasındaki sıra her iki biçimde de korunuyorsa AS2'nin karşılaştırmalı yorumu etkilenmez.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>İki biçimden birinin “doğru” omega olduğu; ana analizdeki biçim önceden belirlenmiştir.</li></ul></div></section>
+<section id="ekE" class="soru"><p class="soru-etiket"><span class="as-no">Ek E</span>Ek</p><h2>Alfa farkları için eşleştirilmiş bootstrap</h2><h3>Ne yapılır</h3><p>AS3'teki 2.000 eşleştirilmiş bootstrap tekrarında hesaplanan alfa farkları (anlamsal form eksi PUB21) verilir; yeni hesap yapılmaz.</p><h3>R kodu</h3><figure class='kod'><div class='kod-bas'><span class='kod-ad'>Ek E · Alfa farkları</span><button type='button' class='kopya' data-hedef='k-ekE' aria-label='Ek E · Alfa farkları kodunu kopyala'>Kopyala</button></div><pre tabindex='0'><code id='k-ekE' class='language-r'># ---- Ek E: alfa farkları için eşleştirilmiş bootstrap -----------------------------------------
+# Yeni hesap yapmaz; AS3&#x27;teki 2.000 bootstrap tekrarında hesaplanan alfa farklarını (anlamsal form eksi PUB21) yazar.
+ekE &lt;- boot_tablo[boot_tablo$olcu == &quot;alfa&quot;, ]
+print(ekE, digits = 3)
+write.csv(ekE, &quot;html_ciktilari/ekE_alfa_bootstrap.csv&quot;, row.names = FALSE)</code></pre></figure><figure class="tablo" id="tablo-e1"><figcaption class="tablo-bas"><span class="tablo-no">Tablo E1</span><span class="tablo-ad">Alfa farkı: anlamsal form eksi PUB21</span></figcaption><div class="tablo-kap"><table class=""><thead><tr><th scope="col">Karşılaştırma</th><th scope="col">Depresyon</th><th scope="col">Kaygı</th><th scope="col">Stres</th></tr></thead><tbody><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="var(--min)"/></svg>MIN21</span> eksi PUB21</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,1 11.5,11 0.5,11" fill="var(--max)"/></svg>MAX21</span> eksi PUB21</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr><tr><th scope="row"><span class="form-hucre"><svg class="isaret" viewBox="0 0 12 12" aria-hidden="true"><polygon points="6,0.5 11.5,6 6,11.5 0.5,6" fill="var(--cov)"/></svg>COV21</span> eksi PUB21</th><td><span class="bos">…</span></td><td><span class="bos">…</span></td><td><span class="bos">…</span></td></tr></tbody></table></div><p class="not">Değerlendirme grubu; fark ve %95 yüzdelik bootstrap aralığı; 2.000 eşleştirilmiş tekrar, set.seed(20260913 + b). Pozitif fark, anlamsal formun alfasının PUB21'inkinden yüksek olduğunu gösterir. Kaynak dosya: <code>html_ciktilari/ekE_alfa_bootstrap.csv</code>.</p></figure><h3>Nasıl okunur</h3><ul><li>Aralık sıfırı dışlıyorsa fark bu örneklemin yeniden örneklemelerinde tutarlı yöndedir; sıfırı içermesi eşdeğerlik kanıtı değildir.</li></ul><div class="soylenmez"><p class="etiket">Yorumda söylenmez</p><ul><li>Alfa farklarını omega farkları için geçerli saymak.</li></ul></div></section><p class="son-not">Boş tablolar kod çalıştırıldığında <code>html_ciktilari/</code> klasörüne yazılan CSV dosyalarıyla dolar; her tablonun notunda kaynak dosya adı verilmiştir.</p></main></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/r.min.js"></script>
+<script>
+(function () {
+  function kopyala(yazi) {
+    try { return navigator.clipboard.writeText(yazi); } catch (hata) { return Promise.reject(hata); }
+  }
+  function bildir(dugme, yazi) {
+    if (!dugme.dataset.eski) dugme.dataset.eski = dugme.textContent;
+    dugme.textContent = yazi;
+    clearTimeout(dugme._zaman);
+    dugme._zaman = setTimeout(function () { dugme.textContent = dugme.dataset.eski; }, 2400);
+  }
+  function sec(el) {
+    var aralik = document.createRange(); aralik.selectNodeContents(el);
+    var secim = window.getSelection(); secim.removeAllRanges(); secim.addRange(aralik);
+  }
+  function tumKod() {
+    return Array.prototype.map.call(document.querySelectorAll("pre code.language-r"), function (el) {
+      return el.textContent;
+    }).join("\n\n") + "\n";
+  }
+  document.addEventListener("click", function (olay) {
+    var tek = olay.target.closest("button.kopya");
+    if (tek) {
+      var hedef = document.getElementById(tek.dataset.hedef);
+      kopyala(hedef.textContent + "\n").then(function () { bildir(tek, "Kopyalandı"); },
+        function () { sec(hedef); bildir(tek, "Seçildi, Ctrl+C ile kopyalayın"); });
+      return;
+    }
+    var tumu = olay.target.closest("button.tumu");
+    if (tumu) {
+      var yazi = tumKod();
+      kopyala(yazi).then(function () { bildir(tumu, "Bütün kod kopyalandı"); }, function () {
+        var alan = document.getElementById("tum-kod-alani");
+        alan.value = yazi; alan.hidden = false; alan.focus(); alan.select();
+        bildir(tumu, "Kutudaki metni kopyalayın");
+      });
+      return;
+    }
+    var ac = olay.target.closest("button.acma");
+    if (ac) {
+      var kutular = document.querySelectorAll("details.bulgu");
+      var hepsiAcik = Array.prototype.every.call(kutular, function (d) { return d.open; });
+      kutular.forEach(function (d) { d.open = !hepsiAcik; });
+      ac.textContent = hepsiAcik ? "Bütün bulguları aç" : "Bütün bulguları kapat";
+    }
+  });
+  if (window.hljs) {
+    document.querySelectorAll("pre code.language-r").forEach(function (el) {
+      try { window.hljs.highlightElement(el); } catch (hata) { /* renklendirme olmadan da okunur */ }
+    });
+  }
+  var hedefBolum = location.hash ? document.getElementById(location.hash.slice(1)) : null;
+  if (hedefBolum) { var d = hedefBolum.querySelector("details.bulgu"); if (d) d.open = true; }
+  var baglantilar = Array.prototype.slice.call(document.querySelectorAll("nav.icindekiler a"));
+  if ("IntersectionObserver" in window) {
+    var gozcu = new IntersectionObserver(function (girdiler) {
+      girdiler.forEach(function (g) {
+        if (g.isIntersecting) {
+          baglantilar.forEach(function (a) { a.classList.toggle("etkin", a.getAttribute("href") === "#" + g.target.id); });
+        }
+      });
+    }, { rootMargin: "-20% 0px -70% 0px" });
+    document.querySelectorAll("main > section[id]").forEach(function (s) { gozcu.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
