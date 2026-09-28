@@ -1,0 +1,85 @@
+"form","subscale","elenen","elenen_metin","en_yakin","en_yakin_metin","uzaklik","en_zayif"
+"PUB21","D","Q05","I just couldn't seem to get going.","Q31","I was unable to become enthusiastic about anything.",0.434219032188597,TRUE
+"PUB21","D","Q13","I felt sad and depressed.","Q26","I felt down-hearted and blue.",0.257111570251209,FALSE
+"PUB21","D","Q16","I felt that I had lost interest in just about everything.","Q31","I was unable to become enthusiastic about anything.",0.326000222671169,FALSE
+"PUB21","D","Q21","I felt that life wasn't worthwhile.","Q38","I felt that life was meaningless.",0.146645266544821,FALSE
+"PUB21","D","Q24","I couldn't seem to get any enjoyment out of the things I did.","Q31","I was unable to become enthusiastic about anything.",0.328715795667702,FALSE
+"PUB21","D","Q34","I felt I was pretty worthless.","Q17","I felt I wasn't worth much as a person.",0.175970645748935,FALSE
+"PUB21","D","Q37","I could see nothing in the future to be hopeful about.","Q10","I felt that I had nothing to look forward to.",0.261138149518453,FALSE
+"PUB21","A","Q07","I had a feeling of shakiness (eg, legs going to give way).","Q41","I experienced trembling (eg, in the hands).",0.286269534046894,FALSE
+"PUB21","A","Q09","I found myself in situations that made me so anxious I was most relieved when they ended.","Q40","I was worried about situations in which I might panic and make a fool of myself.",0.470963082198284,FALSE
+"PUB21","A","Q15","I had a feeling of faintness.","Q28","I felt I was close to panic.",0.447398272168127,FALSE
+"PUB21","A","Q19","I perspired noticeably (eg, hands sweaty) in the absence of high temperatures or physical exertion.","Q41","I experienced trembling (eg, in the hands).",0.436992153247499,FALSE
+"PUB21","A","Q23","I had difficulty in swallowing.","Q04","I experienced breathing difficulty (eg, excessively rapid breathing, breathlessness in the absence of physical exertion).",0.524689424768321,TRUE
+"PUB21","A","Q30","I feared that I would be ""thrown"" by some trivial but unfamiliar task.","Q40","I was worried about situations in which I might panic and make a fool of myself.",0.45425552654891,FALSE
+"PUB21","A","Q36","I felt terrified.","Q28","I felt I was close to panic.",0.374607131142233,FALSE
+"PUB21","S","Q01","I found myself getting upset by quite trivial things.","Q39","I found myself getting agitated.",0.29273232383549,FALSE
+"PUB21","S","Q11","I found myself getting upset rather easily.","Q39","I found myself getting agitated.",0.233249267216443,FALSE
+"PUB21","S","Q14","I found myself getting impatient when I was delayed in any way (eg, elevators, traffic lights, being kept waiting).","Q39","I found myself getting agitated.",0.372092355245934,TRUE
+"PUB21","S","Q27","I found that I was very irritable.","Q39","I found myself getting agitated.",0.270723384630209,FALSE
+"PUB21","S","Q29","I found it hard to calm down after something upset me.","Q22","I found it hard to wind down.",0.322943300070363,FALSE
+"PUB21","S","Q32","I found it difficult to tolerate interruptions to what I was doing.","Q35","I was intolerant of anything that kept me from getting on with what I was doing.",0.30224080370919,FALSE
+"PUB21","S","Q33","I was in a state of nervous tension.","Q12","I felt that I was using a lot of nervous energy.",0.35267594847521,FALSE
+"MIN21","D","Q03","I couldn't seem to experience any positive feeling at all.","Q24","I couldn't seem to get any enjoyment out of the things I did.",0.345639405730576,FALSE
+"MIN21","D","Q10","I felt that I had nothing to look forward to.","Q37","I could see nothing in the future to be hopeful about.",0.261138149518453,FALSE
+"MIN21","D","Q16","I felt that I had lost interest in just about everything.","Q24","I couldn't seem to get any enjoyment out of the things I did.",0.422786674104058,TRUE
+"MIN21","D","Q21","I felt that life wasn't worthwhile.","Q17","I felt I wasn't worth much as a person.",0.293582581914745,FALSE
+"MIN21","D","Q31","I was unable to become enthusiastic about anything.","Q24","I couldn't seem to get any enjoyment out of the things I did.",0.328715795667702,FALSE
+"MIN21","D","Q34","I felt I was pretty worthless.","Q17","I felt I wasn't worth much as a person.",0.175970645748935,FALSE
+"MIN21","D","Q38","I felt that life was meaningless.","Q17","I felt I wasn't worth much as a person.",0.375487367445228,FALSE
+"MIN21","A","Q04","I experienced breathing difficulty (eg, excessively rapid breathing, breathlessness in the absence of physical exertion).","Q25","I was aware of the action of my heart in the absence of physical exertion (eg, sense of heart rate increase, heart missing a beat).",0.476151187261447,FALSE
+"MIN21","A","Q07","I had a feeling of shakiness (eg, legs going to give way).","Q25","I was aware of the action of my heart in the absence of physical exertion (eg, sense of heart rate increase, heart missing a beat).",0.538088997109247,FALSE
+"MIN21","A","Q15","I had a feeling of faintness.","Q23","I had difficulty in swallowing.",0.547801960311013,FALSE
+"MIN21","A","Q20","I felt scared without any good reason.","Q40","I was worried about situations in which I might panic and make a fool of myself.",0.572148461945589,TRUE
+"MIN21","A","Q28","I felt I was close to panic.","Q40","I was worried about situations in which I might panic and make a fool of myself.",0.416097504896891,FALSE
+"MIN21","A","Q36","I felt terrified.","Q30","I feared that I would be ""thrown"" by some trivial but unfamiliar task.",0.543209095206495,FALSE
+"MIN21","A","Q41","I experienced trembling (eg, in the hands).","Q19","I perspired noticeably (eg, hands sweaty) in the absence of high temperatures or physical exertion.",0.436992153247499,FALSE
+"MIN21","S","Q01","I found myself getting upset by quite trivial things.","Q14","I found myself getting impatient when I was delayed in any way (eg, elevators, traffic lights, being kept waiting).",0.444272896410201,TRUE
+"MIN21","S","Q08","I found it difficult to relax.","Q22","I found it hard to wind down.",0.228072764118109,FALSE
+"MIN21","S","Q11","I found myself getting upset rather easily.","Q18","I felt that I was rather touchy.",0.368686932472133,FALSE
+"MIN21","S","Q27","I found that I was very irritable.","Q18","I felt that I was rather touchy.",0.396161899586265,FALSE
+"MIN21","S","Q29","I found it hard to calm down after something upset me.","Q22","I found it hard to wind down.",0.322943300070363,FALSE
+"MIN21","S","Q32","I found it difficult to tolerate interruptions to what I was doing.","Q35","I was intolerant of anything that kept me from getting on with what I was doing.",0.30224080370919,FALSE
+"MIN21","S","Q39","I found myself getting agitated.","Q14","I found myself getting impatient when I was delayed in any way (eg, elevators, traffic lights, being kept waiting).",0.372092355245934,FALSE
+"MAX21","D","Q05","I just couldn't seem to get going.","Q31","I was unable to become enthusiastic about anything.",0.434219032188597,TRUE
+"MAX21","D","Q13","I felt sad and depressed.","Q34","I felt I was pretty worthless.",0.420504302661022,FALSE
+"MAX21","D","Q17","I felt I wasn't worth much as a person.","Q34","I felt I was pretty worthless.",0.175970645748935,FALSE
+"MAX21","D","Q24","I couldn't seem to get any enjoyment out of the things I did.","Q31","I was unable to become enthusiastic about anything.",0.328715795667702,FALSE
+"MAX21","D","Q26","I felt down-hearted and blue.","Q34","I felt I was pretty worthless.",0.434177820072468,FALSE
+"MAX21","D","Q37","I could see nothing in the future to be hopeful about.","Q10","I felt that I had nothing to look forward to.",0.261138149518453,FALSE
+"MAX21","D","Q42","I found it difficult to work up the initiative to do things.","Q31","I was unable to become enthusiastic about anything.",0.432112363005205,FALSE
+"MAX21","A","Q02","I was aware of dryness of my mouth.","Q15","I had a feeling of faintness.",0.59587411074923,TRUE
+"MAX21","A","Q09","I found myself in situations that made me so anxious I was most relieved when they ended.","Q28","I felt I was close to panic.",0.529620561193812,FALSE
+"MAX21","A","Q19","I perspired noticeably (eg, hands sweaty) in the absence of high temperatures or physical exertion.","Q41","I experienced trembling (eg, in the hands).",0.436992153247499,FALSE
+"MAX21","A","Q23","I had difficulty in swallowing.","Q04","I experienced breathing difficulty (eg, excessively rapid breathing, breathlessness in the absence of physical exertion).",0.524689424768321,FALSE
+"MAX21","A","Q25","I was aware of the action of my heart in the absence of physical exertion (eg, sense of heart rate increase, heart missing a beat).","Q04","I experienced breathing difficulty (eg, excessively rapid breathing, breathlessness in the absence of physical exertion).",0.476151187261447,FALSE
+"MAX21","A","Q30","I feared that I would be ""thrown"" by some trivial but unfamiliar task.","Q36","I felt terrified.",0.543209095206495,FALSE
+"MAX21","A","Q40","I was worried about situations in which I might panic and make a fool of myself.","Q28","I felt I was close to panic.",0.416097504896891,FALSE
+"MAX21","S","Q06","I tended to over-react to situations.","Q11","I found myself getting upset rather easily.",0.415674240690607,FALSE
+"MAX21","S","Q12","I felt that I was using a lot of nervous energy.","Q27","I found that I was very irritable.",0.474291575982834,TRUE
+"MAX21","S","Q14","I found myself getting impatient when I was delayed in any way (eg, elevators, traffic lights, being kept waiting).","Q39","I found myself getting agitated.",0.372092355245934,FALSE
+"MAX21","S","Q18","I felt that I was rather touchy.","Q11","I found myself getting upset rather easily.",0.368686932472133,FALSE
+"MAX21","S","Q22","I found it hard to wind down.","Q08","I found it difficult to relax.",0.228072764118109,FALSE
+"MAX21","S","Q33","I was in a state of nervous tension.","Q08","I found it difficult to relax.",0.465763807816213,FALSE
+"MAX21","S","Q35","I was intolerant of anything that kept me from getting on with what I was doing.","Q32","I found it difficult to tolerate interruptions to what I was doing.",0.30224080370919,FALSE
+"COV21","D","Q03","I couldn't seem to experience any positive feeling at all.","Q31","I was unable to become enthusiastic about anything.",0.358522230137207,TRUE
+"COV21","D","Q16","I felt that I had lost interest in just about everything.","Q31","I was unable to become enthusiastic about anything.",0.326000222671169,FALSE
+"COV21","D","Q24","I couldn't seem to get any enjoyment out of the things I did.","Q31","I was unable to become enthusiastic about anything.",0.328715795667702,FALSE
+"COV21","D","Q26","I felt down-hearted and blue.","Q13","I felt sad and depressed.",0.257111570251209,FALSE
+"COV21","D","Q34","I felt I was pretty worthless.","Q17","I felt I wasn't worth much as a person.",0.175970645748935,FALSE
+"COV21","D","Q37","I could see nothing in the future to be hopeful about.","Q10","I felt that I had nothing to look forward to.",0.261138149518453,FALSE
+"COV21","D","Q38","I felt that life was meaningless.","Q21","I felt that life wasn't worthwhile.",0.146645266544821,FALSE
+"COV21","A","Q09","I found myself in situations that made me so anxious I was most relieved when they ended.","Q40","I was worried about situations in which I might panic and make a fool of myself.",0.470963082198284,FALSE
+"COV21","A","Q15","I had a feeling of faintness.","Q07","I had a feeling of shakiness (eg, legs going to give way).",0.305244076427756,FALSE
+"COV21","A","Q20","I felt scared without any good reason.","Q36","I felt terrified.",0.39902224728074,FALSE
+"COV21","A","Q25","I was aware of the action of my heart in the absence of physical exertion (eg, sense of heart rate increase, heart missing a beat).","Q04","I experienced breathing difficulty (eg, excessively rapid breathing, breathlessness in the absence of physical exertion).",0.476151187261447,TRUE
+"COV21","A","Q28","I felt I was close to panic.","Q36","I felt terrified.",0.374607131142233,FALSE
+"COV21","A","Q30","I feared that I would be ""thrown"" by some trivial but unfamiliar task.","Q40","I was worried about situations in which I might panic and make a fool of myself.",0.45425552654891,FALSE
+"COV21","A","Q41","I experienced trembling (eg, in the hands).","Q07","I had a feeling of shakiness (eg, legs going to give way).",0.286269534046894,FALSE
+"COV21","S","Q01","I found myself getting upset by quite trivial things.","Q11","I found myself getting upset rather easily.",0.163297357289937,FALSE
+"COV21","S","Q22","I found it hard to wind down.","Q08","I found it difficult to relax.",0.228072764118109,FALSE
+"COV21","S","Q27","I found that I was very irritable.","Q11","I found myself getting upset rather easily.",0.260469076841186,FALSE
+"COV21","S","Q29","I found it hard to calm down after something upset me.","Q11","I found myself getting upset rather easily.",0.287183822389801,FALSE
+"COV21","S","Q33","I was in a state of nervous tension.","Q12","I felt that I was using a lot of nervous energy.",0.35267594847521,TRUE
+"COV21","S","Q35","I was intolerant of anything that kept me from getting on with what I was doing.","Q32","I found it difficult to tolerate interruptions to what I was doing.",0.30224080370919,FALSE
+"COV21","S","Q39","I found myself getting agitated.","Q11","I found myself getting upset rather easily.",0.233249267216443,FALSE

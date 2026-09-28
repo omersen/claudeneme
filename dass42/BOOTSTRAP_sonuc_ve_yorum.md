@@ -93,5 +93,5 @@ Aralıklar her fark için ayrı ayrı hesaplanmıştır; eşzamanlı değildir v
 
 ## Dosyalar
 
-- `berkcan_dass42_analiz.R`: AS1, AS2, AS3, ALT KÜME TABLOSU ve BOOTSTRAP blokları doldurulmuş şablon.
+- `berkcan_dass42_analiz.R`: şablonun güncel hâli (en son doldurulan bloklar için en yeni belgeye bakın).
 - `ciktilar_boot_01/`: `tablo_bootstrap_farklar.csv`, `sonuc_degerleri.csv`, `kabul_raporu.csv`, `cikti_denetimi.csv`, `ic_denetimler.csv`, `analiz_gunlugu.txt`, `calistirma_durumu.json`, `oturum_bilgisi.txt`, `karsilastirma_ref06.txt`.
