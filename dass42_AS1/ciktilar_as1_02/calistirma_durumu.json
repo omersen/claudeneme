@@ -1,7 +1,7 @@
 {
-  "kimlik": "as1_01",
-  "baslangic": "2026-09-28 13:06:49 UTC",
-  "bitis": "2026-09-28 13:07:20 UTC",
+  "kimlik": "as1_02",
+  "baslangic": "2026-09-28 13:28:53 UTC",
+  "bitis": "2026-09-28 13:29:25 UTC",
   "surumler": {
     "R": "4.5.3",
     "lavaan": "0.7.2",
