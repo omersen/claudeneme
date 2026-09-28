@@ -1,0 +1,7 @@
+2026-09-28 13:06:52 UTC BASLANGIC as1_01 
+2026-09-28 13:06:52 UTC SURUMLER R 4.5.3; lavaan 0.7.2; semTools 0.5.9; mirt 1.47 (beklenenle aynı) 
+2026-09-28 13:06:58 UTC VERI_HAZIR 2000 2000 
+2026-09-28 13:07:02 UTC FORMLAR_HAZIR 
+2026-09-28 13:07:20 UTC AS1_HAZIR 
+2026-09-28 13:07:20 UTC EKSIK_VEYA_HATALI_CIKTILAR tablo_AS2_DFA_uyum.csv, tablo_AS2_yukler.csv, tablo_AS2_faktor_korelasyonlari.csv, tablo_AS2_guvenirlik.csv, tablo_AS3_uyum.csv, tum_alt_kumeler.csv, tablo_form_yuzdelikleri.csv, tablo_butunlesik.csv, tablo_bootstrap_farklar.csv, tablo_AS4_anlamsal.csv, tablo_AS4_SB_CL.csv, tablo_AS4_madde_temsil.csv, tablo_AS5_iliskiler.csv, ek_COV21_esit_cozumler.csv, ek_VCL_orneklem.csv, ek_VCL_duyarlilik.csv, sekil_AS1_ISI_a.png, sekil_AS5_alt_kume_testi.png 
+2026-09-28 13:07:20 UTC KABUL 20 / 279 | eksik: 258 | farkli: 1 
