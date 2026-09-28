@@ -1,10 +1,10 @@
 # Analiz tablolarını danışman başvuru çıktısıyla (ref06) karşılaştırır.
 # Kullanım: Rscript karsilastir_as1_ref06.R <AS1 çalıştırma klasörü> <ref06 klasörü>
-# YZ_ISTEMLERI.md'nin son bölümündeki karşılaştırma koduna dayanır; yalnız tablo_* ve tum_alt_kumeler.csv dosyalarını okur.
+# YZ_ISTEMLERI.md'nin son bölümündeki karşılaştırma koduna dayanır; yalnız tablo_*, ek_* ve tum_alt_kumeler.csv dosyalarını okur.
 args <- commandArgs(trailingOnly = TRUE)
 a_klasor <- args[1]; b_klasor <- args[2]
 stopifnot(dir.exists(a_klasor), dir.exists(b_klasor))
-dosyalar <- grep("^(tablo_|tum_alt_kumeler)", intersect(list.files(a_klasor, "\\.csv$"), list.files(b_klasor, "\\.csv$")), value = TRUE)
+dosyalar <- grep("^(tablo_|tum_alt_kumeler|ek_)", intersect(list.files(a_klasor, "\\.csv$"), list.files(b_klasor, "\\.csv$")), value = TRUE)
 karsilastir <- function(d) {
   a <- read.csv(file.path(a_klasor, d)); b <- read.csv(file.path(b_klasor, d))
   if (!identical(dim(a), dim(b)) || !identical(names(a), names(b)))

@@ -1236,7 +1236,14 @@ for (f in alt_boyutlar) {
   sonuc[[paste0("EK_VCL_AS5_SB_alfa_", f)]] <- rho_sb
   sonuc[[paste0("EK_VCL_AS5_CLb_rmse_", f)]] <- rho_clb
 }
-ek_vcl_tablo <- do.call(rbind, ek_vcl); rownames(ek_vcl_tablo) <- NULL
+ek_vcl_tablo <- do.call(rbind, ek_vcl)
+# YONERGE Kural 7: form içeren tablolarda önce form, sonra alt boyut. AS1 (FULL42) başta, AS5 (form yok) sonda;
+# her formda önce uyum satırları (alt boyut yok), sonra her alt boyutta omega, alfa, yanlılık, RMSE.
+olcu_sirasi <- c("rho_ISI_a", "cfi.scaled", "rmsea.scaled", "srmr", "omega", "alfa", "bias", "rmse", "rho_SB_alfa", "rho_CLb_rmse")
+ek_vcl_tablo <- ek_vcl_tablo[order(match(ek_vcl_tablo$form, c("FULL42", kisa_formlar), nomatch = 99L),
+                                   match(ek_vcl_tablo$subscale, alt_boyutlar, nomatch = 0L),
+                                   match(ek_vcl_tablo$olcu, olcu_sirasi)), ]
+rownames(ek_vcl_tablo) <- NULL
 kontrol("EK_VCL_69_satir", nrow(ek_vcl_tablo) == 69L)
 csv_yaz(ek_vcl_tablo, "ek_VCL_duyarlilik.csv")
 cat("\nEK ANALİZLER özeti: COV21 eşit çözümleri\n"); print(do.call(rbind, ek_cov_listesi), row.names = FALSE, digits = 4)
@@ -1255,6 +1262,84 @@ log_yaz("EK_ANALIZLER_HAZIR")
 #   scales = "free") kullanılır. Gri noktalar bütün kümeler; dört form ayrı şekil ve renkle (formun kendi satırındaki
 #   değerlerle); panel başlığında rho. Şeklin alt yazısı (caption), MIN21 ile MAX21'in aynı bölünme olduğunu ve
 #   alt satırda üst üste düştüğünü belirtir.
+
+# ---------------------------------------------------------------------------------------------
+# OKUMA KILAVUZU (yukarıdaki satırlar bloğun bağlayıcı tanımıdır; aşağıdaki notlar yalnız kodu
+# anlamayı kolaylaştırır ve tanımı değiştirmez)
+#
+# Bu blok yeni bir hesap yapmaz; önceki blokların sonuçlarını iki şekille gösterir.
+#   sekil_AS1_ISI_a.png         (AS1): Her alt boyutta 14 madde. x = ISI (madde metinlerinden),
+#                                y = kalibrasyon grubundaki GRM ayırt ediciliği a (as1_parametreler).
+#                                Noktalar madde kimlikleriyle etiketlidir; panel başlığında Spearman rho.
+#   sekil_AS5_alt_kume_testi.png (AS5): Değerlendirme grubu (tum_alt). Üst satır: 3.432 kümede SB ile alfa;
+#                                alt satır: 1.716 bölünmede CL_b ile RMSE. Gri noktalar bütün kümeler; dört
+#                                form kendi satırlarındaki değerlerle ayrı şekil ve renkle işaretlidir.
+#
+# Nasıl okunur?
+#   AS1 şekli: noktalar sağa doğru yükseliyorsa (pozitif rho), diğer maddelere anlamca daha benzer maddelerin
+#     a değeri daha yüksek olma eğilimindedir. Tek tek maddeler (ör. en solda kalanlar) yorumu somutlaştırır;
+#     14 noktaya dayanan bir betimlemedir, nedensellik göstermez.
+#   AS5 şekli: üst satırda bulutun aşağı eğimi, çeşitlilik arttıkça alfanın düşme eğilimini; alt satırda yukarı
+#     eğimi, iki yarının birbirini daha az temsil etmesiyle RMSE'nin artma eğilimini gösterir. Formların bulut
+#     içindeki yeri, ALT KÜME TABLOSU'ndaki yüzdeliklerin görsel karşılığıdır. MIN21 ile MAX21 aynı bölünmenin
+#     iki yarısı olduğu için alt satırda üst üste düşer; bu bir hata değildir (şeklin alt yazısında belirtilir).
+#   Söylenmez: şekiller yordama iddiası, başarı eşiği veya "en iyi küme" seçimi için kullanılmaz.
+# ---------------------------------------------------------------------------------------------
+virgullu <- function(x, basamak = 2) sub(".", ",", formatC(x, format = "f", digits = basamak), fixed = TRUE)
+alt_boyut_adi <- c(D = "Depresyon (D)", A = "Kaygı (A)", S = "Stres (S)")
+eksen_virgul <- function(x) sub(".", ",", format(x, trim = TRUE), fixed = TRUE)   # eksenlerde ondalık virgül, eşit basamak
+
+# ---- Şekil 1: AS1, ISI ile a (kalibrasyon grubu) ----
+s1 <- as1_parametreler[as1_parametreler$grup == "kal", c("subscale", "item_id", "ISI", "a")]
+s1$panel <- factor(paste0(alt_boyut_adi[s1$subscale], ", rho = ",
+                          virgullu(unlist(sonuc[paste0("AS1_rho_kal_", s1$subscale)]))),
+                   levels = paste0(alt_boyut_adi, ", rho = ", virgullu(unlist(sonuc[paste0("AS1_rho_kal_", alt_boyutlar)]))))
+sekil1 <- ggplot2::ggplot(s1, ggplot2::aes(x = ISI, y = a)) +
+  ggplot2::geom_point(size = 1.8, colour = "grey20") +
+  ggplot2::geom_text(ggplot2::aes(label = item_id), size = 2.4, vjust = -0.8, colour = "grey30") +
+  ggplot2::facet_wrap(~panel, nrow = 1, scales = "free_x") +
+  ggplot2::scale_x_continuous(labels = eksen_virgul) + ggplot2::scale_y_continuous(labels = eksen_virgul) +
+  ggplot2::labs(x = "ISI (alt boyuttaki diğer maddelerle ortalama kosinüs benzerliği)",
+                y = "GRM ayırt edicilik (a), kalibrasyon grubu") +
+  ggplot2::theme_bw(base_size = 9) +
+  ggplot2::theme(plot.background = ggplot2::element_rect(fill = "white", colour = NA))
+ggplot2::ggsave(file.path(out, "sekil_AS1_ISI_a.png"), sekil1, width = 9, height = 3.6, dpi = 300, bg = "white")
+
+# ---- Şekil 2: AS5, alt küme testi (değerlendirme grubu) ----
+deg_alt <- tum_alt[tum_alt$grup == "deg", ]
+ust_ad <- function(f) paste0(alt_boyut_adi[f], ": SB ve alfa, rho = ", virgullu(sonuc[[paste0("AS5_rho_SB_alfa_deg_", f)]]))
+alt_ad <- function(f) paste0(alt_boyut_adi[f], ": CL_b ve RMSE, rho = ", virgullu(sonuc[[paste0("AS5_rho_CLb_rmse_deg_", f)]]))
+panel_sirasi <- c(vapply(alt_boyutlar, ust_ad, character(1)), vapply(alt_boyutlar, alt_ad, character(1)))
+# Uzun biçim: üst satır bütün 3.432 küme (SB, alfa); alt satır yalnız kanonik 1.716 bölünme (CL_b, RMSE).
+bulut <- rbind(
+  data.frame(panel = vapply(deg_alt$subscale, ust_ad, character(1)), x = deg_alt$SB, y = deg_alt$alpha),
+  data.frame(panel = vapply(deg_alt$subscale[deg_alt$kanonik_bolme], alt_ad, character(1)),
+             x = deg_alt$CL_b[deg_alt$kanonik_bolme], y = deg_alt$rmse[deg_alt$kanonik_bolme]))
+# Dört formun kendi satırları (her iki satır için).
+form_noktalari <- do.call(rbind, lapply(kisa_formlar, function(form) do.call(rbind, lapply(alt_boyutlar, function(f) {
+  r <- deg_alt[deg_alt$subscale == f & deg_alt$subset_key == anahtar_yap(formlar[[form]][[f]]), ]
+  rbind(data.frame(panel = ust_ad(f), x = r$SB, y = r$alpha, form = form),
+        data.frame(panel = alt_ad(f), x = r$CL_b, y = r$rmse, form = form))
+}))))
+kontrol("SEKIL_form_noktalari", nrow(form_noktalari) == 24L)
+bulut$panel <- factor(bulut$panel, levels = panel_sirasi)
+form_noktalari$panel <- factor(form_noktalari$panel, levels = panel_sirasi)
+form_noktalari$form <- factor(form_noktalari$form, levels = kisa_formlar)
+sekil2 <- ggplot2::ggplot(bulut, ggplot2::aes(x = x, y = y)) +
+  ggplot2::geom_point(colour = "grey75", size = 0.4, alpha = 0.6) +
+  ggplot2::geom_point(data = form_noktalari, ggplot2::aes(shape = form, colour = form), size = 2.6, stroke = 0.9) +
+  ggplot2::scale_shape_manual(values = c(PUB21 = 16, MIN21 = 17, MAX21 = 15, COV21 = 4)) +
+  ggplot2::scale_colour_manual(values = c(PUB21 = "#1b6ca8", MIN21 = "#d1495b", MAX21 = "#edae49", COV21 = "#00798c")) +
+  ggplot2::facet_wrap(~panel, nrow = 2, scales = "free") +
+  ggplot2::scale_x_continuous(labels = eksen_virgul) + ggplot2::scale_y_continuous(labels = eksen_virgul) +
+  ggplot2::labs(x = "Anlamsal gösterge (üst satır: SB, anlamsal genişlik; alt satır: CL_b, karşılıklı temsil kaybı)",
+                y = "Psikometrik gösterge (üst satır: alfa; alt satır: RMSE)", shape = "Form", colour = "Form",
+                caption = paste("Değerlendirme grubu. Gri noktalar: üst satırda 3.432 yedili küme, alt satırda 1.716 bölünme.",
+                                "MIN21 ile MAX21 aynı bölünmenin iki yarısıdır; alt satırda üst üste düşer.", sep = "\n")) +
+  ggplot2::theme_bw(base_size = 9) +
+  ggplot2::theme(legend.position = "bottom", plot.background = ggplot2::element_rect(fill = "white", colour = NA))
+ggplot2::ggsave(file.path(out, "sekil_AS5_alt_kume_testi.png"), sekil2, width = 10, height = 6.8, dpi = 300, bg = "white")
+log_yaz("SEKILLER_HAZIR")
 # <<< TODO ŞEKİLLER <<<
 
 # ---- Bölüm 14. Kabul ve bütünlük denetimi (SABİT) ----------------------------------------

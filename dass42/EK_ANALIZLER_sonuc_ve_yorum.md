@@ -32,7 +32,7 @@ Blok 13 iç denetim ekler. Bunlar şunları denetler:
 | Kalan tek `farkli` satır | Çıktı dosyaları satırı. İki şekil ŞEKİLLER bloğunda üretileceği için beklenen durumdur |
 | 13 yeni iç denetim | Hepsi geçti (toplam 181) |
 | Üç ek tablo | Var; sütunlar ve satır sayıları doğru |
-| `ref06` ile karşılaştırma (başvuru kodu okunmadan) | Üç ek tablo dahil 21 tablonun hepsi aynı; satır sırası da aynı |
+| `ref06` ile karşılaştırma (başvuru kodu okunmadan) | **Düzeltme:** Bu belgenin ilk sürümü "üç ek tablo dahil 21 tablo aynı" diyordu. Oysa karşılaştırma betiği o sırada `ek_*` dosyalarını kapsamıyordu, yani bu iddia denetlenmemişti. ŞEKİLLER adımında denetlendi. `ek_COV21_esit_cozumler.csv` ve `ek_VCL_orneklem.csv` aynıdır. `ek_VCL_duyarlilik.csv` tablosunun 69 değeri aynıdır (en büyük fark 2 × 10⁻¹⁶), ama satır sırası farklıydı: satırlar önce soruya göre diziliyordu, bu yüzden form sırası tabloda iki kez baştan başlıyordu (YÖNERGE Kural 7). Sıralama ŞEKİLLER adımında düzeltildi; son çalıştırmada (`sekil_04`) 21 tablonun hepsi satır sırası dahil aynıdır. `ciktilar_ek_01/` klasöründeki tablo eski sıradadır. |
 
 Sabit bölüm özeti `9bef53a2…` ile aynıdır.
 
@@ -90,5 +90,5 @@ AS1 ilişkileri VCL sonrasında D'de 0,61, A'da 0,67, S'de 0,75 olmuştur. AS5 i
 
 ## Dosyalar
 
-- `berkcan_dass42_analiz.R`: ŞEKİLLER dışındaki bütün blokları doldurulmuş şablon.
+- `berkcan_dass42_analiz.R`: şablonun güncel hâli (en son doldurulan bloklar için en yeni belgeye bakın).
 - `ciktilar_ek_01/`: `ek_COV21_esit_cozumler.csv`, `ek_VCL_orneklem.csv`, `ek_VCL_duyarlilik.csv`, `sonuc_degerleri.csv`, `kabul_raporu.csv`, `cikti_denetimi.csv`, `ic_denetimler.csv`, `analiz_gunlugu.txt`, `calistirma_durumu.json`, `oturum_bilgisi.txt`, `karsilastirma_ref06.txt`.
