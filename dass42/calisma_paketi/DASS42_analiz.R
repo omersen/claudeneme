@@ -285,7 +285,7 @@ for (f in alt_boyutlar) {
   havuz <- Q(key42[[f]])
   for (g in c("kalibrasyon", "degerlendirme")) {
     Xg <- if (g == "kalibrasyon") kal[, havuz] else deg[, havuz]
-    m <- grm(Xg); if (g == "degerlendirme") grm_deg[[f]] <- m  # değerlendirme modeli AS3b ve AS4'te kullanılır
+    m <- grm(Xg); if (g == "degerlendirme") grm_deg[[f]] <- m  # değerlendirme modeli AS3 ve AS4'te kullanılır
     a <- coef(m, IRTpars = TRUE, simplify = TRUE)$items[havuz, "a"]
     citc <- sapply(havuz, function(j) cor(Xg[[j]], rowSums(Xg[, setdiff(havuz, j)])))  # düzeltilmiş madde-toplam r
     q3 <- residuals(m, type = "Q3", verbose = FALSE); q3 <- q3 - mean(q3[upper.tri(q3)])  # ortalaması çıkarılmış Q3
@@ -355,7 +355,7 @@ write.csv(dfa_tablo, "ciktilar/Tablo07_AS3_DFA.csv", row.names = FALSE)
 write.csv(guvenirlik, "ciktilar/Tablo08_AS3_guvenirlik.csv", row.names = FALSE)
 
 
-# ==== AS3b: Test bilgi fonksiyonu (AS3'ün alt sorusu) ===================================
+# ==== AS3 (devam): Test bilgi fonksiyonu ==============================================
 # AS1'de değerlendirme grubunda kestirilen 14 maddelik GRM kullanılır; yeni model kurulmaz.
 # Bir formun bilgisi, yedi maddesinin madde bilgilerinin toplamıdır. SH(θ) = 1 / √bilgi.
 theta <- seq(-3, 3, by = 0.05)
@@ -365,10 +365,10 @@ bilgi <- do.call(rbind, lapply(alt_boyutlar, function(f) do.call(rbind, lapply(c
 bilgi_tablo <- bilgi[round(bilgi$theta, 2) %in% -2:2, ]
 bilgi_tablo$SH <- 1 / sqrt(bilgi_tablo$bilgi)
 print(bilgi_tablo, digits = 3, row.names = FALSE)
-write.csv(bilgi_tablo, "ciktilar/Tablo09_AS3b_test_bilgisi.csv", row.names = FALSE)
+write.csv(bilgi_tablo, "ciktilar/Tablo09_AS3_test_bilgisi.csv", row.names = FALSE)
 bilgi$Form <- factor(ifelse(bilgi$form == "FULL42", "Tam alt boyut (14 madde)", bilgi$form),
                      c("Tam alt boyut (14 madde)", kisa_formlar))
-ggsave("ciktilar/Sekil4_AS3b_test_bilgisi.png", width = 9.5, height = 4, dpi = 200, bg = "white",
+ggsave("ciktilar/Sekil4_AS3_test_bilgisi.png", width = 9.5, height = 4, dpi = 200, bg = "white",
   ggplot(bilgi, aes(theta, bilgi, colour = Form, linetype = Form)) + geom_line(linewidth = 0.8) +
     facet_wrap(~ factor(alt_boyut, alt_boyutlar, alt_ad)) +
     scale_colour_manual(values = c("Tam alt boyut (14 madde)" = "grey55", renk)) +
