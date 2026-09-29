@@ -164,7 +164,7 @@ kisa_formlar <- c("PUB21", "MIN21", "MAX21", "COV21")
 tol <- 1e-12                                                   # sayısal eşitlik toleransı
 renk <- c(PUB21 = "black", MIN21 = "#0072B2", MAX21 = "#D55E00", COV21 = "#009E73")   # şekillerde
 isaret <- c(PUB21 = 15, MIN21 = 16, MAX21 = 17, COV21 = 18)
-alt_ad <- c(D = "Depresyon", A = "Kaygı", S = "Stres")
+alt_ad <- c(D = "Depresyon", A = "Anksiyete", S = "Stres")
 
 # Kosinüs benzerliği matrisi: her vektör birim uzunluğa getirilir, iç çarpımlar alınır.
 kosinus <- function(E) { B <- E / sqrt(rowSums(E^2)); C <- tcrossprod(B); diag(C) <- 1; C }
@@ -191,9 +191,9 @@ spearman <- function(x, y) cor(x, y, method = "spearman")
 uyum <- function(kisa_toplam, tam_toplam) {
   D <- 2 * kisa_toplam - tam_toplam; n <- length(D)              # D / 14 = kısa ortalama - tam ortalama
   c(r = cor(kisa_toplam, tam_toplam),
-    yanlilik = sum(D) / (14 * n),                                   # ortalama fark
+    ortalama_fark = sum(D) / (14 * n),                              # ortalama (sistematik) fark
     sd_d = sqrt(n * sum(D^2) - sum(D)^2) / (14 * n),                # farkların standart sapması (n paydalı)
-    rmse = sqrt(sum(D^2) / n) / 14)                                 # RMSE^2 = yanlilik^2 + sd_d^2
+    rmse = sqrt(sum(D^2) / n) / 14)                                 # RMSE^2 = ortalama_fark^2 + sd_d^2
 }
 # Modeller: tek boyutlu GRM ve üç ilişkili faktörlü sıralı DFA. Yakınsama denetlenir.
 grm <- function(X) { m <- mirt(X, 1, itemtype = "graded", SE = FALSE, verbose = FALSE,
@@ -247,7 +247,7 @@ ggsave("ciktilar/Sekil1_kosinus_isi_haritasi.png", width = 8.5, height = 7.8, dp
     geom_vline(xintercept = c(14.5, 28.5)) + geom_hline(yintercept = c(14.5, 28.5)) +
     scale_fill_gradient(low = "white", high = "#0B4F8A", limits = c(0, 1), name = "Kosinüs") +
     scale_x_discrete(labels = etiket42) + scale_y_discrete(labels = rev(etiket42)) +
-    labs(x = "Depresyon | Kaygı | Stres", y = NULL) + coord_fixed() + theme_minimal(base_size = 9) +
+    labs(x = "Depresyon | Anksiyete | Stres", y = NULL) + coord_fixed() + theme_minimal(base_size = 9) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5), panel.grid = element_blank()))
 # Şekil 1'in notu için: alt boyut içi (köşegen) ve alt boyutlar arası ortalama kosinüs benzerliği
 blok <- sapply(alt_boyutlar, function(a) sapply(alt_boyutlar, function(b) {
@@ -256,8 +256,8 @@ print(round(blok, 3))
 write.csv(data.frame(alt_boyut = alt_boyutlar, blok), "ciktilar/Sekil1_not_blok_ortalamalari.csv", row.names = FALSE)
 
 
-# ==== BÖLÜM 5: Bütün yedili kümelerin psikometrik değerleri (alt küme testi) ===========
-# Her küme için değerlendirme grubunda: alfa, kısa-tam r, yanlılık, s_d ve RMSE (0-3 biriminde).
+# ==== BÖLÜM 5: Bütün yedili kümelerin psikometrik değerleri (tam sayım) ================
+# Her küme için değerlendirme grubunda: alfa, kısa-tam r, ortalama fark, s_d ve RMSE (0-3 biriminde).
 for (f in alt_boyutlar) {
   havuz <- Q(key42[[f]]); Xf <- as.matrix(deg[, havuz]); tam <- rowSums(Xf)
   ps <- t(apply(combn(havuz, 7), 2, function(s)
@@ -285,7 +285,7 @@ for (f in alt_boyutlar) {
   havuz <- Q(key42[[f]])
   for (g in c("kalibrasyon", "degerlendirme")) {
     Xg <- if (g == "kalibrasyon") kal[, havuz] else deg[, havuz]
-    m <- grm(Xg); if (g == "degerlendirme") grm_deg[[f]] <- m  # değerlendirme modeli AS2b'de kullanılır
+    m <- grm(Xg); if (g == "degerlendirme") grm_deg[[f]] <- m  # değerlendirme modeli AS3b ve AS4'te kullanılır
     a <- coef(m, IRTpars = TRUE, simplify = TRUE)$items[havuz, "a"]
     citc <- sapply(havuz, function(j) cor(Xg[[j]], rowSums(Xg[, setdiff(havuz, j)])))  # düzeltilmiş madde-toplam r
     q3 <- residuals(m, type = "Q3", verbose = FALSE); q3 <- q3 - mean(q3[upper.tri(q3)])  # ortalaması çıkarılmış Q3
@@ -312,7 +312,30 @@ ggsave("ciktilar/Sekil2_AS1_ISI_a.png", width = 9, height = 3.6, dpi = 200, bg =
     labs(x = "ISI (madde anlamsal benzerlik indeksi)", y = "GRM ayırt edicilik (a)") + theme_bw())
 
 
-# ==== AS2: Faktör yapısı ve güvenirlik ==================================================
+# ==== AS2: Anlamsal çeşitlilik (SB) ve temsil (CL) ======================================
+# Her formda en zayıf temsil edilen madde: en yakın seçili maddeye uzaklığı en büyük olan elenen madde.
+anlamsal_tablo <- do.call(rbind, lapply(kisa_formlar, function(nm) do.call(rbind, lapply(alt_boyutlar, function(f) {
+  S <- formlar[[nm]][[f]]; el <- setdiff(Q(key42[[f]]), S)
+  uz <- sapply(el, function(e) 1 - max(C[e, S])); e <- names(which.max(uz))
+  data.frame(konum[konum$form == nm & konum$alt_boyut == f, c("form", "alt_boyut", "SB", "SB_yzd", "CL", "CL_yzd")],
+             en_zayif = e, en_yakin_secili = S[which.max(C[e, S])], uzaklik = max(uz))
+}))))
+rho_SB_CL <- sapply(alt_boyutlar, function(f) spearman(kumeler[[f]]$SB, kumeler[[f]]$CL))
+anlamsal_tablo$rho_SB_CL <- rho_SB_CL[anlamsal_tablo$alt_boyut]                       # bütün kümelerde; tablo notunda verilir
+print(anlamsal_tablo, digits = 3, row.names = FALSE)
+write.csv(anlamsal_tablo, "ciktilar/Tablo06_AS2_SB_CL.csv", row.names = FALSE)
+# Şekil 3: 3.432 kümenin SB ve CL değerleri; dört form renkli
+tum_SB_CL <- do.call(rbind, lapply(alt_boyutlar, function(f) data.frame(alt_boyut = f, SB = kumeler[[f]]$SB, CL = kumeler[[f]]$CL)))
+ggsave("ciktilar/Sekil3_AS2_SB_CL.png", width = 9.5, height = 3.8, dpi = 200, bg = "white",
+  ggplot(tum_SB_CL, aes(SB, CL)) + geom_point(colour = "grey75", size = 0.4) +
+    geom_point(data = anlamsal_tablo, aes(colour = form, shape = form), size = 2.8) +
+    facet_wrap(~ factor(alt_boyut, alt_boyutlar, alt_ad), scales = "free") +
+    scale_colour_manual(values = renk, breaks = kisa_formlar) + scale_shape_manual(values = isaret, breaks = kisa_formlar) +
+    labs(x = "Anlamsal çeşitlilik (SB)", y = "Temsil kaybı (CL)", colour = NULL, shape = NULL) +
+    theme_bw() + theme(legend.position = "bottom"))
+
+
+# ==== AS3: Faktör yapısı (üç faktörlü modelin uyumu) ve güvenirlik ========================
 dfa_tablo <- list(); guvenirlik <- list()
 for (nm in c("FULL42", kisa_formlar)) {
   fit <- dfa(deg, formlar[[nm]])                                # değerlendirme grubu
@@ -328,11 +351,11 @@ dfa_tablo <- do.call(rbind, dfa_tablo); guvenirlik <- do.call(rbind, guvenirlik)
 guvenirlik$alfa_yzd <- konum$alfa_yzd[match(paste(guvenirlik$form, guvenirlik$alt_boyut),
                                             paste(konum$form, konum$alt_boyut))]  # FULL42 için boş
 print(dfa_tablo, digits = 3, row.names = FALSE); print(guvenirlik, digits = 3, row.names = FALSE)
-write.csv(dfa_tablo, "ciktilar/Tablo06_AS2_DFA.csv", row.names = FALSE)
-write.csv(guvenirlik, "ciktilar/Tablo07_AS2_guvenirlik.csv", row.names = FALSE)
+write.csv(dfa_tablo, "ciktilar/Tablo07_AS3_DFA.csv", row.names = FALSE)
+write.csv(guvenirlik, "ciktilar/Tablo08_AS3_guvenirlik.csv", row.names = FALSE)
 
 
-# ==== AS2b: Test bilgi fonksiyonu (AS2'nin alt sorusu) ==================================
+# ==== AS3b: Test bilgi fonksiyonu (AS3'ün alt sorusu) ===================================
 # AS1'de değerlendirme grubunda kestirilen 14 maddelik GRM kullanılır; yeni model kurulmaz.
 # Bir formun bilgisi, yedi maddesinin madde bilgilerinin toplamıdır. SH(θ) = 1 / √bilgi.
 theta <- seq(-3, 3, by = 0.05)
@@ -342,10 +365,10 @@ bilgi <- do.call(rbind, lapply(alt_boyutlar, function(f) do.call(rbind, lapply(c
 bilgi_tablo <- bilgi[round(bilgi$theta, 2) %in% -2:2, ]
 bilgi_tablo$SH <- 1 / sqrt(bilgi_tablo$bilgi)
 print(bilgi_tablo, digits = 3, row.names = FALSE)
-write.csv(bilgi_tablo, "ciktilar/Tablo08_AS2b_test_bilgisi.csv", row.names = FALSE)
+write.csv(bilgi_tablo, "ciktilar/Tablo09_AS3b_test_bilgisi.csv", row.names = FALSE)
 bilgi$Form <- factor(ifelse(bilgi$form == "FULL42", "Tam alt boyut (14 madde)", bilgi$form),
                      c("Tam alt boyut (14 madde)", kisa_formlar))
-ggsave("ciktilar/Sekil3_AS2b_test_bilgisi.png", width = 9.5, height = 4, dpi = 200, bg = "white",
+ggsave("ciktilar/Sekil4_AS3b_test_bilgisi.png", width = 9.5, height = 4, dpi = 200, bg = "white",
   ggplot(bilgi, aes(theta, bilgi, colour = Form, linetype = Form)) + geom_line(linewidth = 0.8) +
     facet_wrap(~ factor(alt_boyut, alt_boyutlar, alt_ad)) +
     scale_colour_manual(values = c("Tam alt boyut (14 madde)" = "grey55", renk)) +
@@ -354,14 +377,23 @@ ggsave("ciktilar/Sekil3_AS2b_test_bilgisi.png", width = 9.5, height = 4, dpi = 2
     theme_bw() + theme(legend.position = "bottom"))
 
 
-# ==== AS3: Kısa ve tam form puanlarının uyumu ===========================================
-as3 <- do.call(rbind, lapply(kisa_formlar, function(nm) do.call(rbind, lapply(alt_boyutlar, function(f) {
+# ==== AS4: Kısa ve tam form puanlarının uyumu ===========================================
+# Toplam puan uyumu: r, ortalama fark, s_d ve RMSE (0-3 madde ortalaması biriminde).
+# θ uyumu: AS1'deki değerlendirme grubu GRM'sinin madde parametreleriyle, kısa formda yer almayan maddeler
+# eksik sayılarak EAP kestirimi yapılır ve 14 maddelik θ ile karşılaştırılır (θ, standart sapma biriminde).
+theta_tam <- lapply(alt_boyutlar, function(f) fscores(grm_deg[[f]], method = "EAP")[, 1]); names(theta_tam) <- alt_boyutlar
+theta_uyum <- function(nm, f) {
+  havuz <- Q(key42[[f]]); Xk <- as.matrix(deg[, havuz]); Xk[, !(havuz %in% formlar[[nm]][[f]])] <- NA
+  kisa <- fscores(grm_deg[[f]], method = "EAP", response.pattern = Xk)[, "F1"]
+  c(r_theta = cor(kisa, theta_tam[[f]]), rmse_theta = sqrt(mean((kisa - theta_tam[[f]])^2)))
+}
+uyum_tablo <- do.call(rbind, lapply(kisa_formlar, function(nm) do.call(rbind, lapply(alt_boyutlar, function(f) {
   u <- uyum(rowSums(deg[, formlar[[nm]][[f]]]), rowSums(deg[, Q(key42[[f]])]))
-  data.frame(form = nm, alt_boyut = f, t(u), rmse_0_42 = 14 * u[["rmse"]])
+  data.frame(form = nm, alt_boyut = f, t(u), rmse_0_42 = 14 * u[["rmse"]], t(theta_uyum(nm, f)))
 }))))
-as3$rmse_yzd <- konum$rmse_yzd
-print(as3, digits = 3, row.names = FALSE)
-write.csv(as3, "ciktilar/Tablo09_AS3_uyum.csv", row.names = FALSE)
+uyum_tablo$rmse_yzd <- konum$rmse_yzd
+print(uyum_tablo, digits = 3, row.names = FALSE)
+write.csv(uyum_tablo, "ciktilar/Tablo10_AS4_uyum.csv", row.names = FALSE)
 
 # Eşleştirilmiş bootstrap (B = 2.000): her tekrarda çekilen aynı kişi örneklemi bütün formların hesabında kullanılır.
 # Her tekrarda iki fark hesaplanır: RMSE farkı ve alfa farkı (anlamsal form eksi PUB21).
@@ -377,7 +409,7 @@ parca <- do.call(rbind, strsplit(names(tahmin), " "))
 boot <- data.frame(olcu = parca[, 1], alt_boyut = parca[, 2], form = parca[, 3], fark = tahmin,
                    alt = apply(cekim, 1, quantile, 0.025), ust = apply(cekim, 1, quantile, 0.975))
 print(boot, digits = 3, row.names = FALSE)
-write.csv(boot, "ciktilar/Tablo10_AS3_bootstrap.csv", row.names = FALSE)
+write.csv(boot, "ciktilar/Tablo11_AS4_bootstrap.csv", row.names = FALSE)
 
 # Ek Tablo 2: COV21 eşit çözümleri. Aynı en küçük CL'yi veren her küme için alfa ve RMSE ile PUB21'den farkların
 # bootstrap aralıkları, yukarıdaki tohumlarla (aynı kişi örneklemleriyle) hesaplanır. Böylece COV21'e ilişkin
@@ -406,10 +438,10 @@ cov_esitlik <- do.call(rbind, lapply(alt_boyutlar, function(f) {
 }))
 print(cov_esitlik, digits = 3)
 write.csv(cov_esitlik, "ciktilar/EkTablo2_COV21_esit_cozumler.csv", row.names = FALSE)
-# Şekil 4: farklar ve %95 aralıkları (sıfır çizgisi: PUB21 ile aynı)
+# Şekil 5: farklar ve %95 aralıkları (sıfır çizgisi: PUB21 ile aynı)
 boot$Olcu <- factor(boot$olcu, c("RMSE", "alfa"), c("RMSE farkı (pozitif: tam puandan daha çok sapma)",
                                                      "Alfa farkı (pozitif: PUB21'den yüksek alfa)"))
-ggsave("ciktilar/Sekil4_AS3_PUB21_farklari.png", width = 9.5, height = 4.6, dpi = 200, bg = "white",
+ggsave("ciktilar/Sekil5_AS4_PUB21_farklari.png", width = 9.5, height = 4.6, dpi = 200, bg = "white",
   ggplot(boot, aes(x = fark, xmin = alt, xmax = ust, y = factor(form, rev(kisa_formlar[-1])), colour = form, shape = form)) +
     geom_vline(xintercept = 0, linetype = "dashed", colour = "grey40") + geom_pointrange(size = 0.4) +
     facet_grid(factor(alt_boyut, alt_boyutlar, alt_ad) ~ Olcu, scales = "free_x") +
@@ -433,42 +465,19 @@ siddet <- do.call(rbind, lapply(kisa_formlar, function(nm) do.call(rbind, lapply
   data.frame(form = nm, alt_boyut = f, ayni_kategori = 100 * mean(kisa_k == tam_k),
              en_fazla_bir_fark = 100 * mean(abs(kisa_k - tam_k) <= 1), agirlikli_kappa = agirlikli_kappa(kisa_k, tam_k))
 }))))
-# Tablo 11'in notu için: tam formda kişilerin kategorilere dağılımı (%)
+# Tablo 12'nin notu için: tam formda kişilerin kategorilere dağılımı (%)
 tam_dagilim <- sapply(alt_boyutlar, function(f) 100 * tabulate(kategori(rowSums(deg[, Q(key42[[f]])]), f), 5) / nrow(deg))
 print(siddet, digits = 3, row.names = FALSE); print(round(tam_dagilim, 1))
-write.csv(siddet, "ciktilar/Tablo11_AS3_siddet_kategorisi.csv", row.names = FALSE)
+write.csv(siddet, "ciktilar/Tablo12_AS4_siddet_kategorisi.csv", row.names = FALSE)
 write.csv(data.frame(kategori = c("Normal", "Hafif", "Orta", "Ağır", "Çok ağır"), tam_dagilim),
-          "ciktilar/Tablo11_not_tam_form_kategorileri.csv", row.names = FALSE)
-
-
-# ==== AS4: Anlamsal çeşitlilik (SB) ve temsil (CL) ======================================
-# Her formda en zayıf temsil edilen madde: en yakın seçili maddeye uzaklığı en büyük olan elenen madde.
-as4 <- do.call(rbind, lapply(kisa_formlar, function(nm) do.call(rbind, lapply(alt_boyutlar, function(f) {
-  S <- formlar[[nm]][[f]]; el <- setdiff(Q(key42[[f]]), S)
-  uz <- sapply(el, function(e) 1 - max(C[e, S])); e <- names(which.max(uz))
-  data.frame(konum[konum$form == nm & konum$alt_boyut == f, c("form", "alt_boyut", "SB", "SB_yzd", "CL", "CL_yzd")],
-             en_zayif = e, en_yakin_secili = S[which.max(C[e, S])], uzaklik = max(uz))
-}))))
-rho_SB_CL <- sapply(alt_boyutlar, function(f) spearman(kumeler[[f]]$SB, kumeler[[f]]$CL))
-as4$rho_SB_CL <- rho_SB_CL[as4$alt_boyut]                       # bütün kümelerde; tablo notunda verilir
-print(as4, digits = 3, row.names = FALSE)
-write.csv(as4, "ciktilar/Tablo12_AS4_SB_CL.csv", row.names = FALSE)
-# Şekil 5: 3.432 kümenin SB ve CL değerleri; dört form renkli
-tum_SB_CL <- do.call(rbind, lapply(alt_boyutlar, function(f) data.frame(alt_boyut = f, SB = kumeler[[f]]$SB, CL = kumeler[[f]]$CL)))
-ggsave("ciktilar/Sekil5_AS4_SB_CL.png", width = 9.5, height = 3.8, dpi = 200, bg = "white",
-  ggplot(tum_SB_CL, aes(SB, CL)) + geom_point(colour = "grey75", size = 0.4) +
-    geom_point(data = as4, aes(colour = form, shape = form), size = 2.8) +
-    facet_wrap(~ factor(alt_boyut, alt_boyutlar, alt_ad), scales = "free") +
-    scale_colour_manual(values = renk, breaks = kisa_formlar) + scale_shape_manual(values = isaret, breaks = kisa_formlar) +
-    labs(x = "Anlamsal çeşitlilik (SB)", y = "Temsil kaybı (CL)", colour = NULL, shape = NULL) +
-    theme_bw() + theme(legend.position = "bottom"))
+          "ciktilar/Tablo12_not_tam_form_kategorileri.csv", row.names = FALSE)
 
 
 # ==== AS5: Bütün yedili kümelerde anlamsal ve psikometrik göstergelerin ilişkisi ========
 # SB-alfa: 3.432 kümede. CL_b-RMSE: bir küme ile tümleyeni aynı RMSE'yi verdiği için 1.716 bölünmede.
 as5 <- do.call(rbind, lapply(alt_boyutlar, function(f) { k <- kumeler[[f]]; b <- k[k$kanonik, ]
   data.frame(alt_boyut = f, rho_SB_alfa = spearman(k$SB, k$alfa), rho_CLb_RMSE = spearman(b$CL_b, b$rmse),
-             rho_CLb_sd = spearman(b$CL_b, b$sd_d), rho_CLb_yanlilik = spearman(b$CL_b, abs(b$yanlilik))) }))
+             rho_CLb_sd = spearman(b$CL_b, b$sd_d), rho_CLb_ortfark = spearman(b$CL_b, abs(b$ortalama_fark))) }))
 print(as5, digits = 2, row.names = FALSE)
 write.csv(as5, "ciktilar/Tablo13_AS5_iliskiler.csv", row.names = FALSE)
 paneller <- c("SB ve alfa (3.432 küme)", "CL_b ve RMSE (1.716 bölünme)")
