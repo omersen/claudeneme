@@ -285,7 +285,7 @@ for (f in alt_boyutlar) {
   havuz <- Q(key42[[f]])
   for (g in c("kalibrasyon", "degerlendirme")) {
     Xg <- if (g == "kalibrasyon") kal[, havuz] else deg[, havuz]
-    m <- grm(Xg); if (g == "degerlendirme") grm_deg[[f]] <- m  # değerlendirme modeli AS3 ve AS4'te kullanılır
+    m <- grm(Xg); if (g == "degerlendirme") grm_deg[[f]] <- m  # değerlendirme modeli AS3'te (test bilgisi) kullanılır
     a <- coef(m, IRTpars = TRUE, simplify = TRUE)$items[havuz, "a"]
     citc <- sapply(havuz, function(j) cor(Xg[[j]], rowSums(Xg[, setdiff(havuz, j)])))  # düzeltilmiş madde-toplam r
     q3 <- residuals(m, type = "Q3", verbose = FALSE); q3 <- q3 - mean(q3[upper.tri(q3)])  # ortalaması çıkarılmış Q3
@@ -378,18 +378,12 @@ ggsave("ciktilar/Sekil4_AS3_test_bilgisi.png", width = 9.5, height = 4, dpi = 20
 
 
 # ==== AS4: Kısa ve tam form puanlarının uyumu ===========================================
-# Toplam puan uyumu: r, ortalama fark, s_d ve RMSE (0-3 madde ortalaması biriminde).
-# θ uyumu: AS1'deki değerlendirme grubu GRM'sinin madde parametreleriyle, kısa formda yer almayan maddeler
-# eksik sayılarak EAP kestirimi yapılır ve 14 maddelik θ ile karşılaştırılır (θ, standart sapma biriminde).
-theta_tam <- lapply(alt_boyutlar, function(f) fscores(grm_deg[[f]], method = "EAP")[, 1]); names(theta_tam) <- alt_boyutlar
-theta_uyum <- function(nm, f) {
-  havuz <- Q(key42[[f]]); Xk <- as.matrix(deg[, havuz]); Xk[, !(havuz %in% formlar[[nm]][[f]])] <- NA
-  kisa <- fscores(grm_deg[[f]], method = "EAP", response.pattern = Xk)[, "F1"]
-  c(r_theta = cor(kisa, theta_tam[[f]]), rmse_theta = sqrt(mean((kisa - theta_tam[[f]])^2)))
-}
+# Toplam puan uyumu (0-3 madde ortalaması biriminde): r, ortalama fark, s_d ve RMSE.
+# r_kalan: kısa form ile dışarıda kalan yedi maddenin puanları arasındaki Pearson korelasyonu; iki puan ortak madde içermez.
 uyum_tablo <- do.call(rbind, lapply(kisa_formlar, function(nm) do.call(rbind, lapply(alt_boyutlar, function(f) {
-  u <- uyum(rowSums(deg[, formlar[[nm]][[f]]]), rowSums(deg[, Q(key42[[f]])]))
-  data.frame(form = nm, alt_boyut = f, t(u), rmse_0_42 = 14 * u[["rmse"]], t(theta_uyum(nm, f)))
+  kisa <- rowSums(deg[, formlar[[nm]][[f]]]); tam <- rowSums(deg[, Q(key42[[f]])])
+  u <- uyum(kisa, tam)
+  data.frame(form = nm, alt_boyut = f, t(u), rmse_0_42 = 14 * u[["rmse"]], r_kalan = cor(kisa, tam - kisa))
 }))))
 uyum_tablo$rmse_yzd <- konum$rmse_yzd
 print(uyum_tablo, digits = 3, row.names = FALSE)
