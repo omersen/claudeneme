@@ -12,7 +12,7 @@
 
 ## Yazarların yapması gerekenler
 1. K40 ve K41'i iki kodlayıcı bağımsız kodlamalı; %81 uyuşma 43 form için yeniden hesaplanmalı; Cohen kappa [DEĞER] eklenmeli.
-2. Kaynakçadaki 34 "[doğrulanacak]" öğe (çoğu makale numarası/cilt) ve tüm DOI'ler Crossref ile kontrol edilmeli. Bu oturumda Crossref, doi.org ve TR Dizin ağ politikası nedeniyle erişilemedi; doğrulama yayıncı/indeks listeleri üzerinden yapıldı.
+2. Kaynakçadaki 18 "[doğrulanacak]" öğe (17 künye; web aramasıyla 17 künye tamamlandı) (çoğu makale numarası/cilt) ve tüm DOI'ler Crossref ile kontrol edilmeli. Bu oturumda Crossref, doi.org ve TR Dizin ağ politikası nedeniyle erişilemedi; doğrulama yayıncı/indeks listeleri üzerinden yapıldı.
 3. Kokoç (2026) bulunamadı ve metinden çıkarıldı. Şat vd. (2026) yazar bilgisi çelişkili olduğundan kullanılmadı. PISA'daki Türkiye %44 değeri belirsiz olduğundan kullanılmadı.
 4. Beyanlar, etik kurul, örnekleme yolu, uygulama tarihleri, model sürümleri ve araştırmacı konumu doldurulmalı.
 5. Merzifonluoglu & Gunes (2025) ve Dulkadir Yaman (2025b) için Türkiye bağlamı çıkarımsaldır; metinde "önemli bir bölümü Türkiye'de" ifadesiyle sınırlandı.
@@ -22,3 +22,9 @@
 
 ## Veri notu
 K21 ve K22'nin S3 yanıtlarının ilk iki cümlesi birebir aynı (aktarım hatası olasılığı). Alıntılarda kullanılmadı.
+
+## İkinci tur (devam)
+- İngilizce başlık, özet ve anahtar kelimeler eklendi.
+- Melanou vd. (2026) bu başlıkla bulunamadı (yalnız Education Sciences'ta farklı bir Melanou & Beege 2026 var); Elzeky vd. (2026) doğrulanamadı. İkisi metinden ve kaynakçadan çıkarıldı.
+- Sangka vd. (2025): Fashoto editördür, yazar listesinden çıkarıldı.
+- Long & Magerko (2020) sayfa 1-16 değeri arama sorgusundan yansımış olabilir; kontrol edin.
